@@ -2,16 +2,13 @@ package com.smartreader.service.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.smartreader.common.utils.SRLog;
+import com.smartreader.base.utils.SRLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

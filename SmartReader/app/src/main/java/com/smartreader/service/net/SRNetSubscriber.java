@@ -1,9 +1,9 @@
 package com.smartreader.service.net;
 
 import com.smartreader.SRApplication;
-import com.smartreader.common.bean.SRResponse;
-import com.smartreader.common.utils.SRLog;
-import com.smartreader.common.utils.SRToast;
+import com.smartreader.base.bean.SRResponse;
+import com.smartreader.base.utils.SRLog;
+import com.smartreader.base.utils.SRToast;
 
 /**
  * Created by ZY on 17/3/16.

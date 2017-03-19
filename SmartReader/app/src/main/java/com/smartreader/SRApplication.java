@@ -5,8 +5,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
-import com.smartreader.common.utils.SRLog;
-import com.smartreader.service.db.SRSqlite;
+import com.smartreader.base.utils.SRLog;
 import com.smartreader.thirdParty.statistics.DataStatistics;
 
 /**
@@ -34,18 +33,17 @@ public class SRApplication extends Application {
         }
     }
 
-    public static SRApplication getInstance(){
+    public static SRApplication getInstance() {
         return mInstance;
     }
 
-    private void init(){
+    private void init() {
         mInstance = this;
-         //日志初使化
+        //日志初使化
         SRLog.init(BuildConfig.DEBUG);
         //数据统计
         DataStatistics.init(this);
         //数据库
-        SRSqlite.getInstance().getInstance();
     }
 
     public Activity getCurrentActivity() {

@@ -3,7 +3,7 @@ package com.smartreader.thirdParty.statistics;
 import android.content.Context;
 
 import com.smartreader.BuildConfig;
-import com.smartreader.common.utils.SRChannelUtil;
+import com.smartreader.base.utils.SRChannelUtil;
 import com.umeng.analytics.MobclickAgent;
 
 /**

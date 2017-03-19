@@ -4,8 +4,8 @@ import android.os.Build;
 
 import com.smartreader.BuildConfig;
 import com.smartreader.SRApplication;
-import com.smartreader.common.utils.SRChannelUtil;
-import com.smartreader.common.utils.SRDeviceIDUtil;
+import com.smartreader.base.utils.SRChannelUtil;
+import com.smartreader.base.utils.SRDeviceIDUtil;
 
 import java.util.HashMap;
 import java.util.Map;

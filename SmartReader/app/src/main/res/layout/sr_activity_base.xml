@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.smartreader.common.view.SRActionBar
+    <com.smartreader.base.view.SRActionBar
         android:id="@+id/baseToolBar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
