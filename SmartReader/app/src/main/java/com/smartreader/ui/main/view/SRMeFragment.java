@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.smartreader.R;
-import com.smartreader.base.mvp.SRBaseFragment;
+import com.smartreader.base.mvp.ZYBaseFragment;
 
 import butterknife.ButterKnife;
 
@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * Created by ZY on 17/3/16.
  */
 
-public class SRMeFragment extends SRBaseFragment {
+public class SRMeFragment extends ZYBaseFragment {
 
     @Nullable
     @Override

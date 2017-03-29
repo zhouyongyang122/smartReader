@@ -22,6 +22,7 @@
         android:id="@+id/mainBottomActionLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/c1"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -47,7 +48,7 @@
                 android:textSize="@dimen/f2"
                 android:layout_centerHorizontal="true"
                 android:text="首页"
-                android:textColor="@color/c1" />
+                android:textColor="@color/black" />
 
         </RelativeLayout>
 
@@ -71,8 +72,8 @@
                 android:layout_below="@+id/meImg"
                 android:textSize="@dimen/f2"
                 android:layout_centerHorizontal="true"
-                android:text="首页"
-                android:textColor="@color/c5" />
+                android:text="我"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

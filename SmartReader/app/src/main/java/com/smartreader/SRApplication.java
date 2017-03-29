@@ -5,7 +5,8 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
-import com.smartreader.base.utils.SRLog;
+import com.smartreader.service.db.ZYDBManager;
+import com.smartreader.utils.ZYLog;
 import com.smartreader.thirdParty.statistics.DataStatistics;
 
 /**
@@ -40,10 +41,11 @@ public class SRApplication extends Application {
     private void init() {
         mInstance = this;
         //日志初使化
-        SRLog.init(BuildConfig.DEBUG);
+        ZYLog.init(BuildConfig.DEBUG);
         //数据统计
         DataStatistics.init(this);
         //数据库
+        ZYDBManager.getInstance();
     }
 
     public Activity getCurrentActivity() {

@@ -3,7 +3,7 @@ package com.smartreader.thirdParty.statistics;
 import android.content.Context;
 
 import com.smartreader.BuildConfig;
-import com.smartreader.base.utils.SRChannelUtil;
+import com.smartreader.utils.ZYChannelUtil;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -18,7 +18,7 @@ public class DataStatistics {
 
         //友盟统计
         MobclickAgent.setDebugMode(BuildConfig.DEBUG);
-        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(context,U_MENT_KEY, SRChannelUtil.getChannel(context),MobclickAgent.EScenarioType.E_UM_NORMAL));
+        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(context,U_MENT_KEY, ZYChannelUtil.getChannel(context),MobclickAgent.EScenarioType.E_UM_NORMAL));
     }
 
     public static void onResume(Context context){

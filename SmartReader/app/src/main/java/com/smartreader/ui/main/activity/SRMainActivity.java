@@ -1,6 +1,7 @@
 package com.smartreader.ui.main.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -10,11 +11,13 @@ import android.widget.TextView;
 
 import com.smartreader.R;
 import com.smartreader.ui.main.contract.SRMainContract;
+import com.smartreader.ui.main.presenter.SRHomePresenter;
 import com.smartreader.ui.main.presenter.SRMainPresenter;
 import com.smartreader.ui.main.view.SRHomeFragment;
 import com.smartreader.ui.main.view.SRMeFragment;
-import com.smartreader.base.adapter.SRFragmentAdapter;
-import com.smartreader.base.mvp.SRBaseActivity;
+import com.smartreader.base.adapter.ZYFragmentAdapter;
+import com.smartreader.base.mvp.ZYBaseActivity;
+import com.smartreader.utils.ZYStatusBarUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -23,7 +26,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/3/15.
  */
 
-public class SRMainActivity extends SRBaseActivity<SRMainContract.IPresenter> implements SRMainContract.IView {
+public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> implements SRMainContract.IView {
 
     public static final int MAIN_HOME_INDEX = 0;
 
@@ -48,7 +51,7 @@ public class SRMainActivity extends SRBaseActivity<SRMainContract.IPresenter> im
 
     SRMeFragment meFragment;
 
-    SRFragmentAdapter fragmentAdapter;
+    ZYFragmentAdapter fragmentAdapter;
 
     private int mCurrentPage = -1;
 
@@ -58,15 +61,22 @@ public class SRMainActivity extends SRBaseActivity<SRMainContract.IPresenter> im
         setContentView(R.layout.sr_activity_main);
         new SRMainPresenter(this);
         initView();
+//        ZYStatusBarUtils.immersiveStatusBar(this, 1);
+//        if (ZYStatusBarUtils.isCanLightStatusBar()) {
+//            ZYStatusBarUtils.tintStatusBar(this, Color.TRANSPARENT, 0);
+//        }
     }
 
     private void initView() {
         hideActionLeftImg();
-        fragmentAdapter = new SRFragmentAdapter(getSupportFragmentManager());
+        fragmentAdapter = new ZYFragmentAdapter(getSupportFragmentManager());
         homeFragment = new SRHomeFragment();
         meFragment = new SRMeFragment();
         fragmentAdapter.addFragment(homeFragment, "英语趣点读");
         fragmentAdapter.addFragment(meFragment, "我的");
+
+        new SRHomePresenter(homeFragment);
+
         mainViewPager.setOffscreenPageLimit(1);
         mainViewPager.setCurrentItem(0);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -109,13 +119,13 @@ public class SRMainActivity extends SRBaseActivity<SRMainContract.IPresenter> im
         if (mCurrentPage == MAIN_HOME_INDEX) {
             homeImg.setSelected(true);
             meImg.setSelected(false);
-            homeName.setTextColor(getResources().getColor(R.color.c1));
-            meName.setTextColor(getResources().getColor(R.color.c5));
+            homeName.setTextColor(getResources().getColor(R.color.white));
+            meName.setTextColor(getResources().getColor(R.color.black));
         } else if (mCurrentPage == MAIN_ME_INDEX) {
             homeImg.setSelected(false);
             meImg.setSelected(true);
-            homeName.setTextColor(getResources().getColor(R.color.c5));
-            meName.setTextColor(getResources().getColor(R.color.c1));
+            homeName.setTextColor(getResources().getColor(R.color.black));
+            meName.setTextColor(getResources().getColor(R.color.white));
         }
         showTitle(fragmentAdapter.getPageTitle(position).toString());
     }
@@ -142,10 +152,5 @@ public class SRMainActivity extends SRBaseActivity<SRMainContract.IPresenter> im
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-    }
-
-    @Override
-    public void viewAction(Object message, String action) {
-
     }
 }

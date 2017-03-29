@@ -3,10 +3,10 @@
     <!-- ================ui定义的常用字体大小=================-->
     <dimen name="f1">17sp</dimen><!--导航栏上的标题-->
     <dimen name="f2">15sp</dimen><!--list中的标题（人名，视频名）；导航栏上文字button-->
-    <dimen name="f3">13sp</dimen><!--list中辅助文字-->
+    <dimen name="f3">14sp</dimen><!--list中辅助文字-->
     <dimen name="f4">12sp</dimen><!--次级辅助文字-->
-    <dimen name="f5">10sp</dimen>
-    <dimen name="f6">9sp</dimen>
-    <dimen name="f7">16sp</dimen>
+    <dimen name="f5">9sp</dimen>
+    <dimen name="f6">8sp</dimen>
+    <dimen name="f7">7sp</dimen>
     <!-- ================ui定义的常用字体大小=================-->
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ZYCircleProgressView">
+        <attr name="max_progress" format="integer" /><!--最大进度-->
+        <attr name="cur_progress" format="integer" /><!--当前进度-->
+        <attr name="bg_color" format="reference" /><!--背景-->
+        <attr name="stroke_width" format="dimension" /><!--进度条宽度-->
+        <attr name="progress_bg_color" format="reference" /><!--进度条背景-->
+        <attr name="progress_color" format="reference" /><!--进度条颜色-->
+    </declare-styleable>
+</resources>
