@@ -8,4 +8,12 @@
         <attr name="progress_bg_color" format="reference" /><!--进度条背景-->
         <attr name="progress_color" format="reference" /><!--进度条颜色-->
     </declare-styleable>
+
+    <declare-styleable name="ZYRoudCornerRelativeLayout">
+        <attr name="round_corner" format="dimension" />
+        <attr name="round_corner_top_left" format="dimension" />
+        <attr name="round_corner_top_right" format="dimension" />
+        <attr name="round_corner_bottom_left" format="dimension" />
+        <attr name="round_corner_bottom_right" format="dimension" />
+    </declare-styleable>
 </resources>

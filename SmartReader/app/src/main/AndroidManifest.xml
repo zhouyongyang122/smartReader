@@ -11,8 +11,8 @@
 
         <activity
             android:name=".ui.splash.activity.SRSplashActivity"
-            android:theme="@style/splashTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,6 +33,10 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.main.activity.SRBookDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/splashTheme" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

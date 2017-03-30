@@ -34,10 +34,6 @@ public class SRTract implements ZYIBaseBean {
 
     private String mp3name;
 
-    private String mp3url;
-
-    private String mp3url_hiq;
-
     public int getTrack_id() {
         return track_id;
     }
@@ -64,6 +60,14 @@ public class SRTract implements ZYIBaseBean {
 
     public double getTrack_austart() {
         return track_austart;
+    }
+
+    public int getAudioStart() {
+        return (int) (track_austart * 1000);
+    }
+
+    public int getAudioEnd() {
+        return (int) (track_auend * 1000);
     }
 
     public void setTrack_austart(double track_austart) {
@@ -142,19 +146,7 @@ public class SRTract implements ZYIBaseBean {
         this.mp3name = mp3name;
     }
 
-    public String getMp3url() {
-        return mp3url;
-    }
-
-    public void setMp3url(String mp3url) {
-        this.mp3url = mp3url;
-    }
-
-    public String getMp3url_hiq() {
-        return mp3url_hiq;
-    }
-
-    public void setMp3url_hiq(String mp3url_hiq) {
-        this.mp3url_hiq = mp3url_hiq;
+    public String getMp3Path(String localRootDirPath) {
+        return localRootDirPath + "mp3/" + mp3name;
     }
 }

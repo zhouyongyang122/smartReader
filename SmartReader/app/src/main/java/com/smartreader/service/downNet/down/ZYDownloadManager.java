@@ -1,6 +1,7 @@
 package com.smartreader.service.downNet.down;
 
 import com.smartreader.utils.ZYFileUtils;
+import com.smartreader.utils.ZYLog;
 import com.smartreader.utils.ZYUrlUtils;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -46,7 +48,11 @@ public class ZYDownloadManager {
     }
 
     public void startDown(final ZYIDownBase entity) {
-        if (entity == null || downSubscribers.get(entity.getUrl()) != null) {
+        if (entity == null) {
+            return;
+        }
+        if (downSubscribers.get(entity.getUrl()) != null) {
+            downSubscribers.get(entity.getUrl()).setDownInfo(entity);
             return;
         }
         ZYDownloadSubscriber downloadSubscriber = new ZYDownloadSubscriber(entity);
@@ -60,6 +66,7 @@ public class ZYDownloadManager {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.connectTimeout(entity.getConnectonTime(), TimeUnit.SECONDS);
             builder.addInterceptor(interceptor);
+            builder.addInterceptor(new HttpLoggingInterceptor(new ZYLog()).setLevel(HttpLoggingInterceptor.Level.BODY));
             Retrofit retrofit = new Retrofit.Builder()
                     .client(builder.build())
                     .addConverterFactory(GsonConverterFactory.create())

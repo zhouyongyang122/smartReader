@@ -47,19 +47,18 @@ public class SRHomeBookVH extends ZYBaseViewHolder<List<SRBook>> {
                 mAdapter = new ZYBaseRecyclerAdapter<SRBook>(books) {
                     @Override
                     public ZYBaseViewHolder<SRBook> createViewHolder(int type) {
-                        return new SRHomeBookItemVH();
+                        return new SRHomeBookItemVH(new SRHomeBookItemVH.HomeBookItemListener() {
+                            @Override
+                            public void onHomeBookItemClick(SRBook book, int position) {
+                                bookListener.onItemClick(book, position);
+                            }
+                        });
                     }
                 };
 
                 recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
                 recyclerView.setAdapter(mAdapter);
                 recyclerView.setNestedScrollingEnabled(false);
-                mAdapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        bookListener.onItemClick(books.get(position), position);
-                    }
-                });
             }
         }
     }

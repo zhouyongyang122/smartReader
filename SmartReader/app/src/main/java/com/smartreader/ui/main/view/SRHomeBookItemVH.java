@@ -1,5 +1,6 @@
 package com.smartreader.ui.main.view;
 
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -9,8 +10,11 @@ import com.smartreader.R;
 import com.smartreader.SRApplication;
 import com.smartreader.base.view.ZYCircleProgressView;
 import com.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.smartreader.service.db.ZYDBManager;
 import com.smartreader.service.downNet.down.ZYDownState;
+import com.smartreader.service.downNet.down.ZYDownloadManager;
 import com.smartreader.service.downNet.down.ZYDownloadScriberListener;
+import com.smartreader.service.downNet.down.ZYDownloadService;
 import com.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.utils.ZYLog;
@@ -36,7 +40,16 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
     @Bind(R.id.imgAdd)
     ImageView imgAdd;
 
+    @Bind(R.id.cardView)
+    CardView cardView;
+
     SRBook mData;
+
+    private HomeBookItemListener listener;
+
+    public SRHomeBookItemVH(HomeBookItemListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void findView(View view) {
@@ -55,9 +68,15 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
     }
 
     @Override
-    public void updateView(SRBook data, int position) {
+    public void updateView(SRBook data, final int position) {
         if (data != null) {
             mData = data;
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onHomeBookItemClick(mData, position);
+                }
+            });
             if (data.getBook_id() < 0) {
                 //添加按钮
                 data.setListener(null);
@@ -80,9 +99,24 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                     progressView.setProgress((int) progress);
                     if (data.getState().getState() == ZYDownState.DOWNING.getState()) {
                         textStatus.setText("下载中" + (int) progress + "%");
+                        ZYDownloadManager.getInstance().startDown(data);
                     } else {
                         textStatus.setText(mData.getStateString());
                     }
+
+                    textStatus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (mData.getState() == ZYDownState.DOWNING || mData.getState() == ZYDownState.START) {
+                                ZYDownloadManager.getInstance().pauseDown(mData);
+                                textStatus.setText(mData.getStateString());
+                            } else if (mData.getState() == ZYDownState.PAUSE || mData.getState() == ZYDownState.ERROR) {
+                                float progress = (float) mData.getCurrent() * 100.0f / (float) mData.getTotal();
+                                textStatus.setText("下载中" + (int) progress + "%");
+                                ZYDownloadManager.getInstance().startDown(mData);
+                            }
+                        }
+                    });
                 }
             }
         }
@@ -128,4 +162,8 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
             textStatus.setText(mData.getStateString());
         }
     };
+
+    public interface HomeBookItemListener {
+        void onHomeBookItemClick(SRBook book, int position);
+    }
 }

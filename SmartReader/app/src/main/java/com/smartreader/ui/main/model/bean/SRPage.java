@@ -14,7 +14,9 @@ public class SRPage implements ZYIBaseBean {
 
     private String page_name;
 
-    private String page_url;
+    private String localRootDirPath;
+
+    private String picPath;
 
     private List<SRTract> track;
 
@@ -34,19 +36,23 @@ public class SRPage implements ZYIBaseBean {
         this.page_name = page_name;
     }
 
-    public String getPage_url() {
-        return page_url;
-    }
-
-    public void setPage_url(String page_url) {
-        this.page_url = page_url;
-    }
-
     public List<SRTract> getTrack() {
         return track;
     }
 
     public void setTrack(List<SRTract> track) {
         this.track = track;
+    }
+
+    public String getPicPath() {
+        return localRootDirPath + "bookpage/" + page_name;
+    }
+
+    public void setLocalRootDirPath(String localRootDirPath) {
+        this.localRootDirPath = localRootDirPath;
+    }
+
+    public String getLocalRootDirPath() {
+        return localRootDirPath;
     }
 }

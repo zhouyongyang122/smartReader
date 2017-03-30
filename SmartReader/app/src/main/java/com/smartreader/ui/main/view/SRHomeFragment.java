@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.smartreader.R;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.base.mvp.ZYIBasePresenter;
+import com.smartreader.ui.main.activity.SRBookDetailActivity;
 import com.smartreader.ui.main.contract.SRHomeContract;
 import com.smartreader.ui.main.contract.SRMainContract;
 import com.smartreader.ui.main.model.bean.SRAdert;
@@ -58,7 +59,7 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
         SRHomeBookVH bookVH = new SRHomeBookVH(new SRHomeBookVH.HomeBookListener() {
             @Override
             public void onItemClick(SRBook book, int position) {
-
+                mActivity.startActivity(SRBookDetailActivity.createIntent(mActivity, book.savePath));
             }
         });
         bookVH.bindView(LayoutInflater.from(mActivity).inflate(bookVH.getLayoutResId(), layout_module_root, false));

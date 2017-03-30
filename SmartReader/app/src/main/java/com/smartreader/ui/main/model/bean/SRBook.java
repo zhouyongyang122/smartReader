@@ -41,6 +41,9 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
     @Transient
     public List<SRCatalogue> catalogue;
 
+    @Transient
+    public List<SRPage> page;
+
     public String savePath;
 
     public long total;
@@ -163,6 +166,10 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
 
     public String getPic() {
         return pic;
+    }
+
+    public List<SRPage> getPage() {
+        return page;
     }
 
     public void setPic(String pic) {

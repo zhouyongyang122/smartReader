@@ -20,9 +20,9 @@ public class SRCatalogue implements ZYIBaseBean {
 
     private String mp3name;
 
-    private String mp3url;
-
-    private String mp3url_hiq;
+//    private String mp3url;
+//
+//    private String mp3url_hiq;
 
     private int clickread;
 
@@ -76,21 +76,21 @@ public class SRCatalogue implements ZYIBaseBean {
         this.mp3name = mp3name;
     }
 
-    public String getMp3url() {
-        return mp3url;
-    }
-
-    public void setMp3url(String mp3url) {
-        this.mp3url = mp3url;
-    }
-
-    public String getMp3url_hiq() {
-        return mp3url_hiq;
-    }
-
-    public void setMp3url_hiq(String mp3url_hiq) {
-        this.mp3url_hiq = mp3url_hiq;
-    }
+//    public String getMp3url() {
+//        return mp3url;
+//    }
+//
+//    public void setMp3url(String mp3url) {
+//        this.mp3url = mp3url;
+//    }
+//
+//    public String getMp3url_hiq() {
+//        return mp3url_hiq;
+//    }
+//
+//    public void setMp3url_hiq(String mp3url_hiq) {
+//        this.mp3url_hiq = mp3url_hiq;
+//    }
 
     public int getClickread() {
         return clickread;

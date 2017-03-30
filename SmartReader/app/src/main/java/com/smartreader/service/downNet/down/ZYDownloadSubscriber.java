@@ -22,6 +22,11 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
         this.downEntity = downEntity;
     }
 
+    public void setDownInfo(ZYIDownBase downEntity) {
+        this.downloadScriberListener = new SoftReference<>(downEntity.getListener());
+        this.downEntity = downEntity;
+    }
+
     @Override
     public void onStart() {
         if (downloadScriberListener.get() != null) {
@@ -62,6 +67,7 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
             downEntity.setTotal(total);
         }
         downEntity.setCurrent(current);
+        downEntity.update();
         if (downloadScriberListener.get() != null) {
             //是否考虑阻塞问题
             rx.Observable.just(current).observeOn(AndroidSchedulers.mainThread())
