@@ -44,6 +44,14 @@ public class SRBookDetailActivity extends ZYBaseFragmentActivity<SRBookDetailFra
     }
 
     @Override
+    public void onBackPressed() {
+        if (!mFragment.onBackPressed()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     protected boolean tintStatusBar() {
         return false;
     }

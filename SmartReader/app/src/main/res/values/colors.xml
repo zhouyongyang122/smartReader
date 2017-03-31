@@ -35,5 +35,6 @@
     <color name="transparent40">#66000000</color>
     <color name="transparent50">#88000000</color>
     <color name="transparent60">#aa000000</color>
+    <color name="transparent80">#cc000000</color>
     <!-- ============================基础色================================= -->
 </resources>

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartreader.R;
@@ -19,6 +20,7 @@ import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.base.view.ZYRoudCornerRelativeLayout;
 import com.smartreader.ui.main.contract.SRBookDetailContract;
 import com.smartreader.ui.main.model.bean.SRBook;
+import com.smartreader.ui.main.model.bean.SRCatalogue;
 import com.smartreader.ui.main.model.bean.SRPage;
 import com.smartreader.ui.main.model.bean.SRTract;
 
@@ -32,7 +34,10 @@ import butterknife.OnClick;
  * Created by ZY on 17/3/29.
  */
 
-public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener {
+public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener, SRBookDetailMenuVH.BookDetailMenuListener {
+
+    @Bind(R.id.layoutRoot)
+    RelativeLayout layoutRoot;
 
     @Bind(R.id.viewPage)
     ViewPager viewPage;
@@ -68,6 +73,10 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     private BookDetailPageAdapter adapter;
 
+    private SRBookDetailMenuVH menuVH;
+
+    private int curPageId = 1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,25 +98,76 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         adapter = new BookDetailPageAdapter(((AppCompatActivity) mActivity).getSupportFragmentManager());
         viewPage.setOffscreenPageLimit(2);
         viewPage.setAdapter(adapter);
+        viewPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                curPageId = position + 1;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    @OnClick({R.id.imgBack})
+    @OnClick({R.id.imgBack, R.id.imgMenu})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
                 mActivity.onBackPressed();
+                break;
+            case R.id.imgMenu:
+                menuVH = new SRBookDetailMenuVH(this);
+                menuVH.bindView(LayoutInflater.from(mActivity).inflate(menuVH.getLayoutResId(), null));
+                layoutRoot.addView(menuVH.getItemView(), new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+
+                int position = 0;
+                for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
+                    if (catalogue.getCatalogue_id() > 0 && curPageId == catalogue.getCatalogue_id()) {
+                        menuVH.setDefSelPosition(position);
+                    }
+                    position++;
+                }
+
+                menuVH.updateView(mPresenter.getBookData().catalogue, 0);
                 break;
         }
     }
 
     @Override
     public void onSelecteTrack(SRTract tract) {
-        if (TextUtils.isEmpty(tract.getTrack_genre())) {
+        if (!TextUtils.isEmpty(tract.getTrack_genre())) {
             textTitle.setVisibility(View.VISIBLE);
             textTitle.setText(tract.getTrack_genre());
         } else {
             textTitle.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onMenuClose() {
+        menuVH = null;
+    }
+
+
+    @Override
+    public void onItemClick(SRCatalogue catalogue, int position) {
+        curPageId = catalogue.getCatalogue_id();
+        viewPage.setCurrentItem(curPageId - 1);
+    }
+
+    public boolean onBackPressed() {
+        if (menuVH != null) {
+            menuVH.close();
+            return false;
+        }
+        return true;
     }
 
     private class BookDetailPageAdapter extends FragmentPagerAdapter {
