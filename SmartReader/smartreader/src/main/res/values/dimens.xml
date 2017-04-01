@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ================ui定义的常用字体大小=================-->
+    <dimen name="f1">20sp</dimen><!--导航栏上的标题-->
+    <dimen name="f2">18sp</dimen><!--list中的标题（人名，视频名）；导航栏上文字button-->
+    <dimen name="f3">17sp</dimen><!--list中辅助文字-->
+    <dimen name="f4">16sp</dimen><!--次级辅助文字-->
+    <dimen name="f5">15sp</dimen>
+    <dimen name="f6">14sp</dimen>
+    <dimen name="f7">13sp</dimen>
+    <dimen name="f8">12sp</dimen>
+    <dimen name="f9">9sp</dimen>
+    <!-- ================ui定义的常用字体大小=================-->
+</resources>

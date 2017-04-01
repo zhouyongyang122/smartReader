@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/sr_bg_corner360dp_boder1dpc2_solidwhite" />
+    <item android:drawable="@drawable/sr_bg_corner360dp_boder1dpc4_solidc13" android:state_selected="true" />
+</selector>
