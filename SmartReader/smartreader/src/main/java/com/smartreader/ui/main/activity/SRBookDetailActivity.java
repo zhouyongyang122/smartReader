@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.smartreader.base.mvp.ZYBaseFragmentActivity;
+import com.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.smartreader.ui.main.model.SRPageManager;
 import com.smartreader.ui.main.presenter.SRBookDetailPresenter;
 import com.smartreader.ui.main.view.SRBookDetailFragment;
@@ -35,6 +36,8 @@ public class SRBookDetailActivity extends ZYBaseFragmentActivity<SRBookDetailFra
         ZYLog.e(getClass().getSimpleName(), "localPath: " + localPath);
 
         new SRBookDetailPresenter(mFragment, localPath);
+
+        XunFeiSDK.getInstance().init(this);
     }
 
     @Override
@@ -63,5 +66,6 @@ public class SRBookDetailActivity extends ZYBaseFragmentActivity<SRBookDetailFra
     protected void onDestroy() {
         super.onDestroy();
         SRPageManager.getInstance().stopAudio();
+        XunFeiSDK.getInstance().onDestroy();
     }
 }

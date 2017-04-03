@@ -88,11 +88,12 @@ public class ZYBaseFragment<P extends ZYIBasePresenter> extends Fragment impleme
         mPresenter = presenter;
     }
 
-    protected void showWaitDialog(String message) {
+    protected void showWaitDialog(final String message) {
         if (mWaitDialog == null) {
             mWaitDialog = new ZYWaitDialog(mActivity);
         }
         mWaitDialog.showWidthMessage(message);
+
     }
 
     protected void refreshWaitDialog(String message) {
@@ -100,7 +101,10 @@ public class ZYBaseFragment<P extends ZYIBasePresenter> extends Fragment impleme
     }
 
     protected void hideWaitDialog() {
-        mWaitDialog.dismiss();
+        if (mWaitDialog != null && mWaitDialog.isShowing()) {
+            mWaitDialog.dismiss();
+        }
+
     }
 
     @Override

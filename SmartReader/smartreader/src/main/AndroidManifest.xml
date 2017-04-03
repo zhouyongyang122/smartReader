@@ -43,6 +43,9 @@
         <activity
             android:name=".ui.main.activity.SRBookListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mark.activity.SRMarkActivity"
+            android:screenOrientation="portrait" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

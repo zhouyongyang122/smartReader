@@ -4,10 +4,14 @@ import com.smartreader.base.bean.ZYResponse;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRGrade;
+import com.smartreader.ui.mark.model.bean.SRMarkResponse;
 
 import java.util.List;
+import java.util.Map;
 
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -25,4 +29,7 @@ public interface ZYRequestApi {
 
     @GET("book/bookList")
     Observable<ZYResponse<List<SRBook>>> getBooks(@Query("grade_id") String grade_id);
+
+    @POST("show/trackAdd")
+    Observable<ZYResponse<SRMarkResponse>> trackAdd(@Body Map<String, String> params);
 }

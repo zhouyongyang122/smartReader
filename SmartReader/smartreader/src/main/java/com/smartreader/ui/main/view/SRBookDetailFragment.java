@@ -18,11 +18,13 @@ import android.widget.TextView;
 import com.smartreader.R;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.base.view.ZYRoudCornerRelativeLayout;
+import com.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.smartreader.ui.main.contract.SRBookDetailContract;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRCatalogue;
 import com.smartreader.ui.main.model.bean.SRPage;
 import com.smartreader.ui.main.model.bean.SRTract;
+import com.smartreader.ui.mark.activity.SRMarkActivity;
 
 import java.util.ArrayList;
 
@@ -116,7 +118,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         });
     }
 
-    @OnClick({R.id.imgBack, R.id.imgMenu})
+    @OnClick({R.id.imgBack, R.id.imgMenu, R.id.layout_score})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
@@ -136,6 +138,9 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
                 }
 
                 menuVH.updateView(mPresenter.getBookData().catalogue, 0);
+                break;
+            case R.id.layout_score:
+                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getBookData().page.get(curPageId - 1), mPresenter.getBookData().book_id));
                 break;
         }
     }

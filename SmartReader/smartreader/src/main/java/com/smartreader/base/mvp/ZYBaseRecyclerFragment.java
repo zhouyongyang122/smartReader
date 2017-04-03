@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.smartreader.R;
 import com.smartreader.base.view.ZYIListView;
@@ -20,14 +21,16 @@ public class ZYBaseRecyclerFragment<P extends ZYIBasePresenter> extends ZYBaseFr
 
     protected ZYISwipeRecyclerView mRefreshRecyclerView;
 
+    protected ViewGroup mRootView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = createRootView(inflater, container);
+        mRootView = (ViewGroup) createRootView(inflater, container);
 
-        initView((ViewGroup) rootView);
+        initView(mRootView);
 
-        return rootView;
+        return mRootView;
     }
 
     protected View createRootView(LayoutInflater inflater, ViewGroup container) {

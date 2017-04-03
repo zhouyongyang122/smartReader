@@ -1,7 +1,13 @@
 package com.smartreader.utils;
 
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -49,6 +55,72 @@ public class ZYFileUtils {
         if (randomAccessFile != null) {
             randomAccessFile.close();
         }
+    }
+
+    /**
+     * 在SD卡上创建文件
+     */
+    @Nullable
+    public static File createSDFile(String fileName) {
+        if (TextUtils.isEmpty(fileName)) {
+            return null;
+        }
+        File file = new File(fileName);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return file;
+    }
+
+    /**
+     * 文件拷贝迁移,但不删除源文件
+     */
+    public static boolean copy(String filePath, String fromPath) {
+        if (TextUtils.isEmpty(filePath) || TextUtils.isEmpty(fromPath)) {
+            return false;
+        }
+
+        File file = createSDFile(filePath);
+        if (file == null) {
+            return false;
+        }
+
+        OutputStream outStream = null;
+        FileInputStream inputStream = null;
+
+        try {
+            File fromFile = new File(fromPath);
+            inputStream = new FileInputStream(fromFile);
+            outStream = new FileOutputStream(file);
+            byte[] buffer = new byte[4 * 1024];
+            while (inputStream.read(buffer) != -1) {
+                outStream.write(buffer);
+            }
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (outStream != null) {
+                    outStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return true;
     }
 
     /**

@@ -61,6 +61,15 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
         handler.postDelayed(endRunnable, end - start);
     }
 
+    public void startAudio(String audioPath) {
+        if (audioPath == null) {
+            return;
+        }
+        ZYLog.e(getClass().getSimpleName(), "startAudio: " + audioPath);
+        lastAudioPath = audioPath;
+        audioPlayer.open(audioPath);
+    }
+
     public void pauseAudio() {
         audioPlayer.pause();
     }

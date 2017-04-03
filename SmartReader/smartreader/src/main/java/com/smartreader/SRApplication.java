@@ -7,8 +7,10 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.smartreader.service.db.ZYDBManager;
+import com.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.smartreader.utils.ZYLog;
 import com.smartreader.thirdParty.statistics.DataStatistics;
+import com.smartreader.utils.ZYUncaughtExceptionHandler;
 
 import java.io.File;
 
@@ -16,15 +18,17 @@ import java.io.File;
  * Created by ZY on 17/3/13.
  */
 
-public class SRApplication extends Application {
+public class SRApplication extends Application implements ZYUncaughtExceptionHandler.OnUncaughtExceptionHappenListener {
 
     public static SRApplication mInstance;
 
-    public static final String APP_ROOT_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "smartreader";
+    public static final String APP_ROOT_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "smartreader";
 
     public static final String BOOK_ROOT_DIR = APP_ROOT_DIR + File.separator + "course" + File.separator;
 
     public static final String BOOK_ZIP_ROOT_DIR = APP_ROOT_DIR + File.separator + "courseZip" + File.separator;
+
+    public static final String TRACT_AUDIO_ROOT_DIR = APP_ROOT_DIR + File.separator + "tractAudio" + File.separator;
 
     private Activity currentActivity;
 
@@ -56,15 +60,26 @@ public class SRApplication extends Application {
         //数据库
         ZYDBManager.getInstance();
         initFileDir();
+
+        ZYUncaughtExceptionHandler crashHandler = ZYUncaughtExceptionHandler.getInstance();
+        crashHandler.init(this, APP_ROOT_DIR, BuildConfig.DEBUG);
+        crashHandler.setListener(this);
+
+        XunFeiSDK.getInstance();
     }
 
     private void initFileDir() {
         File file = new File(BOOK_ROOT_DIR);
         if (!file.exists()) {
-            ZYLog.e(getClass().getSimpleName(),"initFileDir: " + file.mkdirs() + file.getAbsolutePath());
+            ZYLog.e(getClass().getSimpleName(), "initFileDir: " + file.mkdirs() + file.getAbsolutePath());
         }
 
         file = new File(BOOK_ZIP_ROOT_DIR);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        file = new File(TRACT_AUDIO_ROOT_DIR);
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -76,5 +91,10 @@ public class SRApplication extends Application {
 
     public void setCurrentActivity(Activity currentActivity) {
         this.currentActivity = currentActivity;
+    }
+
+    @Override
+    public void onUncaughtExceptionHappen(Thread thread, Throwable ex) {
+
     }
 }

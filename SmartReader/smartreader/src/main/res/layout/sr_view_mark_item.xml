@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/layoutMark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textEn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="my name is zhouyongyang how are you where are you from"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+
+        <TextView
+            android:id="@+id/textCn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textEn"
+            android:gravity="center"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="我的名字叫周咏炀，你好吗？你从来里来"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textCn"
+            android:gravity="center"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/textTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2s"
+                android:textColor="@color/c2"
+                android:textSize="@dimen/f5" />
+
+            <ImageView
+                android:id="@+id/imgPlay"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/play" />
+
+            <ImageView
+                android:id="@+id/imgRecord"
+                android:layout_width="67dp"
+                android:layout_height="67dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/audio" />
+
+            <TextView
+                android:id="@+id/textScore"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/sr_bg_corner360_c9_solid"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f2"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imgShare"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/share"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/layoutProgressBar"
+                android:layout_width="118dp"
+                android:layout_height="49dp"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/sr_bg_progress" />
+
+                <TextView
+                    android:id="@+id/textProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="2.s"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/f2"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textDef"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/sr_bg_corner6dp_c1_solid"
+        android:padding="15dp"
+        android:text="my name is zhouyongyang how are you where are you from"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f3"
+        android:visibility="visible" />
+
+</RelativeLayout>

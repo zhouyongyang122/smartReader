@@ -1,6 +1,11 @@
 package com.smartreader.ui.main.model.bean;
 
+import android.text.TextUtils;
+
+import com.smartreader.SRApplication;
 import com.smartreader.base.bean.ZYIBaseBean;
+import com.smartreader.ui.mark.model.bean.SRMarkBean;
+import com.smartreader.utils.ZYLog;
 
 /**
  * Created by ZY on 17/3/28.
@@ -14,9 +19,9 @@ public class SRTract implements ZYIBaseBean {
 
     private int page_id;
 
-    private double track_austart;
+    private float track_austart;
 
-    private double track_auend;
+    private float track_auend;
 
     private double track_left;
 
@@ -33,6 +38,12 @@ public class SRTract implements ZYIBaseBean {
     private int track_sort;
 
     private String mp3name;
+
+    public boolean isRecordType;
+
+    public boolean isRecording;
+
+    private SRMarkBean markBean;
 
     public int getTrack_id() {
         return track_id;
@@ -58,7 +69,7 @@ public class SRTract implements ZYIBaseBean {
         this.page_id = page_id;
     }
 
-    public double getTrack_austart() {
+    public float getTrack_austart() {
         return track_austart;
     }
 
@@ -70,15 +81,15 @@ public class SRTract implements ZYIBaseBean {
         return (int) (track_auend * 1000);
     }
 
-    public void setTrack_austart(double track_austart) {
+    public void setTrack_austart(float track_austart) {
         this.track_austart = track_austart;
     }
 
-    public double getTrack_auend() {
+    public float getTrack_auend() {
         return track_auend;
     }
 
-    public void setTrack_auend(double track_auend) {
+    public void setTrack_auend(float track_auend) {
         this.track_auend = track_auend;
     }
 
@@ -148,5 +159,23 @@ public class SRTract implements ZYIBaseBean {
 
     public String getMp3Path(String localRootDirPath) {
         return localRootDirPath + "mp3/" + mp3name;
+    }
+
+    public float getTractTime() {
+        String value = String.format("%.2f", track_auend - track_austart);
+        return Float.valueOf(value);
+    }
+
+    public SRMarkBean getMarkBean(String markId) {
+        if (markBean == null) {
+            markBean = SRMarkBean.queryById(markId);
+            if (markBean == null || TextUtils.isEmpty(markBean.mark_id)) {
+                markBean = new SRMarkBean();
+                markBean.mark_id = markId;
+                markBean.audioPath = SRApplication.TRACT_AUDIO_ROOT_DIR + markId;
+                markBean.audioTime = (long) (getTractTime() * 1000);
+            }
+        }
+        return markBean;
     }
 }

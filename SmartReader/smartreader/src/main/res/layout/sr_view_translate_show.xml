@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutTranslate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent60">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/c2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f1"
+            tools:text="word" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/imgAudio"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/dubbing_icon_voice" />
+
+            <TextView
+                android:id="@+id/textSoundMark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:textColor="@color/c4"
+                android:textSize="@dimen/f3"
+                tools:text="/dfd/" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:lineSpacingExtra="6dp"
+            android:minHeight="76dp"
+            android:paddingLeft="19dp"
+            android:paddingRight="19dp"
+            android:textColor="@color/c4"
+            android:textSize="@dimen/f3"
+            tools:text="" />
+    </LinearLayout>
+</RelativeLayout>
