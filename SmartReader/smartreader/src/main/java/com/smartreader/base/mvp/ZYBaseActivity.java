@@ -139,6 +139,10 @@ public class ZYBaseActivity<P extends ZYIBasePresenter> extends AppCompatActivit
         mActionBar.setVisibility(View.GONE);
     }
 
+    public void showActionBar() {
+        mActionBar.setVisibility(View.VISIBLE);
+    }
+
     public void showTitle(String title) {
         mActionBar.showTitle(title);
     }
@@ -190,7 +194,7 @@ public class ZYBaseActivity<P extends ZYIBasePresenter> extends AppCompatActivit
     }
 
     @Override
-    public void showToast() {
+    public void showToast(String msg) {
 
     }
 

@@ -22,7 +22,7 @@ public class ZYBaseView<D> implements ZYIBaseView {
     }
 
     @Override
-    public void showToast() {
+    public void showToast(String msg) {
 
     }
 

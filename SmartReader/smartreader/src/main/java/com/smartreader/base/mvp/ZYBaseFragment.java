@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.smartreader.base.view.ZYWaitDialog;
 import com.smartreader.utils.ZYLog;
+import com.smartreader.utils.ZYToast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -118,8 +119,8 @@ public class ZYBaseFragment<P extends ZYIBasePresenter> extends Fragment impleme
     }
 
     @Override
-    public void showToast() {
-
+    public void showToast(String msg) {
+        ZYToast.show(mActivity, msg);
     }
 
     @Override

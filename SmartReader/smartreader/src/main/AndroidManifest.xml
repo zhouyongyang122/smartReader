@@ -46,6 +46,14 @@
         <activity
             android:name=".ui.mark.activity.SRMarkActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.login.activity.SRLoginActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.login.activity.SRRegisterActivity"
+            android:screenOrientation="portrait" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

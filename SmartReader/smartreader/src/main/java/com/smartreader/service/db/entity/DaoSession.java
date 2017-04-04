@@ -10,7 +10,7 @@ import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.mark.model.bean.SRMarkBean;
-import com.smartreader.ui.me.SRUser;
+import com.smartreader.ui.login.model.bean.SRUser;
 
 import com.smartreader.service.db.entity.SRBookDao;
 import com.smartreader.service.db.entity.SRMarkBeanDao;

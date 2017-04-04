@@ -4,7 +4,7 @@ import android.os.Build;
 
 import com.smartreader.BuildConfig;
 import com.smartreader.SRApplication;
-import com.smartreader.ui.me.model.SRUserManager;
+import com.smartreader.ui.login.model.SRUserManager;
 import com.smartreader.utils.ZYChannelUtil;
 import com.smartreader.utils.ZYDeviceIDUtil;
 
@@ -33,8 +33,8 @@ public class ZYNetConfig {
 
     public HashMap<String, String> getDefParams() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SRUserManager.getInstance().getUser().uid);
-        params.put("auth_token", SRUserManager.getInstance().getUser().auth_token);
+        params.put("uid", SRUserManager.getInstance().getUser().uid == null ? "" : SRUserManager.getInstance().getUser().uid);
+        params.put("auth_token", SRUserManager.getInstance().getUser().auth_token == null ? "" : SRUserManager.getInstance().getUser().auth_token);
         return params;
     }
 

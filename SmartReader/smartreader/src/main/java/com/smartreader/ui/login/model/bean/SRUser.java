@@ -1,4 +1,4 @@
-package com.smartreader.ui.me;
+package com.smartreader.ui.login.model.bean;
 
 import com.smartreader.service.db.ZYDBManager;
 import com.smartreader.service.db.entity.SRUserDao;

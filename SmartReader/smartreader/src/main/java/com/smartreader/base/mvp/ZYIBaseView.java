@@ -14,7 +14,7 @@ public interface ZYIBaseView<P> {
 
     void hideProgress();
 
-    void showToast();
+    void showToast(String msg);
 
     void finish();
 

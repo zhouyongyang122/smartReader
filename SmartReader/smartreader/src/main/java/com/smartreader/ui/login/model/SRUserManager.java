@@ -1,8 +1,12 @@
-package com.smartreader.ui.me.model;
+package com.smartreader.ui.login.model;
 
+import android.text.TextUtils;
+
+import com.smartreader.SRApplication;
 import com.smartreader.service.db.ZYDBManager;
 import com.smartreader.service.db.entity.SRUserDao;
-import com.smartreader.ui.me.SRUser;
+import com.smartreader.ui.login.activity.SRLoginActivity;
+import com.smartreader.ui.login.model.bean.SRUser;
 
 import java.util.List;
 
@@ -46,10 +50,17 @@ public class SRUserManager {
         return user;
     }
 
+    public void setUser(SRUser user) {
+        if (user != null) {
+            this.user = user;
+        }
+    }
+
     public boolean isGuesterUser(boolean needIntentToLogin) {
         if (needIntentToLogin) {
             //跳到登录
+            SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
         }
-        return user.uid != null;
+        return TextUtils.isEmpty(user.uid);
     }
 }

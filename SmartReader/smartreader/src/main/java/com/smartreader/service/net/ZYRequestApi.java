@@ -1,6 +1,7 @@
 package com.smartreader.service.net;
 
 import com.smartreader.base.bean.ZYResponse;
+import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRGrade;
@@ -32,4 +33,35 @@ public interface ZYRequestApi {
 
     @POST("show/trackAdd")
     Observable<ZYResponse<SRMarkResponse>> trackAdd(@Body Map<String, String> params);
+
+    @POST("user/login")
+    Observable<ZYResponse<SRUser>> login(@Body Map<String, String> params);
+
+    @POST("user/thirdLogin")
+    Observable<ZYResponse<SRUser>> thirdLogin(@Body Map<String, String> params);
+
+    @POST("user/register")
+    Observable<ZYResponse<SRUser>> register(@Body Map<String, String> params);
+
+    @POST("user/tieupMobile")
+    Observable<ZYResponse<SRUser>> bindMobile(@Body Map<String, String> params);
+
+    @POST("user/logout")
+    Observable<ZYResponse<SRUser>> loginOut();
+
+    @POST("user/editMember")
+    Observable<ZYResponse<SRUser>> editUser(@Body Map<String, String> params);
+
+    @POST("user/changePassword")
+    Observable<ZYResponse<SRUser>> changePassword(@Body Map<String, String> params);
+
+    @POST("user/resetPassword")
+    Observable<ZYResponse<SRUser>> resetPassword(@Body Map<String, String> params);
+
+    @POST("user/mobileCode")
+    Observable<ZYResponse> mobileCode(@Body Map<String, String> params);
+
+    @POST("user/refreshToken")
+    Observable<ZYResponse<SRUser>> refreshToken(@Body Map<String, String> params);
+
 }

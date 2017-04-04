@@ -1,5 +1,7 @@
 package com.smartreader.ui.main.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartreader.R;
@@ -18,6 +21,7 @@ import com.smartreader.ui.main.view.SRMeFragment;
 import com.smartreader.base.adapter.ZYFragmentAdapter;
 import com.smartreader.base.mvp.ZYBaseActivity;
 import com.smartreader.utils.ZYStatusBarUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -61,10 +65,10 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         setContentView(R.layout.sr_activity_main);
         new SRMainPresenter(this);
         initView();
-//        ZYStatusBarUtils.immersiveStatusBar(this, 1);
-//        if (ZYStatusBarUtils.isCanLightStatusBar()) {
-//            ZYStatusBarUtils.tintStatusBar(this, Color.TRANSPARENT, 0);
-//        }
+        ZYStatusBarUtils.immersiveStatusBar(this, 1);
+        if (ZYStatusBarUtils.isCanLightStatusBar()) {
+            ZYStatusBarUtils.tintStatusBar(this, Color.TRANSPARENT, 0);
+        }
     }
 
     private void initView() {
@@ -87,7 +91,11 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
 
             @Override
             public void onPageSelected(int position) {
-
+                if (position == 0) {
+                    showActionBar();
+                } else {
+                    hideActionBar();
+                }
             }
 
             @Override
@@ -97,6 +105,11 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         });
         mainViewPager.setAdapter(fragmentAdapter);
         changeFragment(0);
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mActionBar.getLayoutParams();
+        layoutParams.height = layoutParams.height + ZYStatusBarUtils.getStatusBarHeight(this);
+        mActionBar.setPadding(0, ZYStatusBarUtils.getStatusBarHeight(this), 0, 0);
+        mActionBar.setLayoutParams(layoutParams);
     }
 
     @OnClick({R.id.homeBtn, R.id.meBtn})
@@ -107,6 +120,7 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
                 break;
             case R.id.meBtn:
                 mainViewPager.setCurrentItem(1);
+
                 break;
         }
     }
@@ -152,5 +166,25 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        new AlertDialog.Builder(this).setTitle("退出").setMessage("是否退出英语趣点读?")
+                .setPositiveButton("退出", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MobclickAgent.onKillProcess(SRMainActivity.this);
+                        finish();
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("再看看", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
     }
 }

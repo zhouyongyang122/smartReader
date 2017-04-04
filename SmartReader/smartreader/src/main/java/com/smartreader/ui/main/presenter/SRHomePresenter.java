@@ -74,7 +74,7 @@ public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.I
             @Override
             public void onFail(String message) {
                 iView.hideProgress();
-                super.onFail(message);
+//                super.onFail(message);
             }
         }));
     }
