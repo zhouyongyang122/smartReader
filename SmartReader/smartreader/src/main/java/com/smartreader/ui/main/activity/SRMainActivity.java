@@ -13,14 +13,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartreader.R;
+import com.smartreader.service.ZYUpdateService;
 import com.smartreader.ui.main.contract.SRMainContract;
+import com.smartreader.ui.main.model.bean.SRVersion;
 import com.smartreader.ui.main.presenter.SRHomePresenter;
 import com.smartreader.ui.main.presenter.SRMainPresenter;
 import com.smartreader.ui.main.view.SRHomeFragment;
 import com.smartreader.ui.main.view.SRMeFragment;
 import com.smartreader.base.adapter.ZYFragmentAdapter;
 import com.smartreader.base.mvp.ZYBaseActivity;
+import com.smartreader.utils.ZYLog;
 import com.smartreader.utils.ZYStatusBarUtils;
+import com.smartreader.utils.ZYToast;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
@@ -145,8 +149,35 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     }
 
     @Override
+    public void showUpdateView(final SRVersion version) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("版本更新");
+        dialog.setMessage(version.info);
+        dialog.setPositiveButton("更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ZYToast.show(SRMainActivity.this, "正在下载中...");
+                startService(ZYUpdateService.createIntent(version.download));
+            }
+        });
+        if (version.keyupdate > 0) {
+            //强更
+            dialog.setCancelable(false);
+        } else {
+            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
+        dialog.create().show();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        mPresenter.getVersion();
     }
 
     @Override

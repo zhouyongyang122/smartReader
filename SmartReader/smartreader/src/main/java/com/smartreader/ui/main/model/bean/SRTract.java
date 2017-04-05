@@ -39,6 +39,8 @@ public class SRTract implements ZYIBaseBean {
 
     private String mp3name;
 
+    private String mp3Path;
+
     public boolean isRecordType;
 
     public boolean isRecording;
@@ -157,8 +159,12 @@ public class SRTract implements ZYIBaseBean {
         this.mp3name = mp3name;
     }
 
-    public String getMp3Path(String localRootDirPath) {
-        return localRootDirPath + "mp3/" + mp3name;
+    public String getMp3Path() {
+        return mp3Path;
+    }
+
+    public void setMp3Path(String mp3Path) {
+        this.mp3Path = mp3Path;
     }
 
     public float getTractTime() {

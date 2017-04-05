@@ -20,6 +20,7 @@ import com.smartreader.ui.main.model.SRAddBookManager;
 import com.smartreader.ui.main.model.SRBookFileManager;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
+import com.smartreader.ui.web.SRWebViewActivity;
 import com.smartreader.utils.ZYLog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -98,7 +99,7 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
         }, new SRHomeBannerVH.OnHomeBannerListener() {
             @Override
             public void onBanner(SRAdert slider) {
-
+                mActivity.startActivity(SRWebViewActivity.createIntent(mActivity, slider.url, slider.title));
             }
         });
 

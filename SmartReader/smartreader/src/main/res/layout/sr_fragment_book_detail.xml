@@ -48,6 +48,74 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layoutSelTip"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent30"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textSelTip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:text="点击选择复读起点"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f4" />
+
+        <TextView
+            android:id="@+id/textSelCancle"
+            android:layout_width="75dp"
+            android:layout_height="37dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/sr_bg_corner360dp_c7_solid"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f4" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutRepeats"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:gravity="bottom"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textStop"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/sr_bg_corner360_c10_solid"
+            android:gravity="center"
+            android:text="停止"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f5" />
+
+        <TextView
+            android:id="@+id/textPause"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="140dp"
+            android:background="@drawable/sr_bg_corner360dp_c7_solid"
+            android:gravity="center"
+            android:text="暂停"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f5" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/layoutBottomBar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -55,7 +123,8 @@
         android:layout_marginBottom="12dp"
         android:gravity="bottom"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingRight="15dp"
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="80dp"
@@ -73,9 +142,10 @@
                     android:id="@+id/textScore"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:background="@color/c10"
+                    android:background="@color/c9"
+                    android:paddingTop="8dp"
                     android:gravity="center"
-                    android:text="语速"
+                    android:text="点击测评"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f5" />
 
@@ -84,11 +154,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_below="@+id/textScore"
-                    android:background="@color/c11"
+                    android:background="@color/c7"
                     android:gravity="center"
-                    android:text="语速"
+                    android:text="测评"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/f5" />
+                    android:textSize="@dimen/f7" />
             </com.smartreader.base.view.ZYRoudCornerRelativeLayout>
         </RelativeLayout>
 
@@ -98,16 +168,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textSpeed"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/sr_bg_corner360dp_transparent40"
-                android:gravity="center"
-                android:text="语速"
-                android:textColor="@color/white"
-                android:textSize="@dimen/f5" />
 
             <TextView
                 android:id="@+id/textSingle"

@@ -40,7 +40,7 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
     @Override
     public void onCompleted() {
         ZYDownloadManager.getInstance().removeEntity(downEntity);
-        downEntity.setState(ZYDownState.FINISH);
+        downEntity.setState(ZYDownState.UNZIP);
         downEntity.update();
         if (downloadScriberListener.get() != null) {
             downloadScriberListener.get().onComplete(downEntity);
@@ -69,11 +69,7 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
     public void update(long current, long total, boolean done) {
         downEntity.setTotal(total);
         downEntity.setCurrent(current);
-        if (current > 0 && current >= total) {
-            downEntity.setState(ZYDownState.UNZIP);
-        } else {
-            downEntity.setState(ZYDownState.DOWNING);
-        }
+        downEntity.setState(ZYDownState.DOWNING);
         downEntity.update();
         if (downloadScriberListener.get() != null) {
             //是否考虑阻塞问题

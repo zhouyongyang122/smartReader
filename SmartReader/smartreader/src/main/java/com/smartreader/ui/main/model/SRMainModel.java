@@ -4,6 +4,7 @@ import com.smartreader.base.bean.ZYResponse;
 import com.smartreader.base.mvp.ZYBaseModel;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
+import com.smartreader.ui.main.model.bean.SRVersion;
 
 import java.util.List;
 
@@ -21,5 +22,9 @@ public class SRMainModel extends ZYBaseModel {
 
     public Observable<ZYResponse<List<SRBook>>> getBooks(String grade_id) {
         return mApi.getBooks(grade_id);
+    }
+
+    public Observable<ZYResponse<SRVersion>> getVersion() {
+        return mApi.getVersion();
     }
 }

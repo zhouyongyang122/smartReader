@@ -85,11 +85,6 @@ public class ZYDownloadManager {
                     public ZYIDownBase call(ResponseBody responseBody) {
                         try {
                             ZYFileUtils.writeResponseBodyCache(responseBody, new File(entity.getSavePath()), entity.getCurrent(), entity.getTotal());
-                            Thread.sleep(300);
-                            String unZipPath = SRBookFileManager.getBookPath(entity.getId());
-                            SRBookFileManager.unZip(entity.getSavePath(), unZipPath);
-                            ZYLog.e(getClass().getSimpleName(), "unZipSuccess: " + unZipPath);
-                            entity.setSavePath(unZipPath);
                         } catch (Exception e) {
                             /*失败抛出异常*/
                             throw new RuntimeException(e.getMessage());

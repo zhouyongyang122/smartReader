@@ -63,6 +63,12 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
     @Transient
     public boolean isCheck;
 
+    @Transient
+    public boolean isCanDelete;
+
+    @Transient
+    public boolean isDeleteStatus;
+
 
     @Generated(hash = 1421607534)
     public SRBook(String book_id, String name, String grade_id, String pic, String grade, String zip,

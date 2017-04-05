@@ -5,6 +5,7 @@ import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRGrade;
+import com.smartreader.ui.main.model.bean.SRVersion;
 import com.smartreader.ui.mark.model.bean.SRMarkResponse;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public interface ZYRequestApi {
 
     @GET("book/gradeList")
     Observable<ZYResponse<List<SRGrade>>> getGrades();
+
+    @GET("basic/getVersion")
+    Observable<ZYResponse<SRVersion>> getVersion();
 
     @GET("book/bookList")
     Observable<ZYResponse<List<SRBook>>> getBooks(@Query("grade_id") String grade_id);

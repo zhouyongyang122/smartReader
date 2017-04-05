@@ -47,6 +47,9 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
     @Bind(R.id.cardView)
     CardView cardView;
 
+    @Bind(R.id.imgDel)
+    ImageView imgDel;
+
     SRBook mData;
 
     private HomeBookItemListener listener;
@@ -76,9 +79,23 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
         if (data != null) {
             ZYLog.e(getClass().getSimpleName(), "updateView: " + position);
             mData = data;
+
+            if (mData.isDeleteStatus && mData.isCanDelete) {
+                imgDel.setVisibility(View.VISIBLE);
+            } else {
+                imgDel.setVisibility(View.GONE);
+            }
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (mData.isDeleteStatus) {
+                        if (mData.isCanDelete) {
+                            listener.onHomeBookItemDel(mData, position);
+                            return;
+                        }
+                        return;
+                    }
                     listener.onHomeBookItemClick(mData, position);
                 }
             });
@@ -111,28 +128,17 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                         @Override
                         public void onClick(View view) {
 
+                            if (mData.isDeleteStatus) {
+                                return;
+                            }
+
                             if (mData.getState().getState() == ZYDownState.UNZIP.getState()) {
                                 ZYToast.show(mContext, "解压中,请稍等!");
                                 return;
                             }
 
                             if (mData.getState().getState() == ZYDownState.UNZIPERROR.getState()) {
-                                mData.setState(ZYDownState.UNZIP);
-                                textStatus.setText(mData.getStateString());
-                                String unZipPath = SRBookFileManager.getBookPath(mData.book_id);
-                                try {
-                                    SRBookFileManager.unZip(mData.getSavePath(), unZipPath);
-                                    mData.setSavePath(unZipPath);
-                                    mData.setState(ZYDownState.FINISH);
-                                    textStatus.setText(mData.getStateString());
-                                    textStatus.setVisibility(View.GONE);
-                                    progressView.setVisibility(View.GONE);
-                                    mData.update();
-                                } catch (IOException e) {
-                                    mData.setState(ZYDownState.UNZIPERROR);
-                                    textStatus.setText(mData.getStateString());
-                                    ZYToast.show(mContext, "如果多次解压失败,请删除后重新下载!");
-                                }
+                                unZip(mData);
                                 return;
                             }
 
@@ -156,18 +162,16 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
         return R.layout.sr_view_home_book_item;
     }
 
-    ZYDownloadScriberListener downloadScriberListener = new ZYDownloadScriberListener() {
+    ZYDownloadScriberListener downloadScriberListener = new ZYDownloadScriberListener<SRBook>() {
         @Override
         public void onStart() {
             textStatus.setText(mData.getStateString());
         }
 
         @Override
-        public void onComplete(Object t) {
+        public void onComplete(SRBook book) {
             ZYLog.e(getClass().getSimpleName(), "onComplete");
-            textStatus.setVisibility(View.GONE);
-            textStatus.setText(mData.getStateString());
-            progressView.setVisibility(View.GONE);
+            unZip(book);
         }
 
         @Override
@@ -176,12 +180,6 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
             float progress = (float) current * 100.0f / (float) total;
             textStatus.setText("下载中" + (int) progress + "%");
             progressView.setProgress((int) progress);
-        }
-
-        @Override
-        public void onUnZip() {
-            ZYLog.e(getClass().getSimpleName(), "onUnZip。。。。");
-            textStatus.setText(mData.getStateString());
         }
 
         @Override
@@ -201,7 +199,34 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
         }
     };
 
+    private void unZip(final SRBook book) {
+        book.setState(ZYDownState.UNZIP);
+        book.update();
+        textStatus.setText(mData.getStateString());
+        SRBookFileManager.unZip(SRBookFileManager.getBookZipPath(book.book_id), SRBookFileManager.getBookPath(book.book_id), new SRBookFileManager.UnZipListener() {
+            @Override
+            public void unZipSuccess() {
+                book.setState(ZYDownState.FINISH);
+                book.setSavePath(SRBookFileManager.getBookPath(book.book_id));
+                book.update();
+                textStatus.setVisibility(View.GONE);
+                progressView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void unZipError() {
+                book.setState(ZYDownState.UNZIPERROR);
+                book.update();
+                textStatus.setText(mData.getStateString());
+                ZYToast.show(mContext, "如果多次解压失败,请删除后重新下载!");
+            }
+        });
+    }
+
+
     public interface HomeBookItemListener {
         void onHomeBookItemClick(SRBook book, int position);
+
+        void onHomeBookItemDel(SRBook book, int position);
     }
 }

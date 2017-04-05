@@ -47,7 +47,7 @@ public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.I
             }
             if (book.getState().getState() == ZYDownState.UNZIP.getState()) {
                 book.setState(ZYDownState.UNZIPERROR);
-            } else if (book.getState().getState() != ZYDownState.UNZIPERROR.getState() && book.getState().getState() != ZYDownState.ERROR.getState()) {
+            } else if (book.getState().getState() != ZYDownState.UNZIPERROR.getState() && book.getState().getState() != ZYDownState.FINISH.getState()) {
                 book.setState(ZYDownState.PAUSE);
             }
         }

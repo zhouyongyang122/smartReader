@@ -96,21 +96,10 @@ public class SRBookDetailPageFragment extends ZYBaseFragment implements View.OnC
             View view = null;
             LayoutInflater inflater = LayoutInflater.from(mActivity);
             RelativeLayout.LayoutParams layoutParams;
-            double x = 0;
-            double y = 0;
-            double w = 0;
-            double h = 0;
             int position = 0;
             for (SRTract tract : pageData.getTrack()) {
                 view = inflater.inflate(R.layout.sr_view_sentence_item, null);
-                x = tract.getTrack_left() * maxWidth;
-                y = tract.getTrack_top() * maxHeight;
-                w = (tract.getTrack_right() - tract.getTrack_left()) * maxWidth;
-                h = (tract.getTrack_bottom() - tract.getTrack_top()) * maxHeight;
-                layoutParams = new RelativeLayout.LayoutParams((int) w, (int) h);
-                layoutParams.topMargin = (int) y;
-                layoutParams.leftMargin = (int) x;
-                view.setLayoutParams(layoutParams);
+                view.setLayoutParams(getTractLayoutParams(tract));
                 view.setTag("" + position);
                 view.setOnClickListener(this);
                 layoutRoot.addView(view);
@@ -128,6 +117,22 @@ public class SRBookDetailPageFragment extends ZYBaseFragment implements View.OnC
         }
     }
 
+    private RelativeLayout.LayoutParams getTractLayoutParams(SRTract tract) {
+        double x = 0;
+        double y = 0;
+        double w = 0;
+        double h = 0;
+        x = tract.getTrack_left() * maxWidth;
+        y = tract.getTrack_top() * maxHeight;
+        w = (tract.getTrack_right() - tract.getTrack_left()) * maxWidth;
+        h = (tract.getTrack_bottom() - tract.getTrack_top()) * maxHeight;
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) w, (int) h);
+        layoutParams.topMargin = (int) y;
+        layoutParams.leftMargin = (int) x;
+        return layoutParams;
+    }
+
+
     public void setPageData(SRPage pageData) {
         this.pageData = pageData;
     }
@@ -140,19 +145,28 @@ public class SRBookDetailPageFragment extends ZYBaseFragment implements View.OnC
     public void onClick(View view) {
         if (view.getTag() != null) {
             try {
-                ZYLog.e(getClass().getSimpleName(),"onClick: " + view.getTag().toString());
+                ZYLog.e(getClass().getSimpleName(), "onClick: " + view.getTag().toString());
                 int position = Integer.valueOf(view.getTag().toString()).intValue();
                 SRTract tract = pageData.getTrack().get(position);
-                SRPageManager.getInstance().startAudio(tract.getMp3Path(pageData.getLocalRootDirPath()), tract.getAudioStart(), tract.getAudioEnd());
                 showSentenceSelBg((RelativeLayout.LayoutParams) view.getLayoutParams());
                 pageListener.onSelecteTrack(tract);
             } catch (Exception e) {
-                ZYLog.e(getClass().getSimpleName(),"onClick-error: " + e.getMessage());
+                ZYLog.e(getClass().getSimpleName(), "onClick-error: " + e.getMessage());
             }
         }
     }
 
-    public interface BookDetailPageListener{
+    public void onRepeatsTractPlay(SRTract tract) {
+        try {
+            showSentenceSelBg(getTractLayoutParams(tract));
+        } catch (Exception e) {
+            ZYLog.e(getClass().getSimpleName(), "onTractPlay-error: " + e.getMessage());
+        }
+    }
+
+    public interface BookDetailPageListener {
         void onSelecteTrack(SRTract tract);
+
+        boolean needShowSentenceBg();
     }
 }

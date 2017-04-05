@@ -7,9 +7,12 @@ import com.smartreader.base.mvp.ZYBasePresenter;
 import com.smartreader.service.net.ZYNetSubscription;
 import com.smartreader.ui.main.contract.SRBookDetailContract;
 import com.smartreader.ui.main.model.SRBookDetailModel;
+import com.smartreader.ui.main.model.SRPageManager;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRBookJson;
 import com.smartreader.ui.main.model.bean.SRCatalogue;
+import com.smartreader.ui.main.model.bean.SRPage;
+import com.smartreader.ui.main.model.bean.SRTract;
 import com.smartreader.utils.ZYLog;
 
 import java.io.BufferedInputStream;
@@ -39,6 +42,16 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
 
     private SRBook bookData;
 
+    private int curPageId = 1;
+
+    private boolean needShowSentenceBg = true;
+
+    private boolean isSingleRepeat = false;
+
+    private boolean isRepeats = false;
+
+    private SRTract repeatsStartTract;
+
     public SRBookDetailPresenter(SRBookDetailContract.IView iView, String localRootDirPath) {
         this.iView = iView;
         model = new SRBookDetailModel();
@@ -63,7 +76,15 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
                     JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
                     Gson gson = new Gson();
                     SRBookJson bookJson = gson.fromJson(reader, SRBookJson.class);
-                    subscriber.onNext(bookJson.book);
+
+                    SRBook book = bookJson.book;
+                    //设置tract的音频路径
+                    for (SRPage page : book.getPage()) {
+                        for (SRTract tract : page.getTrack()) {
+                            tract.setMp3Path(localRootDirPath + "mp3/" + tract.getMp3name());
+                        }
+                    }
+                    subscriber.onNext(book);
                 } catch (Exception e) {
                     subscriber.onError(e);
                 }
@@ -101,6 +122,65 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
         }));
     }
 
+    @Override
+    public void onSelecteTrack(SRTract selTract) {
+        if (isRepeats) {
+            if (repeatsStartTract == null) {
+                repeatsStartTract = selTract;
+                iView.selRepeatsEnd();
+            } else {
+                if (repeatsStartTract.getTrack_id() >= selTract.getTrack_id()) {
+                    iView.showToast("复读终点只能选择起点后面的位置!");
+                    return;
+                }
+
+                ArrayList<SRTract> repeatTracts = new ArrayList<SRTract>();
+                for (SRPage page : bookData.getPage()) {
+                    for (SRTract tract : page.getTrack()) {
+                        if (tract.getTrack_id() >= repeatsStartTract.getTrack_id() && tract.getTrack_id() <= selTract.getTrack_id()) {
+                            repeatTracts.add(tract);
+                            if (tract.getTrack_id() == selTract.getTrack_id()) {
+                                break;
+                            }
+                        }
+                    }
+                }
+                SRPageManager.getInstance().startRepeats(repeatTracts);
+                iView.playRepeats();
+            }
+            return;
+        }
+        if (isSingleRepeat) {
+            ArrayList<SRTract> repeatTracts = new ArrayList<SRTract>();
+            repeatTracts.add(selTract);
+            SRPageManager.getInstance().startRepeats(repeatTracts);
+        } else {
+            SRPageManager.getInstance().startAudio(selTract.getMp3Path(), selTract.getAudioStart(), selTract.getAudioEnd());
+        }
+    }
+
+    @Override
+    public void stopSingleRepeat() {
+        isSingleRepeat = false;
+        SRPageManager.getInstance().stopRepeats();
+    }
+
+    @Override
+    public void stopRepeats() {
+        isRepeats = false;
+        repeatsStartTract = null;
+        SRPageManager.getInstance().stopRepeats();
+    }
+
+    @Override
+    public void puaseRepeats() {
+        SRPageManager.getInstance().pauseAudio();
+    }
+
+    public void continueRepeats(){
+        SRPageManager.getInstance().continueStartRepeats();
+    }
+
     private SRCatalogue getUnit(String unit) {
         SRCatalogue catalogueUnit = new SRCatalogue();
         catalogueUnit.setUnit(unit);
@@ -114,5 +194,37 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
 
     public String getLocalRootDirPath() {
         return localRootDirPath;
+    }
+
+    public int getCurPageId() {
+        return curPageId;
+    }
+
+    public void setCurPageId(int curPageId) {
+        this.curPageId = curPageId;
+    }
+
+    public boolean isRepeats() {
+        return isRepeats;
+    }
+
+    public void setRepeats(boolean repeats) {
+        isRepeats = repeats;
+    }
+
+    public boolean isSingleRepeat() {
+        return isSingleRepeat;
+    }
+
+    public void setSingleRepeat(boolean singleRepeat) {
+        isSingleRepeat = singleRepeat;
+    }
+
+    public boolean isNeedShowSentenceBg() {
+        return needShowSentenceBg;
+    }
+
+    public void setNeedShowSentenceBg(boolean needShowSentenceBg) {
+        this.needShowSentenceBg = needShowSentenceBg;
     }
 }

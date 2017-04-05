@@ -54,6 +54,11 @@
         <activity
             android:name=".ui.login.activity.SRRegisterActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.web.SRWebViewActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".service.ZYUpdateService" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

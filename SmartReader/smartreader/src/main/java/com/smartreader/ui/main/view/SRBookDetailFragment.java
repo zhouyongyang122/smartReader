@@ -20,11 +20,14 @@ import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.base.view.ZYRoudCornerRelativeLayout;
 import com.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.smartreader.ui.main.contract.SRBookDetailContract;
+import com.smartreader.ui.main.model.SRPageManager;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRCatalogue;
 import com.smartreader.ui.main.model.bean.SRPage;
 import com.smartreader.ui.main.model.bean.SRTract;
 import com.smartreader.ui.mark.activity.SRMarkActivity;
+import com.smartreader.ui.mark.model.bean.SRMarkBean;
+import com.smartreader.utils.ZYToast;
 
 import java.util.ArrayList;
 
@@ -36,7 +39,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/3/29.
  */
 
-public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener, SRBookDetailMenuVH.BookDetailMenuListener {
+public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener, SRBookDetailMenuVH.BookDetailMenuListener, SRPageManager.RepeatsPlayListener {
 
     @Bind(R.id.layoutRoot)
     RelativeLayout layoutRoot;
@@ -53,14 +56,14 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
     @Bind(R.id.textTitle)
     TextView textTitle;
 
+    @Bind(R.id.layoutBottomBar)
+    RelativeLayout layoutBottomBar;
+
     @Bind(R.id.layout_score)
     ZYRoudCornerRelativeLayout layout_score;
 
     @Bind(R.id.textScore)
     TextView textScore;
-
-    @Bind(R.id.textSpeed)
-    TextView textSpeed;
 
     @Bind(R.id.textSingle)
     TextView textSingle;
@@ -71,13 +74,31 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
     @Bind(R.id.textSet)
     TextView textSet;
 
+    @Bind(R.id.layoutRepeats)
+    RelativeLayout layoutRepeats;
+
+    @Bind(R.id.textStop)
+    TextView textStop;
+
+    @Bind(R.id.textPause)
+    TextView textPause;
+
+    @Bind(R.id.layoutSelTip)
+    RelativeLayout layoutSelTip;
+
+    @Bind(R.id.textSelTip)
+    TextView textSelTip;
+
+    @Bind(R.id.textSelCancle)
+    TextView textSelCancle;
+
     private ArrayList<SRBookDetailPageFragment> pageFragments = new ArrayList<SRBookDetailPageFragment>();
 
     private BookDetailPageAdapter adapter;
 
     private SRBookDetailMenuVH menuVH;
 
-    private int curPageId = 1;
+    private boolean isSelectingRepeats;
 
     @Nullable
     @Override
@@ -108,7 +129,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
             @Override
             public void onPageSelected(int position) {
-                curPageId = position + 1;
+                mPresenter.setCurPageId(position + 1);
             }
 
             @Override
@@ -118,7 +139,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         });
     }
 
-    @OnClick({R.id.imgBack, R.id.imgMenu, R.id.layout_score})
+    @OnClick({R.id.imgBack, R.id.imgMenu, R.id.layout_score, R.id.textSingle, R.id.textRepeat, R.id.textStop, R.id.textPause, R.id.textSelCancle})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
@@ -131,7 +152,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
                 int position = 0;
                 for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
-                    if (catalogue.getCatalogue_id() > 0 && curPageId == catalogue.getCatalogue_id()) {
+                    if (catalogue.getCatalogue_id() > 0 && mPresenter.getCurPageId() == catalogue.getCatalogue_id()) {
                         menuVH.setDefSelPosition(position);
                     }
                     position++;
@@ -140,19 +161,97 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
                 menuVH.updateView(mPresenter.getBookData().catalogue, 0);
                 break;
             case R.id.layout_score:
-                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getBookData().page.get(curPageId - 1), mPresenter.getBookData().book_id));
+                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getBookData().page.get(mPresenter.getCurPageId() - 1), mPresenter.getBookData().book_id));
+                break;
+            case R.id.textSingle:
+                if (mPresenter.isSingleRepeat()) {
+                    mPresenter.stopSingleRepeat();
+                    ZYToast.show(mActivity, "单句复读模式已经关闭!");
+                } else {
+                    mPresenter.setSingleRepeat(true);
+                    ZYToast.show(mActivity, "单句复读模式已经开启!");
+                }
+                break;
+            case R.id.textRepeat:
+                if (mPresenter.isSingleRepeat()) {
+                    mPresenter.stopRepeats();
+                }
+                mPresenter.setRepeats(true);
+                layoutSelTip.setVisibility(View.VISIBLE);
+                textSelTip.setText("请点击选择复读起点区域");
+                textPause.setText("暂停");
+                layoutBottomBar.setVisibility(View.GONE);
+                isSelectingRepeats = true;
+                SRPageManager.getInstance().setRepeatsPlayListener(this);
+                break;
+            case R.id.textStop:
+                mPresenter.stopRepeats();
+                layoutBottomBar.setVisibility(View.VISIBLE);
+                layoutRepeats.setVisibility(View.GONE);
+                break;
+            case R.id.textPause:
+                if (textPause.getText().toString().equals("播放")) {
+                    textPause.setText("暂停");
+                    mPresenter.continueRepeats();
+                } else {
+                    textPause.setText("播放");
+                    mPresenter.puaseRepeats();
+                }
+                break;
+            case R.id.textSelCancle:
+                mPresenter.stopRepeats();
+                layoutBottomBar.setVisibility(View.VISIBLE);
+                layoutRepeats.setVisibility(View.GONE);
+                layoutSelTip.setVisibility(View.GONE);
                 break;
         }
     }
 
     @Override
     public void onSelecteTrack(SRTract tract) {
-        if (!TextUtils.isEmpty(tract.getTrack_genre())) {
+        if (!isSelectingRepeats && !TextUtils.isEmpty(tract.getTrack_genre())) {
             textTitle.setVisibility(View.VISIBLE);
             textTitle.setText(tract.getTrack_genre());
         } else {
             textTitle.setVisibility(View.GONE);
         }
+
+        mPresenter.onSelecteTrack(tract);
+
+        SRMarkBean markBean = SRMarkBean.queryById(SRMarkBean.getMarkId(mPresenter.getBookData().book_id, tract.getPage_id() + "", tract.getTrack_id() + ""));
+        if (markBean != null && markBean.score > 0) {
+            textScore.setText(markBean.score + "");
+        } else {
+            textScore.setText("点击测评");
+        }
+    }
+
+    @Override
+    public void onRepeatsTractPlay(SRTract tract) {
+        int pageId = tract.getPage_id();
+        if (mPresenter.getCurPageId() != pageId) {
+            viewPage.setCurrentItem(pageId - 1);
+            mPresenter.setCurPageId(pageId);
+        }
+        SRBookDetailPageFragment pageFragment = pageFragments.get(pageId - 1);
+        pageFragment.onRepeatsTractPlay(tract);
+    }
+
+    @Override
+    public void selRepeatsEnd() {
+        textSelTip.setText("请点击选择复读终点区域");
+    }
+
+    @Override
+    public void playRepeats() {
+        isSelectingRepeats = false;
+        layoutSelTip.setVisibility(View.GONE);
+        layoutRepeats.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public boolean needShowSentenceBg() {
+        return mPresenter.isNeedShowSentenceBg();
     }
 
     @Override
@@ -163,8 +262,8 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     @Override
     public void onItemClick(SRCatalogue catalogue, int position) {
-        curPageId = catalogue.getCatalogue_id();
-        viewPage.setCurrentItem(curPageId - 1);
+        mPresenter.setCurPageId(catalogue.getCatalogue_id());
+        viewPage.setCurrentItem(mPresenter.getCurPageId() - 1);
     }
 
     public boolean onBackPressed() {
@@ -194,5 +293,23 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mPresenter.isRepeats()) {
+            mPresenter.puaseRepeats();
+        } else if (mPresenter.isSingleRepeat()) {
+            mPresenter.stopSingleRepeat();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPresenter.isRepeats()) {
+            mPresenter.continueRepeats();
+        }
     }
 }

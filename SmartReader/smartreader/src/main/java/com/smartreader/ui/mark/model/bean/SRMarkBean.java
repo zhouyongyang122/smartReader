@@ -31,7 +31,7 @@ public class SRMarkBean extends ZYBaseEntity {
 
     @Generated(hash = 557787890)
     public SRMarkBean(String mark_id, int score, long audioTime, String audioPath, String share_url,
-            String show_track_id) {
+                      String show_track_id) {
         this.mark_id = mark_id;
         this.score = score;
         this.audioTime = audioTime;
@@ -113,6 +113,10 @@ public class SRMarkBean extends ZYBaseEntity {
 
     public void setAudioTime(long audioTime) {
         this.audioTime = audioTime;
+    }
+
+    public static String getMarkId(String bookId, String pageId, String tractId) {
+        return bookId + "_" + pageId + "_" + tractId;
     }
 
 }

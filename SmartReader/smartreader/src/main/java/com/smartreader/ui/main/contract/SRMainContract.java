@@ -4,6 +4,7 @@ import com.smartreader.base.mvp.ZYIBasePresenter;
 import com.smartreader.base.mvp.ZYIBaseView;
 import com.smartreader.ui.main.model.bean.SRPage;
 import com.smartreader.ui.main.model.bean.SRTract;
+import com.smartreader.ui.main.model.bean.SRVersion;
 
 import java.util.List;
 
@@ -15,9 +16,11 @@ public interface SRMainContract {
 
     interface IView extends ZYIBaseView<IPresenter> {
 
+        void showUpdateView(SRVersion version);
+
     }
 
     interface IPresenter extends ZYIBasePresenter {
-
+        void getVersion();
     }
 }

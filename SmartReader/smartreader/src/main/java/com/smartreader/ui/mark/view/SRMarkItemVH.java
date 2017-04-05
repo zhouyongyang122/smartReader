@@ -106,6 +106,11 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 if (markBean.score > 0) {
                     if (data.isRecording) {
                         textScore.setVisibility(View.GONE);
+                        if (markBean.score >= 60) {
+                            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
+                        } else {
+                            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
+                        }
                         textScore.setText(markBean.score + "");
                         imgShare.setVisibility(View.GONE);
                         layoutProgressBar.setVisibility(View.VISIBLE);
@@ -208,6 +213,12 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
         imgShare.setVisibility(View.VISIBLE);
         layoutProgressBar.setVisibility(View.GONE);
         markBean.score = score;
+
+        if (markBean.score >= 60) {
+            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
+        } else {
+            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
+        }
         textScore.setText(score + "");
         ZYLog.e(getClass().getSimpleName(), "copy-audio: " + ZYFileUtils.copy(markBean.audioPath, XunFeiSDK.XUN_FEI_RECORDE_PATH));
         markBean.update();

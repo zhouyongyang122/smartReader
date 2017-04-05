@@ -22,11 +22,6 @@ public interface ZYDownloadScriberListener<D> {
     void updateProgress(long current, long total);
 
     /**
-     * 解压中
-     */
-    void onUnZip();
-
-    /**
      * 失败
      */
     void onError(String message);
