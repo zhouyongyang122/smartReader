@@ -16,11 +16,8 @@ import com.smartreader.ui.login.presenter.SRRegisterPresenter;
 import com.smartreader.utils.ZYStringUtils;
 import com.smartreader.utils.ZYToast;
 
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,7 +51,7 @@ public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPrese
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sr_activity_register, container, false);
+        View view = inflater.inflate(R.layout.sr_fragment_register, container, false);
         ButterKnife.bind(this, view);
         switch (mPresenter.getType()) {
             case SRRegisterPresenter.REGISTER_TYPE:

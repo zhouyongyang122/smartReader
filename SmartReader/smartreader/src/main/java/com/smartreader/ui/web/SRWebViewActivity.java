@@ -115,11 +115,11 @@ public class SRWebViewActivity extends ZYBaseActivity {
         webview.setWebViewClient(viewClient);
     }
 
-    public class SRWebChromeClient extends WebChromeClient {
+    class SRWebChromeClient extends WebChromeClient {
 
     }
 
-    public class SRWebViewClient extends WebViewClient {
+    class SRWebViewClient extends WebViewClient {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);

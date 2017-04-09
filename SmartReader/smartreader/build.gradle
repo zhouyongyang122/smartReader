@@ -3,7 +3,7 @@ apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.smartreader"
         minSdkVersion 18
@@ -30,6 +30,12 @@ android {
     }
 }
 
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
+
 greendao {
     schemaVersion 1
     daoPackage 'com.smartreader.service.db.entity'
@@ -45,6 +51,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile(name: "wheel", ext: "aar")
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.android.support:cardview-v7:23.4.0'
@@ -62,5 +69,8 @@ dependencies {
     compile 'com.orhanobut:logger:1.11'
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile 'com.yalantis:ucrop:2.2.0'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile files('libs/Msc.jar')
 }

@@ -14,7 +14,6 @@ import com.smartreader.R;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.ui.login.activity.SRRegisterActivity;
 import com.smartreader.ui.login.contract.SRLoginContract;
-import com.smartreader.ui.login.contract.SRRegisterContract;
 import com.smartreader.ui.login.presenter.SRRegisterPresenter;
 import com.smartreader.utils.ZYStringUtils;
 import com.smartreader.utils.ZYToast;
@@ -56,7 +55,7 @@ public class SRLoginFragment extends ZYBaseFragment<SRLoginContract.IPresenter> 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sr_activity_login, container, false);
+        View view = inflater.inflate(R.layout.sr_fragment_login, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

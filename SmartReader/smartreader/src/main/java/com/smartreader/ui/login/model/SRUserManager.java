@@ -50,6 +50,12 @@ public class SRUserManager {
         return user;
     }
 
+    public void loginOut() {
+        user.isLoginUser = false;
+        user.update();
+        user = new SRUser();
+    }
+
     public void setUser(SRUser user) {
         if (user != null) {
             this.user = user;

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c2"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textProtocol"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:text="使用协议"
+        android:textColor="@color/c6"
+        android:textSize="@dimen/f4" />
+
+    <TextView
+        android:id="@+id/textCopyRight"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:gravity="center"
+        android:text="版权申明"
+        android:textColor="@color/c6"
+        android:textSize="@dimen/f4" />
+
+    <TextView
+        android:id="@+id/textChangePwd"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:gravity="center"
+        android:text="修改密码"
+        android:textColor="@color/c6"
+        android:textSize="@dimen/f4" />
+
+    <TextView
+        android:id="@+id/textBind"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:gravity="center"
+        android:text="绑定手机号码"
+        android:textColor="@color/c6"
+        android:textSize="@dimen/f4" />
+
+    <TextView
+        android:id="@+id/textExit"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/sr_bg_corner360_c10_solid"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f4" />
+</LinearLayout>

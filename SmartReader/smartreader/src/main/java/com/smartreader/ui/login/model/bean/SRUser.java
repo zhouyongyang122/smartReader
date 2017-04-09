@@ -28,6 +28,8 @@ public class SRUser extends ZYBaseEntity {
 
     public String refresh_token;
 
+    public int age;
+
     public int endtime;
 
     public String upload_token;
@@ -41,6 +43,8 @@ public class SRUser extends ZYBaseEntity {
     public boolean isLoginUser;//是否是当前登录的用户
 
     public int type;//0:手机号码登录 1:qq登录 2:微博登录 3:微信登陆
+
+    public String mobile;
 
     @Generated(hash = 1834124643)
     public SRUser(String uid, String nickname, String avatar, int sex,
@@ -186,5 +190,29 @@ public class SRUser extends ZYBaseEntity {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public boolean isLoginUser() {
+        return isLoginUser;
+    }
+
+    public void setLoginUser(boolean loginUser) {
+        isLoginUser = loginUser;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

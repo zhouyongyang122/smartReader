@@ -1,5 +1,6 @@
 package com.smartreader.ui.main.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,6 +17,9 @@ import com.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.login.activity.SRLoginActivity;
 import com.smartreader.ui.login.model.SRUserManager;
+import com.smartreader.ui.profile.activity.SREditActivity;
+import com.smartreader.ui.set.SRSetActivity;
+import com.smartreader.ui.web.SRWebViewActivity;
 import com.smartreader.utils.ZYScreenUtils;
 import com.smartreader.utils.ZYToast;
 
@@ -78,14 +82,11 @@ public class SRMeFragment extends ZYBaseFragment {
         return view;
     }
 
-    @OnClick({R.id.imgBg, R.id.textEdit, R.id.imgMsg, R.id.textLogin, R.id.textFeedBack, R.id.textSet, R.id.textShare})
+    @OnClick({R.id.textEdit, R.id.imgMsg, R.id.textLogin, R.id.textFeedBack, R.id.textSet, R.id.textShare})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.imgBg:
-                ZYToast.show(mActivity, "想修改背景?有这功能?");
-                break;
             case R.id.textEdit:
-                ZYToast.show(mActivity, "想编辑? 编辑界面了?");
+                mActivity.startActivity(new Intent(mActivity, SREditActivity.class));
                 break;
             case R.id.imgMsg:
                 ZYToast.show(mActivity, "稍等，还没有实现");
@@ -94,10 +95,10 @@ public class SRMeFragment extends ZYBaseFragment {
                 mActivity.startActivity(SRLoginActivity.createIntent(mActivity));
                 break;
             case R.id.textFeedBack:
-                ZYToast.show(mActivity, "想反馈?也没有界面");
+                startActivity(SRWebViewActivity.createIntent(mActivity, "http://www.baidu.com", "用户反馈"));
                 break;
             case R.id.textSet:
-                ZYToast.show(mActivity, "设置?设置什么?");
+                mActivity.startActivity(new Intent(mActivity, SRSetActivity.class));
                 break;
             case R.id.textShare:
                 ZYToast.show(mActivity, "分享？分享什么?");

@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.smartreader.R;
 import com.smartreader.SRApplication;
+import com.smartreader.ZYPreferenceHelper;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.smartreader.ui.main.model.SRPageManager;
@@ -59,7 +60,7 @@ public class SRBookDetailPageFragment extends ZYBaseFragment implements View.OnC
         layoutParams.height = (int) maxHeight;
         imgBg.setLayoutParams(layoutParams);
 
-        showSentenceBgs(true);
+        showSentenceBgs(ZYPreferenceHelper.getInstance().isShowTractBg());
         ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, pageData.getPicPath());
         return view;
     }
@@ -87,33 +88,37 @@ public class SRBookDetailPageFragment extends ZYBaseFragment implements View.OnC
         sentenceSelBg.setLayoutParams(layoutParams);
     }
 
-    private void showSentenceBgs(boolean isShow) {
-        if (pageData == null) {
-            return;
-        }
-        if (sentenceBgs == null) {
-            sentenceBgs = new ArrayList<View>();
-            View view = null;
-            LayoutInflater inflater = LayoutInflater.from(mActivity);
-            RelativeLayout.LayoutParams layoutParams;
-            int position = 0;
-            for (SRTract tract : pageData.getTrack()) {
-                view = inflater.inflate(R.layout.sr_view_sentence_item, null);
-                view.setLayoutParams(getTractLayoutParams(tract));
-                view.setTag("" + position);
-                view.setOnClickListener(this);
-                layoutRoot.addView(view);
-                sentenceBgs.add(view);
-                position++;
+    public void showSentenceBgs(boolean isShow) {
+        try {
+            if (pageData == null) {
+                return;
             }
-        } else {
-            for (View view : sentenceBgs) {
-                if (isShow) {
-                    view.setBackgroundResource(R.drawable.sr_bg_rect_transparent40_c10);
-                } else {
-                    view.setBackgroundResource(R.color.transparent);
+            if (sentenceBgs == null) {
+                sentenceBgs = new ArrayList<View>();
+                View view = null;
+                LayoutInflater inflater = LayoutInflater.from(mActivity);
+                RelativeLayout.LayoutParams layoutParams;
+                int position = 0;
+                for (SRTract tract : pageData.getTrack()) {
+                    view = inflater.inflate(R.layout.sr_view_sentence_item, null);
+                    view.setLayoutParams(getTractLayoutParams(tract));
+                    view.setTag("" + position);
+                    view.setOnClickListener(this);
+                    layoutRoot.addView(view);
+                    sentenceBgs.add(view);
+                    position++;
+                }
+            } else {
+                for (View view : sentenceBgs) {
+                    if (isShow) {
+                        view.setBackgroundResource(R.drawable.sr_bg_rect_transparent40_c10);
+                    } else {
+                        view.setBackgroundResource(R.color.transparent);
+                    }
                 }
             }
+        } catch (Exception e) {
+
         }
     }
 

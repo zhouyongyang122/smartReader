@@ -58,6 +58,18 @@
             android:name=".ui.web.SRWebViewActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.set.SRSetActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.profile.activity.SREditActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".base.activity.ZYEditDescActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".service.ZYUpdateService" />
     </application>
 

@@ -1,5 +1,6 @@
 package com.smartreader.ui.main.model;
 
+import android.media.SoundPool;
 import android.os.Handler;
 import android.os.Message;
 
@@ -80,7 +81,7 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
             audioPlayer.open(audioPath, start);
         }
         handler.removeCallbacks(endRunnable);
-        handler.postDelayed(endRunnable, end - start);
+        handler.postDelayed(endRunnable, end - start + 100);
     }
 
     public void startAudio(String audioPath) {
@@ -138,7 +139,7 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
                 audioPlayer.open(audioPath, start);
             }
             handler.removeCallbacks(repeatRunnable);
-            handler.postDelayed(repeatRunnable, end - start);
+            handler.postDelayed(repeatRunnable, end - start + 100);
         } catch (Exception e) {
             ZYLog.e(getClass().getSimpleName(), "starRepeatAudios:error " + e.getMessage());
         }

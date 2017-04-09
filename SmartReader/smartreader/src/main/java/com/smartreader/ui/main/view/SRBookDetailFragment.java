@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartreader.R;
+import com.smartreader.ZYPreferenceHelper;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.base.view.ZYRoudCornerRelativeLayout;
 import com.smartreader.thirdParty.xunfei.XunFeiSDK;
@@ -39,7 +40,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/3/29.
  */
 
-public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener, SRBookDetailMenuVH.BookDetailMenuListener, SRPageManager.RepeatsPlayListener {
+public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener, SRBookDetailMenuVH.BookDetailMenuListener, SRPageManager.RepeatsPlayListener, SRBookDetailSetVH.BookDetailSetListener {
 
     @Bind(R.id.layoutRoot)
     RelativeLayout layoutRoot;
@@ -98,13 +99,18 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     private SRBookDetailMenuVH menuVH;
 
+    private SRBookDetailSetVH detailSetVH;
+
     private boolean isSelectingRepeats;
+
+    private boolean isShowTrans;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.sr_fragment_book_detail, container, false);
         ButterKnife.bind(this, viewGroup);
+        isShowTrans = ZYPreferenceHelper.getInstance().isShowTractTrans();
         return viewGroup;
     }
 
@@ -139,7 +145,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         });
     }
 
-    @OnClick({R.id.imgBack, R.id.imgMenu, R.id.layout_score, R.id.textSingle, R.id.textRepeat, R.id.textStop, R.id.textPause, R.id.textSelCancle})
+    @OnClick({R.id.imgBack, R.id.textSet, R.id.imgMenu, R.id.layout_score, R.id.textSingle, R.id.textRepeat, R.id.textStop, R.id.textPause, R.id.textSelCancle})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
@@ -204,12 +210,19 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
                 layoutRepeats.setVisibility(View.GONE);
                 layoutSelTip.setVisibility(View.GONE);
                 break;
+            case R.id.textSet:
+                if (detailSetVH == null) {
+                    detailSetVH = new SRBookDetailSetVH(this);
+                    detailSetVH.attachTo(layoutRoot);
+                }
+                detailSetVH.show();
+                break;
         }
     }
 
     @Override
     public void onSelecteTrack(SRTract tract) {
-        if (!isSelectingRepeats && !TextUtils.isEmpty(tract.getTrack_genre())) {
+        if (isShowTrans && !isSelectingRepeats && !TextUtils.isEmpty(tract.getTrack_genre())) {
             textTitle.setVisibility(View.VISIBLE);
             textTitle.setText(tract.getTrack_genre());
         } else {
@@ -266,9 +279,43 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         viewPage.setCurrentItem(mPresenter.getCurPageId() - 1);
     }
 
+    @Override
+    public void onTractTransChange(boolean show) {
+        isShowTrans = show;
+    }
+
+    @Override
+    public void onTractClickBgChange(boolean show) {
+
+        int position = mPresenter.getCurPageId() - 1;
+
+        SRBookDetailPageFragment pageFragment = pageFragments.get(position);
+        pageFragment.showSentenceBgs(show);
+
+        if (position - 1 >= 0) {
+            pageFragment = pageFragments.get(position);
+            pageFragment.showSentenceBgs(show);
+        }
+
+        if (position + 1 <= pageFragments.size() - 1) {
+            pageFragment = pageFragments.get(mPresenter.getCurPageId());
+            pageFragment.showSentenceBgs(show);
+        }
+    }
+
+    @Override
+    public void onTractSpeedChange(int speed) {
+
+    }
+
     public boolean onBackPressed() {
         if (menuVH != null) {
             menuVH.close();
+            return false;
+        }
+
+        if (detailSetVH != null && detailSetVH.isVisibility()) {
+            detailSetVH.hide();
             return false;
         }
         return true;
