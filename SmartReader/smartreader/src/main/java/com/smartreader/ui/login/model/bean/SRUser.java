@@ -46,17 +46,18 @@ public class SRUser extends ZYBaseEntity {
 
     public String mobile;
 
-    @Generated(hash = 1834124643)
-    public SRUser(String uid, String nickname, String avatar, int sex,
-                  String school, String refresh_token, int endtime, String upload_token,
-                  String picture_token, int grade, String auth_token, boolean isLoginUser,
-                  int type) {
+    @Generated(hash = 1287795538)
+    public SRUser(String uid, String nickname, String avatar, int sex, String school,
+            String refresh_token, int age, int endtime, String upload_token,
+            String picture_token, int grade, String auth_token, boolean isLoginUser, int type,
+            String mobile) {
         this.uid = uid;
         this.nickname = nickname;
         this.avatar = avatar;
         this.sex = sex;
         this.school = school;
         this.refresh_token = refresh_token;
+        this.age = age;
         this.endtime = endtime;
         this.upload_token = upload_token;
         this.picture_token = picture_token;
@@ -64,6 +65,7 @@ public class SRUser extends ZYBaseEntity {
         this.auth_token = auth_token;
         this.isLoginUser = isLoginUser;
         this.type = type;
+        this.mobile = mobile;
     }
 
     @Generated(hash = 628471356)

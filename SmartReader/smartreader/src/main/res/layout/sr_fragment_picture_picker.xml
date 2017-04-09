@@ -8,7 +8,7 @@
         android:id="@+id/layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/c2">
+        android:background="@color/c1">
 
         <ImageView
             android:id="@+id/img_back"

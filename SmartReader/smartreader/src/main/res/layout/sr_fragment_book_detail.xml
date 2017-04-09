@@ -142,10 +142,10 @@
                     android:id="@+id/textScore"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:background="@color/c9"
+                    android:background="@color/c7"
                     android:paddingTop="8dp"
                     android:gravity="center"
-                    android:text="点击测评"
+                    android:text="练口语"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f5" />
 
@@ -154,12 +154,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_below="@+id/textScore"
-                    android:background="@color/c7"
+                    android:background="@color/c1"
                     android:gravity="center"
                     android:text="测评"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f7" />
             </com.smartreader.base.view.ZYRoudCornerRelativeLayout>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/microphone"
+                android:layout_height="30dp" />
         </RelativeLayout>
 
         <LinearLayout

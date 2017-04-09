@@ -1,4 +1,4 @@
-package com.smartreader.ui.set;
+package com.smartreader.ui.set.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;

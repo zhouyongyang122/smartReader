@@ -40,7 +40,7 @@ public class SRUserParams {
     }
 
     public String checkParams() {
-        if (TextUtils.isEmpty(qianniuKey)) {
+        if (TextUtils.isEmpty(avatar) || avatar.startsWith("http")) {
             return "头像不能为空!";
         }
         if (TextUtils.isEmpty(nickname)) {
@@ -50,14 +50,14 @@ public class SRUserParams {
             return "学校不能为空!";
         }
 
-        if (sex <= 0) {
-            return "你还没有设置性别";
-        }
         if (grade <= 0) {
             return "你还没有设置年级";
         }
         if (age <= 0) {
             return "你还没有设置年龄";
+        }
+        if (sex <= 0) {
+            return "你还没有设置性别";
         }
         return null;
     }

@@ -115,6 +115,16 @@ public class SRWebViewActivity extends ZYBaseActivity {
         webview.setWebViewClient(viewClient);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webview != null) {
+            webview.setVisibility(View.GONE);
+            webview.clearCache(true);
+            webview.clearHistory();
+        }
+    }
+
     class SRWebChromeClient extends WebChromeClient {
 
     }
@@ -124,7 +134,11 @@ public class SRWebViewActivity extends ZYBaseActivity {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             if (!TextUtils.isEmpty(view.getTitle())) {
-                mActionBar.showTitle(view.getTitle());
+                try {
+                    mActionBar.showTitle(view.getTitle());
+                } catch (Exception e) {
+
+                }
             }
         }
     }

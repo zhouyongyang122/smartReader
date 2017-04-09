@@ -55,7 +55,7 @@
                 android:layout_marginTop="10dp"
                 tools:text="5张"
                 android:textSize="@dimen/f3"
-                android:textColor="@color/c5"/>
+                android:textColor="@color/c6"/>
 
         </LinearLayout>
 

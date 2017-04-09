@@ -45,8 +45,9 @@
         android:clickable="true"
         android:gravity="center"
         android:paddingLeft="15dp"
+        android:text="sss"
         android:paddingRight="15dp"
-        android:textColor="@color/c1"
+        android:textColor="@color/white"
         android:textSize="@dimen/f2"
         android:visibility="gone" />
 

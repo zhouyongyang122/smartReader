@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.smartreader.base.mvp.ZYBaseFragmentActivity;
+import com.smartreader.ui.main.model.SRPageManager;
 import com.smartreader.ui.main.model.bean.SRPage;
 import com.smartreader.ui.mark.presenter.SRMarkPresenter;
 import com.smartreader.ui.mark.view.SRMarkFragment;
@@ -47,5 +48,11 @@ public class SRMarkActivity extends ZYBaseFragmentActivity<SRMarkFragment> {
     @Override
     protected SRMarkFragment createFragment() {
         return new SRMarkFragment();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SRPageManager.getInstance().stopAudio();
     }
 }

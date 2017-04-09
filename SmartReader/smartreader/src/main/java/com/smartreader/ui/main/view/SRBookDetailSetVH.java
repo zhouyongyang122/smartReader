@@ -9,6 +9,7 @@ import android.widget.SeekBar;
 import com.smartreader.R;
 import com.smartreader.ZYPreferenceHelper;
 import com.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -78,13 +79,13 @@ public class SRBookDetailSetVH extends ZYBaseViewHolder<Object> {
             layoutTrans.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
             transClick.setBackgroundResource(R.drawable.sr_bg_corner360dp_white_solid);
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) transClick.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+            layoutParams.leftMargin = ZYScreenUtils.dp2px(mContext, 34);
             transClick.setLayoutParams(layoutParams);
         } else {
             layoutTrans.setBackgroundResource(R.drawable.sr_bg_corner360dp_white_solid);
             transClick.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) transClick.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+            layoutParams.leftMargin = 0;
             transClick.setLayoutParams(layoutParams);
         }
     }
@@ -94,13 +95,13 @@ public class SRBookDetailSetVH extends ZYBaseViewHolder<Object> {
             layoutClick.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
             viewClick.setBackgroundResource(R.drawable.sr_bg_corner360dp_white_solid);
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewClick.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+            layoutParams.leftMargin = ZYScreenUtils.dp2px(mContext, 34);
             viewClick.setLayoutParams(layoutParams);
         } else {
             layoutClick.setBackgroundResource(R.drawable.sr_bg_corner360dp_white_solid);
             viewClick.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewClick.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+            layoutParams.leftMargin = 0;
             viewClick.setLayoutParams(layoutParams);
         }
     }

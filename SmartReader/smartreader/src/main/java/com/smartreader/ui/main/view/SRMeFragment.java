@@ -18,7 +18,8 @@ import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.login.activity.SRLoginActivity;
 import com.smartreader.ui.login.model.SRUserManager;
 import com.smartreader.ui.profile.activity.SREditActivity;
-import com.smartreader.ui.set.SRSetActivity;
+import com.smartreader.ui.set.activity.SRSetActivity;
+import com.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.smartreader.ui.web.SRWebViewActivity;
 import com.smartreader.utils.ZYScreenUtils;
 import com.smartreader.utils.ZYToast;
@@ -89,7 +90,7 @@ public class SRMeFragment extends ZYBaseFragment {
                 mActivity.startActivity(new Intent(mActivity, SREditActivity.class));
                 break;
             case R.id.imgMsg:
-                ZYToast.show(mActivity, "稍等，还没有实现");
+                mActivity.startActivity(new Intent(mActivity, SRSysMsgActivity.class));
                 break;
             case R.id.textLogin:
                 mActivity.startActivity(SRLoginActivity.createIntent(mActivity));

@@ -75,6 +75,18 @@ public class SRBookDetailPageFragment extends ZYBaseFragment implements View.OnC
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        hideSelBg();
+    }
+
+    public void hideSelBg() {
+        if (sentenceSelBg != null) {
+            sentenceSelBg.setVisibility(View.GONE);
+        }
+    }
+
     private void showSentenceSelBg(RelativeLayout.LayoutParams layoutParams) {
         if (pageData == null) {
             return;
@@ -104,6 +116,11 @@ public class SRBookDetailPageFragment extends ZYBaseFragment implements View.OnC
                     view.setLayoutParams(getTractLayoutParams(tract));
                     view.setTag("" + position);
                     view.setOnClickListener(this);
+                    if (isShow) {
+                        view.setBackgroundResource(R.drawable.sr_bg_rect_transparent40_c10);
+                    } else {
+                        view.setBackgroundResource(R.color.transparent);
+                    }
                     layoutRoot.addView(view);
                     sentenceBgs.add(view);
                     position++;

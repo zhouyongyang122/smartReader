@@ -84,6 +84,12 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                 imgDel.setVisibility(View.VISIBLE);
             } else {
                 imgDel.setVisibility(View.GONE);
+
+                if (mData.isDeleteStatus && mData.getBook_id_int() < 0) {
+                    mItemView.setVisibility(View.INVISIBLE);
+                } else {
+                    mItemView.setVisibility(View.VISIBLE);
+                }
             }
 
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +99,10 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                         if (mData.isCanDelete) {
                             listener.onHomeBookItemDel(mData, position);
                             return;
+                        }else {
+                            ZYToast.show(mContext, "默认课程不可删除");
+                            return;
                         }
-                        return;
                     }
                     listener.onHomeBookItemClick(mData, position);
                 }

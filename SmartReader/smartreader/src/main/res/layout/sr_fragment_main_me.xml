@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/splash" />
+                    android:src="@drawable/def_bg" />
 
                 <ImageView
                     android:id="@+id/imgMsg"
@@ -35,7 +35,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="22dp"
-                    android:src="@drawable/play" />
+                    android:background="@drawable/sr_bg_corner360dp_transparent40"
+                    android:src="@drawable/msg" />
 
                 <RelativeLayout
                     android:id="@+id/layoutUserInfo"

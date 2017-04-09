@@ -28,8 +28,8 @@
                 android:id="@+id/imgBg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@color/c5"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:src="@color/c5" />
 
             <com.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/progressView"
@@ -62,7 +62,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/play"
+                android:src="@drawable/course_add"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -71,7 +71,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/play"
+                android:src="@drawable/del"
                 android:visibility="gone"
                 tools:visibility="visible" />
 

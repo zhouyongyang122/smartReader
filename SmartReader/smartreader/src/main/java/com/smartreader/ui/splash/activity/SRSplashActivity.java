@@ -53,6 +53,9 @@ public class SRSplashActivity extends ZYBaseActivity {
             book.setSavePath("file:///android_asset/1/");
             ZYLog.e(getClass().getSimpleName(), "insertDefBook: " + book.save());
             ZYPreferenceHelper.getInstance().setInsertDefBook(true);
+
+            ZYPreferenceHelper.getInstance().setShowTractBg(true);
+            ZYPreferenceHelper.getInstance().setShowTractTrans(true);
         }
 
 //        List<SRBook> books = SRBook.queryAll();

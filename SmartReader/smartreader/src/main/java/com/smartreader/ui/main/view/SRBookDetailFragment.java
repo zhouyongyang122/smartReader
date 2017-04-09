@@ -28,6 +28,7 @@ import com.smartreader.ui.main.model.bean.SRPage;
 import com.smartreader.ui.main.model.bean.SRTract;
 import com.smartreader.ui.mark.activity.SRMarkActivity;
 import com.smartreader.ui.mark.model.bean.SRMarkBean;
+import com.smartreader.utils.ZYResourceUtils;
 import com.smartreader.utils.ZYToast;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/3/29.
  */
 
-public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener, SRBookDetailMenuVH.BookDetailMenuListener, SRPageManager.RepeatsPlayListener, SRBookDetailSetVH.BookDetailSetListener {
+public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IPresenter> implements SRBookDetailContract.IView, SRBookDetailPageFragment.BookDetailPageListener, SRBookDetailMenuVH.BookDetailMenuListener, SRPageManager.PagePlayListener, SRBookDetailSetVH.BookDetailSetListener {
 
     @Bind(R.id.layoutRoot)
     RelativeLayout layoutRoot;
@@ -65,6 +66,9 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     @Bind(R.id.textScore)
     TextView textScore;
+
+    @Bind(R.id.textScoreTip)
+    TextView textScoreTip;
 
     @Bind(R.id.textSingle)
     TextView textSingle;
@@ -168,19 +172,16 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
                 break;
             case R.id.layout_score:
                 mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getBookData().page.get(mPresenter.getCurPageId() - 1), mPresenter.getBookData().book_id));
-                break;
-            case R.id.textSingle:
                 if (mPresenter.isSingleRepeat()) {
                     mPresenter.stopSingleRepeat();
-                    ZYToast.show(mActivity, "单句复读模式已经关闭!");
-                } else {
-                    mPresenter.setSingleRepeat(true);
-                    ZYToast.show(mActivity, "单句复读模式已经开启!");
                 }
+                break;
+            case R.id.textSingle:
+                singleTractClick();
                 break;
             case R.id.textRepeat:
                 if (mPresenter.isSingleRepeat()) {
-                    mPresenter.stopRepeats();
+                    mPresenter.stopSingleRepeat();
                 }
                 mPresenter.setRepeats(true);
                 layoutSelTip.setVisibility(View.VISIBLE);
@@ -188,12 +189,13 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
                 textPause.setText("暂停");
                 layoutBottomBar.setVisibility(View.GONE);
                 isSelectingRepeats = true;
-                SRPageManager.getInstance().setRepeatsPlayListener(this);
+                SRPageManager.getInstance().setPagePlayListener(this);
                 break;
             case R.id.textStop:
                 mPresenter.stopRepeats();
                 layoutBottomBar.setVisibility(View.VISIBLE);
                 layoutRepeats.setVisibility(View.GONE);
+                onTractPlayComplete(null);
                 break;
             case R.id.textPause:
                 if (textPause.getText().toString().equals("播放")) {
@@ -220,6 +222,17 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         }
     }
 
+    private void singleTractClick() {
+        if (mPresenter.isSingleRepeat()) {
+            mPresenter.stopSingleRepeat();
+            ZYToast.show(mActivity, "单句复读模式已经关闭!");
+            onTractPlayComplete(null);
+        } else {
+            mPresenter.setSingleRepeat(true);
+            ZYToast.show(mActivity, "单句复读模式已经开启!");
+        }
+    }
+
     @Override
     public void onSelecteTrack(SRTract tract) {
         if (isShowTrans && !isSelectingRepeats && !TextUtils.isEmpty(tract.getTrack_genre())) {
@@ -232,10 +245,19 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         mPresenter.onSelecteTrack(tract);
 
         SRMarkBean markBean = SRMarkBean.queryById(SRMarkBean.getMarkId(mPresenter.getBookData().book_id, tract.getPage_id() + "", tract.getTrack_id() + ""));
-        if (markBean != null && markBean.score > 0) {
-            textScore.setText(markBean.score + "");
+        refreshScore(markBean == null ? 0 : markBean.score);
+    }
+
+    private void refreshScore(int score) {
+        if (score > 0) {
+            textScore.setText(score + "");
+            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c9));
+            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
+
         } else {
-            textScore.setText("点击测评");
+            textScore.setText("练口语");
+            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
+            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c1));
         }
     }
 
@@ -248,6 +270,12 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         }
         SRBookDetailPageFragment pageFragment = pageFragments.get(pageId - 1);
         pageFragment.onRepeatsTractPlay(tract);
+    }
+
+    @Override
+    public void onTractPlayComplete(SRTract tract) {
+        SRBookDetailPageFragment pageFragment = pageFragments.get(mPresenter.getCurPageId() - 1);
+        pageFragment.hideSelBg();
     }
 
     @Override

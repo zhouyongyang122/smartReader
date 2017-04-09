@@ -39,7 +39,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/qq" />
+                    android:src="@drawable/def_avatar" />
             </RelativeLayout>
 
             <RelativeLayout

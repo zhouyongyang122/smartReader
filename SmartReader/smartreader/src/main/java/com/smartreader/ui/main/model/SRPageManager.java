@@ -35,12 +35,15 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
         }
     };
 
-    private RepeatsPlayListener repeatsPlayListener;
+    private PagePlayListener pagePlayListener;
 
     private Runnable endRunnable = new Runnable() {
         @Override
         public void run() {
             pauseAudio();
+            if (pagePlayListener != null) {
+                pagePlayListener.onTractPlayComplete(null);
+            }
         }
     };
 
@@ -124,8 +127,8 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
             }
             SRTract tract = repeatTracts.get(currentRepeatPosition);
 
-            if (repeatsPlayListener != null) {
-                repeatsPlayListener.onRepeatsTractPlay(tract);
+            if (pagePlayListener != null) {
+                pagePlayListener.onRepeatsTractPlay(tract);
             }
 
             String audioPath = tract.getMp3Path();
@@ -179,11 +182,13 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
         return false;
     }
 
-    public void setRepeatsPlayListener(RepeatsPlayListener repeatsPlayListener) {
-        this.repeatsPlayListener = repeatsPlayListener;
+    public void setPagePlayListener(PagePlayListener pagePlayListener) {
+        this.pagePlayListener = pagePlayListener;
     }
 
-    public interface RepeatsPlayListener {
+    public interface PagePlayListener {
         void onRepeatsTractPlay(SRTract tract);
+
+        void onTractPlayComplete(SRTract tract);
     }
 }

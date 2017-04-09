@@ -163,9 +163,9 @@ public class ZYPicSelect implements View.OnClickListener {
         options.setHideBottomControls(true);
         options.setShowCropGrid(false);
         options.setCompressionQuality(50);
-        options.setStatusBarColor(mContext.getResources().getColor(R.color.c3));
-        options.setToolbarColor(mContext.getResources().getColor(R.color.white));
-        options.setToolbarWidgetColor(mContext.getResources().getColor(R.color.c3));
+        options.setStatusBarColor(mContext.getResources().getColor(R.color.c2));
+        options.setToolbarColor(mContext.getResources().getColor(R.color.c2));
+        options.setToolbarWidgetColor(mContext.getResources().getColor(R.color.white));
         UCrop crop = UCrop.of(uri, Uri.fromFile(new File(PIC_DIR, System.currentTimeMillis() + ".jpg")))
                 .withAspectRatio(maxWidth, maxHeight)
                 .withMaxResultSize((int) maxWidth, (int) maxHeight)

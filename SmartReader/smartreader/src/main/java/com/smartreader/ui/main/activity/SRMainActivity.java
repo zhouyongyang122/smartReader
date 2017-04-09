@@ -90,16 +90,12 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                changeFragment(position);
+
             }
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    showActionBar();
-                } else {
-                    hideActionBar();
-                }
+                changeFragment(position);
             }
 
             @Override
@@ -139,11 +135,15 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             meImg.setSelected(false);
             homeName.setTextColor(getResources().getColor(R.color.white));
             meName.setTextColor(getResources().getColor(R.color.black));
+            showActionBar();
+            setDarkMode(false);
         } else if (mCurrentPage == MAIN_ME_INDEX) {
             homeImg.setSelected(false);
             meImg.setSelected(true);
             homeName.setTextColor(getResources().getColor(R.color.black));
             meName.setTextColor(getResources().getColor(R.color.white));
+            hideActionBar();
+            setDarkMode(true);
         }
         showTitle(fragmentAdapter.getPageTitle(position).toString());
     }

@@ -59,7 +59,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.set.SRSetActivity"
+            android:name=".ui.set.activity.SRSetActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -68,6 +68,22 @@
 
         <activity
             android:name=".base.activity.ZYEditDescActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.set.activity.SRSysMsgActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".base.activity.picturePicker.ZYPicturePickerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".base.activity.pictureView.ZYPictureViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.ZYUpdateService" />

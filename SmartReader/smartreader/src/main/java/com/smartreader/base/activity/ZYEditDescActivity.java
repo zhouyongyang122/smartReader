@@ -127,7 +127,7 @@ public class ZYEditDescActivity extends ZYBaseActivity {
                     textMax.setTextColor(getResources().getColor(R.color.c10));
                     ZYToast.show(ZYEditDescActivity.this, "最多输入" + max + "字");
                 } else {
-                    textMax.setTextColor(getResources().getColor(R.color.c5));
+                    textMax.setTextColor(getResources().getColor(R.color.c6));
                 }
                 textMax.setText(s.length() + "/" + max);
             }

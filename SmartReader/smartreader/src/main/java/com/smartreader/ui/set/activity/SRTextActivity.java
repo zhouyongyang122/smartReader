@@ -1,4 +1,4 @@
-package com.smartreader.ui.set;
+package com.smartreader.ui.set.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

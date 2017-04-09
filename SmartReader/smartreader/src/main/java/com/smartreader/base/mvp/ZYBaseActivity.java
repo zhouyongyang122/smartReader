@@ -124,10 +124,14 @@ public class ZYBaseActivity<P extends ZYIBasePresenter> extends AppCompatActivit
      * @param isDarkMode true 深色，false 浅色
      */
     public void setDarkMode(boolean isDarkMode) {
-        if (isDarkMode) {
-            ZYStatusBarUtils.setStatusBarDarkMode(this);
-        } else {
-            ZYStatusBarUtils.setStatusBarLightMode(this);
+        try {
+            if (isDarkMode) {
+                ZYStatusBarUtils.setStatusBarDarkMode(this);
+            } else {
+                ZYStatusBarUtils.setStatusBarLightMode(this);
+            }
+        } catch (Exception e) {
+
         }
     }
 

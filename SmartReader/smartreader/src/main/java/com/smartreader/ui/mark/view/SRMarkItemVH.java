@@ -144,6 +144,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 }
                 break;
             case R.id.imgPlay:
+                SRPageManager.getInstance().startAudio(mData.getMp3Path(), mData.getAudioStart(), mData.getAudioEnd());
                 break;
             case R.id.imgRecord:
                 XunFeiSDK.getInstance().start(this);

@@ -20,6 +20,19 @@ import okhttp3.ResponseBody;
 
 public class ZYFileUtils {
 
+    public static String getFileName(String urlstr) {
+        if (urlstr == null) {
+            return null;
+        }
+
+        int pos = urlstr.lastIndexOf("/");
+        if (pos == -1) {
+            return null;
+        }
+
+        return urlstr.substring(pos + 1);
+    }
+
     /**
      * 写入文件
      *

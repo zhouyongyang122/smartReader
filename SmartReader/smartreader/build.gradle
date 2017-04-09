@@ -4,6 +4,9 @@ apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 23
     buildToolsVersion "25.0.2"
+
+    useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "com.smartreader"
         minSdkVersion 18

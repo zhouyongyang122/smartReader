@@ -7,6 +7,7 @@ import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRGrade;
 import com.smartreader.ui.main.model.bean.SRVersion;
 import com.smartreader.ui.mark.model.bean.SRMarkResponse;
+import com.smartreader.ui.set.model.bean.SRSysMsg;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,9 @@ public interface ZYRequestApi {
 
     @GET("basic/advert")
     Observable<ZYResponse<List<SRAdert>>> getAdverts(@Query("type") String type);
+
+    @GET("basic/message")
+    Observable<ZYResponse<List<SRSysMsg>>> getSysMsgs();
 
     @GET("book/gradeList")
     Observable<ZYResponse<List<SRGrade>>> getGrades();

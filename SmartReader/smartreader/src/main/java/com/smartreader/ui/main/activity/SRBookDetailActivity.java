@@ -65,7 +65,7 @@ public class SRBookDetailActivity extends ZYBaseFragmentActivity<SRBookDetailFra
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SRPageManager.getInstance().setRepeatsPlayListener(null);
+        SRPageManager.getInstance().setPagePlayListener(null);
         SRPageManager.getInstance().stopAudio();
         XunFeiSDK.getInstance().onDestroy();
     }

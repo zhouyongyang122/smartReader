@@ -30,13 +30,15 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         public final static Property Sex = new Property(3, int.class, "sex", false, "SEX");
         public final static Property School = new Property(4, String.class, "school", false, "SCHOOL");
         public final static Property Refresh_token = new Property(5, String.class, "refresh_token", false, "REFRESH_TOKEN");
-        public final static Property Endtime = new Property(6, int.class, "endtime", false, "ENDTIME");
-        public final static Property Upload_token = new Property(7, String.class, "upload_token", false, "UPLOAD_TOKEN");
-        public final static Property Picture_token = new Property(8, String.class, "picture_token", false, "PICTURE_TOKEN");
-        public final static Property Grade = new Property(9, int.class, "grade", false, "GRADE");
-        public final static Property Auth_token = new Property(10, String.class, "auth_token", false, "AUTH_TOKEN");
-        public final static Property IsLoginUser = new Property(11, boolean.class, "isLoginUser", false, "IS_LOGIN_USER");
-        public final static Property Type = new Property(12, int.class, "type", false, "TYPE");
+        public final static Property Age = new Property(6, int.class, "age", false, "AGE");
+        public final static Property Endtime = new Property(7, int.class, "endtime", false, "ENDTIME");
+        public final static Property Upload_token = new Property(8, String.class, "upload_token", false, "UPLOAD_TOKEN");
+        public final static Property Picture_token = new Property(9, String.class, "picture_token", false, "PICTURE_TOKEN");
+        public final static Property Grade = new Property(10, int.class, "grade", false, "GRADE");
+        public final static Property Auth_token = new Property(11, String.class, "auth_token", false, "AUTH_TOKEN");
+        public final static Property IsLoginUser = new Property(12, boolean.class, "isLoginUser", false, "IS_LOGIN_USER");
+        public final static Property Type = new Property(13, int.class, "type", false, "TYPE");
+        public final static Property Mobile = new Property(14, String.class, "mobile", false, "MOBILE");
     }
 
 
@@ -58,13 +60,15 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
                 "\"SEX\" INTEGER NOT NULL ," + // 3: sex
                 "\"SCHOOL\" TEXT," + // 4: school
                 "\"REFRESH_TOKEN\" TEXT," + // 5: refresh_token
-                "\"ENDTIME\" INTEGER NOT NULL ," + // 6: endtime
-                "\"UPLOAD_TOKEN\" TEXT," + // 7: upload_token
-                "\"PICTURE_TOKEN\" TEXT," + // 8: picture_token
-                "\"GRADE\" INTEGER NOT NULL ," + // 9: grade
-                "\"AUTH_TOKEN\" TEXT," + // 10: auth_token
-                "\"IS_LOGIN_USER\" INTEGER NOT NULL ," + // 11: isLoginUser
-                "\"TYPE\" INTEGER NOT NULL );"); // 12: type
+                "\"AGE\" INTEGER NOT NULL ," + // 6: age
+                "\"ENDTIME\" INTEGER NOT NULL ," + // 7: endtime
+                "\"UPLOAD_TOKEN\" TEXT," + // 8: upload_token
+                "\"PICTURE_TOKEN\" TEXT," + // 9: picture_token
+                "\"GRADE\" INTEGER NOT NULL ," + // 10: grade
+                "\"AUTH_TOKEN\" TEXT," + // 11: auth_token
+                "\"IS_LOGIN_USER\" INTEGER NOT NULL ," + // 12: isLoginUser
+                "\"TYPE\" INTEGER NOT NULL ," + // 13: type
+                "\"MOBILE\" TEXT);"); // 14: mobile
     }
 
     /** Drops the underlying database table. */
@@ -102,25 +106,31 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         if (refresh_token != null) {
             stmt.bindString(6, refresh_token);
         }
-        stmt.bindLong(7, entity.getEndtime());
+        stmt.bindLong(7, entity.getAge());
+        stmt.bindLong(8, entity.getEndtime());
  
         String upload_token = entity.getUpload_token();
         if (upload_token != null) {
-            stmt.bindString(8, upload_token);
+            stmt.bindString(9, upload_token);
         }
  
         String picture_token = entity.getPicture_token();
         if (picture_token != null) {
-            stmt.bindString(9, picture_token);
+            stmt.bindString(10, picture_token);
         }
-        stmt.bindLong(10, entity.getGrade());
+        stmt.bindLong(11, entity.getGrade());
  
         String auth_token = entity.getAuth_token();
         if (auth_token != null) {
-            stmt.bindString(11, auth_token);
+            stmt.bindString(12, auth_token);
         }
-        stmt.bindLong(12, entity.getIsLoginUser() ? 1L: 0L);
-        stmt.bindLong(13, entity.getType());
+        stmt.bindLong(13, entity.getIsLoginUser() ? 1L: 0L);
+        stmt.bindLong(14, entity.getType());
+ 
+        String mobile = entity.getMobile();
+        if (mobile != null) {
+            stmt.bindString(15, mobile);
+        }
     }
 
     @Override
@@ -152,25 +162,31 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         if (refresh_token != null) {
             stmt.bindString(6, refresh_token);
         }
-        stmt.bindLong(7, entity.getEndtime());
+        stmt.bindLong(7, entity.getAge());
+        stmt.bindLong(8, entity.getEndtime());
  
         String upload_token = entity.getUpload_token();
         if (upload_token != null) {
-            stmt.bindString(8, upload_token);
+            stmt.bindString(9, upload_token);
         }
  
         String picture_token = entity.getPicture_token();
         if (picture_token != null) {
-            stmt.bindString(9, picture_token);
+            stmt.bindString(10, picture_token);
         }
-        stmt.bindLong(10, entity.getGrade());
+        stmt.bindLong(11, entity.getGrade());
  
         String auth_token = entity.getAuth_token();
         if (auth_token != null) {
-            stmt.bindString(11, auth_token);
+            stmt.bindString(12, auth_token);
         }
-        stmt.bindLong(12, entity.getIsLoginUser() ? 1L: 0L);
-        stmt.bindLong(13, entity.getType());
+        stmt.bindLong(13, entity.getIsLoginUser() ? 1L: 0L);
+        stmt.bindLong(14, entity.getType());
+ 
+        String mobile = entity.getMobile();
+        if (mobile != null) {
+            stmt.bindString(15, mobile);
+        }
     }
 
     @Override
@@ -187,13 +203,15 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
             cursor.getInt(offset + 3), // sex
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // school
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // refresh_token
-            cursor.getInt(offset + 6), // endtime
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // upload_token
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // picture_token
-            cursor.getInt(offset + 9), // grade
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // auth_token
-            cursor.getShort(offset + 11) != 0, // isLoginUser
-            cursor.getInt(offset + 12) // type
+            cursor.getInt(offset + 6), // age
+            cursor.getInt(offset + 7), // endtime
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // upload_token
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // picture_token
+            cursor.getInt(offset + 10), // grade
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // auth_token
+            cursor.getShort(offset + 12) != 0, // isLoginUser
+            cursor.getInt(offset + 13), // type
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // mobile
         );
         return entity;
     }
@@ -206,13 +224,15 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         entity.setSex(cursor.getInt(offset + 3));
         entity.setSchool(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setRefresh_token(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setEndtime(cursor.getInt(offset + 6));
-        entity.setUpload_token(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setPicture_token(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setGrade(cursor.getInt(offset + 9));
-        entity.setAuth_token(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setIsLoginUser(cursor.getShort(offset + 11) != 0);
-        entity.setType(cursor.getInt(offset + 12));
+        entity.setAge(cursor.getInt(offset + 6));
+        entity.setEndtime(cursor.getInt(offset + 7));
+        entity.setUpload_token(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setPicture_token(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setGrade(cursor.getInt(offset + 10));
+        entity.setAuth_token(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setIsLoginUser(cursor.getShort(offset + 12) != 0);
+        entity.setType(cursor.getInt(offset + 13));
+        entity.setMobile(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     @Override

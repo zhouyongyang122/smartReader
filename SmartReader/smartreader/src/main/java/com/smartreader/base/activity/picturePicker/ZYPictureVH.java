@@ -34,11 +34,10 @@ public class ZYPictureVH extends ZYBaseViewHolder<ZYPicture> {
     @Override
     public void updateView(final ZYPicture data, final int position) {
         if (data != null) {
-            ZYImageLoadHelper.getImageLoader().setColorFilter(ContextCompat.getColor(mContext, R.color.c1))
-                    .loadImage(mContext, mImgPicture, data.path);
+            ZYImageLoadHelper.getImageLoader().loadImage(mContext, mImgPicture, data.path, R.drawable.img_default_pic, R.drawable.img_default_pic);
             mImgCheck.setSelected(data.isSelected);
 
-            setMark(mImgPicture, data.isSelected);
+//            setMark(mImgPicture, data.isSelected);
 
             if (mIsSingle) {
                 mImgCheck.setVisibility(View.GONE);
@@ -70,7 +69,7 @@ public class ZYPictureVH extends ZYBaseViewHolder<ZYPicture> {
                         PorterDuff.Mode.SRC_OVER));
             } else {
                 imageView.setColorFilter(new PorterDuffColorFilter(
-                        ContextCompat.getColor(mContext, R.color.c5),
+                        ContextCompat.getColor(mContext, R.color.c14),
                         PorterDuff.Mode.SRC_OVER));
             }
         }
