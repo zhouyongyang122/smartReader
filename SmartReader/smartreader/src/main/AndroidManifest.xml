@@ -85,6 +85,9 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.set.activity.SRFeedBackActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".service.ZYUpdateService" />
     </application>

@@ -1,6 +1,7 @@
 package com.smartreader.service.net;
 
 import com.smartreader.base.bean.ZYResponse;
+import com.smartreader.base.html5.ZYHtml5UrlBean;
 import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
@@ -35,6 +36,9 @@ public interface ZYRequestApi {
 
     @GET("basic/getVersion")
     Observable<ZYResponse<SRVersion>> getVersion();
+
+    @GET("basic/html5")
+    Observable<ZYResponse<ZYHtml5UrlBean>> getHtml5Urls();
 
     @GET("book/bookList")
     Observable<ZYResponse<List<SRBook>>> getBooks(@Query("grade_id") String grade_id);
@@ -72,4 +76,6 @@ public interface ZYRequestApi {
     @POST("user/refreshToken")
     Observable<ZYResponse<SRUser>> refreshToken(@Body Map<String, String> params);
 
+    @POST("basic/feedback")
+    Observable<ZYResponse> feedBack(@Body Map<String, String> params);
 }

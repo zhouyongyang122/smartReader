@@ -18,6 +18,7 @@ import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.login.activity.SRLoginActivity;
 import com.smartreader.ui.login.model.SRUserManager;
 import com.smartreader.ui.profile.activity.SREditActivity;
+import com.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.smartreader.ui.set.activity.SRSetActivity;
 import com.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.smartreader.ui.web.SRWebViewActivity;
@@ -96,7 +97,7 @@ public class SRMeFragment extends ZYBaseFragment {
                 mActivity.startActivity(SRLoginActivity.createIntent(mActivity));
                 break;
             case R.id.textFeedBack:
-                startActivity(SRWebViewActivity.createIntent(mActivity, "http://www.baidu.com", "用户反馈"));
+                startActivity(new Intent(mActivity,SRFeedBackActivity.class));
                 break;
             case R.id.textSet:
                 mActivity.startActivity(new Intent(mActivity, SRSetActivity.class));

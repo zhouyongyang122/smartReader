@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.smartreader.R;
+import com.smartreader.base.html5.ZYHtml5UrlBean;
+import com.smartreader.base.html5.ZYHtml5UrlRequest;
 import com.smartreader.base.mvp.ZYBaseActivity;
 import com.smartreader.ui.login.activity.SRRegisterActivity;
 import com.smartreader.ui.login.model.SRUserManager;
@@ -43,16 +45,48 @@ public class SRSetActivity extends ZYBaseActivity {
             textBind.setVisibility(View.GONE);
             textExit.setVisibility(View.GONE);
         }
+
+        ZYHtml5UrlRequest.getInstance().getParamas(null);
     }
 
     @OnClick({R.id.textProtocol, R.id.textCopyRight, R.id.textChangePwd, R.id.textBind, R.id.textExit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textProtocol:
-                startActivity(SRWebViewActivity.createIntent(this, "http://www.baidu.com", "使用协议"));
+                ZYHtml5UrlRequest.getInstance().getParamas(new ZYHtml5UrlRequest.Html5UrlRequestListener() {
+                    @Override
+                    public void onHtm5UrlRequestStart() {
+                        showProgress();
+                    }
+
+                    @Override
+                    public void onHtm5UrlResponsed(ZYHtml5UrlBean urlBean, String errorMsg) {
+                        hideProgress();
+                        if (urlBean != null) {
+                            startActivity(SRWebViewActivity.createIntent(SRSetActivity.this, urlBean.use_protocol, "使用协议"));
+                        } else {
+                            showToast(errorMsg);
+                        }
+                    }
+                });
                 break;
             case R.id.textCopyRight:
-                startActivity(SRWebViewActivity.createIntent(this, "http://www.baidu.com", "版权申明"));
+                ZYHtml5UrlRequest.getInstance().getParamas(new ZYHtml5UrlRequest.Html5UrlRequestListener() {
+                    @Override
+                    public void onHtm5UrlRequestStart() {
+                        showProgress();
+                    }
+
+                    @Override
+                    public void onHtm5UrlResponsed(ZYHtml5UrlBean urlBean, String errorMsg) {
+                        hideProgress();
+                        if (urlBean != null) {
+                            startActivity(SRWebViewActivity.createIntent(SRSetActivity.this, urlBean.copyright_url, "版权申明"));
+                        } else {
+                            showToast(errorMsg);
+                        }
+                    }
+                });
                 break;
             case R.id.textChangePwd:
                 startActivity(SRRegisterActivity.createIntent(this, SRRegisterPresenter.FORGET_TYPE));
