@@ -36,6 +36,9 @@ public class SRRegisterActivity extends ZYBaseFragmentActivity<SRRegisterFragmen
             case SRRegisterPresenter.BIND_TYPE:
                 mActionBar.showTitle("绑定手机号码");
                 break;
+            case SRRegisterPresenter.CHANGE_PWD_TYPE:
+                mActionBar.showTitle("修改密码");
+                return;
         }
 
         new SRRegisterPresenter(mFragment, type);

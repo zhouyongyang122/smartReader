@@ -26,6 +26,8 @@ public interface SRRegisterContract {
 
         void register(String mobile, String code, String pwd);
 
+        void changePwd(String oldPwd, String newPwd);
+
         void getCode(String mobile);
     }
 }

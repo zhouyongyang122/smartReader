@@ -1,75 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c2">
+    android:background="@color/c2"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editMobile"
+    <RelativeLayout
+        android:id="@+id/layoutRegister"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editMobile"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/sr_bg_corner6dp_c5_solid"
+            android:gravity="center_vertical"
+            android:hint="输入手机号码"
+            android:inputType="number"
+            android:paddingLeft="15dp"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+
+        <EditText
+            android:id="@+id/editCode"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/editMobile"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="130dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sr_bg_corner6dp_c5_solid"
+            android:gravity="center_vertical"
+            android:hint="输入验证码"
+            android:inputType="number"
+            android:paddingLeft="15dp"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+
+        <TextView
+            android:id="@+id/textCode"
+            android:layout_width="110dp"
+            android:layout_height="55dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/editCode"
+            android:layout_below="@+id/editMobile"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/sr_bg_corner360dp_c7_solid"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f4" />
+
+        <EditText
+            android:id="@+id/editPwd"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/textCode"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sr_bg_corner6dp_c5_solid"
+            android:gravity="center_vertical"
+            android:hint="输入密码(6-10位数字)"
+            android:inputType="number"
+            android:paddingLeft="15dp"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutChangePwd"
+        android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
-        android:gravity="center_vertical"
-        android:hint="输入手机号码"
-        android:inputType="number"
-        android:paddingLeft="15dp"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f3" />
-
-    <EditText
-        android:id="@+id/editCode"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_below="@+id/editMobile"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="130dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
-        android:gravity="center_vertical"
-        android:hint="输入验证码"
-        android:inputType="number"
-        android:paddingLeft="15dp"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f3" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textCode"
-        android:layout_width="110dp"
-        android:layout_height="55dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/editCode"
-        android:layout_below="@+id/editMobile"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/sr_bg_corner360dp_c7_solid"
-        android:gravity="center"
-        android:text="获取验证码"
-        android:textColor="@color/white"
-        android:textSize="@dimen/f4" />
+        <EditText
+            android:id="@+id/editOldPwd"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sr_bg_corner6dp_c5_solid"
+            android:gravity="center_vertical"
+            android:hint="输入旧密码(6-10位数字)"
+            android:inputType="number"
+            android:paddingLeft="15dp"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
 
-    <EditText
-        android:id="@+id/editPwd"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_below="@+id/textCode"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
-        android:gravity="center_vertical"
-        android:hint="输入密码(6-10位数字)"
-        android:inputType="number"
-        android:paddingLeft="15dp"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f3" />
+        <EditText
+            android:id="@+id/editNewPwd"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sr_bg_corner6dp_c5_solid"
+            android:gravity="center_vertical"
+            android:hint="输入新密码(6-10位数字)"
+            android:inputType="number"
+            android:paddingLeft="15dp"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/textRegister"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_below="@+id/editPwd"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
@@ -79,4 +127,4 @@
         android:textColor="@color/white"
         android:textSize="@dimen/f3" />
 
-</RelativeLayout>
+</LinearLayout>

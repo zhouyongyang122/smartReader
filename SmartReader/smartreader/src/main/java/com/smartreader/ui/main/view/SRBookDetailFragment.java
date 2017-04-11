@@ -162,7 +162,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
                 int position = 0;
                 for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
-                    if (catalogue.getCatalogue_id() > 0 && mPresenter.getCurPageId() == catalogue.getCatalogue_id()) {
+                    if (catalogue.getCatalogue_id() > 0 && mPresenter.getCurPageId() == catalogue.getPage() - 1) {
                         menuVH.setDefSelPosition(position);
                     }
                     position++;
@@ -303,7 +303,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     @Override
     public void onItemClick(SRCatalogue catalogue, int position) {
-        mPresenter.setCurPageId(catalogue.getCatalogue_id());
+        mPresenter.setCurPageId(catalogue.getPage() - 1);
         viewPage.setCurrentItem(mPresenter.getCurPageId() - 1);
     }
 

@@ -40,6 +40,7 @@ public class SRFeedBackActivity extends ZYBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sr_activity_feedback);
 
+        mActionBar.showTitle("反馈");
         textMsg.setFilters(new InputFilter[]{new InputFilter.LengthFilter(240)});
 
         textOk.setOnClickListener(new View.OnClickListener() {

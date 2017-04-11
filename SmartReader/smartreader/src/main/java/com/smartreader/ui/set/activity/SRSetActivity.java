@@ -89,7 +89,7 @@ public class SRSetActivity extends ZYBaseActivity {
                 });
                 break;
             case R.id.textChangePwd:
-                startActivity(SRRegisterActivity.createIntent(this, SRRegisterPresenter.FORGET_TYPE));
+                startActivity(SRRegisterActivity.createIntent(this, SRRegisterPresenter.CHANGE_PWD_TYPE));
                 break;
             case R.id.textBind:
                 startActivity(SRRegisterActivity.createIntent(this, SRRegisterPresenter.BIND_TYPE));

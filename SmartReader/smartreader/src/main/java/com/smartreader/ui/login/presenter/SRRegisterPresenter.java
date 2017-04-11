@@ -25,6 +25,9 @@ public class SRRegisterPresenter extends ZYBasePresenter implements SRRegisterCo
     //绑定手机号码
     public static final int BIND_TYPE = 2;
 
+    //修改密码
+    public static final int CHANGE_PWD_TYPE = 3;
+
     SRRegisterContract.IView iView;
 
     SRLoginModel model;
@@ -63,6 +66,26 @@ public class SRRegisterPresenter extends ZYBasePresenter implements SRRegisterCo
                     msg = "手机号绑定成功!";
                 }
                 iView.registerSuccess(msg);
+            }
+
+            @Override
+            public void onFail(String message) {
+                super.onFail(message);
+                iView.showProgress();
+                iView.registerError(message);
+            }
+        }));
+    }
+
+    @Override
+    public void changePwd(String oldPwd, String newPwd) {
+        iView.showProgress();
+        mSubscriptions.add(ZYNetSubscription.subscription(model.changePassword(oldPwd, newPwd), new ZYNetSubscriber<ZYResponse<SRUser>>() {
+            @Override
+            public void onSuccess(ZYResponse<SRUser> response) {
+                super.onSuccess(response);
+                iView.hideProgress();
+                iView.registerSuccess("密码修改成功");
             }
 
             @Override

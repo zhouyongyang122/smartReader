@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartreader.R;
@@ -44,6 +45,18 @@ public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPrese
     @Bind(R.id.textRegister)
     TextView textRegister;
 
+    @Bind(R.id.layoutRegister)
+    RelativeLayout layoutRegister;
+
+    @Bind(R.id.layoutChangePwd)
+    RelativeLayout layoutChangePwd;
+
+    @Bind(R.id.editOldPwd)
+    EditText editOldPwd;
+
+    @Bind(R.id.editNewPwd)
+    EditText editNewPwd;
+
     private Timer timer;
 
     private int maxTime = 30;
@@ -56,12 +69,23 @@ public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPrese
         switch (mPresenter.getType()) {
             case SRRegisterPresenter.REGISTER_TYPE:
                 textRegister.setText("注册账号");
+                layoutChangePwd.setVisibility(View.GONE);
+                layoutRegister.setVisibility(View.VISIBLE);
                 break;
             case SRRegisterPresenter.FORGET_TYPE:
                 textRegister.setText("重置密码");
+                layoutChangePwd.setVisibility(View.GONE);
+                layoutRegister.setVisibility(View.VISIBLE);
                 break;
             case SRRegisterPresenter.BIND_TYPE:
                 textRegister.setText("绑定手机号码");
+                layoutChangePwd.setVisibility(View.GONE);
+                layoutRegister.setVisibility(View.VISIBLE);
+                break;
+            case SRRegisterPresenter.CHANGE_PWD_TYPE:
+                layoutChangePwd.setVisibility(View.VISIBLE);
+                layoutRegister.setVisibility(View.GONE);
+                textRegister.setText("修改密码");
                 break;
         }
 
@@ -85,26 +109,44 @@ public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPrese
             }
             case R.id.textRegister: {
 
-                String code = editCode.getText().toString();
-                if (TextUtils.isEmpty(code)) {
-                    ZYToast.show(mActivity, "验证码不能为空!");
-                    return;
+                if (mPresenter.getType() != SRRegisterPresenter.CHANGE_PWD_TYPE) {
+                    String code = editCode.getText().toString();
+                    if (TextUtils.isEmpty(code)) {
+                        ZYToast.show(mActivity, "验证码不能为空!");
+                        return;
+                    }
+                    String mobile = editMobile.getText().toString();
+                    if (TextUtils.isEmpty(mobile) || mobile.length() != 11 || !ZYStringUtils.checkIsAllDigit(mobile)) {
+                        ZYToast.show(mActivity, "请输入正确的手机号码");
+                        return;
+                    }
+                    String pwd = editPwd.getText().toString().trim();
+                    if (pwd.length() < 6 || pwd.length() > 10) {
+                        ZYToast.show(mActivity, "密码长度必须是6-10位");
+                        return;
+                    }
+                    if (!ZYStringUtils.checkIsAllDigit(pwd)) {
+                        ZYToast.show(mActivity, "密码必须都是数字");
+                        return;
+                    }
+                    mPresenter.register(mobile, code, pwd);
+                } else {
+                    String oldPwd = editOldPwd.getText().toString().trim();
+                    if (TextUtils.isEmpty(oldPwd)) {
+                        ZYToast.show(mActivity, "旧密码不能为空");
+                        return;
+                    }
+                    String newPwd = editNewPwd.getText().toString().trim();
+                    if (newPwd.length() < 6 || newPwd.length() > 10) {
+                        ZYToast.show(mActivity, "密码长度必须是6-10位");
+                        return;
+                    }
+                    if (!ZYStringUtils.checkIsAllDigit(newPwd)) {
+                        ZYToast.show(mActivity, "密码必须都是数字");
+                        return;
+                    }
+                    mPresenter.changePwd(oldPwd, newPwd);
                 }
-                String mobile = editMobile.getText().toString();
-                if (TextUtils.isEmpty(mobile) || mobile.length() != 11 || !ZYStringUtils.checkIsAllDigit(mobile)) {
-                    ZYToast.show(mActivity, "请输入正确的手机号码");
-                    return;
-                }
-                String pwd = editPwd.getText().toString().trim();
-                if (pwd.length() < 6 || pwd.length() > 10) {
-                    ZYToast.show(mActivity, "密码长度必须是6-10位");
-                    return;
-                }
-                if (!ZYStringUtils.checkIsAllDigit(pwd)) {
-                    ZYToast.show(mActivity, "密码必须都是数字");
-                    return;
-                }
-                mPresenter.register(mobile, code, pwd);
                 break;
             }
         }
