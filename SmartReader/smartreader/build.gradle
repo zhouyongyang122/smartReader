@@ -15,8 +15,20 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("keystore")
+            storePassword "smartreader888999"
+            keyAlias "key0"
+            keyPassword "smartreader888999"
+            v2SigningEnabled false
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -24,6 +36,7 @@ android {
             buildConfigField "boolean", "DEBUG_SDK", "false"
         }
         debug {
+            signingConfig signingConfigs.release
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

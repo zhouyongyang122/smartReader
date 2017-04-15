@@ -11,8 +11,8 @@ public class SRThridLoginParamas {
 
     //1 qq登录 2 微博登录 3 微信登陆
 
-    public static final int TYPE_SINA = 1;
-    public static final int TYPE_TENCENT = 2;
+    public static final int TYPE_TENCENT = 1;
+    public static final int TYPE_SINA = 2;
     public static final int TYPE_WECHAT = 3;
 
     String token;
