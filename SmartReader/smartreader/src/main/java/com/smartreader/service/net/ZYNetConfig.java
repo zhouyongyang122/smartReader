@@ -33,8 +33,12 @@ public class ZYNetConfig {
 
     public HashMap<String, String> getDefParams() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SRUserManager.getInstance().getUser().uid == null ? "" : SRUserManager.getInstance().getUser().uid);
-        params.put("auth_token", SRUserManager.getInstance().getUser().auth_token == null ? "" : SRUserManager.getInstance().getUser().auth_token);
+        if(SRUserManager.getInstance().getUser().uid != null){
+            params.put("uid", SRUserManager.getInstance().getUser().uid);
+        }
+        if(SRUserManager.getInstance().getUser().auth_token != null){
+            params.put("auth_token", SRUserManager.getInstance().getUser().auth_token);
+        }
         return params;
     }
 

@@ -107,7 +107,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/qq" />
+                    android:src="@drawable/btn_share_qq" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/weixin" />
+                    android:src="@drawable/btn_share_wechat" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,7 +153,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/sina" />
+                    android:src="@drawable/btn_share_weibo" />
 
                 <TextView
                     android:layout_width="wrap_content"

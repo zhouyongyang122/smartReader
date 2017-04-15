@@ -14,4 +14,19 @@
     <string name="picker_select_max">你最多只能选择%d张图片</string>
     <string name="picture_preview">图片预览</string>
     <string name="picture_preview_index">图片预览(%1$d/%2$d)</string>
+
+    <!-- WXEntryActivity -->
+    <string name="text_errcode_success">发送成功</string>
+    <string name="text_errcode_cancel">发送取消</string>
+    <string name="text_errcode_deny">发送被拒绝</string>
+    <string name="text_errcode_unknown">发送返回</string>
+    <string name="text_errcode_fail">发送返回</string>
+
+    <string name="text_wechat">微信</string>
+    <string name="text_friends_circle">朋友圈</string>
+    <string name="text_sina_weibo">新浪微博</string>
+    <string name="text_qzone">QQ空间</string>
+    <string name="text_qq">QQ</string>
+
+    <string name="toast_no_wechat">尚未安装微信，无法分享</string>
 </resources>

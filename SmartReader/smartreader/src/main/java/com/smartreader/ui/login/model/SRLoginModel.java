@@ -32,16 +32,7 @@ public class SRLoginModel extends ZYBaseModel {
         return mApi.login(params);
     }
 
-    public Observable<ZYResponse<SRUser>> thirdLogin(String token, String auth_url, int type, String nickname, String avatar, int sex, String signature) {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("token", token);
-        params.put("auth_url", auth_url);
-        params.put("type", type + "");
-        //type 1 qq登录 2 微博登录 3 微信登陆
-        params.put("nickname", nickname);
-        params.put("avatar", avatar);
-        params.put("sex", sex + "");
-        params.put("signature", signature);
+    public Observable<ZYResponse<SRUser>> thirdLogin(Map<String, String> params) {
         return mApi.thirdLogin(params);
     }
 

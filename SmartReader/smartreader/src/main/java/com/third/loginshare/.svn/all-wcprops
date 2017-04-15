@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/appcode/!svn/ver/3410/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare
+END
+TencentHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/appcode/!svn/ver/2755/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/TencentHelper.java
+END
+Md5EncodeUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/Md5EncodeUtil.java
+END
+ShareAndAuthorProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/ShareAndAuthorProvider.java
+END
+ShareUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/appcode/!svn/ver/2682/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/ShareUtils.java
+END
+AuthorProxy.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/AuthorProxy.java
+END
+ShareProxy.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/ShareProxy.java
+END
+WeiboHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/appcode/!svn/ver/3410/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/WeiboHelper.java
+END
+WeiboShareActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/WeiboShareActivity.java
+END
+ThirdPartyBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/appcode/!svn/ver/2755/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/ThirdPartyBase.java
+END
+WXEntryBaseActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/WXEntryBaseActivity.java
+END
+GetWeChatUserInfoTask.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/GetWeChatUserInfoTask.java
+END
+WechatHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/appcode/!svn/ver/3166/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/WechatHelper.java
+END
+GetWeChatAuthInfoTask.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/GetWeChatAuthInfoTask.java
+END

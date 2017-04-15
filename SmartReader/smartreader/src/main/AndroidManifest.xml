@@ -89,6 +89,53 @@
             android:name=".ui.set.activity.SRFeedBackActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Translucent" />
+
+        <!-- begin： 第三方登录，分享添加 -->
+        <!-- qq begin -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1106093376" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- qq end -->
+
+
+        <!-- weibo auth begin -->
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <!-- weibo auth end -->
+
+
+        <!-- wechat begin -->
+        <activity
+            android:name="com.third.loginshare.WXEntryBaseActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Translucent"></activity>
+        <!-- wechat end -->
+        <!-- end： 第三方登录，分享添加 -->
+
         <service android:name=".service.ZYUpdateService" />
     </application>
 

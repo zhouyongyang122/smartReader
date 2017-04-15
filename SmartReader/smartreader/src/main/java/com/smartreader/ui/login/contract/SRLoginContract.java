@@ -3,6 +3,8 @@ package com.smartreader.ui.login.contract;
 import com.smartreader.base.mvp.ZYIBasePresenter;
 import com.smartreader.base.mvp.ZYIBaseView;
 
+import java.util.Map;
+
 /**
  * Created by ZY on 17/4/4.
  */
@@ -15,5 +17,6 @@ public interface SRLoginContract {
 
     interface IPresenter extends ZYIBasePresenter {
         void login(String mobile, String pwd);
+        void loginByThrid(Map<String,String> paramas);
     }
 }

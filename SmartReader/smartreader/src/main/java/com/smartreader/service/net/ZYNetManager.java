@@ -1,5 +1,7 @@
 package com.smartreader.service.net;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.smartreader.ZYPreferenceHelper;
@@ -140,7 +142,7 @@ public class ZYNetManager {
                             while (keys.hasNext()) {
                                 String key = keys.next();
                                 String value = jsonObject.optString(key);
-                                if (value != null && !value.isEmpty()) {
+                                if (!TextUtils.isEmpty(value)) {
                                     params.put(key, value);
                                 }
                             }
@@ -152,7 +154,9 @@ public class ZYNetManager {
                                 for (int i = 0; i < size; i++) {
                                     String key = formBody.name(i);
                                     String value = formBody.value(i);
-                                    params.put(key, value);
+                                    if (!TextUtils.isEmpty(value)) {
+                                        params.put(key, value);
+                                    }
                                 }
                             }
                         }

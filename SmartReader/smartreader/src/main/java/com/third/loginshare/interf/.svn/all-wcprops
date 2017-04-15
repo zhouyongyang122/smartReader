@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/interf
+END
+IAuthCallBack.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/interf/IAuthCallBack.java
+END
+IShareCallBack.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/interf/IShareCallBack.java
+END
+IAuthor.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/interf/IAuthor.java
+END
+IShare.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/appcode/!svn/ver/1/andriod_code/Component/Trunk/ThridLoginShareLib/src/com/third/loginshare/interf/IShare.java
+END
