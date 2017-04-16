@@ -26,6 +26,10 @@ import com.smartreader.ui.profile.model.bean.SRUserParams;
 import com.smartreader.utils.ZYToast;
 import com.smartreader.utils.ZYUtils;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -110,7 +114,10 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
                     mPresenter.editUser(userParams.getParamas());
                     return;
                 }
-                ZYUtils.uploadFile(mActivity, userParams.avatar, SRUserManager.getInstance().getUser().picture_token, new CallBack() {
+                String key = getTime() + File.separator + System.currentTimeMillis()
+                        + SRUserManager.getInstance().getUser().uid + ".jpg";
+
+                ZYUtils.uploadFile(mActivity, key, userParams.avatar, SRUserManager.getInstance().getUser().picture_token, new CallBack() {
                     @Override
                     public void onProcess(long current, long total) {
 
@@ -206,5 +213,10 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
     public void onPicSelected(Uri uri) {
         userParams.avatar = uri.getPath();
         ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, userParams.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
+    }
+
+    private String getTime() {
+        Date date = new Date();
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }

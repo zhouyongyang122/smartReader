@@ -5,9 +5,11 @@ import com.smartreader.base.mvp.ZYBaseModel;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRVersion;
+import com.smartreader.ui.mark.model.bean.SRMarkResponse;
 
 import java.util.List;
 
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -26,5 +28,9 @@ public class SRMainModel extends ZYBaseModel {
 
     public Observable<ZYResponse<SRVersion>> getVersion() {
         return mApi.getVersion();
+    }
+
+    public Observable<ZYResponse<SRMarkResponse>> bookAddReport(String bookIds) {
+        return mApi.bookAddReport(bookIds);
     }
 }

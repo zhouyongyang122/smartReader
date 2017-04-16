@@ -47,6 +47,8 @@ public class SRTract implements ZYIBaseBean {
 
     private SRMarkBean markBean;
 
+    public String audioQiNiuKey;
+
     public int getTrack_id() {
         return track_id;
     }

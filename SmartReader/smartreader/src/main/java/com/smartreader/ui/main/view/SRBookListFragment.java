@@ -16,6 +16,7 @@ import com.smartreader.base.event.SREventSelectedBook;
 import com.smartreader.base.mvp.ZYListDateFragment;
 import com.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.smartreader.ui.login.model.SRUserManager;
 import com.smartreader.ui.main.contract.SRBookListContract;
 import com.smartreader.ui.main.model.SRAddBookManager;
 import com.smartreader.ui.main.model.bean.SRBook;
@@ -55,10 +56,14 @@ public class SRBookListFragment extends ZYListDateFragment<SRBookListContract.IP
         textAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SRUserManager.getInstance().isGuesterUser(true)) {
+                    return;
+                }
                 if (SRAddBookManager.getInstance().getAddBooksSize() <= 0) {
                     ZYToast.show(mActivity, "还没有选择书籍!");
                 } else {
                     EventBus.getDefault().post(new SREventSelectedBook());
+                    mPresenter.reportAddBookts();
                     finish();
                 }
             }

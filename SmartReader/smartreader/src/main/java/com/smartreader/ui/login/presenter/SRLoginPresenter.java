@@ -49,7 +49,6 @@ public class SRLoginPresenter extends ZYBasePresenter implements SRLoginContract
                     if (user.grade <= 0) {
                         user.grade = 1;
                     }
-                    user.update();
                     SRUserManager.getInstance().setUser(user);
                     EventBus.getDefault().post(new SREventLogin());
                     iView.loginSuccess("登录成功");

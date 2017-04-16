@@ -1,25 +1,40 @@
 package com.smartreader.ui.mark.view;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.qiniu.rs.CallBack;
+import com.qiniu.rs.CallRet;
+import com.qiniu.rs.UploadCallRet;
+import com.smartreader.R;
 import com.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.smartreader.base.mvp.ZYBaseRecyclerFragment;
 import com.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.smartreader.thirdParty.translate.TranslateRequest;
 import com.smartreader.thirdParty.translate.YouDaoBean;
+import com.smartreader.ui.login.model.SRUserManager;
 import com.smartreader.ui.main.model.bean.SRTract;
 import com.smartreader.ui.mark.contract.SRMarkContract;
+import com.smartreader.ui.mark.model.bean.SRMarkBean;
+import com.smartreader.utils.SRShareUtils;
 import com.smartreader.utils.ZYLog;
 import com.smartreader.utils.ZYToast;
+import com.smartreader.utils.ZYUtils;
+import com.third.loginshare.entity.ShareEntity;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,6 +72,77 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
         mRefreshRecyclerView.showList(false);
 
         return view;
+    }
+
+    @Override
+    public void uploadAudioSuc(SRMarkBean markBean) {
+        share(markBean);
+    }
+
+    @Override
+    public void audioUpload(final SRTract tract) {
+        SRMarkBean markBean = tract.getMarkBean(mPresenter.getMarkId(tract.getTrack_id() + ""));
+        if (markBean.share_url != null) {
+            //已经上传成功,直接显示分享
+            share(markBean);
+        } else if (tract.audioQiNiuKey != null) {
+            //音频已经上传成功,上传信息到服务器
+            mPresenter.uploadTractAudio(tract);
+        } else {
+            //先上传音频到七牛
+            File file = new File(markBean.audioPath);
+            if (!file.exists()) {
+                ZYToast.show(mActivity, "音频文件丢失,请重新录音!");
+            } else {
+                showProgress();
+
+                String key = getTime() + File.separator + System.currentTimeMillis()
+                        + SRUserManager.getInstance().getUser().uid + ".wav";
+
+                ZYUtils.uploadFile(mActivity, key, markBean.audioPath, SRUserManager.getInstance().getUser().upload_token, new CallBack() {
+                    @Override
+                    public void onProcess(long current, long total) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(UploadCallRet ret) {
+                        if (ret != null) {
+                            try {
+                                String picKey = ret.getKey();
+                                ZYLog.e(SRMarkFragment.class.getSimpleName(), "uploadAudio-key: " + picKey);
+                                tract.audioQiNiuKey = picKey;
+                                mPresenter.uploadTractAudio(tract);
+                            } catch (Exception e) {
+                                hideProgress();
+                                ZYToast.show(mActivity, e.getMessage() + "");
+                            }
+                        } else {
+                            hideProgress();
+                            ZYToast.show(mActivity, "上传失败,请重新录音,再重试");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(CallRet ret) {
+                        hideProgress();
+                        ZYToast.show(mActivity, "上传失败: " + ret.getStatusCode());
+                    }
+                });
+            }
+        }
+    }
+
+    private void share(SRMarkBean markBean) {
+        ShareEntity shareEntity = new ShareEntity();
+        shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
+        if (TextUtils.isEmpty(shareEntity.avatarUrl)) {
+            shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.def_avatar);
+        }
+        shareEntity.webUrl = markBean.share_url;
+        shareEntity.title = "快来听听我的录音吧";
+        shareEntity.text = "快来听听我的录音吧";
+        new SRShareUtils(mActivity, shareEntity).share();
     }
 
     @Override
@@ -131,5 +217,10 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
     @Override
     public void onMarkError(String msg) {
         ZYToast.show(mActivity, msg);
+    }
+
+    private String getTime() {
+        Date date = new Date();
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }

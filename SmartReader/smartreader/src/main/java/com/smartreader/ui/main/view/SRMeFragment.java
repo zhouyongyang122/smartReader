@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartreader.R;
+import com.smartreader.base.event.SREventEditSuc;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.smartreader.ui.login.model.bean.SRUser;
@@ -24,6 +25,9 @@ import com.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.smartreader.ui.web.SRWebViewActivity;
 import com.smartreader.utils.ZYScreenUtils;
 import com.smartreader.utils.ZYToast;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -81,6 +85,8 @@ public class SRMeFragment extends ZYBaseFragment {
         float scale = 375.0f / 238.0f;
         layoutBgParams.height = (int) ((float) ZYScreenUtils.getScreenWidth(mActivity) / scale);
 
+        refreshUserInfo();
+
         return view;
     }
 
@@ -97,7 +103,7 @@ public class SRMeFragment extends ZYBaseFragment {
                 mActivity.startActivity(SRLoginActivity.createIntent(mActivity));
                 break;
             case R.id.textFeedBack:
-                startActivity(new Intent(mActivity,SRFeedBackActivity.class));
+                startActivity(new Intent(mActivity, SRFeedBackActivity.class));
                 break;
             case R.id.textSet:
                 mActivity.startActivity(new Intent(mActivity, SRSetActivity.class));
@@ -111,7 +117,7 @@ public class SRMeFragment extends ZYBaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        refreshUserInfo();
+//        refreshUserInfo();
     }
 
     private void refreshUserInfo() {
@@ -126,5 +132,10 @@ public class SRMeFragment extends ZYBaseFragment {
             textName.setText(user.getNickname());
             textGrade.setText(user.getGrade() + "年级");
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventEditSuc(SREventEditSuc eventEditSuc) {
+        refreshUserInfo();
     }
 }

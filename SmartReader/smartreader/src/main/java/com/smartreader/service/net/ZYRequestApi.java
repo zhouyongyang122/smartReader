@@ -46,6 +46,10 @@ public interface ZYRequestApi {
     @POST("show/trackAdd")
     Observable<ZYResponse<SRMarkResponse>> trackAdd(@Body Map<String, String> params);
 
+    //bookIds 书本id,多个逗号隔开
+    @POST("book/download")
+    Observable<ZYResponse<SRMarkResponse>> bookAddReport(@Query("book") String bookIds);
+
     @POST("user/login")
     Observable<ZYResponse<SRUser>> login(@Body Map<String, String> params);
 

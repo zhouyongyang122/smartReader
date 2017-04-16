@@ -6,10 +6,12 @@ import com.smartreader.base.mvp.ZYListDataPresenter;
 import com.smartreader.service.net.ZYNetSubscriber;
 import com.smartreader.service.net.ZYNetSubscription;
 import com.smartreader.ui.main.contract.SRBookListContract;
+import com.smartreader.ui.main.model.SRAddBookManager;
 import com.smartreader.ui.main.model.SRMainModel;
 import com.smartreader.ui.main.model.bean.SRBook;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ZY on 17/3/31.
@@ -37,5 +39,20 @@ public class SRBookListPresenter extends ZYListDataPresenter<SRBookListContract.
                 fail(message);
             }
         }));
+    }
+
+    @Override
+    public void reportAddBookts() {
+        List<SRBook> books = SRAddBookManager.getInstance().getAddBooks();
+        StringBuffer buffer = new StringBuffer();
+        for (SRBook book : books) {
+            buffer.append(book.book_id + ",");
+        }
+        if (buffer.length() > 0) {
+            String bookIds = buffer.toString();
+            bookIds = bookIds.substring(0, bookIds.length() - 1);
+            mSubscriptions.add(ZYNetSubscription.subscription(mModel.bookAddReport(bookIds), new ZYNetSubscriber() {
+            }));
+        }
     }
 }

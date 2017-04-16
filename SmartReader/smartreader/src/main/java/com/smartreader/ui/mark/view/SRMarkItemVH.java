@@ -125,6 +125,8 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                     imgShare.setVisibility(View.GONE);
                     layoutProgressBar.setVisibility(View.GONE);
                 }
+
+                SRPageManager.getInstance().startAudio(mData.getMp3Path(), mData.getAudioStart(), mData.getAudioEnd());
             } else {
                 textDef.setVisibility(View.VISIBLE);
                 layoutMark.setVisibility(View.GONE);
@@ -151,6 +153,9 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 startRecord();
                 break;
             case R.id.imgShare:
+                if(listener != null){
+                    listener.audioUpload(mData);
+                }
                 break;
             case R.id.textScore:
                 SRPageManager.getInstance().startAudio(markBean.audioPath);
@@ -340,6 +345,8 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
         void onMarkEnd();
 
         void onMarkError(String msg);
+
+        void audioUpload(SRTract tract);
     }
 
 }

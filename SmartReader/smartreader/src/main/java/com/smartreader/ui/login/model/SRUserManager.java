@@ -59,6 +59,8 @@ public class SRUserManager {
     public void setUser(SRUser user) {
         if (user != null) {
             this.user = user;
+            this.user.isLoginUser = true;
+            this.user.update();
         }
     }
 
