@@ -65,10 +65,11 @@ public class SRUserManager {
     }
 
     public boolean isGuesterUser(boolean needIntentToLogin) {
-        if (needIntentToLogin) {
+        boolean isGuester = TextUtils.isEmpty(user.uid);
+        if (needIntentToLogin && isGuester) {
             //跳到登录
             SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
         }
-        return TextUtils.isEmpty(user.uid);
+        return isGuester;
     }
 }

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.smartreader.R;
+import com.smartreader.base.event.SREventEditSuc;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.thirdParty.qq.TencentManager;
 import com.smartreader.thirdParty.sina.SinaManager;
@@ -26,6 +27,7 @@ import com.smartreader.utils.ZYStringUtils;
 import com.smartreader.utils.ZYToast;
 import com.smartreader.utils.ZYUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -223,6 +225,7 @@ public class SRLoginFragment extends ZYBaseFragment<SRLoginContract.IPresenter> 
 
     @Override
     public void loginSuccess(String msg) {
+//        EventBus.getDefault().post(new SREventEditSuc());
         finish();
     }
 

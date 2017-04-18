@@ -56,9 +56,6 @@ public class SRBookListFragment extends ZYListDateFragment<SRBookListContract.IP
         textAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (SRUserManager.getInstance().isGuesterUser(true)) {
-                    return;
-                }
                 if (SRAddBookManager.getInstance().getAddBooksSize() <= 0) {
                     ZYToast.show(mActivity, "还没有选择书籍!");
                 } else {
@@ -94,6 +91,11 @@ public class SRBookListFragment extends ZYListDateFragment<SRBookListContract.IP
 
     @Override
     public void onBookItemSelect(SRBook book, boolean isSelected) {
+
+        if (SRUserManager.getInstance().isGuesterUser(true)) {
+            return;
+        }
+
         if (isSelected) {
             SRAddBookManager.getInstance().addBook(book);
         } else {

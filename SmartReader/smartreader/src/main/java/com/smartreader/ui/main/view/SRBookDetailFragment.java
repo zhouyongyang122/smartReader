@@ -333,7 +333,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     @Override
     public void onTractSpeedChange(int speed) {
-
+        int speed_ = speed - 50;
     }
 
     public boolean onBackPressed() {

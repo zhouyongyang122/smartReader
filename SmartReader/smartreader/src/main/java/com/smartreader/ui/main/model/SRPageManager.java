@@ -1,6 +1,5 @@
 package com.smartreader.ui.main.model;
 
-import android.media.SoundPool;
 import android.os.Handler;
 import android.os.Message;
 

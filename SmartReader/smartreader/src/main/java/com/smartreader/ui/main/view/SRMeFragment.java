@@ -117,7 +117,7 @@ public class SRMeFragment extends ZYBaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        refreshUserInfo();
+        refreshUserInfo();
     }
 
     private void refreshUserInfo() {
@@ -136,6 +136,6 @@ public class SRMeFragment extends ZYBaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventEditSuc(SREventEditSuc eventEditSuc) {
-        refreshUserInfo();
+//        refreshUserInfo();
     }
 }
