@@ -102,14 +102,20 @@ public class ZYDownloadManager {
         if (entity == null) {
             return;
         }
-        entity.setState(ZYDownState.STOP);
-        entity.getListener().onStop();
-        if (downSubscribers.containsKey(entity.getUrl())) {
-            ZYDownloadSubscriber subscriber = downSubscribers.get(entity.getUrl());
-            subscriber.unsubscribe();
-            removeEntity(entity);
+        try {
+            entity.setState(ZYDownState.STOP);
+            if (downSubscribers.containsKey(entity.getUrl())) {
+                ZYDownloadSubscriber subscriber = downSubscribers.get(entity.getUrl());
+                subscriber.unsubscribe();
+                removeEntity(entity);
+            }
+            entity.update();
+            if (entity.getListener() != null) {
+                entity.getListener().onStop();
+            }
+        } catch (Exception e) {
+            ZYLog.e(getClass().getSimpleName(), "stopDown:" + e.getMessage());
         }
-        entity.update();
     }
 
     public void pauseDown(ZYIDownBase entity) {

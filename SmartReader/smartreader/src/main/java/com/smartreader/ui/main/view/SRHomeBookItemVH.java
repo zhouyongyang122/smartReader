@@ -38,6 +38,9 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
     @Bind(R.id.progressView)
     ZYCircleProgressView progressView;
 
+    @Bind(R.id.progressBgView)
+    View progressBgView;
+
     @Bind(R.id.textStatus)
     TextView textStatus;
 
@@ -72,6 +75,10 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
         layoutParams.height = (int) height;
 
         imgBg.setLayoutParams(layoutParams);
+
+        layoutParams = (RelativeLayout.LayoutParams) progressBgView.getLayoutParams();
+        layoutParams.height = (int) height;
+        progressBgView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -82,6 +89,7 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
 
             if (mData.isDeleteStatus && mData.isCanDelete) {
                 imgDel.setVisibility(View.VISIBLE);
+                mItemView.setVisibility(View.VISIBLE);
             } else {
                 imgDel.setVisibility(View.GONE);
 
@@ -99,7 +107,7 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                         if (mData.isCanDelete) {
                             listener.onHomeBookItemDel(mData, position);
                             return;
-                        }else {
+                        } else {
                             ZYToast.show(mContext, "默认课程不可删除");
                             return;
                         }
@@ -114,6 +122,7 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                 imgAdd.setVisibility(View.VISIBLE);
                 textStatus.setVisibility(View.GONE);
                 progressView.setVisibility(View.GONE);
+                progressBgView.setVisibility(View.GONE);
             } else {
                 imgAdd.setVisibility(View.GONE);
                 ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
@@ -121,10 +130,12 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                     data.setListener(null);
                     textStatus.setVisibility(View.GONE);
                     progressView.setVisibility(View.GONE);
+                    progressBgView.setVisibility(View.GONE);
                 } else {
                     data.setListener(downloadScriberListener);
                     textStatus.setVisibility(View.VISIBLE);
                     progressView.setVisibility(View.VISIBLE);
+                    progressBgView.setVisibility(View.VISIBLE);
                     float progress = (float) data.getCurrent() * 100.0f / (float) data.getTotal();
                     progressView.setProgress((int) progress);
                     textStatus.setText(mData.getStateString());
@@ -177,9 +188,15 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
         }
 
         @Override
-        public void onComplete(SRBook book) {
+        public void onComplete(final SRBook book) {
             ZYLog.e(getClass().getSimpleName(), "onComplete");
-            unZip(book);
+
+            textStatus.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    unZip(book);
+                }
+            }, 800);
         }
 
         @Override
@@ -219,6 +236,7 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
                 book.update();
                 textStatus.setVisibility(View.GONE);
                 progressView.setVisibility(View.GONE);
+                progressBgView.setVisibility(View.GONE);
             }
 
             @Override

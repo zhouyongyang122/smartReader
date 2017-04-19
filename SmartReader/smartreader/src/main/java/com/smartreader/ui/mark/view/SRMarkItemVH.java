@@ -54,6 +54,9 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     @Bind(R.id.imgRecord)
     ImageView imgRecord;
 
+    @Bind(R.id.layoutScore)
+    RelativeLayout layoutScore;
+
     @Bind(R.id.textScore)
     TextView textScore;
 
@@ -105,23 +108,23 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
 
                 if (markBean.score > 0) {
                     if (data.isRecording) {
-                        textScore.setVisibility(View.GONE);
+                        layoutScore.setVisibility(View.GONE);
                         if (markBean.score >= 60) {
-                            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
+                            layoutScore.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
                         } else {
-                            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
+                            layoutScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
                         }
                         textScore.setText(markBean.score + "");
                         imgShare.setVisibility(View.GONE);
                         layoutProgressBar.setVisibility(View.VISIBLE);
                     } else {
-                        textScore.setVisibility(View.VISIBLE);
+                        layoutScore.setVisibility(View.VISIBLE);
                         imgShare.setVisibility(View.VISIBLE);
                         layoutProgressBar.setVisibility(View.GONE);
                     }
 
                 } else {
-                    textScore.setVisibility(View.GONE);
+                    layoutScore.setVisibility(View.GONE);
                     imgShare.setVisibility(View.GONE);
                     layoutProgressBar.setVisibility(View.GONE);
                 }
@@ -135,7 +138,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
         }
     }
 
-    @OnClick({R.id.textDef, R.id.imgPlay, R.id.imgRecord, R.id.imgShare, R.id.textScore})
+    @OnClick({R.id.textDef, R.id.imgPlay, R.id.imgRecord, R.id.imgShare, R.id.layoutScore})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textDef:
@@ -153,11 +156,11 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 startRecord();
                 break;
             case R.id.imgShare:
-                if(listener != null){
+                if (listener != null) {
                     listener.audioUpload(mData);
                 }
                 break;
-            case R.id.textScore:
+            case R.id.layoutScore:
                 SRPageManager.getInstance().startAudio(markBean.audioPath);
                 break;
         }
@@ -166,7 +169,8 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     private void startRecord() {
         layoutProgressBar.setVisibility(View.VISIBLE);
         progressBar.setProgress(0);
-        textScore.setVisibility(View.GONE);
+        textProgress.setText("0s");
+        layoutScore.setVisibility(View.GONE);
         mData.isRecording = true;
         imgShare.setVisibility(View.GONE);
     }
@@ -194,8 +198,23 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     }
 
     @Override
-    public void xfRecordProgress(long current, long total) {
-        progressBar.setProgress((int) (current * 100 / total));
+    public void xfRecordProgress(final long current, final long total) {
+
+        textProgress.post(new Runnable() {
+            @Override
+            public void run() {
+                float progress = (float) current / (float) total;
+                if (progress >= 1) {
+                    progress = 1.0f;
+                }
+                float totalTime = mData.getTractTime();
+
+                String value = String.format("%.2fs", progress * totalTime);
+                textProgress.setText(value);
+
+                progressBar.setProgress((int) (current * 100 / total));
+            }
+        });
     }
 
     @Override
@@ -215,15 +234,15 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
         if (listener != null) {
             listener.onMarkEnd();
         }
-        textScore.setVisibility(View.VISIBLE);
+        layoutScore.setVisibility(View.VISIBLE);
         imgShare.setVisibility(View.VISIBLE);
         layoutProgressBar.setVisibility(View.GONE);
         markBean.score = score;
 
         if (markBean.score >= 60) {
-            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
+            layoutScore.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
         } else {
-            textScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
+            layoutScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
         }
         textScore.setText(score + "");
         ZYLog.e(getClass().getSimpleName(), "copy-audio: " + ZYFileUtils.copy(markBean.audioPath, XunFeiSDK.XUN_FEI_RECORDE_PATH));
@@ -235,7 +254,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
         if (listener != null) {
             listener.onMarkError(error);
         }
-        textScore.setVisibility(View.VISIBLE);
+        layoutScore.setVisibility(View.VISIBLE);
         imgShare.setVisibility(View.VISIBLE);
         layoutProgressBar.setVisibility(View.GONE);
         ZYLog.e(getClass().getSimpleName(), "copy-audio: " + ZYFileUtils.copy(markBean.audioPath, XunFeiSDK.XUN_FEI_RECORDE_PATH));

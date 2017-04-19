@@ -90,7 +90,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                             HashMap<String, String> params = new HashMap<String, String>();
                                             params.put("access_token", response.access_token);
                                             params.put("openid", response.openid);
-                                            WeChatManager.getInstance().setAuth_url(SRAppConstants.WECHAT_GET_USER_INFO + "&access_token=" + response.access_token + "&openid=" + response.openid);
+                                            WeChatManager.getInstance().setAuth_url(SRAppConstants.WECHAT_GET_USER_INFO + "?access_token=" + response.access_token + "&openid=" + response.openid);
                                             ZYOkHttpNetManager.getInstance().requestPost(WeChatUserInfo.class, SRAppConstants.WECHAT_GET_USER_INFO, params,
                                                     new ZYOkHttpNetManager.OkHttpNetListener<WeChatUserInfo>() {
                                                         @Override

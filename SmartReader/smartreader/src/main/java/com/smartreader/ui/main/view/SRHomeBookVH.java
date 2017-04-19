@@ -12,6 +12,7 @@ import com.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.smartreader.service.downNet.down.ZYDownloadManager;
 import com.smartreader.ui.main.model.bean.SRBook;
+import com.smartreader.utils.ZYFileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,9 +67,12 @@ public class SRHomeBookVH extends ZYBaseViewHolder<List<SRBook>> {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
                                                 books.remove(book);
-                                                ZYDownloadManager.getInstance().stopDown(book);
-                                                book.delete();
+                                                ZYFileUtils.delete(book.savePath);
                                                 mAdapter.notifyDataSetChanged();
+                                                if(!book.isFinished()) {
+                                                    ZYDownloadManager.getInstance().stopDown(book);
+                                                }
+                                                book.delete();
                                             }
                                         })
                                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
