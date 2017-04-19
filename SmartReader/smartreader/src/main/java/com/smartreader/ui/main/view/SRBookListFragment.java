@@ -42,6 +42,8 @@ public class SRBookListFragment extends ZYListDateFragment<SRBookListContract.IP
 
         ((ZYSwipeRefreshRecyclerView) mRefreshRecyclerView).setPadding(ZYScreenUtils.dp2px(mActivity, 15), 0, ZYScreenUtils.dp2px(mActivity, 15), ZYScreenUtils.dp2px(mActivity, 50));
 
+        mRefreshRecyclerView.setLoadMoreEnable(false);
+
         textAdd = new TextView(mActivity);
         textAdd.setGravity(Gravity.CENTER);
         textAdd.setTextColor(ZYResourceUtils.getColor(R.color.white));
@@ -85,7 +87,7 @@ public class SRBookListFragment extends ZYListDateFragment<SRBookListContract.IP
 
     @Override
     public void showList(boolean isHasMore) {
-        super.showList(isHasMore);
+        super.showList(false);
         textAdd.setVisibility(View.VISIBLE);
     }
 

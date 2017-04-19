@@ -24,6 +24,7 @@ public class SRBookListPresenter extends ZYListDataPresenter<SRBookListContract.
     public SRBookListPresenter(SRBookListContract.IView view, SRMainModel model, String gradeId) {
         super(view, model);
         this.gradeId = gradeId;
+        mRows = 40;
     }
 
     @Override

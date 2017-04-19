@@ -49,7 +49,7 @@
     </style>
 
     <style name="splashTheme" parent="fullScreenTheme">
-        <item name="android:windowBackground">@color/c1</item>
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
     <style name="DialogAnimation">

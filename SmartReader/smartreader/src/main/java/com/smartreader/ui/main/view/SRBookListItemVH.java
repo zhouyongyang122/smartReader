@@ -61,7 +61,7 @@ public class SRBookListItemVH extends ZYBaseViewHolder<SRBook> {
     public void updateView(SRBook data, int position) {
         if (data != null) {
             mData = data;
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic());
+            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
             textTitle.setText(data.getName() + ":");
             check(mData.isCheck);
             cardView.setOnClickListener(new View.OnClickListener() {

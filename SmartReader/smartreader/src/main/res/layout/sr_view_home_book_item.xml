@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@color/c5" />
+                android:src="@drawable/default_textbook" />
 
             <com.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/progressView"

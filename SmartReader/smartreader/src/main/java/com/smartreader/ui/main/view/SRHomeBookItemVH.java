@@ -110,13 +110,13 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
             if (data.getBook_id_int() < 0) {
                 //添加按钮
                 data.setListener(null);
-                imgBg.setImageResource(R.color.c5);
+                imgBg.setImageResource(R.drawable.default_textbook);
                 imgAdd.setVisibility(View.VISIBLE);
                 textStatus.setVisibility(View.GONE);
                 progressView.setVisibility(View.GONE);
             } else {
                 imgAdd.setVisibility(View.GONE);
-                ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.color.c5, R.color.c5);
+                ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
                 if (data.isFinished()) {
                     data.setListener(null);
                     textStatus.setVisibility(View.GONE);

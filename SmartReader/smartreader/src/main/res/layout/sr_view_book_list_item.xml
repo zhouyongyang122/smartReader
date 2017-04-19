@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@color/c5" />
+                android:src="@drawable/default_textbook" />
 
             <ImageView
                 android:id="@+id/imgCheck"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartReader</string>
+    <string name="app_name">英语趣点读</string>
 
     <string name="default_loading_error">加载出错,请重试尝试</string>
 
