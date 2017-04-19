@@ -124,7 +124,9 @@ public class SRLoginFragment extends ZYBaseFragment<SRLoginContract.IPresenter> 
                     }
 
                     //微信没有安装
-                    if (!WeChatManager.getInstance().sendWeChatAuthRequest()) {
+                    if (WeChatManager.getInstance().sendWeChatAuthRequest()) {
+                        showProgress();
+                    } else {
                         thirdLoginComplete = true;
                         ZYToast.show(mActivity, "没有安装微信App");
                     }
@@ -149,17 +151,20 @@ public class SRLoginFragment extends ZYBaseFragment<SRLoginContract.IPresenter> 
                         return;
                     }
 
+                    showProgress();
                     TencentManager.getInstance().login(mActivity, new TencentManager.TencentLoginListener() {
                         @Override
                         public void onCancel(String msg) {
                             thirdLoginComplete = true;
                             ZYToast.show(mActivity, msg);
+                            hideProgress();
                         }
 
                         @Override
                         public void onError(String msg) {
                             thirdLoginComplete = true;
                             ZYToast.show(mActivity, msg);
+                            hideProgress();
                         }
 
                         @Override
@@ -249,6 +254,7 @@ public class SRLoginFragment extends ZYBaseFragment<SRLoginContract.IPresenter> 
         } else {
             //失败
             thirdLoginComplete = true;
+            hideProgress();
         }
     }
 }

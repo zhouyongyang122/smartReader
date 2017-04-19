@@ -1,5 +1,6 @@
 package com.smartreader.wxapi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import java.util.HashMap;
  * Created by ZY on 17/4/13.
  */
 
-public class WXEntryActivity extends ZYBaseActivity implements IWXAPIEventHandler {
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private IWXAPI mIWXAPI;
 
