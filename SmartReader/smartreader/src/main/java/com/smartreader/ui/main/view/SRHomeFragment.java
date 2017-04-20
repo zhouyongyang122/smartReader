@@ -20,6 +20,8 @@ import com.smartreader.ui.main.model.SRAddBookManager;
 import com.smartreader.ui.main.model.SRBookFileManager;
 import com.smartreader.ui.main.model.bean.SRAdert;
 import com.smartreader.ui.main.model.bean.SRBook;
+import com.smartreader.ui.main.view.viewhodler.SRHomeBannerVH;
+import com.smartreader.ui.main.view.viewhodler.SRHomeBookVH;
 import com.smartreader.ui.web.SRWebViewActivity;
 import com.smartreader.utils.ZYLog;
 

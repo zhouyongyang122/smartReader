@@ -1,10 +1,9 @@
-package com.smartreader.ui.main.view;
+package com.smartreader.ui.main.view.viewhodler;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.smartreader.R;
 import com.smartreader.base.adapter.ZYBaseRecyclerAdapter;

@@ -20,6 +20,7 @@ import com.smartreader.ui.login.model.SRUserManager;
 import com.smartreader.ui.main.contract.SRBookListContract;
 import com.smartreader.ui.main.model.SRAddBookManager;
 import com.smartreader.ui.main.model.bean.SRBook;
+import com.smartreader.ui.main.view.viewhodler.SRBookListItemVH;
 import com.smartreader.utils.ZYLog;
 import com.smartreader.utils.ZYResourceUtils;
 import com.smartreader.utils.ZYScreenUtils;

@@ -1,4 +1,4 @@
-package com.smartreader.ui.main.view;
+package com.smartreader.ui.main.view.viewhodler;
 
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -44,9 +44,6 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
     @Bind(R.id.textStatus)
     TextView textStatus;
 
-    @Bind(R.id.imgAdd)
-    ImageView imgAdd;
-
     @Bind(R.id.cardView)
     CardView cardView;
 
@@ -68,7 +65,7 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imgBg.getLayoutParams();
         float scale = 105.0f / 155.0f;
         float width = ZYScreenUtils.getScreenWidth(SRApplication.getInstance()) - ZYScreenUtils.dp2px(SRApplication.getInstance(), 15 + 15);
-        width = width - ZYScreenUtils.dp2px(SRApplication.getInstance(), 14 + 14);
+        width = width - ZYScreenUtils.dp2px(SRApplication.getInstance(), 15 + 15);
         width = width / 3.0f;
         float height = width / scale;
 
@@ -87,91 +84,77 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
             ZYLog.e(getClass().getSimpleName(), "updateView: " + position);
             mData = data;
 
-            if (mData.isDeleteStatus && mData.isCanDelete) {
+            if (mData.isDeleteStatus) {
                 imgDel.setVisibility(View.VISIBLE);
-                mItemView.setVisibility(View.VISIBLE);
             } else {
                 imgDel.setVisibility(View.GONE);
+            }
 
-                if (mData.isDeleteStatus && mData.getBook_id_int() < 0) {
-                    mItemView.setVisibility(View.INVISIBLE);
-                } else {
-                    mItemView.setVisibility(View.VISIBLE);
-                }
+            if (position % 3 == 0) {
+                mItemView.setPadding(0, 0, ZYScreenUtils.dp2px(mContext, 7), ZYScreenUtils.dp2px(mContext, 11));
+            } else if (position % 3 == 1) {
+                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 4), 0, ZYScreenUtils.dp2px(mContext, 4), ZYScreenUtils.dp2px(mContext, 11));
+            } else {
+                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 7), 0, 0, ZYScreenUtils.dp2px(mContext, 11));
             }
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (mData.isDeleteStatus) {
-                        if (mData.isCanDelete) {
-                            listener.onHomeBookItemDel(mData, position);
-                            return;
-                        } else {
-                            ZYToast.show(mContext, "默认课程不可删除");
-                            return;
-                        }
+                        listener.onHomeBookItemDel(mData, position);
+                        return;
                     }
                     listener.onHomeBookItemClick(mData, position);
                 }
             });
-            if (data.getBook_id_int() < 0) {
-                //添加按钮
+
+            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
+            if (data.isFinished()) {
                 data.setListener(null);
-                imgBg.setImageResource(R.drawable.default_textbook);
-                imgAdd.setVisibility(View.VISIBLE);
                 textStatus.setVisibility(View.GONE);
                 progressView.setVisibility(View.GONE);
                 progressBgView.setVisibility(View.GONE);
             } else {
-                imgAdd.setVisibility(View.GONE);
-                ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
-                if (data.isFinished()) {
-                    data.setListener(null);
-                    textStatus.setVisibility(View.GONE);
-                    progressView.setVisibility(View.GONE);
-                    progressBgView.setVisibility(View.GONE);
-                } else {
-                    data.setListener(downloadScriberListener);
-                    textStatus.setVisibility(View.VISIBLE);
-                    progressView.setVisibility(View.VISIBLE);
-                    progressBgView.setVisibility(View.VISIBLE);
-                    float progress = (float) data.getCurrent() * 100.0f / (float) data.getTotal();
-                    progressView.setProgress((int) progress);
-                    textStatus.setText(mData.getStateString());
-                    if (data.getState().getState() != ZYDownState.PAUSE.getState()) {
-                        ZYDownloadManager.getInstance().startDown(data);
-                    }
-
-                    textStatus.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            if (mData.isDeleteStatus) {
-                                return;
-                            }
-
-                            if (mData.getState().getState() == ZYDownState.UNZIP.getState()) {
-                                ZYToast.show(mContext, "解压中,请稍等!");
-                                return;
-                            }
-
-                            if (mData.getState().getState() == ZYDownState.UNZIPERROR.getState()) {
-                                unZip(mData);
-                                return;
-                            }
-
-                            if (mData.getState().getState() != ZYDownState.PAUSE.getState()) {
-                                ZYDownloadManager.getInstance().pauseDown(mData);
-                                textStatus.setText(mData.getStateString());
-                            } else {
-                                mData.setState(ZYDownState.WAIT);
-                                textStatus.setText(mData.getStateString());
-                                ZYDownloadManager.getInstance().startDown(mData);
-                            }
-                        }
-                    });
+                data.setListener(downloadScriberListener);
+                textStatus.setVisibility(View.VISIBLE);
+                progressView.setVisibility(View.VISIBLE);
+                progressBgView.setVisibility(View.VISIBLE);
+                float progress = (float) data.getCurrent() * 100.0f / (float) data.getTotal();
+                progressView.setProgress((int) progress);
+                textStatus.setText(mData.getStateString());
+                if (data.getState().getState() != ZYDownState.PAUSE.getState()) {
+                    ZYDownloadManager.getInstance().startDown(data);
                 }
+
+                textStatus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (mData.isDeleteStatus) {
+                            return;
+                        }
+
+                        if (mData.getState().getState() == ZYDownState.UNZIP.getState()) {
+                            ZYToast.show(mContext, "解压中,请稍等!");
+                            return;
+                        }
+
+                        if (mData.getState().getState() == ZYDownState.UNZIPERROR.getState()) {
+                            unZip(mData);
+                            return;
+                        }
+
+                        if (mData.getState().getState() != ZYDownState.PAUSE.getState()) {
+                            ZYDownloadManager.getInstance().pauseDown(mData);
+                            textStatus.setText(mData.getStateString());
+                        } else {
+                            mData.setState(ZYDownState.WAIT);
+                            textStatus.setText(mData.getStateString());
+                            ZYDownloadManager.getInstance().startDown(mData);
+                        }
+                    }
+                });
             }
         }
     }
@@ -201,7 +184,6 @@ public class SRHomeBookItemVH extends ZYBaseViewHolder<SRBook> {
 
         @Override
         public void updateProgress(long current, long total) {
-//            ZYLog.e(getClass().getSimpleName(), "updateProgress:" + current);
             float progress = (float) current * 100.0f / (float) total;
             textStatus.setText("下载中" + (int) progress + "%");
             progressView.setProgress((int) progress);

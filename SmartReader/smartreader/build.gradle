@@ -39,7 +39,7 @@ android {
             signingConfig signingConfigs.release
             debuggable true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
             buildConfigField "String", "API_URL", "\"http://120.27.236.36:8081\""
             buildConfigField "boolean", "DEBUG_SDK", "true"
         }

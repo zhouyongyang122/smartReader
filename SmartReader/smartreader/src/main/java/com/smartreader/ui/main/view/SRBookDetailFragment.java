@@ -19,13 +19,14 @@ import com.smartreader.R;
 import com.smartreader.ZYPreferenceHelper;
 import com.smartreader.base.mvp.ZYBaseFragment;
 import com.smartreader.base.view.ZYRoudCornerRelativeLayout;
-import com.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.smartreader.ui.main.contract.SRBookDetailContract;
 import com.smartreader.ui.main.model.SRPageManager;
 import com.smartreader.ui.main.model.bean.SRBook;
 import com.smartreader.ui.main.model.bean.SRCatalogue;
 import com.smartreader.ui.main.model.bean.SRPage;
 import com.smartreader.ui.main.model.bean.SRTract;
+import com.smartreader.ui.main.view.viewhodler.SRBookDetailMenuVH;
+import com.smartreader.ui.main.view.viewhodler.SRBookDetailSetVH;
 import com.smartreader.ui.mark.activity.SRMarkActivity;
 import com.smartreader.ui.mark.model.bean.SRMarkBean;
 import com.smartreader.utils.ZYResourceUtils;
@@ -140,6 +141,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
             @Override
             public void onPageSelected(int position) {
                 mPresenter.setCurPageId(position + 1);
+                refreshScore();
             }
 
             @Override
@@ -244,8 +246,8 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
         mPresenter.onSelecteTrack(tract);
 
-        SRMarkBean markBean = SRMarkBean.queryById(SRMarkBean.getMarkId(mPresenter.getBookData().book_id, tract.getPage_id() + "", tract.getTrack_id() + ""));
-        refreshScore(markBean == null ? 0 : markBean.score);
+//        SRMarkBean markBean = SRMarkBean.queryById(SRMarkBean.getMarkId(mPresenter.getBookData().book_id, tract.getPage_id() + "", tract.getTrack_id() + ""));
+//        refreshScore(markBean == null ? 0 : markBean.score);
     }
 
     private void refreshScore(int score) {
@@ -385,6 +387,34 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
         super.onResume();
         if (mPresenter.isRepeats()) {
             mPresenter.continueRepeats();
+        }
+        viewPage.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshScore();
+            }
+        }, 500);
+
+    }
+
+    private void refreshScore() {
+        try {
+            int score = 0;
+            SRPage page = mPresenter.getBookData().page.get(mPresenter.getCurPageId() - 1);
+            SRMarkBean markBean = null;
+            for (SRTract tract : page.getTrack()) {
+                markBean = SRMarkBean.queryById(SRMarkBean.getMarkId(mPresenter.getBookData().book_id, tract.getPage_id() + "", tract.getTrack_id() + ""));
+                if (markBean.score <= 0) {
+                    refreshScore(0);
+                    break;
+                } else {
+                    score += markBean.score;
+                }
+            }
+
+            refreshScore(score / page.getTrack().size());
+        } catch (Exception e) {
+            refreshScore(0);
         }
     }
 }

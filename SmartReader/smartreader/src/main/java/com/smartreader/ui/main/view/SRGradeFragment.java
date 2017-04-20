@@ -14,6 +14,7 @@ import com.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.smartreader.ui.main.activity.SRBookListActivity;
 import com.smartreader.ui.main.contract.SRGradeContract;
 import com.smartreader.ui.main.model.bean.SRGrade;
+import com.smartreader.ui.main.view.viewhodler.SRGradeItemVH;
 import com.smartreader.utils.ZYResourceUtils;
 import com.smartreader.utils.ZYScreenUtils;
 

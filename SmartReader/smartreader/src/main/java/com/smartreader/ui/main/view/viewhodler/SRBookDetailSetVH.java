@@ -1,4 +1,4 @@
-package com.smartreader.ui.main.view;
+package com.smartreader.ui.main.view.viewhodler;
 
 import android.view.LayoutInflater;
 import android.view.View;
