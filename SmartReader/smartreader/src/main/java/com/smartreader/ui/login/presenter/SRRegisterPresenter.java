@@ -70,8 +70,8 @@ public class SRRegisterPresenter extends ZYBasePresenter implements SRRegisterCo
 
             @Override
             public void onFail(String message) {
+                iView.hideProgress();
                 super.onFail(message);
-                iView.showProgress();
                 iView.registerError(message);
             }
         }));

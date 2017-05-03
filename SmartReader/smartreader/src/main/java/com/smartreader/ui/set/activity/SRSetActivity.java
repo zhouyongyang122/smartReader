@@ -13,6 +13,7 @@ import com.smartreader.base.html5.ZYHtml5UrlRequest;
 import com.smartreader.base.mvp.ZYBaseActivity;
 import com.smartreader.ui.login.activity.SRRegisterActivity;
 import com.smartreader.ui.login.model.SRUserManager;
+import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.login.presenter.SRRegisterPresenter;
 import com.smartreader.ui.login.view.SRRegisterFragment;
 import com.smartreader.ui.web.SRWebViewActivity;
@@ -45,6 +46,8 @@ public class SRSetActivity extends ZYBaseActivity {
             textBind.setVisibility(View.GONE);
             textExit.setVisibility(View.GONE);
         }
+
+        mActionBar.showTitle("设置");
 
         ZYHtml5UrlRequest.getInstance().getParamas(null);
     }
@@ -109,6 +112,20 @@ public class SRSetActivity extends ZYBaseActivity {
                     }
                 }).create().show();
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SRUser user = SRUserManager.getInstance().getUser();
+        if (user.type <= 1) {
+            textChangePwd.setVisibility(View.VISIBLE);
+            textBind.setVisibility(View.GONE);
+        } else {
+            textChangePwd.setVisibility(View.GONE);
+            textBind.setVisibility(View.VISIBLE);
         }
     }
 }

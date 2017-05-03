@@ -12,20 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="4dp"
         android:text="人教版:"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/f5" />
+        android:textSize="@dimen/f7" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="8dp"
@@ -40,7 +37,7 @@
             <ImageView
                 android:id="@+id/imgBg"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_textbook" />
 

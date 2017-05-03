@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.bugtags.library.plugin'
 
 android {
     compileSdkVersion 23
@@ -14,6 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi'
+        }
     }
 
     signingConfigs {
@@ -32,7 +36,7 @@ android {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
-            buildConfigField "String", "API_URL", "\"http://120.27.236.36:8081\""
+            buildConfigField "String", "API_URL", "\"http://api.qudiandu.com\""
             buildConfigField "boolean", "DEBUG_SDK", "false"
         }
         debug {
@@ -56,6 +60,17 @@ greendao {
     schemaVersion 1
     daoPackage 'com.smartreader.service.db.entity'
     targetGenDir 'src/main/java'
+}
+
+//Bugtags 插件配置
+bugtags {
+    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
+    appKey "4ce5faa31620a5fe2a5e0d32886ff7eb"  //这里是你的 appKey
+    appSecret "2ee389e32e04c40c7dd4b0dfbd412fcd"    //这里是你的 appSecret，管理员在设置页可以查看
+    mappingUploadEnabled true
+
+    //网络跟踪功能配置(企业版)
+    trackingNetworkEnabled true
 }
 
 def releaseTime() {
@@ -89,6 +104,7 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.yalantis:ucrop:2.2.0'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
+    compile 'com.bugtags.library:bugtags-lib:latest.integration'
     compile files('libs/Msc.jar')
     compile files('libs/libammsdk.jar')
     compile files('libs/open_sdk_r4346_lite.jar')

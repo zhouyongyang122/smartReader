@@ -20,11 +20,12 @@ public class SRSysMsgPresenter extends ZYListDataPresenter<SRSysMsgContract.IVie
 
     public SRSysMsgPresenter(SRSysMsgContract.IView view, SRSetModel model) {
         super(view, model);
+        mRows = 100;
     }
 
     @Override
     protected void loadData() {
-        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getSysMsgs(), new ZYNetSubscriber<ZYResponse<List<SRSysMsg>>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getSysMsgs(mStart, mRows), new ZYNetSubscriber<ZYResponse<List<SRSysMsg>>>() {
             @Override
             public void onSuccess(ZYResponse<List<SRSysMsg>> response) {
 //               super.onSuccess(response);

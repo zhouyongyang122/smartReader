@@ -41,6 +41,11 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
         this.iView.setPresenter(this);
         this.page = page;
         this.bookId = bookId;
+
+        for (SRTract tract : this.page.getTrack()) {
+            tract.isRecordType = true;
+            break;
+        }
     }
 
     public void uploadTractAudio(SRTract tract) {

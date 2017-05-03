@@ -42,7 +42,7 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
 
     private SRBook bookData;
 
-    private int curPageId = 1;
+//    private int curPageId = 1;
 
     private boolean needShowSentenceBg = true;
 
@@ -78,6 +78,12 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
                     SRBookJson bookJson = gson.fromJson(reader, SRBookJson.class);
 
                     SRBook book = bookJson.book;
+
+                    SRBook dbBook = SRBook.queryById(book.book_id);
+                    if (dbBook != null) {
+                        book.lastPageIndex = dbBook.lastPageIndex;
+                    }
+
                     //设置tract的音频路径
                     for (SRPage page : book.getPage()) {
                         for (SRTract tract : page.getTrack()) {
@@ -177,7 +183,7 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
         SRPageManager.getInstance().pauseAudio();
     }
 
-    public void continueRepeats(){
+    public void continueRepeats() {
         SRPageManager.getInstance().continueStartRepeats();
     }
 
@@ -196,13 +202,13 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
         return localRootDirPath;
     }
 
-    public int getCurPageId() {
-        return curPageId;
-    }
-
-    public void setCurPageId(int curPageId) {
-        this.curPageId = curPageId;
-    }
+//    public int getCurPageId() {
+//        return curPageId;
+//    }
+//
+//    public void setCurPageId(int curPageId) {
+//        this.curPageId = curPageId;
+//    }
 
     public boolean isRepeats() {
         return isRepeats;

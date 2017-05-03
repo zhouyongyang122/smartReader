@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.smartreader.R;
 import com.smartreader.base.event.SREventEditSuc;
 import com.smartreader.base.mvp.ZYBaseFragment;
+import com.smartreader.base.view.ZYClearEditView;
 import com.smartreader.thirdParty.qq.TencentManager;
 import com.smartreader.thirdParty.sina.SinaManager;
 import com.smartreader.thirdParty.weChat.EventWeChatAuthor;
@@ -42,10 +43,10 @@ import butterknife.OnClick;
 public class SRLoginFragment extends ZYBaseFragment<SRLoginContract.IPresenter> implements SRLoginContract.IView {
 
     @Bind(R.id.editMobile)
-    EditText editMobile;
+    ZYClearEditView editMobile;
 
     @Bind(R.id.editPwd)
-    EditText editPwd;
+    ZYClearEditView editPwd;
 
     @Bind(R.id.textLogin)
     TextView textLogin;

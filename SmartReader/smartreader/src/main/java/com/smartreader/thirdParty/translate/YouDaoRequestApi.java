@@ -12,13 +12,15 @@ public interface YouDaoRequestApi {
 
     public static final String DOCTYPE = "json";
 
-    public static final String KEY = "1830858689uH34fHDMkT";
+    public static final String KEY = "1105196212";
 //@Query("key") String key
 
     public static final String TYPE = "data";
 
-    public static final String VERSION = "2.0";
+    public static final String VERSION = "1.1";
 
-    @GET("/paidapi/fanyiapi")
-    Observable<YouDaoBean> getWordDetail(@Query("doctype") String doctype, @Query("key") String key, @Query("type") String type, @Query("version") String version, @Query("q") String word);
+    public static final String KEYFROM = "yingyuqudiandu";
+
+    @GET("/openapi.do")
+    Observable<YouDaoBean> getWordDetail(@Query("keyfrom") String keyfrom, @Query("doctype") String doctype, @Query("key") String key, @Query("type") String type, @Query("version") String version, @Query("q") String word);
 }

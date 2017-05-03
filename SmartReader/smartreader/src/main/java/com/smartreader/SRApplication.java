@@ -6,8 +6,11 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.bugtags.library.Bugtags;
+import com.bugtags.library.BugtagsOptions;
 import com.smartreader.service.db.ZYDBManager;
 import com.smartreader.thirdParty.xunfei.XunFeiSDK;
+import com.smartreader.ui.SRAppConstants;
 import com.smartreader.utils.ZYLog;
 import com.smartreader.thirdParty.statistics.DataStatistics;
 import com.smartreader.utils.ZYUncaughtExceptionHandler;
@@ -68,6 +71,9 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
         crashHandler.setListener(this);
 
         XunFeiSDK.getInstance();
+
+        //在这里初始化
+        initBugTags();
     }
 
     private void initFileDir() {
@@ -89,6 +95,17 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
         file = new File(CACHE_ROOT_DIR);
         if (!file.exists()) {
             file.mkdirs();
+        }
+    }
+
+    public void initBugTags() {
+        if (BuildConfig.DEBUG) {
+            BugtagsOptions options = new BugtagsOptions.Builder()
+                    .trackingLocation(true)
+                    .trackingCrashLog(true).build();
+            Bugtags.start(SRAppConstants.BUGTAGS_KEY, this, Bugtags.BTGInvocationEventShake, options);
+        } else {
+            Bugtags.start(SRAppConstants.BUGTAGS_KEY, this, Bugtags.BTGInvocationEventNone);
         }
     }
 

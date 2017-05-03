@@ -68,9 +68,9 @@ public class SRShareUtils {
                             case R.id.friends:
                                 type = ShareProxy.SHARE_TYPE_WECHAT_FRIEND;
                                 break;
-                            case R.id.weibo:
-                                type = ShareProxy.SHARE_TYPE_WEIBO;
-                                break;
+//                            case R.id.weibo:
+//                                type = ShareProxy.SHARE_TYPE_WEIBO;
+//                                break;
                             default:
                                 break;
                         }

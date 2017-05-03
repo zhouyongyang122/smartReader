@@ -54,6 +54,8 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
 
     public int stateValue;
 
+    public int lastPageIndex;
+
     @Transient
     public ZYDownloadService downloadService;
     /*回调监听*/
@@ -70,10 +72,10 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
     public boolean isDeleteStatus;
 
 
-    @Generated(hash = 1421607534)
+    @Generated(hash = 943368)
     public SRBook(String book_id, String name, String grade_id, String pic, String grade, String zip,
-                  String update_time, String savePath, long total, long current, int connectonTime,
-                  int stateValue) {
+            String update_time, String savePath, long total, long current, int connectonTime,
+            int stateValue, int lastPageIndex) {
         this.book_id = book_id;
         this.name = name;
         this.grade_id = grade_id;
@@ -86,6 +88,7 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
         this.current = current;
         this.connectonTime = connectonTime;
         this.stateValue = stateValue;
+        this.lastPageIndex = lastPageIndex;
     }
 
     @Generated(hash = 888537386)
@@ -356,5 +359,13 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
                 ", connectonTime=" + connectonTime +
                 ", stateValue=" + stateValue +
                 '}';
+    }
+
+    public int getLastPageIndex() {
+        return this.lastPageIndex;
+    }
+
+    public void setLastPageIndex(int lastPageIndex) {
+        this.lastPageIndex = lastPageIndex;
     }
 }

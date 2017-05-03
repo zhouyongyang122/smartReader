@@ -48,7 +48,7 @@ public class SRBookListItemVH extends ZYBaseViewHolder<SRBook> {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imgBg.getLayoutParams();
         float scale = 105.0f / 155.0f;
         float width = ZYScreenUtils.getScreenWidth(SRApplication.getInstance()) - ZYScreenUtils.dp2px(SRApplication.getInstance(), 15 + 15);
-        width = width - ZYScreenUtils.dp2px(SRApplication.getInstance(), 14 + 14);
+        width = width - ZYScreenUtils.dp2px(SRApplication.getInstance(), 11 + 11);
         width = width / 3.0f;
         float height = width / scale;
 
@@ -61,7 +61,16 @@ public class SRBookListItemVH extends ZYBaseViewHolder<SRBook> {
     public void updateView(SRBook data, int position) {
         if (data != null) {
             mData = data;
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
+
+            if (position % 3 == 0) {
+                mItemView.setPadding(0, 0, ZYScreenUtils.dp2px(mContext, 7), 0);
+            } else if (position % 3 == 1) {
+                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 4), 0, ZYScreenUtils.dp2px(mContext, 4), 0);
+            } else {
+                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 7), 0, 0, 0);
+            }
+
+            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.color.c5, R.color.c5);
             textTitle.setText(data.getName() + ":");
             check(mData.isCheck);
             cardView.setOnClickListener(new View.OnClickListener() {

@@ -32,6 +32,11 @@ public class SRSysMsgFragment extends ZYListDateFragment<SRSysMsgContract.IPrese
     }
 
     @Override
+    public void showList(boolean isHasMore) {
+        super.showList(false);
+    }
+
+    @Override
     protected ZYBaseViewHolder<SRSysMsg> createViewHolder() {
         return new SRSysMsgVH();
     }

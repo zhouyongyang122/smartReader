@@ -41,7 +41,8 @@ public class TranslateRequest {
         mSubscriptions.add(ZYNetSubscription.subscription(
                 getYouDaoReuqestApi()
                         .getWordDetail(
-                                YouDaoRequestApi.DOCTYPE
+                                YouDaoRequestApi.KEYFROM
+                                ,YouDaoRequestApi.DOCTYPE
                                 , YouDaoRequestApi.KEY
                                 , YouDaoRequestApi.TYPE
                                 , YouDaoRequestApi.VERSION

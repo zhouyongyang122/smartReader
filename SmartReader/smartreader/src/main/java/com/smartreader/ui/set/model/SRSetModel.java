@@ -14,7 +14,7 @@ import rx.Observable;
 
 public class SRSetModel extends ZYBaseModel {
 
-    public Observable<ZYResponse<List<SRSysMsg>>> getSysMsgs() {
-        return mApi.getSysMsgs();
+    public Observable<ZYResponse<List<SRSysMsg>>> getSysMsgs(int start,int rows) {
+        return mApi.getSysMsgs(start,rows);
     }
 }

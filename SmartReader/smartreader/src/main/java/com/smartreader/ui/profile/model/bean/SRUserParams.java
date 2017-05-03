@@ -40,7 +40,7 @@ public class SRUserParams {
     }
 
     public String checkParams() {
-        if (TextUtils.isEmpty(avatar) || avatar.startsWith("http")) {
+        if (TextUtils.isEmpty(avatar)) {
             return "头像不能为空!";
         }
         if (TextUtils.isEmpty(nickname)) {

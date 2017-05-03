@@ -151,7 +151,7 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
     }
 
     private void seletctGrade() {
-        String[] grades = new String[]{"1年级", "2年级", "3年级", "4年级", "5年级", "6年级", "7年级", "8年级", "9年级", "10年级", "11年级", "11年级"};
+        String[] grades = new String[]{"1年级", "2年级", "3年级", "4年级", "5年级", "6年级"};
         ZYWheelSelectDialog wheelSelectDialog = new ZYWheelSelectDialog(mActivity, grades, new ZYWheelSelectDialog.WheelSelectListener() {
             @Override
             public void onWheelSelected(ZYWheelSelectDialog dialog, int position, String value) {

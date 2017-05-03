@@ -21,6 +21,9 @@ public class SRAppConstants {
 
 
     //腾讯
-    public static final String TENCENT_APP_ID = "1106093376";
+    public static final String TENCENT_APP_ID = "1106118502";
+
+    //bugtags
+    public static final String BUGTAGS_KEY = "4ce5faa31620a5fe2a5e0d32886ff7eb";
 }
 

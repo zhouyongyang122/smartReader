@@ -1,8 +1,10 @@
 package com.smartreader.ui.main.view;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +20,16 @@ import com.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.smartreader.ui.login.model.bean.SRUser;
 import com.smartreader.ui.login.activity.SRLoginActivity;
 import com.smartreader.ui.login.model.SRUserManager;
+import com.smartreader.ui.mark.model.bean.SRMarkBean;
 import com.smartreader.ui.profile.activity.SREditActivity;
 import com.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.smartreader.ui.set.activity.SRSetActivity;
 import com.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.smartreader.ui.web.SRWebViewActivity;
+import com.smartreader.utils.SRShareUtils;
 import com.smartreader.utils.ZYScreenUtils;
 import com.smartreader.utils.ZYToast;
+import com.third.loginshare.entity.ShareEntity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -109,7 +114,7 @@ public class SRMeFragment extends ZYBaseFragment {
                 mActivity.startActivity(new Intent(mActivity, SRSetActivity.class));
                 break;
             case R.id.textShare:
-                ZYToast.show(mActivity, "分享？分享什么?");
+                share();
                 break;
         }
     }
@@ -137,5 +142,17 @@ public class SRMeFragment extends ZYBaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventEditSuc(SREventEditSuc eventEditSuc) {
 //        refreshUserInfo();
+    }
+
+    private void share() {
+        ShareEntity shareEntity = new ShareEntity();
+//        shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
+//        if (TextUtils.isEmpty(shareEntity.avatarUrl)) {
+        shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+//        }
+        shareEntity.webUrl = "http://www.baidu.com";
+        shareEntity.title = "英语趣点读";
+        shareEntity.text = "快来下载英语趣点读,跟我一起学英语吧!";
+        new SRShareUtils(mActivity, shareEntity).share();
     }
 }

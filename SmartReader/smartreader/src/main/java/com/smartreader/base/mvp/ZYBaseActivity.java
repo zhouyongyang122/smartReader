@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.bugtags.library.Bugtags;
 import com.smartreader.R;
 import com.smartreader.SRApplication;
 import com.smartreader.utils.ZYStatusBarUtils;
@@ -77,6 +79,7 @@ public class ZYBaseActivity<P extends ZYIBasePresenter> extends AppCompatActivit
     public void onResume() {
         super.onResume();
         ZYLog.e(getClass().getSimpleName(), "onResume");
+        Bugtags.onResume(this);
         DataStatistics.onResume(this);
         SRApplication.getInstance().setCurrentActivity(this);
     }
@@ -84,7 +87,15 @@ public class ZYBaseActivity<P extends ZYIBasePresenter> extends AppCompatActivit
     @Override
     protected void onPause() {
         super.onPause();
+        Bugtags.onPause(this);
         DataStatistics.onPause(this);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        //注：回调 3
+        Bugtags.onDispatchTouchEvent(this, event);
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
@@ -180,7 +191,9 @@ public class ZYBaseActivity<P extends ZYIBasePresenter> extends AppCompatActivit
     }
 
     protected void hideWaitDialog() {
-        mWaitDialog.dismiss();
+        if (mWaitDialog != null) {
+            mWaitDialog.dismiss();
+        }
     }
 
     public void setPresenter(P mPresenter) {

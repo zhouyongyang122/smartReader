@@ -36,6 +36,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         public final static Property Current = new Property(9, long.class, "current", false, "CURRENT");
         public final static Property ConnectonTime = new Property(10, int.class, "connectonTime", false, "CONNECTON_TIME");
         public final static Property StateValue = new Property(11, int.class, "stateValue", false, "STATE_VALUE");
+        public final static Property LastPageIndex = new Property(12, int.class, "lastPageIndex", false, "LAST_PAGE_INDEX");
     }
 
 
@@ -62,7 +63,8 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
                 "\"TOTAL\" INTEGER NOT NULL ," + // 8: total
                 "\"CURRENT\" INTEGER NOT NULL ," + // 9: current
                 "\"CONNECTON_TIME\" INTEGER NOT NULL ," + // 10: connectonTime
-                "\"STATE_VALUE\" INTEGER NOT NULL );"); // 11: stateValue
+                "\"STATE_VALUE\" INTEGER NOT NULL ," + // 11: stateValue
+                "\"LAST_PAGE_INDEX\" INTEGER NOT NULL );"); // 12: lastPageIndex
     }
 
     /** Drops the underlying database table. */
@@ -118,6 +120,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         stmt.bindLong(10, entity.getCurrent());
         stmt.bindLong(11, entity.getConnectonTime());
         stmt.bindLong(12, entity.getStateValue());
+        stmt.bindLong(13, entity.getLastPageIndex());
     }
 
     @Override
@@ -167,6 +170,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         stmt.bindLong(10, entity.getCurrent());
         stmt.bindLong(11, entity.getConnectonTime());
         stmt.bindLong(12, entity.getStateValue());
+        stmt.bindLong(13, entity.getLastPageIndex());
     }
 
     @Override
@@ -188,7 +192,8 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
             cursor.getLong(offset + 8), // total
             cursor.getLong(offset + 9), // current
             cursor.getInt(offset + 10), // connectonTime
-            cursor.getInt(offset + 11) // stateValue
+            cursor.getInt(offset + 11), // stateValue
+            cursor.getInt(offset + 12) // lastPageIndex
         );
         return entity;
     }
@@ -207,6 +212,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         entity.setCurrent(cursor.getLong(offset + 9));
         entity.setConnectonTime(cursor.getInt(offset + 10));
         entity.setStateValue(cursor.getInt(offset + 11));
+        entity.setLastPageIndex(cursor.getInt(offset + 12));
      }
     
     @Override

@@ -10,6 +10,7 @@ import com.smartreader.ui.main.model.SRAddBookManager;
 import com.smartreader.ui.main.model.SRMainModel;
 import com.smartreader.ui.main.model.bean.SRBook;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,15 @@ public class SRBookListPresenter extends ZYListDataPresenter<SRBookListContract.
         mSubscriptions.add(ZYNetSubscription.subscription(mModel.getBooks(gradeId), new ZYNetSubscriber<ZYResponse<List<SRBook>>>() {
             @Override
             public void onSuccess(ZYResponse<List<SRBook>> response) {
+                if (response.data != null) {
+                    List<SRBook> books = new ArrayList<SRBook>();
+                    for (SRBook book : response.data) {
+                        if (SRBook.queryById(book.book_id) == null) {
+                            books.add(book);
+                        }
+                    }
+                    response.data = books;
+                }
                 success(response);
             }
 

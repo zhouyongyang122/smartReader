@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.smartreader.R;
 import com.smartreader.base.mvp.ZYBaseFragment;
+import com.smartreader.base.view.ZYClearEditView;
 import com.smartreader.ui.login.contract.SRRegisterContract;
 import com.smartreader.ui.login.presenter.SRRegisterPresenter;
 import com.smartreader.utils.ZYStringUtils;
@@ -20,6 +21,7 @@ import com.smartreader.utils.ZYToast;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,16 +34,16 @@ import butterknife.OnClick;
 public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPresenter> implements SRRegisterContract.IView {
 
     @Bind(R.id.editMobile)
-    EditText editMobile;
+    ZYClearEditView editMobile;
 
     @Bind(R.id.editCode)
-    EditText editCode;
+    ZYClearEditView editCode;
 
     @Bind(R.id.textCode)
     TextView textCode;
 
     @Bind(R.id.editPwd)
-    EditText editPwd;
+    ZYClearEditView editPwd;
 
     @Bind(R.id.textRegister)
     TextView textRegister;
@@ -53,10 +55,10 @@ public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPrese
     LinearLayout layoutChangePwd;
 
     @Bind(R.id.editOldPwd)
-    EditText editOldPwd;
+    ZYClearEditView editOldPwd;
 
     @Bind(R.id.editNewPwd)
-    EditText editNewPwd;
+    ZYClearEditView editNewPwd;
 
     private Timer timer;
 
@@ -122,14 +124,15 @@ public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPrese
                         return;
                     }
                     String pwd = editPwd.getText().toString().trim();
-                    if (pwd.length() < 6 || pwd.length() > 10) {
-                        ZYToast.show(mActivity, "密码长度必须是6-10位");
+                    Pattern pattern = Pattern.compile("^[\\-a-zA-Z0-9]+$");
+                    if (pwd.length() < 6 || pwd.length() > 16 || !pattern.matcher(pwd).matches()) {
+                        ZYToast.show(mActivity, "密码长度必须是6-16位字母数字组合");
                         return;
                     }
-                    if (!ZYStringUtils.checkIsAllDigit(pwd)) {
-                        ZYToast.show(mActivity, "密码必须都是数字");
-                        return;
-                    }
+//                    if (!ZYStringUtils.checkIsAllDigit(pwd)) {
+//                        ZYToast.show(mActivity, "密码必须都是数字");
+//                        return;
+//                    }
                     mPresenter.register(mobile, code, pwd);
                 } else {
                     String oldPwd = editOldPwd.getText().toString().trim();
@@ -138,14 +141,15 @@ public class SRRegisterFragment extends ZYBaseFragment<SRRegisterContract.IPrese
                         return;
                     }
                     String newPwd = editNewPwd.getText().toString().trim();
-                    if (newPwd.length() < 6 || newPwd.length() > 10) {
-                        ZYToast.show(mActivity, "密码长度必须是6-10位");
+                    Pattern pattern = Pattern.compile("^[\\-a-zA-Z0-9]+$");
+                    if (newPwd.length() < 6 || newPwd.length() > 16 || !pattern.matcher(newPwd).matches()) {
+                        ZYToast.show(mActivity, "密码长度必须是6-16位字母数字组合");
                         return;
                     }
-                    if (!ZYStringUtils.checkIsAllDigit(newPwd)) {
-                        ZYToast.show(mActivity, "密码必须都是数字");
-                        return;
-                    }
+//                    if (!ZYStringUtils.checkIsAllDigit(newPwd)) {
+//                        ZYToast.show(mActivity, "密码必须都是数字");
+//                        return;
+//                    }
                     mPresenter.changePwd(oldPwd, newPwd);
                 }
                 break;

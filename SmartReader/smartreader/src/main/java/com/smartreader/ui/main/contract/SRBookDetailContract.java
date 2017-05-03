@@ -24,9 +24,9 @@ public interface SRBookDetailContract {
 
         void onSelecteTrack(SRTract tract);
 
-        int getCurPageId();
-
-        void setCurPageId(int curPageId);
+//        int getCurPageId();
+//
+//        void setCurPageId(int curPageId);
 
         boolean isRepeats();
 

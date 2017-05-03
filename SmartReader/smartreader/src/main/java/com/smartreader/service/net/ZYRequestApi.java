@@ -29,7 +29,7 @@ public interface ZYRequestApi {
     Observable<ZYResponse<List<SRAdert>>> getAdverts(@Query("type") String type);
 
     @GET("basic/message")
-    Observable<ZYResponse<List<SRSysMsg>>> getSysMsgs();
+    Observable<ZYResponse<List<SRSysMsg>>> getSysMsgs(@Query("start") int start,@Query("rows") int rows);
 
     @GET("book/gradeList")
     Observable<ZYResponse<List<SRGrade>>> getGrades();

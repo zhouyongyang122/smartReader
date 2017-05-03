@@ -38,7 +38,7 @@ public class SRRegisterActivity extends ZYBaseFragmentActivity<SRRegisterFragmen
                 break;
             case SRRegisterPresenter.CHANGE_PWD_TYPE:
                 mActionBar.showTitle("修改密码");
-                return;
+                break;
         }
 
         new SRRegisterPresenter(mFragment, type);

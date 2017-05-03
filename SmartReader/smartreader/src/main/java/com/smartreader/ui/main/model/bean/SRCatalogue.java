@@ -100,8 +100,18 @@ public class SRCatalogue implements ZYIBaseBean {
         this.clickread = clickread;
     }
 
-    public String getPage_id() {
-        return page_id;
+    public int getPage_id() {
+        try {
+            if (page_id.indexOf(",") == -1) {
+                return Integer.parseInt(page_id);
+            } else {
+                String[] page_ids = page_id.split(",");
+                return Integer.parseInt(page_ids[0]);
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
     }
 
     public void setPage_id(String page_id) {

@@ -1,7 +1,11 @@
 package com.smartreader.service.net;
 
+import android.content.Intent;
+
 import com.smartreader.SRApplication;
 import com.smartreader.base.bean.ZYResponse;
+import com.smartreader.ui.login.activity.SRLoginActivity;
+import com.smartreader.ui.login.activity.SRRegisterActivity;
 import com.smartreader.utils.ZYLog;
 import com.smartreader.utils.ZYToast;
 
@@ -51,7 +55,15 @@ public class ZYNetSubscriber<R extends ZYResponse> extends rx.Subscriber<R> {
                     onSuccess(response);
                     break;
                 case ZYResponse.STATUS_403:
+                case ZYResponse.STATUS_401:
                     //token失效
+                    try {
+//                        ZYToast.show(SRApplication.getInstance(), "登录信息失效,请重新登录");
+                        SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
+                    } catch (Exception e) {
+                        ZYLog.e(getClass().getSimpleName(),"onNext:" + e.getMessage());
+                    }
+                    onFail("登录信息失效,请重新登录");
                     break;
                 case ZYResponse.STATUS_FAIL:
                     onFail(response.msg);
