@@ -6,7 +6,7 @@ import android.util.Base64;
 
 import com.qiniu.conf.Conf;
 import com.qiniu.rs.CallRet;
-import com.smartreader.service.net.ZYNetConfig;
+import com.qudiandu.smartreader.service.net.ZYNetConfig;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.smartreader.base.view.ZYActionBar
+    <com.qudiandu.smartreader.base.view.ZYActionBar
         android:id="@+id/baseToolBar"
         android:layout_width="match_parent"
         android:layout_height="40dp"

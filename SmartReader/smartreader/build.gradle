@@ -9,7 +9,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "com.smartreader"
+        applicationId "com.qudiandu.smartreader"
         minSdkVersion 18
         targetSdkVersion 22
         versionCode 1
@@ -58,7 +58,7 @@ repositories{
 
 greendao {
     schemaVersion 1
-    daoPackage 'com.smartreader.service.db.entity'
+    daoPackage 'com.qudiandu.smartreader.service.db.entity'
     targetGenDir 'src/main/java'
 }
 

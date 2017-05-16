@@ -130,7 +130,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp">
 
-            <com.smartreader.base.view.ZYRoudCornerRelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.qudiandu.smartreader.base.view.ZYRoudCornerRelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/layout_score"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -159,7 +159,7 @@
                     android:text="测评"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f7" />
-            </com.smartreader.base.view.ZYRoudCornerRelativeLayout>
+            </com.qudiandu.smartreader.base.view.ZYRoudCornerRelativeLayout>
 
             <ImageView
                 android:layout_width="30dp"

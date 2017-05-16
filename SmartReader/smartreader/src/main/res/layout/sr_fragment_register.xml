@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.smartreader.base.view.ZYClearEditView
+        <com.qudiandu.smartreader.base.view.ZYClearEditView
             android:id="@+id/editMobile"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -26,7 +26,7 @@
             android:textColor="@color/c6"
             android:textSize="@dimen/f3" />
 
-        <com.smartreader.base.view.ZYClearEditView
+        <com.qudiandu.smartreader.base.view.ZYClearEditView
             android:id="@+id/editCode"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -56,7 +56,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/f4" />
 
-        <com.smartreader.base.view.ZYClearEditView
+        <com.qudiandu.smartreader.base.view.ZYClearEditView
             android:id="@+id/editPwd"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -80,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.smartreader.base.view.ZYClearEditView
+        <com.qudiandu.smartreader.base.view.ZYClearEditView
             android:id="@+id/editOldPwd"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -95,7 +95,7 @@
             android:textColor="@color/c6"
             android:textSize="@dimen/f3" />
 
-        <com.smartreader.base.view.ZYClearEditView
+        <com.qudiandu.smartreader.base.view.ZYClearEditView
             android:id="@+id/editNewPwd"
             android:layout_width="match_parent"
             android:layout_height="55dp"

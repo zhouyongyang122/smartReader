@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/c2">
 
-    <com.smartreader.base.view.ZYClearEditView
+    <com.qudiandu.smartreader.base.view.ZYClearEditView
         android:id="@+id/editMobile"
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -19,7 +19,7 @@
         android:textColor="@color/c6"
         android:textSize="@dimen/f3" />
 
-    <com.smartreader.base.view.ZYClearEditView
+    <com.qudiandu.smartreader.base.view.ZYClearEditView
         android:id="@+id/editPwd"
         android:layout_width="match_parent"
         android:layout_height="55dp"

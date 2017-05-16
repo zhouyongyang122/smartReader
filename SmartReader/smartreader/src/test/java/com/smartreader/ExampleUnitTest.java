@@ -1,4 +1,4 @@
-package com.smartreader;
+package com.qudiandu.smartreader;
 
 import org.junit.Test;
 

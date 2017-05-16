@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.smartreader.R;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
@@ -19,6 +18,7 @@ import com.third.loginshare.entity.WeChatUserInfo;
 import com.third.loginshare.entity.WechatAuthInfo;
 import com.third.loginshare.interf.IAuthCallBack;
 import com.third.loginshare.interf.IShareCallBack;
+import com.qudiandu.smartreader.R;
 
 /**
  * Created by zhou weilong on 2015/7/22.
