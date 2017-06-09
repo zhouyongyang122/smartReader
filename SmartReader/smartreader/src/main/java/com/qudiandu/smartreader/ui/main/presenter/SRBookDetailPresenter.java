@@ -39,8 +39,6 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
 
     private SRBook bookData;
 
-//    private int curPageId = 1;
-
     private boolean needShowSentenceBg = true;
 
     private boolean isSingleRepeat = false;
@@ -77,14 +75,38 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
                     SRBook book = bookJson.book;
 
                     SRBook dbBook = SRBook.queryById(book.book_id);
+
+                    //设置最后浏览的页数
                     if (dbBook != null) {
                         book.lastPageIndex = dbBook.lastPageIndex;
                     }
 
-                    //设置tract的音频路径
+                    //整理单元列表:
+                    List<SRCatalogue> catalogues = new ArrayList<SRCatalogue>();
+                    String lastUnit = "";
+                    for (SRCatalogue catalogue : book.catalogue) {
+                        if (!catalogue.getUnit().equals(lastUnit)) {
+                            lastUnit = catalogue.getUnit();
+                            catalogues.add(getUnit(lastUnit));
+                        }
+                        catalogues.add(catalogue);
+                    }
+                    book.setCatalogue(catalogues);
+
+                    //设置tract的音频路径和track对应的mark的id....
                     for (SRPage page : book.getPage()) {
                         for (SRTract tract : page.getTrack()) {
                             tract.setMp3Path(localRootDirPath + "mp3/" + tract.getMp3name());
+                            tract.setBook_id(book.getBook_id_int());
+                            tract.setMarkId(dbBook.getId() + "_" + page.getPage_id() + "_" + tract.getTrack_id());
+                        }
+
+                        //设置page对应的单元小节id
+                        for (SRCatalogue catalogue : book.catalogue) {
+                            if (catalogue.containsPage(page.getPage_id() + "")) {
+                                page.setCatalogueId(catalogue.getCatalogue_id());
+                                break;
+                            }
                         }
                     }
                     subscriber.onNext(book);
@@ -108,18 +130,6 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
             @Override
             public void onNext(SRBook book) {
                 bookData = book;
-
-                List<SRCatalogue> catalogues = new ArrayList<SRCatalogue>();
-                String lastUnit = "";
-                for (SRCatalogue catalogue : bookData.catalogue) {
-                    if (!catalogue.getUnit().equals(lastUnit)) {
-                        lastUnit = catalogue.getUnit();
-                        catalogues.add(getUnit(lastUnit));
-                    }
-                    catalogues.add(catalogue);
-                }
-                bookData.setCatalogue(catalogues);
-
                 iView.showBookData(bookData);
             }
         }));
@@ -191,6 +201,18 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
         return catalogueUnit;
     }
 
+    public ArrayList<SRTract> getTractsByCatalogueId(int catalogueId) {
+        ArrayList<SRTract> tracts = new ArrayList<SRTract>();
+        for (SRPage page : bookData.getPage()) {
+            if (page.getCatalogueId() == catalogueId) {
+                tracts.addAll(page.getTrack());
+            } else if (tracts.size() > 0) {
+                break;
+            }
+        }
+        return tracts;
+    }
+
     public SRBook getBookData() {
         return bookData;
     }
@@ -198,14 +220,6 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
     public String getLocalRootDirPath() {
         return localRootDirPath;
     }
-
-//    public int getCurPageId() {
-//        return curPageId;
-//    }
-//
-//    public void setCurPageId(int curPageId) {
-//        this.curPageId = curPageId;
-//    }
 
     public boolean isRepeats() {
         return isRepeats;

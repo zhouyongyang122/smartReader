@@ -91,7 +91,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     public void updateView(SRTract data, int position) {
         if (data != null) {
             mData = data;
-            markBean = mData.getMarkBean(listener.getMarkId(mData.getTrack_id() + ""));
+            markBean = mData.getMarkBean();
             mPosition = position;
             if (data.isRecordType) {
                 textDef.setVisibility(View.GONE);
@@ -190,7 +190,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     public String xfMarkString() {
         String text = mData.getTrack_txt();
         if (text != null && text.length() > 170) {
-            text = text.substring(0,170);
+            text = text.substring(0, 170);
         }
         return text;
     }
@@ -355,8 +355,6 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     }
 
     public interface MarkItemListener {
-
-        String getMarkId(String trackId);
 
         void onShowMarkingItem(SRTract tract, int position);
 

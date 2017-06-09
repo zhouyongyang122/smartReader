@@ -160,27 +160,31 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
             case R.id.imgBack:
                 mActivity.onBackPressed();
                 break;
-            case R.id.imgMenu:
+            case R.id.imgMenu: {
                 menuVH = new SRBookDetailMenuVH(this);
                 menuVH.bindView(LayoutInflater.from(mActivity).inflate(menuVH.getLayoutResId(), null));
                 layoutRoot.addView(menuVH.getItemView(), new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
 
                 int position = 0;
+                SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
                 for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
-                    if (catalogue.getCatalogue_id() > 0 && getPageId(viewPage.getCurrentItem()) == catalogue.getPage_id()) {
+                    if (catalogue.getCatalogue_id() > 0 && page != null && page.getCatalogueId() == catalogue.getCatalogue_id()) {
                         menuVH.setDefSelPosition(position);
                     }
                     position++;
                 }
 
                 menuVH.updateView(mPresenter.getBookData().catalogue, 0);
-                break;
-            case R.id.layout_score:
-                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getBookData().page.get(viewPage.getCurrentItem()), mPresenter.getBookData().book_id));
+            }
+            break;
+            case R.id.layout_score: {
+                SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
+                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id));
                 if (mPresenter.isSingleRepeat()) {
                     mPresenter.stopSingleRepeat();
                 }
-                break;
+            }
+            break;
             case R.id.textSingle:
                 singleTractClick();
                 break;
@@ -271,7 +275,8 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
     @Override
     public void onRepeatsTractPlay(SRTract tract) {
         int pageId = tract.getPage_id();
-        if (getPageId(viewPage.getCurrentItem()) != pageId) {
+        SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
+        if (page.getPage_id() != pageId) {
             viewPage.setCurrentItem(getPageIndex(pageId));
         }
         SRBookDetailPageFragment pageFragment = pageFragments.get(viewPage.getCurrentItem());
@@ -309,8 +314,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
 
     @Override
     public void onItemClick(SRCatalogue catalogue, int position) {
-        int index = getPageIndex(catalogue.getPage_id());
-//        mPresenter.setCurPageId(index);
+        int index = getPageIndex(catalogue.getFristPageId());
         viewPage.setCurrentItem(index);
     }
 
@@ -461,23 +465,6 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
             ZYLog.e(getClass().getSimpleName(), "getPageIndex-error:" + e.getMessage());
         }
         return index;
-    }
-
-    /**
-     * 根据界面index获取pageId
-     *
-     * @param pageIndex
-     * @return
-     */
-    private int getPageId(int pageIndex) {
-        try {
-            List<SRPage> pages = mPresenter.getBookData().getPage();
-            SRPage page = pages.get(pageIndex);
-            return page.getPage_id();
-        } catch (Exception e) {
-            ZYLog.e(getClass().getSimpleName(), "getPageId-error:" + e.getMessage());
-        }
-        return 0;
     }
 
     @Override

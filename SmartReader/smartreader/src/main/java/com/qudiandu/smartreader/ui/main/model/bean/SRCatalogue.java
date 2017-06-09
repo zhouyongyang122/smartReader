@@ -2,6 +2,10 @@ package com.qudiandu.smartreader.ui.main.model.bean;
 
 import com.qudiandu.smartreader.base.bean.ZYIBaseBean;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
  * Created by ZY on 17/3/28.
  */
@@ -20,13 +24,11 @@ public class SRCatalogue implements ZYIBaseBean {
 
     private String mp3name;
 
-//    private String mp3url;
-//
-//    private String mp3url_hiq;
-
     private int clickread;
 
     private String page_id;
+
+    private ArrayList<String> pageIds = new ArrayList<String>();
 
     public int getCatalogue_id() {
         return catalogue_id;
@@ -76,22 +78,6 @@ public class SRCatalogue implements ZYIBaseBean {
         this.mp3name = mp3name;
     }
 
-//    public String getMp3url() {
-//        return mp3url;
-//    }
-//
-//    public void setMp3url(String mp3url) {
-//        this.mp3url = mp3url;
-//    }
-//
-//    public String getMp3url_hiq() {
-//        return mp3url_hiq;
-//    }
-//
-//    public void setMp3url_hiq(String mp3url_hiq) {
-//        this.mp3url_hiq = mp3url_hiq;
-//    }
-
     public int getClickread() {
         return clickread;
     }
@@ -100,21 +86,25 @@ public class SRCatalogue implements ZYIBaseBean {
         this.clickread = clickread;
     }
 
-    public int getPage_id() {
-        try {
-            if (page_id.indexOf(",") == -1) {
-                return Integer.parseInt(page_id);
-            } else {
-                String[] page_ids = page_id.split(",");
-                return Integer.parseInt(page_ids[0]);
-            }
-        } catch (Exception e) {
+    public boolean containsPage(String pageId) {
+        if (pageIds.size() <= 0) {
+            try {
+                pageIds.addAll(Arrays.asList(page_id.split(",")));
+            } catch (Exception e) {
 
+            }
         }
-        return 0;
+        return pageIds.contains(pageId);
     }
 
-    public void setPage_id(String page_id) {
-        this.page_id = page_id;
+    public int getFristPageId() {
+        if (pageIds.size() <= 0) {
+            try {
+                pageIds.addAll(Arrays.asList(page_id.split(",")));
+            } catch (Exception e) {
+
+            }
+        }
+        return pageIds.size() > 0 ? Integer.valueOf(pageIds.get(0)) : 0;
     }
 }

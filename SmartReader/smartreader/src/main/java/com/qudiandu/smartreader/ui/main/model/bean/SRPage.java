@@ -14,6 +14,9 @@ public class SRPage implements ZYIBaseBean {
 
     private String page_name;
 
+    //单元小节id
+    private int catalogueId;
+
     private String localRootDirPath;
 
     private String picPath;
@@ -54,5 +57,13 @@ public class SRPage implements ZYIBaseBean {
 
     public String getLocalRootDirPath() {
         return localRootDirPath;
+    }
+
+    public int getCatalogueId() {
+        return catalogueId;
+    }
+
+    public void setCatalogueId(int catalogueId) {
+        this.catalogueId = catalogueId;
     }
 }

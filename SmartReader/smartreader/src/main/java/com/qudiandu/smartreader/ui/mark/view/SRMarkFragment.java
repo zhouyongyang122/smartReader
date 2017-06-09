@@ -45,6 +45,8 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
 
     SRTranslateVH translateVH;
 
+    OnTrackClickListener trackClickListener;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
 
     @Override
     public void audioUpload(final SRTract tract) {
-        SRMarkBean markBean = tract.getMarkBean(mPresenter.getMarkId(tract.getTrack_id() + ""));
+        SRMarkBean markBean = tract.getMarkBean();
         if (markBean.share_url != null) {
             //已经上传成功,直接显示分享
             share(markBean);
@@ -144,11 +146,6 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
     }
 
     @Override
-    public String getMarkId(String trackId) {
-        return mPresenter.getMarkId(trackId);
-    }
-
-    @Override
     public void onShowMarkingItem(SRTract tract, int position) {
         List<SRTract> tracts = mPresenter.getTracks();
         int i = 0;
@@ -160,6 +157,10 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
                 break;
             }
             i++;
+        }
+
+        if (trackClickListener != null) {
+            trackClickListener.onTrackClick(position, mPresenter.getTracks().size(), tract);
         }
     }
 
@@ -212,6 +213,10 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
         });
     }
 
+    public void setTrackClickListener(OnTrackClickListener trackClickListener) {
+        this.trackClickListener = trackClickListener;
+    }
+
     @Override
     public void onMarkError(String msg) {
         ZYToast.show(mActivity, msg);
@@ -220,5 +225,9 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
     private String getTime() {
         Date date = new Date();
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+
+    public interface OnTrackClickListener {
+        void onTrackClick(int position, int size, SRTract tract);
     }
 }

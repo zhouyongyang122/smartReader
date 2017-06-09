@@ -5,6 +5,8 @@ import com.qudiandu.smartreader.base.mvp.ZYIBaseView;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 
+import java.util.ArrayList;
+
 /**
  * Created by ZY on 17/3/29.
  */
@@ -24,9 +26,7 @@ public interface SRBookDetailContract {
 
         void onSelecteTrack(SRTract tract);
 
-//        int getCurPageId();
-//
-//        void setCurPageId(int curPageId);
+        ArrayList<SRTract> getTractsByCatalogueId(int catalogueId);
 
         boolean isRepeats();
 

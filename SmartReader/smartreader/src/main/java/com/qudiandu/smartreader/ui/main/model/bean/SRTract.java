@@ -18,6 +18,8 @@ public class SRTract implements ZYIBaseBean {
 
     private int page_id;
 
+    private int book_id;
+
     private float track_austart;
 
     private float track_auend;
@@ -43,6 +45,8 @@ public class SRTract implements ZYIBaseBean {
     public boolean isRecordType;
 
     public boolean isRecording;
+
+    private String markId;
 
     private SRMarkBean markBean;
 
@@ -173,7 +177,15 @@ public class SRTract implements ZYIBaseBean {
         return Float.valueOf(value);
     }
 
-    public SRMarkBean getMarkBean(String markId) {
+    public String getMarkId() {
+        return markId;
+    }
+
+    public void setMarkId(String markId) {
+        this.markId = markId;
+    }
+
+    public SRMarkBean getMarkBean() {
         if (markBean == null) {
             markBean = SRMarkBean.queryById(markId);
             if (markBean == null || TextUtils.isEmpty(markBean.mark_id)) {
@@ -184,5 +196,13 @@ public class SRTract implements ZYIBaseBean {
             }
         }
         return markBean;
+    }
+
+    public int getBook_id() {
+        return book_id;
+    }
+
+    public void setBook_id(int book_id) {
+        this.book_id = book_id;
     }
 }

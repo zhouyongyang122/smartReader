@@ -11,6 +11,7 @@ import com.qudiandu.smartreader.ui.mark.model.SRMarkModel;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,20 +26,20 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
 
     SRMarkModel model;
 
-    SRPage page;
-
     String bookId;
+
+    ArrayList<SRTract> mTracts;
 
     SRMarkBean markBean;
 
-    public SRMarkPresenter(SRMarkContract.IView iView, SRPage page, String bookId) {
+    public SRMarkPresenter(SRMarkContract.IView iView, ArrayList<SRTract> tracts, String bookId) {
         this.iView = iView;
         model = new SRMarkModel();
         this.iView.setPresenter(this);
-        this.page = page;
+        mTracts = tracts;
         this.bookId = bookId;
 
-        for (SRTract tract : this.page.getTrack()) {
+        for (SRTract tract : tracts) {
             tract.isRecordType = true;
             break;
         }
@@ -46,10 +47,10 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
 
     public void uploadTractAudio(SRTract tract) {
         iView.showProgress();
-        markBean = tract.getMarkBean(getMarkId(tract.getTrack_id() + ""));
+        markBean = tract.getMarkBean();
         Map<String, String> paramas = new HashMap<String, String>();
         paramas.put("book_id", bookId.equals("0") ? "1" : bookId);
-        paramas.put("page_id", page.getPage_id() + "");
+        paramas.put("page_id", tract.getPage_id() + "");
         paramas.put("track_id", tract.getTrack_id() + "");
         paramas.put("score", markBean.score + "");
         paramas.put("audio", tract.audioQiNiuKey);
@@ -77,19 +78,7 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
         }));
     }
 
-    public SRPage getPage() {
-        return page;
-    }
-
-    public String getBookId() {
-        return bookId;
-    }
-
-    public String getMarkId(String tractId) {
-        return bookId + "_" + page.getPage_id() + "_" + tractId;
-    }
-
-    public List<SRTract> getTracks() {
-        return page.getTrack();
+    public ArrayList<SRTract> getTracks() {
+        return mTracts;
     }
 }
