@@ -70,6 +70,12 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     @Bind(R.id.textProgress)
     TextView textProgress;
 
+    @Bind(R.id.layoutDef)
+    RelativeLayout layoutDef;
+
+    @Bind(R.id.textDefScore)
+    TextView textDefScore;
+
     @Bind(R.id.textDef)
     TextView textDef;
 
@@ -94,7 +100,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
             markBean = mData.getMarkBean();
             mPosition = position;
             if (data.isRecordType) {
-                textDef.setVisibility(View.GONE);
+                layoutDef.setVisibility(View.GONE);
                 layoutMark.setVisibility(View.VISIBLE);
                 textEn.setText(data.getTrack_txt(), TextView.BufferType.SPANNABLE);
                 textCn.setText(data.getTrack_genre());
@@ -129,9 +135,21 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
 
                 SRPageManager.getInstance().startAudio(mData.getMp3Path(), mData.getAudioStart(), mData.getAudioEnd());
             } else {
-                textDef.setVisibility(View.VISIBLE);
+                layoutDef.setVisibility(View.VISIBLE);
                 layoutMark.setVisibility(View.GONE);
                 textDef.setText(data.getTrack_txt());
+
+                if (markBean.score >= 60) {
+                    textDefScore.setVisibility(View.VISIBLE);
+                    textDefScore.setBackgroundResource(R.drawable.pass);
+                    textDefScore.setText(markBean.score + "");
+                } else if (markBean.score > 0 && markBean.score < 60) {
+                    textDefScore.setVisibility(View.VISIBLE);
+                    textDefScore.setBackgroundResource(R.drawable.unpass);
+                    textDefScore.setText(markBean.score + "");
+                } else {
+                    textDefScore.setVisibility(View.GONE);
+                }
             }
         }
     }

@@ -29,4 +29,6 @@
     <string name="text_qq">QQ</string>
 
     <string name="toast_no_wechat">尚未安装微信，无法分享</string>
+
+    <string name="complete">完成</string>
 </resources>

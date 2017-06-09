@@ -39,7 +39,7 @@ import java.util.List;
  * Created by ZY on 17/4/2.
  */
 
-public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPresenter> implements SRMarkContract.IView, SRMarkItemVH.MarkItemListener {
+public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPresenter> implements SRMarkContract.IView, SRMarkItemVH.MarkItemListener, SRMarkFooterVH.OnCompleteClickListener {
 
     ZYBaseRecyclerAdapter<SRTract> adapter;
 
@@ -59,6 +59,8 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
             }
         };
 
+        adapter.addFooter(new SRMarkFooterVH(this));
+
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
@@ -77,6 +79,11 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
     @Override
     public void uploadAudioSuc(SRMarkBean markBean) {
         share(markBean);
+    }
+
+    @Override
+    public void onCompleteClick() {
+
     }
 
     @Override

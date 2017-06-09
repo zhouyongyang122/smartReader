@@ -69,16 +69,16 @@
             <RelativeLayout
                 android:id="@+id/layoutScore"
                 android:layout_width="49dp"
-                android:visibility="gone"
+                android:layout_height="49dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/sr_bg_corner360_c9_solid"
-                android:layout_height="49dp">
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:src="@drawable/play_icon"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:layout_height="wrap_content" />
+                    android:src="@drawable/play_icon" />
 
                 <TextView
                     android:id="@+id/textScore"
@@ -130,18 +130,37 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textDef"
+    <RelativeLayout
+        android:id="@+id/layoutDef"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/sr_bg_corner6dp_c1_solid"
-        android:padding="15dp"
-        android:text="my name is zhouyongyang how are you where are you from"
-        android:textColor="@color/white"
-        android:textSize="@dimen/f3"
-        android:visibility="visible" />
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/textDef"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/sr_bg_corner6dp_c1_solid"
+            android:padding="15dp"
+            android:text="my name is zhouyongyang how are you where are you from"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f3"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textDefScore"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/pass"
+            android:text="98"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/f3"
+            android:visibility="visible" />
+    </RelativeLayout>
 
 </RelativeLayout>
