@@ -169,8 +169,12 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 break;
             case R.id.imgRecord:
                 SRPageManager.getInstance().stopAudio();
-                XunFeiSDK.getInstance().start(this);
-                startRecord();
+                imgRecord.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startRecord();
+                    }
+                }, 300);
                 break;
             case R.id.imgShare:
                 if (listener != null) {
@@ -184,6 +188,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     }
 
     private void startRecord() {
+        XunFeiSDK.getInstance().start(this);
         layoutProgressBar.setVisibility(View.VISIBLE);
         progressBar.setProgress(0);
         textProgress.setText("0s");

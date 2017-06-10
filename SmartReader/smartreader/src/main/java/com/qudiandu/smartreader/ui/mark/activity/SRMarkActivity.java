@@ -29,11 +29,13 @@ public class SRMarkActivity extends ZYBaseFragmentActivity<SRMarkFragment> imple
 
     static final String TRACTS = "tracts";
     static final String BOOK_ID = "book_id";
+    static final String CATALOGUE_ID = "catalogue_id";
 
-    public static Intent createIntent(Context context, ArrayList<SRTract> tracts, String bookId) {
+    public static Intent createIntent(Context context, ArrayList<SRTract> tracts, String bookId, String catalogue_id) {
         Intent intent = new Intent(context, SRMarkActivity.class);
         intent.putExtra(TRACTS, tracts);
         intent.putExtra(BOOK_ID, bookId);
+        intent.putExtra(CATALOGUE_ID, catalogue_id);
         return intent;
     }
 
@@ -43,35 +45,10 @@ public class SRMarkActivity extends ZYBaseFragmentActivity<SRMarkFragment> imple
         super.onCreate(savedInstanceState);
         ArrayList<SRTract> tracts = (ArrayList<SRTract>) getIntent().getSerializableExtra(TRACTS);
         String bookId = getIntent().getStringExtra(BOOK_ID);
+        String catalogue_id = getIntent().getStringExtra(CATALOGUE_ID);
         mActionBar.showTitle("(1/" + tracts.size() + ")");
-        new SRMarkPresenter(mFragment, tracts, bookId);
+        new SRMarkPresenter(mFragment, tracts, bookId, catalogue_id);
         mFragment.setTrackClickListener(this);
-
-        showActionRightTitle("合成", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                File audio1 = new File(SRApplication.TRACT_AUDIO_ROOT_DIR + "0_1_2");
-                File audio2 = new File(SRApplication.TRACT_AUDIO_ROOT_DIR + "0_1_3");
-                File audio3 = new File(SRApplication.TRACT_AUDIO_ROOT_DIR + "0_1_4");
-                List<File> audios = new ArrayList<File>();
-                audios.add(audio1);
-                audios.add(audio2);
-                audios.add(audio3);
-                File outFile = new File(SRApplication.MERGE_AUDIO_ROOT_DIR + "test");
-                if (!outFile.exists()) {
-                    try {
-                        outFile.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                try {
-                    ZYWavMergeUtils.mergeWav(audios, outFile);
-                } catch (IOException e) {
-                    ZYLog.e(getClass().getSimpleName(), "merge-error: " + e.getMessage());
-                }
-            }
-        });
     }
 
     @Override

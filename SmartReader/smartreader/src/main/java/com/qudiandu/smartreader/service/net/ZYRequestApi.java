@@ -7,6 +7,7 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRAdert;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRGrade;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
+import com.qudiandu.smartreader.ui.mark.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkResponse;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 
@@ -82,4 +83,7 @@ public interface ZYRequestApi {
 
     @POST("basic/feedback")
     Observable<ZYResponse> feedBack(@Body Map<String, String> params);
+
+    @POST("show/catalogueAdd")
+    Observable<ZYResponse<SRCatalogueResponse>> catalogueAdd(@Body Map<String, String> params);
 }

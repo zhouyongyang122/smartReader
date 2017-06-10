@@ -23,6 +23,7 @@ import com.qudiandu.smartreader.thirdParty.translate.YouDaoBean;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.mark.contract.SRMarkContract;
+import com.qudiandu.smartreader.ui.mark.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.utils.SRShareUtils;
 import com.qudiandu.smartreader.utils.ZYLog;
@@ -82,8 +83,13 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
     }
 
     @Override
-    public void onCompleteClick() {
+    public void uploadMergeAudioSuc(SRCatalogueResponse response) {
+        showToast("配音合成成功了，可以去我的配音里面查看!");
+    }
 
+    @Override
+    public void onCompleteClick() {
+        mPresenter.uploadMergedTractAudio();
     }
 
     @Override

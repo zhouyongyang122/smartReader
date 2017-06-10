@@ -179,7 +179,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
             break;
             case R.id.layout_score: {
                 SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
-                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id));
+                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id,page.getCatalogueId() + ""));
                 if (mPresenter.isSingleRepeat()) {
                     mPresenter.stopSingleRepeat();
                 }
