@@ -98,7 +98,7 @@ public class SRBookDetailPresenter extends ZYBasePresenter implements SRBookDeta
                         for (SRTract tract : page.getTrack()) {
                             tract.setMp3Path(localRootDirPath + "mp3/" + tract.getMp3name());
                             tract.setBook_id(book.getBook_id_int());
-                            tract.setMarkId(dbBook.getId() + "_" + page.getPage_id() + "_" + tract.getTrack_id());
+                            tract.setMarkId(book.getId() + "_" + page.getPage_id() + "_" + tract.getTrack_id());
                         }
 
                         //设置page对应的单元小节id

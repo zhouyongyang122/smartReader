@@ -36,6 +36,8 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
 
     private PagePlayListener pagePlayListener;
 
+    private boolean needRepeats = true;
+
     private Runnable endRunnable = new Runnable() {
         @Override
         public void run() {
@@ -83,7 +85,7 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
             audioPlayer.open(audioPath, start);
         }
         handler.removeCallbacks(endRunnable);
-        handler.postDelayed(endRunnable, end - start + 100);
+        handler.postDelayed(endRunnable, end - start + 50);
     }
 
     public void startAudio(String audioPath) {
@@ -96,6 +98,16 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
         audioPlayer.open(audioPath);
     }
 
+    public void startAudio(String audioPath, int seekTo) {
+        if (audioPath == null) {
+            return;
+        }
+        ZYLog.e(getClass().getSimpleName(), "startAudio: " + audioPath);
+        lastAudioPath = audioPath;
+        isPause = false;
+        audioPlayer.open(audioPath, seekTo);
+    }
+
     public void startRepeats(ArrayList<SRTract> tracts) {
         if (tracts == null || tracts.size() <= 0) {
             return;
@@ -105,6 +117,11 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
         currentRepeatPosition = 0;
         repeatTracts.addAll(tracts);
         starRepeatAudios();
+    }
+
+    public void startRepeats(ArrayList<SRTract> tracts, boolean needRepeats) {
+        this.needRepeats = needRepeats;
+        startRepeats(tracts);
     }
 
     public void continueStartRepeats() {
@@ -120,6 +137,13 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
         try {
             if (currentRepeatPosition >= repeatTracts.size()) {
                 currentRepeatPosition = 0;
+                if (!needRepeats) {
+                    if (pagePlayListener != null) {
+                        pagePlayListener.onTractPlayComplete(repeatTracts.get(repeatTracts.size() - 1));
+                    }
+                    stopRepeats();
+                    return;
+                }
             }
             if (repeatTracts.size() <= 0) {
                 return;
@@ -141,7 +165,7 @@ public class SRPageManager implements ZYIPlayer.PlayerCallBack {
                 audioPlayer.open(audioPath, start);
             }
             handler.removeCallbacks(repeatRunnable);
-            handler.postDelayed(repeatRunnable, end - start + 100);
+            handler.postDelayed(repeatRunnable, end - start + 50);
         } catch (Exception e) {
             ZYLog.e(getClass().getSimpleName(), "starRepeatAudios:error " + e.getMessage());
         }

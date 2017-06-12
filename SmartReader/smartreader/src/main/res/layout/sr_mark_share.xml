@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent80"
+    android:gravity="center"
+    android:id="@+id/rootView"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="250dp"
+        android:background="@drawable/sr_bg_corner6dp_c4_solid">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="录音上传成功"
+            android:textColor="@color/c1"
+            android:textSize="@dimen/f2" />
+
+        <TextView
+            android:id="@+id/textSee"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/sr_bg_corner360dp_c7_solid"
+            android:gravity="center"
+            android:text="查看我的录音"
+            android:textColor="@color/c4"
+            android:textSize="@dimen/f2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/sr_bg_corner6dp_c1_bottom_solid"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="分享至: "
+                android:textColor="@color/c4"
+                android:textSize="@dimen/f4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:id="@+id/imgQQ"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/qq" />
+
+                <ImageView
+                    android:id="@+id/imgWechat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/weixin" />
+
+                <ImageView
+                    android:id="@+id/imgFriend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/friend" />
+
+                <ImageView
+                    android:id="@+id/imgSina"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/sina" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

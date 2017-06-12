@@ -19,6 +19,7 @@ import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+import com.qudiandu.smartreader.ui.myAudio.activity.SRCataloguesActivity;
 import com.qudiandu.smartreader.ui.profile.activity.SREditActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSetActivity;
@@ -91,7 +92,7 @@ public class SRMeFragment extends ZYBaseFragment {
         return view;
     }
 
-    @OnClick({R.id.textEdit, R.id.imgMsg, R.id.textLogin, R.id.textFeedBack, R.id.textSet, R.id.textShare})
+    @OnClick({R.id.textEdit, R.id.imgMsg, R.id.textMyAudio, R.id.textLogin, R.id.textFeedBack, R.id.textSet, R.id.textShare})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textEdit:
@@ -111,6 +112,12 @@ public class SRMeFragment extends ZYBaseFragment {
                 break;
             case R.id.textShare:
                 share();
+                break;
+            case R.id.textMyAudio:
+                if (SRUserManager.getInstance().isGuesterUser(true)) {
+                    return;
+                }
+                mActivity.startActivity(SRCataloguesActivity.createIntent(mActivity));
                 break;
         }
     }

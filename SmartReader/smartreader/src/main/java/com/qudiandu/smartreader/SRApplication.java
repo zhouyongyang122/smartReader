@@ -38,6 +38,8 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
 
     public static final String MERGE_AUDIO_ROOT_DIR = APP_ROOT_DIR + File.separator + "mergeAudio" + File.separator;
 
+    public static final String MY_AUDIO_ROOT_DIR = APP_ROOT_DIR + File.separator + "myAudio" + File.separator;
+
     private Activity currentActivity;
 
     @Override
@@ -101,6 +103,11 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
         }
 
         file = new File(MERGE_AUDIO_ROOT_DIR);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        file = new File(MY_AUDIO_ROOT_DIR);
         if (!file.exists()) {
             file.mkdirs();
         }

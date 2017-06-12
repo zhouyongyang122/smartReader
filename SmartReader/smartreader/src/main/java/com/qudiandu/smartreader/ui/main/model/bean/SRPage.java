@@ -21,6 +21,8 @@ public class SRPage implements ZYIBaseBean {
 
     private String picPath;
 
+    private String page_url;
+
     private List<SRTract> track;
 
     public int getPage_id() {
@@ -65,5 +67,13 @@ public class SRPage implements ZYIBaseBean {
 
     public void setCatalogueId(int catalogueId) {
         this.catalogueId = catalogueId;
+    }
+
+    public String getPage_url() {
+        return page_url;
+    }
+
+    public void setPage_url(String page_url) {
+        this.page_url = page_url;
     }
 }

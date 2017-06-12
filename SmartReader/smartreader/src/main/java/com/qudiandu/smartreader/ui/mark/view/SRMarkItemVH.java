@@ -174,7 +174,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                     public void run() {
                         startRecord();
                     }
-                }, 300);
+                }, 100);
                 break;
             case R.id.imgShare:
                 if (listener != null) {

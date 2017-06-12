@@ -120,6 +120,19 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/textMyAudio"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/sr_bg_corner6dp_c5_solid"
+                android:gravity="center"
+                android:text="我的作品"
+                android:textColor="@color/c6"
+                android:textSize="@dimen/f4" />
+
+            <TextView
                 android:id="@+id/textFeedBack"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"

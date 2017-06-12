@@ -8,6 +8,7 @@ import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
+import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRPage;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
@@ -55,6 +56,8 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
     String catalogue_id;
 
     String mergeTractAudioPath;
+
+    int score;
 
     public SRMarkPresenter(SRMarkContract.IView iView, ArrayList<SRTract> tracts, String bookId, String catalogue_id) {
         this.iView = iView;
@@ -110,6 +113,7 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
                 SRMarkBean markBean;
                 float startTime = 0;
                 float endTime = 0;
+                int totalScore = 0;
                 final JSONObject tractObject = new JSONObject();
                 final ArrayList<File> audioFiles = new ArrayList<File>();
                 File audio;
@@ -118,8 +122,9 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
                     if (markBean.getScore() > 0 && markBean.getAudioPath() != null) {
                         audio = new File(markBean.getAudioPath());
                         if (audio.exists()) {
+                            totalScore += markBean.getScore();
                             audioFiles.add(audio);
-                            endTime = startTime + tract.getTrack_auend();
+                            endTime = startTime + (tract.getTrack_auend() - tract.getTrack_austart());
                             tractObject.put(tract.getTrack_id() + "", startTime + "," + endTime);
                             startTime = endTime;
                         }
@@ -128,6 +133,7 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
 
                 if (audioFiles.size() > 0) {
                     iView.showProgress();
+                    score = totalScore / audioFiles.size();
                     final File outFile = new File(mergeTractAudioPath);
                     outFile.delete();
                     outFile.createNewFile();
@@ -172,13 +178,13 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
     }
 
     private void uploadmergeAudioToServers(final String qiniuKey, final String tractValues) {
-        mSubscriptions.add(ZYNetSubscription.subscription(model.catalogueAdd(qiniuKey, bookId, catalogue_id, tractValues), new ZYNetSubscriber<ZYResponse<SRCatalogueResponse>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(model.catalogueAdd(qiniuKey, bookId, catalogue_id, score, tractValues), new ZYNetSubscriber<ZYResponse<SRCatalogueResponse>>() {
             @Override
             public void onSuccess(ZYResponse<SRCatalogueResponse> response) {
                 super.onSuccess(response);
                 iView.hideProgress();
                 if (response.data != null) {
-                    ZYLog.e(SRMarkPresenter.class.getSimpleName(),"uploadMergeAudio-succ:" + response.data.share_url);
+                    ZYLog.e(SRMarkPresenter.class.getSimpleName(), "uploadMergeAudio-succ:" + response.data.share_url);
                     iView.uploadMergeAudioSuc(response.data);
                 } else {
                     onFail("网络异常,请重新尝试!");
@@ -223,7 +229,16 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
             @Override
             public void onFailure(CallRet ret) {
                 iView.hideProgress();
-                ZYToast.show(SRApplication.getInstance().getCurrentActivity(), "上传失败: " + ret.getStatusCode());
+                if (ret.getStatusCode() == 401) {
+                    try {
+                        ZYToast.show(SRApplication.getInstance(), "登录信息失效,请重新登录");
+                        SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
+                    } catch (Exception e) {
+                        ZYLog.e(getClass().getSimpleName(), "onNext:" + e.getMessage());
+                    }
+                } else {
+                    ZYToast.show(SRApplication.getInstance().getCurrentActivity(), "上传失败: " + ret.getStatusCode());
+                }
             }
         });
     }

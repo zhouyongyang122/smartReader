@@ -5,7 +5,11 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.qudiandu.smartreader.utils.ZYLog;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +53,7 @@ public class ZYOkHttpNetManager {
         if (TextUtils.isEmpty(url) || listener == null) {
             return;
         }
+        reset();
         try {
             final Request request = new Request.Builder()
                     .url(url)
@@ -78,7 +83,74 @@ public class ZYOkHttpNetManager {
                 }
             });
         } catch (Exception e) {
+            if (listener != null && !isCancle) {
+                listener.onFailure("网络异常,请重新尝试!");
+            }
+        }
+    }
 
+    public void downloadFile(String url, final String filePath, final OkHttpNetListener listener) {
+        if (TextUtils.isEmpty(url) || listener == null) {
+            return;
+        }
+        reset();
+        try {
+            final Request request = new Request.Builder()
+                    .url(url)
+                    .get()
+                    .build();
+
+            Call call = mOkHttpClient.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    ZYLog.e(ZYOkHttpNetManager.class.getSimpleName(), "onFailure: " + e.getMessage());
+                    if (listener != null && !isCancle) {
+                        listener.onFailure("网络异常,请重新尝试");
+                    }
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (listener != null && !isCancle) {
+                        try {
+                            InputStream inputStream = null;
+                            OutputStream outputStream = null;
+                            if (response.isSuccessful()) {
+                                inputStream = response.body().byteStream();
+                                outputStream = new FileOutputStream(new File(filePath));
+                                byte data[] = new byte[1024];
+                                int count;
+                                while ((count = inputStream.read(data)) != -1) {
+                                    if (isCancle) {
+                                        break;
+                                    }
+                                    outputStream.write(data, 0, count);
+                                }
+                                outputStream.flush();
+                                outputStream.close();
+                                inputStream.close();
+                                if (listener != null && !isCancle) {
+                                    listener.onSuccess(filePath);
+                                }
+                            } else {
+                                if (listener != null && !isCancle) {
+                                    listener.onFailure("网络异常,请重新尝试");
+                                }
+                            }
+                        } catch (Exception e) {
+                            ZYLog.e(ZYOkHttpNetManager.class.getSimpleName(), "onResponse-error: " + e.getMessage());
+                            if (listener != null && !isCancle) {
+                                listener.onFailure("网络异常,请重新尝试");
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (Exception e) {
+            if (listener != null && !isCancle) {
+                listener.onFailure("网络异常,请重新尝试!");
+            }
         }
     }
 
@@ -86,6 +158,7 @@ public class ZYOkHttpNetManager {
         if (TextUtils.isEmpty(url) || listener == null) {
             return;
         }
+        reset();
         try {
 
             FormBody.Builder bodyBuilder = new FormBody.Builder();
@@ -124,7 +197,9 @@ public class ZYOkHttpNetManager {
                 }
             });
         } catch (Exception e) {
-
+            if (listener != null && !isCancle) {
+                listener.onFailure("网络异常,请重新尝试!");
+            }
         }
     }
 

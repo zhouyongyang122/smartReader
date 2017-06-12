@@ -14,12 +14,14 @@ import com.qiniu.rs.CallBack;
 import com.qiniu.rs.CallRet;
 import com.qiniu.rs.UploadCallRet;
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseRecyclerFragment;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.translate.TranslateRequest;
 import com.qudiandu.smartreader.thirdParty.translate.YouDaoBean;
+import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.mark.contract.SRMarkContract;
@@ -47,6 +49,8 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
     SRTranslateVH translateVH;
 
     OnTrackClickListener trackClickListener;
+
+    SRMarkShareVH markShareVH;
 
     @Nullable
     @Override
@@ -84,7 +88,12 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
 
     @Override
     public void uploadMergeAudioSuc(SRCatalogueResponse response) {
-        showToast("配音合成成功了，可以去我的配音里面查看!");
+        if (markShareVH == null) {
+            markShareVH = new SRMarkShareVH();
+            markShareVH.bindView(LayoutInflater.from(mActivity).inflate(markShareVH.getLayoutResId(), mRootView, false));
+            mRootView.addView(markShareVH.getItemView());
+        }
+        markShareVH.updateView(response, 0);
     }
 
     @Override
@@ -139,7 +148,16 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
                     @Override
                     public void onFailure(CallRet ret) {
                         hideProgress();
-                        ZYToast.show(mActivity, "上传失败: " + ret.getStatusCode());
+                        if (ret.getStatusCode() == 401) {
+                            try {
+                                ZYToast.show(SRApplication.getInstance(), "登录信息失效,请重新登录");
+                                SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
+                            } catch (Exception e) {
+                                ZYLog.e(getClass().getSimpleName(), "onNext:" + e.getMessage());
+                            }
+                        } else {
+                            ZYToast.show(mActivity, "上传失败: " + ret.getStatusCode());
+                        }
                     }
                 });
             }

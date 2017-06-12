@@ -9,6 +9,8 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRGrade;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkResponse;
+import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
+import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 
 import java.util.List;
@@ -86,4 +88,10 @@ public interface ZYRequestApi {
 
     @POST("show/catalogueAdd")
     Observable<ZYResponse<SRCatalogueResponse>> catalogueAdd(@Body Map<String, String> params);
+
+    @GET("show/catalogue")
+    Observable<ZYResponse<List<SRCatalogueNew>>> getCatalogues(@Query("start") int start, @Query("rows") int rows);
+
+    @GET("show/catalogueDetail")
+    Observable<ZYResponse<SRCatalogueDetail>> getCatalogueDetail(@Query("show_id") String show_id);
 }
