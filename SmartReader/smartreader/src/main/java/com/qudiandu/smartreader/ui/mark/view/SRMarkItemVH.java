@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.main.model.SRPageManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
@@ -188,7 +189,8 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     }
 
     private void startRecord() {
-        XunFeiSDK.getInstance().start(this);
+//        XunFeiSDK.getInstance().start(this);
+        XianShengSDK.getInstance().start(this, markBean.audioPath);
         layoutProgressBar.setVisibility(View.VISIBLE);
         progressBar.setProgress(0);
         textProgress.setText("0s");
@@ -271,7 +273,6 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
             layoutScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
         }
         textScore.setText(score + "");
-        ZYLog.e(getClass().getSimpleName(), "copy-audio: " + ZYFileUtils.copy(markBean.audioPath, XunFeiSDK.XUN_FEI_RECORDE_PATH));
         markBean.update();
     }
 
@@ -283,7 +284,6 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
         layoutScore.setVisibility(View.VISIBLE);
         imgShare.setVisibility(View.VISIBLE);
         layoutProgressBar.setVisibility(View.GONE);
-        ZYLog.e(getClass().getSimpleName(), "copy-audio: " + ZYFileUtils.copy(markBean.audioPath, XunFeiSDK.XUN_FEI_RECORDE_PATH));
     }
 
     private void setTextViewClickableSpan(TextView textView) {

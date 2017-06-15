@@ -42,7 +42,7 @@ public class SRCatalogueDetailPresenter extends ZYBasePresenter implements SRCat
                 super.onSuccess(response);
                 if (response.data != null) {
                     mCatalogueDetail = response.data;
-                    final String filePath = SRApplication.MY_AUDIO_ROOT_DIR + mCatalogueDetail.getBook_id() + "_" + mCatalogueDetail.getCatalogue_id();
+                    final String filePath = SRApplication.MY_AUDIO_ROOT_DIR + mCatalogueDetail.getBook_id()+ "_" + mCatalogueDetail.getCatalogue_id() + "_" + mCatalogueDetail.getId();
                     mCatalogueDetail.setAudioPath(filePath);
                     if (!new File(filePath).exists()) {
                         ZYOkHttpNetManager.getInstance().downloadFile(mCatalogueDetail.getAudio(), filePath, new ZYOkHttpNetManager.OkHttpNetListener() {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.main.model.SRPageManager;
 import com.qudiandu.smartreader.ui.main.presenter.SRBookDetailPresenter;
@@ -37,7 +38,7 @@ public class SRBookDetailActivity extends ZYBaseFragmentActivity<SRBookDetailFra
 
         new SRBookDetailPresenter(mFragment, localPath);
 
-        XunFeiSDK.getInstance().init(this);
+//        XunFeiSDK.getInstance().init(this);
     }
 
     @Override
@@ -67,6 +68,7 @@ public class SRBookDetailActivity extends ZYBaseFragmentActivity<SRBookDetailFra
         super.onDestroy();
         SRPageManager.getInstance().setPagePlayListener(null);
         SRPageManager.getInstance().stopAudio();
-        XunFeiSDK.getInstance().onDestroy();
+//        XunFeiSDK.getInstance().onDestroy();
+        XianShengSDK.getInstance().onDestroy();
     }
 }

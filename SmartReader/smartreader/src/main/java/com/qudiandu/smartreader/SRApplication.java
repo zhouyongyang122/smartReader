@@ -10,6 +10,7 @@ import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
 import com.qudiandu.smartreader.BuildConfig;
 import com.qudiandu.smartreader.service.db.ZYDBManager;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.SRAppConstants;
 import com.qudiandu.smartreader.utils.ZYLog;
@@ -75,8 +76,7 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
         crashHandler.init(this, APP_ROOT_DIR, BuildConfig.DEBUG);
         crashHandler.setListener(this);
 
-        XunFeiSDK.getInstance();
-
+//        XunFeiSDK.getInstance();
         //在这里初始化
         initBugTags();
     }

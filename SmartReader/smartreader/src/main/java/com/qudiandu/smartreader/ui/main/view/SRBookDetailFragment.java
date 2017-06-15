@@ -266,7 +266,7 @@ public class SRBookDetailFragment extends ZYBaseFragment<SRBookDetailContract.IP
             textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
 
         } else {
-            textScore.setText("练口语");
+            textScore.setText("配音");
             textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
             textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c1));
         }

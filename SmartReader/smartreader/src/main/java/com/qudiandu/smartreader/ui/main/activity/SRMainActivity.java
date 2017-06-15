@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.service.ZYUpdateService;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.ui.main.contract.SRMainContract;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
 import com.qudiandu.smartreader.ui.main.presenter.SRHomePresenter;
@@ -72,6 +73,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         if (ZYStatusBarUtils.isCanLightStatusBar()) {
             ZYStatusBarUtils.tintStatusBar(this, Color.TRANSPARENT, 0);
         }
+
+        XianShengSDK.getInstance().init(this);
     }
 
     private void initView() {
