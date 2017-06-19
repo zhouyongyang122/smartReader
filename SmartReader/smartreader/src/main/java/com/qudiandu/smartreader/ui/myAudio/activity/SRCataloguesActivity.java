@@ -5,17 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
 import com.qudiandu.smartreader.ui.myAudio.model.SRMyAudioModel;
 import com.qudiandu.smartreader.ui.myAudio.presenter.SRCataloguesPresenter;
 import com.qudiandu.smartreader.ui.myAudio.view.SRCataloguesFragment;
 
+import butterknife.OnClick;
+
 /**
  * Created by ZY on 17/6/10.
  */
 
-public class SRCataloguesActivity extends ZYBaseFragmentActivity<SRCataloguesFragment> {
+public class SRCataloguesActivity extends ZYBaseFragmentActivity<SRCataloguesFragment> implements View.OnClickListener {
+
+    boolean isEditing;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, SRCataloguesActivity.class);
@@ -26,6 +31,21 @@ public class SRCataloguesActivity extends ZYBaseFragmentActivity<SRCataloguesFra
         super.onCreate(savedInstanceState);
         showTitle("我的作品");
         new SRCataloguesPresenter(mFragment, new SRMyAudioModel());
+
+        showActionRightTitle("编辑", this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (!isEditing) {
+            isEditing = true;
+            showActionRightTitle("取消", this);
+            mFragment.setEdit(true);
+        } else {
+            isEditing = false;
+            showActionRightTitle("编辑", this);
+            mFragment.setEdit(false);
+        }
     }
 
     @Override

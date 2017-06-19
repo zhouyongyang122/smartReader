@@ -26,6 +26,9 @@ public class SRCatalogueNew extends SRCatalogue implements ZYIBaseBean {
 
     private int supports;//点赞数
 
+    //界面需要的属性
+    private boolean isEdit;
+
     public int getId() {
         return id;
     }
@@ -93,5 +96,13 @@ public class SRCatalogueNew extends SRCatalogue implements ZYIBaseBean {
 
     public void setSupports(int supports) {
         this.supports = supports;
+    }
+
+    public boolean isEdit() {
+        return isEdit;
+    }
+
+    public void setEdit(boolean edit) {
+        isEdit = edit;
     }
 }

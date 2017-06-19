@@ -2,6 +2,7 @@ package com.qudiandu.smartreader.ui.myAudio.view.viewHolder;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -11,6 +12,7 @@ import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
 import com.qudiandu.smartreader.utils.ZYDateUtils;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by ZY on 17/6/10.
@@ -33,9 +35,21 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
     @Bind(R.id.textScore)
     TextView textScore;
 
+    @Bind(R.id.layoutDel)
+    RelativeLayout layoutDel;
+
+    SRCatalogueNew mData;
+
+    OnCataloguesListener mListener;
+
+    public SRCataloguesVH(OnCataloguesListener listener) {
+        mListener = listener;
+    }
+
     @Override
     public void updateView(SRCatalogueNew data, int position) {
         if (data != null) {
+            mData = data;
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPage_url(), R.drawable.def_bg, R.drawable.def_bg);
             textUnit.setText(data.getUnit());
             textTitle.setText(data.getTitle());
@@ -53,11 +67,32 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
             } else {
                 textScore.setVisibility(View.GONE);
             }
+
+            if (data.isEdit()) {
+                layoutDel.setVisibility(View.VISIBLE);
+            }else {
+                layoutDel.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
     public int getLayoutResId() {
         return R.layout.sr_view_catalogue_item;
+    }
+
+    @OnClick({R.id.layoutDel})
+    public void OnClick(View view) {
+        switch (view.getId()) {
+            case R.id.layoutDel:
+                if (mListener != null) {
+                    mListener.onDelClick(mData);
+                }
+                break;
+        }
+    }
+
+    public interface OnCataloguesListener {
+        void onDelClick(SRCatalogueNew data);
     }
 }

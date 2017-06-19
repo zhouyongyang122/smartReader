@@ -4,6 +4,7 @@ import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYListDataPresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
+import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.myAudio.contract.SRCataloguesContract;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
@@ -17,6 +18,8 @@ import java.util.List;
 
 public class SRCataloguesPresenter extends ZYListDataPresenter<SRCataloguesContract.IView, SRMyAudioModel, SRCatalogueNew> implements SRCataloguesContract.IPresenter {
 
+    boolean isEditing;
+
     public SRCataloguesPresenter(SRCataloguesContract.IView view, SRMyAudioModel model) {
         super(view, model);
     }
@@ -27,6 +30,12 @@ public class SRCataloguesPresenter extends ZYListDataPresenter<SRCataloguesContr
             @Override
             public void onSuccess(ZYResponse<List<SRCatalogueNew>> response) {
                 super.onSuccess(response);
+
+                if (response.data != null && response.data.size() > 0 && isEditing) {
+                    for (SRCatalogueNew value : response.data) {
+                        value.setEdit(true);
+                    }
+                }
                 success(response);
             }
 
@@ -36,5 +45,33 @@ public class SRCataloguesPresenter extends ZYListDataPresenter<SRCataloguesContr
                 fail(message);
             }
         }));
+    }
+
+    @Override
+    public void delCatalogues(final SRCatalogueNew data) {
+        mView.showProgress();
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.delCatalogue(data.getId() + ""), new ZYNetSubscriber<ZYResponse>() {
+            @Override
+            public void onSuccess(ZYResponse response) {
+                mView.hideProgress();
+                super.onSuccess(response);
+                mDataList.remove(data);
+                mView.delCatalogueSuc(data);
+            }
+
+            @Override
+            public void onFail(String message) {
+                mView.hideProgress();
+                super.onFail(message);
+            }
+        }));
+    }
+
+
+    @Override
+    public void setEdit(boolean isEditing) {
+        for (SRCatalogueNew value : mDataList) {
+            value.setEdit(isEditing);
+        }
     }
 }

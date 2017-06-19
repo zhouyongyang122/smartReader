@@ -11,9 +11,11 @@ public interface SRCataloguesContract {
 
     interface IView extends ZYListDataContract.View<IPresenter> {
 
+        void delCatalogueSuc(SRCatalogueNew data);
     }
 
     interface IPresenter extends ZYListDataContract.Presenter<SRCatalogueNew> {
-
+        void setEdit(boolean isEditing);
+        void delCatalogues(final SRCatalogueNew data);
     }
 }

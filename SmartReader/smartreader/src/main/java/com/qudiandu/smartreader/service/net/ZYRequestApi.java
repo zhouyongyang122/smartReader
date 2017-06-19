@@ -80,6 +80,9 @@ public interface ZYRequestApi {
     @POST("user/mobileCode")
     Observable<ZYResponse> mobileCode(@Body Map<String, String> params);
 
+    @POST("show/catalogueDel")
+    Observable<ZYResponse> delCatalogue(@Body Map<String, String> params);
+
     @POST("user/refreshToken")
     Observable<ZYResponse<SRUser>> refreshToken(@Body Map<String, String> params);
 

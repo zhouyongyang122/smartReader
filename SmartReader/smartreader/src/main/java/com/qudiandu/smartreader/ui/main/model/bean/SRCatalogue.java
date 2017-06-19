@@ -1,6 +1,7 @@
 package com.qudiandu.smartreader.ui.main.model.bean;
 
 import com.qudiandu.smartreader.base.bean.ZYIBaseBean;
+import com.qudiandu.smartreader.utils.ZYLog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,13 +99,18 @@ public class SRCatalogue implements ZYIBaseBean {
     }
 
     public int getFristPageId() {
-        if (pageIds.size() <= 0) {
-            try {
-                pageIds.addAll(Arrays.asList(page_id.split(",")));
-            } catch (Exception e) {
-
+        try {
+            if (pageIds.size() <= 0) {
+                try {
+                    pageIds.addAll(Arrays.asList(page_id.split(",")));
+                } catch (Exception e) {
+                    ZYLog.e(getClass().getSimpleName(),"getFristPageId-error: " + e.getMessage());
+                }
             }
+            return pageIds.size() > 0 ? Integer.valueOf(pageIds.get(0)) : 0;
+        }catch (Exception e){
+            ZYLog.e(getClass().getSimpleName(),"getFristPageId-error: " + e.getMessage());
         }
-        return pageIds.size() > 0 ? Integer.valueOf(pageIds.get(0)) : 0;
+        return 0;
     }
 }
