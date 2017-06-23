@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.utils.ZYFileUtils;
 import com.qudiandu.smartreader.utils.ZYLog;
@@ -36,8 +37,6 @@ public class XianShengSDK {
 
     SingEngine mIse;
 
-    Activity mActivity;
-
     String saveWavPath;
 
     private XianShengSDK() {
@@ -52,7 +51,6 @@ public class XianShengSDK {
     }
 
     public void init(final Activity context) {
-        mActivity = context;
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -70,7 +68,7 @@ public class XianShengSDK {
 
                             ZYLog.e(TAG, "onResult :" + jsonObject.toString());
 
-                            mActivity.runOnUiThread(new Runnable() {
+                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (listener != null) {
@@ -94,7 +92,7 @@ public class XianShengSDK {
                             final String error_msg = s;
                             ZYLog.e(TAG, "onEnd :" + i + ":" + error_msg);
                             if (i != 0) {
-                                mActivity.runOnUiThread(new Runnable() {
+                                SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         if (listener != null) {
@@ -116,7 +114,7 @@ public class XianShengSDK {
 
                             ZYLog.e(TAG, "onFrontVadTimeOut :" + error_msg);
 
-                            mActivity.runOnUiThread(new Runnable() {
+                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (listener != null) {
@@ -132,7 +130,7 @@ public class XianShengSDK {
 
                             ZYLog.e(TAG, "onBackVadTimeOut :" + error_msg);
 
-                            mActivity.runOnUiThread(new Runnable() {
+                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (listener != null) {
@@ -153,7 +151,7 @@ public class XianShengSDK {
 
                             ZYLog.e(TAG, "onRecordLengthOut :" + error_msg);
 
-                            mActivity.runOnUiThread(new Runnable() {
+                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (listener != null) {
@@ -178,8 +176,8 @@ public class XianShengSDK {
                     //  设置是否开启VAD功能
                     //engine.setOpenVad(true, null);
                     mIse.setOpenVad(true, "vad.0.1.bin");
-                    mIse.setFrontVadTime(3000);
-                    mIse.setBackVadTime(3000);
+                    mIse.setFrontVadTime(10000);
+                    mIse.setBackVadTime(10000);
                     //   构建引擎初始化参数
                     JSONObject cfg_init = mIse.buildInitJson("t133", "d9e62294e0c9442b8c5dd606e8acfe9f");
                     //   设置引擎初始化参数
@@ -278,7 +276,7 @@ public class XianShengSDK {
                 @Override
                 public void run() {
                     currentTime += 100;
-                    mActivity.runOnUiThread(new Runnable() {
+                    SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if (listener != null) {
@@ -287,7 +285,7 @@ public class XianShengSDK {
                         }
                     });
                     if (currentTime >= maxTime) {
-                        mActivity.runOnUiThread(new Runnable() {
+                        SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 stop();
@@ -295,6 +293,7 @@ public class XianShengSDK {
                         });
                         cancleTimer();
                     }
+
                 }
             }, 100, 100);
         } catch (Exception e) {
@@ -318,7 +317,6 @@ public class XianShengSDK {
             listener = null;
             cancleTimer();
             cancle();
-            mActivity = null;
         } catch (Exception e) {
 
         }

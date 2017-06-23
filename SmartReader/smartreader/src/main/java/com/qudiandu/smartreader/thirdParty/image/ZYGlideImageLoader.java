@@ -2,6 +2,7 @@ package com.qudiandu.smartreader.thirdParty.image;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -60,6 +61,26 @@ public class ZYGlideImageLoader implements ZYIImageLoader {
         mDefaultPic     = pic;
         mErrorPic       = errorPic;
         mDefaultColor   = color;
+    }
+
+    @Override
+    public void loadFromMediaStore(Object object, final String imgUrl, final OnLoadLocalImageFinishListener onLoadLocalImageFinishListener) {
+        final RequestManager requestManager = getRequestManager(object);
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    if(onLoadLocalImageFinishListener != null){
+                        onLoadLocalImageFinishListener.onLoadFinish(requestManager.loadFromMediaStore(Uri.parse(imgUrl)).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                                .get());
+                    }
+                }catch (Exception e){
+                    if(onLoadLocalImageFinishListener != null){
+                        onLoadLocalImageFinishListener.onLoadFinish(null);
+                    }
+                }
+            }
+        }.start();
     }
 
     @Override

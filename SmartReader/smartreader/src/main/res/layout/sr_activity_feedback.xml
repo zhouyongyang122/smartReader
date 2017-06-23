@@ -29,4 +29,13 @@
         android:text="提交反馈"
         android:textColor="@color/white"
         android:textSize="@dimen/f2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="邀请你加入官方QQ群\n322968274\n我们想更好的为你服务"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f2" />
 </LinearLayout>

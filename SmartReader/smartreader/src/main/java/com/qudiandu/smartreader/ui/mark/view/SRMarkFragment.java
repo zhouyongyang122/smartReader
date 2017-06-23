@@ -1,5 +1,6 @@
 package com.qudiandu.smartreader.ui.mark.view;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,10 +20,13 @@ import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseRecyclerFragment;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.thirdParty.image.ZYIImageLoader;
+import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.thirdParty.translate.TranslateRequest;
 import com.qudiandu.smartreader.thirdParty.translate.YouDaoBean;
 import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.mark.contract.SRMarkContract;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRCatalogueResponse;
@@ -98,6 +102,9 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
 
     @Override
     public void onCompleteClick() {
+        if (SRUserManager.getInstance().isGuesterUser(true)) {
+            return;
+        }
         mPresenter.uploadMergedTractAudio();
     }
 
@@ -164,16 +171,29 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
         }
     }
 
-    private void share(SRMarkBean markBean) {
-        ShareEntity shareEntity = new ShareEntity();
-        shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
-        if (TextUtils.isEmpty(shareEntity.avatarUrl)) {
-            shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.def_avatar);
-        }
-        shareEntity.webUrl = markBean.share_url;
-        shareEntity.title = "快来听听我的录音吧";
-        shareEntity.text = "快来听听我的录音吧";
-        new SRShareUtils(mActivity, shareEntity).share();
+    private void share(final SRMarkBean markBean) {
+
+        ZYImageLoadHelper.getImageLoader().loadFromMediaStore(this, SRUserManager.getInstance().getUser().avatar, new ZYIImageLoader.OnLoadLocalImageFinishListener() {
+            @Override
+            public void onLoadFinish(@Nullable final Bitmap bitmap) {
+                mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ShareEntity shareEntity = new ShareEntity();
+                        shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
+                        if (bitmap != null) {
+                            shareEntity.avatarBitmap = bitmap;
+                        } else {
+                            shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                        }
+                        shareEntity.webUrl = markBean.share_url;
+                        shareEntity.title = SRUserManager.getInstance().getUser().nickname + "的录音作品快来听一下吧!";
+                        shareEntity.text = "专为小学生设计的智能学习机";
+                        new SRShareUtils(mActivity, shareEntity).share();
+                    }
+                });
+            }
+        });
     }
 
     @Override

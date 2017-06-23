@@ -47,6 +47,11 @@ android {
             buildConfigField "String", "API_URL", "\"http://120.27.236.36:8081\""
             buildConfigField "boolean", "DEBUG_SDK", "true"
         }
+
+        releaseApi.initWith(buildTypes.debug)
+        releaseApi {
+            minifyEnabled true
+        }
     }
 }
 

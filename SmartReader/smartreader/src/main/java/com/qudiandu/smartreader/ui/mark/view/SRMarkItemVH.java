@@ -208,7 +208,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
 
     @Override
     public long xfRecordTime() {
-        return (long) (mData.getTractTime() * 1000);
+        return (long) (mData.getTractTime() * 1000) + 300;
     }
 
     @Override

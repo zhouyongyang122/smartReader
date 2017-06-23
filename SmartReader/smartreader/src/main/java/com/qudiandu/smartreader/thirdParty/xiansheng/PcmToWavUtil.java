@@ -58,6 +58,7 @@ public class PcmToWavUtil {
 
             writeWaveFileHeader(out, totalAudioLen, totalDataLen,
                     longSampleRate, channels, byteRate);
+//            in.read(data);
             while (in.read(data) != -1) {
                 out.write(data);
             }

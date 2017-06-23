@@ -126,7 +126,7 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
                             audioFiles.add(audio);
                             endTime = startTime + (tract.getTrack_auend() - tract.getTrack_austart());
                             tractObject.put(tract.getTrack_id() + "", startTime + "," + endTime);
-                            startTime = endTime;
+                            startTime = endTime + 0.3f;
                         }
                     }
                 }

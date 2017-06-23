@@ -3,10 +3,15 @@ package com.qudiandu.smartreader.ui.login.model;
 import android.text.TextUtils;
 
 import com.qudiandu.smartreader.SRApplication;
+import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.service.db.entity.SRUserDao;
+import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
+import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
+import com.qudiandu.smartreader.utils.ZYLog;
+import com.qudiandu.smartreader.utils.ZYToast;
 
 import java.util.List;
 
@@ -22,6 +27,43 @@ public class SRUserManager {
 
     private SRUserManager() {
         user = getLoginUser();
+    }
+
+    public static void refreshToken() {
+        if (!TextUtils.isEmpty(SRUserManager.getInstance().getUser().getRefresh_token())) {
+            ZYNetSubscription.subscription(new SRLoginModel().refreshToken(SRUserManager.getInstance().getUser().getRefresh_token()), new ZYNetSubscriber<ZYResponse<SRUser>>() {
+                @Override
+                public void onSuccess(ZYResponse<SRUser> response) {
+                    super.onSuccess(response);
+                    if (response != null) {
+                        SRUser user = SRUserManager.getInstance().getUser();
+                        user.auth_token = response.data.auth_token;
+                        user.picture_token = response.data.picture_token;
+                        user.upload_token = response.data.upload_token;
+                        SRUserManager.getInstance().setUser(user);
+                    } else {
+                        gotoReLogin();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+//                    super.onFail(message);
+                    gotoReLogin();
+                }
+            });
+        } else {
+            gotoReLogin();
+        }
+    }
+
+    public static void gotoReLogin() {
+        try {
+            ZYToast.show(SRApplication.getInstance(), "登录信息失效,请重新登录");
+            SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
+        } catch (Exception e) {
+            ZYLog.e("SRUserManager", "refreshToken:" + e.getMessage());
+        }
     }
 
     public static SRUserManager getInstance() {

@@ -1,5 +1,6 @@
 package com.qudiandu.smartreader.ui.myAudio.view;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.base.view.ZYLoadingView;
+import com.qudiandu.smartreader.thirdParty.image.ZYIImageLoader;
+import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.SRPageManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
@@ -220,15 +223,27 @@ public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailC
                 mActivity.onBackPressed();
                 break;
             case R.id.imgShare: {
-                ShareEntity shareEntity = new ShareEntity();
-                shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
-                if (TextUtils.isEmpty(shareEntity.avatarUrl)) {
-                    shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.def_avatar);
-                }
-                shareEntity.webUrl = mPresenter.getCatalogueDetail().getShare_url();
-                shareEntity.title = "快来听听我的录音吧";
-                shareEntity.text = "快来听听我的录音吧";
-                new SRShareUtils(mActivity, shareEntity).share();
+                ZYImageLoadHelper.getImageLoader().loadFromMediaStore(this, SRUserManager.getInstance().getUser().avatar, new ZYIImageLoader.OnLoadLocalImageFinishListener() {
+                    @Override
+                    public void onLoadFinish(@Nullable final Bitmap bitmap) {
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ShareEntity shareEntity = new ShareEntity();
+                                shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
+                                if (bitmap != null) {
+                                    shareEntity.avatarBitmap = bitmap;
+                                } else {
+                                    shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                                }
+                                shareEntity.webUrl = mPresenter.getCatalogueDetail().getShare_url();
+                                shareEntity.title = SRUserManager.getInstance().getUser().nickname + "的录音作品快来听一下吧!";
+                                shareEntity.text = "专为小学生设计的智能学习机";
+                                new SRShareUtils(mActivity, shareEntity).share();
+                            }
+                        });
+                    }
+                });
             }
             break;
             case R.id.textPre: {

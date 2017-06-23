@@ -10,7 +10,7 @@ public class XSBean implements ZYIBaseBean {
 
     public Result result;
 
-    public class Result {
+    public class Result implements ZYIBaseBean{
         public int overall;
     }
 }

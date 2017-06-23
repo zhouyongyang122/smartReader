@@ -149,10 +149,8 @@ public class SRMeFragment extends ZYBaseFragment {
 
     private void share() {
         ShareEntity shareEntity = new ShareEntity();
-//        shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
-//        if (TextUtils.isEmpty(shareEntity.avatarUrl)) {
-        shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-//        }
+        shareEntity.avatarUrl = SRUserManager.getInstance().getUser().avatar;
+        shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         shareEntity.webUrl = "http://www.baidu.com";
         shareEntity.title = "英语趣点读";
         shareEntity.text = "快来下载英语趣点读,跟我一起学英语吧!";
