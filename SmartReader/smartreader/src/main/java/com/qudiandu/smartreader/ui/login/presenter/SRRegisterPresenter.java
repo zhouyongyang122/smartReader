@@ -100,7 +100,9 @@ public class SRRegisterPresenter extends ZYBasePresenter implements SRRegisterCo
     @Override
     public void getCode(String mobile) {
         int codeType = 1;
-        if (type != REGISTER_TYPE) {
+        if (type == REGISTER_TYPE || type == BIND_TYPE) {
+            codeType = 1;
+        }else {
             codeType = 2;
         }
         mSubscriptions.add(ZYNetSubscription.subscription(model.mobileCode(mobile, codeType), new ZYNetSubscriber() {
