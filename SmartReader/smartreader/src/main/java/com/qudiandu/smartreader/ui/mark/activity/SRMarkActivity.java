@@ -30,12 +30,24 @@ public class SRMarkActivity extends ZYBaseFragmentActivity<SRMarkFragment> imple
     static final String TRACTS = "tracts";
     static final String BOOK_ID = "book_id";
     static final String CATALOGUE_ID = "catalogue_id";
+    static final String GROUP_ID = "group_id";
+    static final String TASK_DI = "task_id";
 
     public static Intent createIntent(Context context, ArrayList<SRTract> tracts, String bookId, String catalogue_id) {
         Intent intent = new Intent(context, SRMarkActivity.class);
         intent.putExtra(TRACTS, tracts);
         intent.putExtra(BOOK_ID, bookId);
         intent.putExtra(CATALOGUE_ID, catalogue_id);
+        return intent;
+    }
+
+    public static Intent createIntent(Context context, ArrayList<SRTract> tracts, String bookId, String catalogue_id, String group_id, String task_id) {
+        Intent intent = new Intent(context, SRMarkActivity.class);
+        intent.putExtra(TRACTS, tracts);
+        intent.putExtra(BOOK_ID, bookId);
+        intent.putExtra(CATALOGUE_ID, catalogue_id);
+        intent.putExtra(GROUP_ID, group_id);
+        intent.putExtra(TASK_DI, task_id);
         return intent;
     }
 
@@ -47,7 +59,7 @@ public class SRMarkActivity extends ZYBaseFragmentActivity<SRMarkFragment> imple
         String bookId = getIntent().getStringExtra(BOOK_ID);
         String catalogue_id = getIntent().getStringExtra(CATALOGUE_ID);
         mActionBar.showTitle("(1/" + tracts.size() + ")");
-        new SRMarkPresenter(mFragment, tracts, bookId, catalogue_id);
+        new SRMarkPresenter(mFragment, tracts, bookId, catalogue_id, getIntent().getStringExtra(GROUP_ID), getIntent().getStringExtra(TASK_DI));
         mFragment.setTrackClickListener(this);
     }
 

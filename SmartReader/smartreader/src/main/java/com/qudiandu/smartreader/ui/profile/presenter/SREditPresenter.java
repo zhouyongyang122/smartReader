@@ -38,7 +38,6 @@ public class SREditPresenter extends ZYBasePresenter implements SREditContract.I
                 if (response.data != null) {
                     SRUserManager.getInstance().setUser(response.data);
                 }
-//                EventBus.getDefault().post(new SREventEditSuc());
                 iView.finish();
             }
 

@@ -99,6 +99,25 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.main.activity.SRCreateClassActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.SRJoinClassActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.task.activity.SRTaskCateActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.main.activity.SRClassDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.SRClassUsersActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait"

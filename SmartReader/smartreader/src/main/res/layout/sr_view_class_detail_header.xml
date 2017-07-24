@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c2"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:background="@color/c5"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/textSchoolName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="学校名称: 中心小学"
+            android:textColor="@color/c2"
+            android:textSize="@dimen/f4" />
+
+        <TextView
+            android:id="@+id/textClassName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="班级名称: 中心小学"
+            android:textColor="@color/c2"
+            android:textSize="@dimen/f4" />
+
+        <TextView
+            android:id="@+id/textCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="邀请码: 9999999"
+            android:textColor="@color/c2"
+            android:textSize="@dimen/f4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/textNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="班级学员 (12)"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f4" />
+
+        <TextView
+            android:id="@+id/textManager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="6dp"
+            android:drawableRight="@drawable/btg_icon_arrow_right_selected"
+            android:gravity="center"
+            android:text="管理"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f4" />
+    </LinearLayout>
+
+</LinearLayout>

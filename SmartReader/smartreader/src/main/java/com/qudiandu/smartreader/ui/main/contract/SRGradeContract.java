@@ -13,6 +13,6 @@ public interface SRGradeContract {
     }
 
     interface IPresenter extends ZYListDataContract.Presenter<SRGrade> {
-
+        boolean isTaskSel();
     }
 }

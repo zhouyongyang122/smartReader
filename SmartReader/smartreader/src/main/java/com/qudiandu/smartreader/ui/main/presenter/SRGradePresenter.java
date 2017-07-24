@@ -16,8 +16,11 @@ import java.util.List;
 
 public class SRGradePresenter extends ZYListDataPresenter<SRGradeContract.IView, SRGradeModel, SRGrade> implements SRGradeContract.IPresenter {
 
-    public SRGradePresenter(SRGradeContract.IView view, SRGradeModel model) {
-        super(view, model);
+    boolean isTaskSel;
+
+    public SRGradePresenter(SRGradeContract.IView view, boolean isTaskSel) {
+        super(view, new SRGradeModel());
+        this.isTaskSel = isTaskSel;
     }
 
     @Override
@@ -45,5 +48,9 @@ public class SRGradePresenter extends ZYListDataPresenter<SRGradeContract.IView,
                 fail(message);
             }
         }));
+    }
+
+    public boolean isTaskSel() {
+        return isTaskSel;
     }
 }

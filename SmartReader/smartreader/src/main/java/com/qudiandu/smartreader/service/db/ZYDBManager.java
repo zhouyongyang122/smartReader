@@ -16,7 +16,7 @@ public class ZYDBManager {
 
     private final static String dbName = "SmartReader";
 
-    private DaoMaster.DevOpenHelper openHelper;
+    private ZYMySQLiteOpenHelper openHelper;
 
     private ZYDBManager() {
         initDB();
@@ -35,17 +35,17 @@ public class ZYDBManager {
 
     private void initDB() {
         if (openHelper == null) {
-            openHelper = new DaoMaster.DevOpenHelper(SRApplication.getInstance(), dbName, null);
+            openHelper = new ZYMySQLiteOpenHelper(SRApplication.getInstance(), dbName, null);
         }
     }
 
-    public DaoSession getReadableDaoSession(){
+    public DaoSession getReadableDaoSession() {
         DaoMaster daoMaster = new DaoMaster(ZYDBManager.getInstance().getReadableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         return daoSession;
     }
 
-    public DaoSession getWritableDaoSession(){
+    public DaoSession getWritableDaoSession() {
         DaoMaster daoMaster = new DaoMaster(ZYDBManager.getInstance().getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         return daoSession;

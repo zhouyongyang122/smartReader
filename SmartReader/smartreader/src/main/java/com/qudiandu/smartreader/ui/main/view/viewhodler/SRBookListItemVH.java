@@ -37,8 +37,11 @@ public class SRBookListItemVH extends ZYBaseViewHolder<SRBook> {
 
     SRBook mData;
 
-    public SRBookListItemVH(BookListItemListener listener) {
+    boolean isTaskSel;
+
+    public SRBookListItemVH(BookListItemListener listener, boolean isTaskSel) {
         this.listener = listener;
+        this.isTaskSel = isTaskSel;
     }
 
     @Override
@@ -72,15 +75,19 @@ public class SRBookListItemVH extends ZYBaseViewHolder<SRBook> {
 
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.color.c5, R.color.c5);
             textTitle.setText(data.getName() + ":");
-            check(mData.isCheck);
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mData.isCheck = !mData.isCheck;
-                    check(mData.isCheck);
-                    listener.onBookItemSelect(mData, mData.isCheck);
-                }
-            });
+
+            if (!isTaskSel) {
+                imgCheck.setVisibility(View.VISIBLE);
+                check(mData.isCheck);
+                cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mData.isCheck = !mData.isCheck;
+                        check(mData.isCheck);
+                        listener.onBookItemSelect(mData, mData.isCheck);
+                    }
+                });
+            }
         }
     }
 

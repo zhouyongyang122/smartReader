@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.qudiandu.smartreader.base.event.SREventSelectedBook;
+import com.qudiandu.smartreader.base.event.SREventSelectedTask;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
 import com.qudiandu.smartreader.ui.main.model.SRGradeModel;
 import com.qudiandu.smartreader.ui.main.presenter.SRGradePresenter;
@@ -20,8 +21,16 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class SRGradeActivity extends ZYBaseFragmentActivity<SRGradeFragment> {
 
+    static final String TASK_SELECTE = "task_select";
+
     public static Intent createIntent(Context context) {
         return new Intent(context, SRGradeActivity.class);
+    }
+
+    public static Intent createIntent(Context context, boolean isTaskSelect) {
+        Intent intent = new Intent(context, SRGradeActivity.class);
+        intent.putExtra(TASK_SELECTE, isTaskSelect);
+        return intent;
     }
 
     @Override
@@ -29,7 +38,7 @@ public class SRGradeActivity extends ZYBaseFragmentActivity<SRGradeFragment> {
         super.onCreate(savedInstanceState);
 
         mActionBar.showTitle("添加课程");
-        new SRGradePresenter(mFragment, new SRGradeModel());
+        new SRGradePresenter(mFragment,getIntent().getBooleanExtra(TASK_SELECTE,false));
     }
 
     @Override
@@ -39,6 +48,11 @@ public class SRGradeActivity extends ZYBaseFragmentActivity<SRGradeFragment> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventBookSelected(SREventSelectedBook eventSelectedBook) {
+        finish();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(SREventSelectedTask task) {
         finish();
     }
 }

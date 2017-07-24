@@ -20,10 +20,13 @@ public class SRBookListPresenter extends ZYListDataPresenter<SRBookListContract.
 
     private String gradeId;
 
-    public SRBookListPresenter(SRBookListContract.IView view, SRMainModel model, String gradeId) {
-        super(view, model);
+    boolean isTaskSel;
+
+    public SRBookListPresenter(SRBookListContract.IView view, String gradeId, boolean isTaskSel) {
+        super(view, new SRMainModel());
         this.gradeId = gradeId;
         mRows = 40;
+        this.isTaskSel = isTaskSel;
     }
 
     @Override
@@ -63,5 +66,9 @@ public class SRBookListPresenter extends ZYListDataPresenter<SRBookListContract.
             mSubscriptions.add(ZYNetSubscription.subscription(mModel.bookAddReport(bookIds), new ZYNetSubscriber() {
             }));
         }
+    }
+
+    public boolean isTaskSel() {
+        return isTaskSel;
     }
 }

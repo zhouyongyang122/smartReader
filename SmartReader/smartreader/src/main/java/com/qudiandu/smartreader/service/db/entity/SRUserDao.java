@@ -38,7 +38,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         public final static Property Auth_token = new Property(11, String.class, "auth_token", false, "AUTH_TOKEN");
         public final static Property IsLoginUser = new Property(12, boolean.class, "isLoginUser", false, "IS_LOGIN_USER");
         public final static Property Type = new Property(13, int.class, "type", false, "TYPE");
-        public final static Property Mobile = new Property(14, String.class, "mobile", false, "MOBILE");
+        public final static Property User_type = new Property(14, int.class, "user_type", false, "USER_TYPE");
+        public final static Property Mobile = new Property(15, String.class, "mobile", false, "MOBILE");
     }
 
 
@@ -68,7 +69,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
                 "\"AUTH_TOKEN\" TEXT," + // 11: auth_token
                 "\"IS_LOGIN_USER\" INTEGER NOT NULL ," + // 12: isLoginUser
                 "\"TYPE\" INTEGER NOT NULL ," + // 13: type
-                "\"MOBILE\" TEXT);"); // 14: mobile
+                "\"USER_TYPE\" INTEGER NOT NULL ," + // 14: user_type
+                "\"MOBILE\" TEXT);"); // 15: mobile
     }
 
     /** Drops the underlying database table. */
@@ -126,10 +128,11 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         }
         stmt.bindLong(13, entity.getIsLoginUser() ? 1L: 0L);
         stmt.bindLong(14, entity.getType());
+        stmt.bindLong(15, entity.getUser_type());
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(15, mobile);
+            stmt.bindString(16, mobile);
         }
     }
 
@@ -182,10 +185,11 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         }
         stmt.bindLong(13, entity.getIsLoginUser() ? 1L: 0L);
         stmt.bindLong(14, entity.getType());
+        stmt.bindLong(15, entity.getUser_type());
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(15, mobile);
+            stmt.bindString(16, mobile);
         }
     }
 
@@ -211,7 +215,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // auth_token
             cursor.getShort(offset + 12) != 0, // isLoginUser
             cursor.getInt(offset + 13), // type
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // mobile
+            cursor.getInt(offset + 14), // user_type
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // mobile
         );
         return entity;
     }
@@ -232,7 +237,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         entity.setAuth_token(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setIsLoginUser(cursor.getShort(offset + 12) != 0);
         entity.setType(cursor.getInt(offset + 13));
-        entity.setMobile(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setUser_type(cursor.getInt(offset + 14));
+        entity.setMobile(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     @Override

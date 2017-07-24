@@ -7,6 +7,7 @@ import com.qudiandu.smartreader.service.db.entity.ZYBaseEntity;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Transient;
 
 /**
  * Created by ZY on 17/4/2.
@@ -14,6 +15,12 @@ import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class SRUser extends ZYBaseEntity {
+
+    public static final int DEF_TYPE = 0;
+
+    public static final int STUDY_TYPE = 1;
+
+    public static final int TEACHER_TYPE = 2;
 
     @Id
     public String uid;
@@ -44,13 +51,18 @@ public class SRUser extends ZYBaseEntity {
 
     public int type;//0:手机号码登录 1:qq登录 2:微博登录 3:微信登陆
 
+    public int user_type;//用户身份 1 学生 2 老师  0待选择
+
     public String mobile;
 
-    @Generated(hash = 1287795538)
+    @Transient
+    public boolean isCheck;
+
+    @Generated(hash = 1493552440)
     public SRUser(String uid, String nickname, String avatar, int sex, String school,
-            String refresh_token, int age, int endtime, String upload_token,
-            String picture_token, int grade, String auth_token, boolean isLoginUser, int type,
-            String mobile) {
+                  String refresh_token, int age, int endtime, String upload_token,
+                  String picture_token, int grade, String auth_token, boolean isLoginUser, int type,
+                  int user_type, String mobile) {
         this.uid = uid;
         this.nickname = nickname;
         this.avatar = avatar;
@@ -65,6 +77,7 @@ public class SRUser extends ZYBaseEntity {
         this.auth_token = auth_token;
         this.isLoginUser = isLoginUser;
         this.type = type;
+        this.user_type = user_type;
         this.mobile = mobile;
     }
 
@@ -88,6 +101,18 @@ public class SRUser extends ZYBaseEntity {
     public void delete() {
         SRUserDao userDao = ZYDBManager.getInstance().getWritableDaoSession().getSRUserDao();
         userDao.delete(this);
+    }
+
+    public boolean isTeacher() {
+        return user_type == SRUser.TEACHER_TYPE;
+    }
+
+    public boolean isStudent(){
+        return user_type == SRUser.STUDY_TYPE;
+    }
+
+    public boolean isNoIdentity(){
+        return user_type == SRUser.DEF_TYPE;
     }
 
     public String getUid() {
@@ -216,5 +241,13 @@ public class SRUser extends ZYBaseEntity {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public int getUser_type() {
+        return this.user_type;
+    }
+
+    public void setUser_type(int user_type) {
+        this.user_type = user_type;
     }
 }

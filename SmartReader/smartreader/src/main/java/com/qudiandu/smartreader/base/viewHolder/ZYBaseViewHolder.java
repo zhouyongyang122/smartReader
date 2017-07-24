@@ -1,6 +1,7 @@
 package com.qudiandu.smartreader.base.viewHolder;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,15 +16,37 @@ public abstract class ZYBaseViewHolder<D> {
     protected Context mContext;
     protected View mItemView;
 
-    public void bindView(View view){
+    public void bindView(View view) {
         mItemView = view;
         mContext = view.getContext();
         ButterKnife.bind(this, view);
         findView(view);
     }
 
-    public void findView(View view){
+    public void findView(View view) {
 
+    }
+
+    public void attachTo(ViewGroup viewGroup) {
+        bindView(LayoutInflater.from(viewGroup.getContext()).inflate(getLayoutResId(), viewGroup, false));
+        viewGroup.addView(getItemView());
+    }
+
+    public void unAttach() {
+        ViewGroup parentView = (ViewGroup) mItemView.getParent();
+        parentView.removeView(mItemView);
+    }
+
+    public void show() {
+        mItemView.setVisibility(View.VISIBLE);
+    }
+
+    public void hide() {
+        mItemView.setVisibility(View.GONE);
+    }
+
+    public boolean isvisiable(){
+        return mItemView.getVisibility() == View.VISIBLE;
     }
 
     public View getDataBindingRoot(Context context, ViewGroup parent) {

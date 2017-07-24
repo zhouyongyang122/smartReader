@@ -17,8 +17,10 @@ import com.qudiandu.smartreader.service.ZYUpdateService;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.ui.main.contract.SRMainContract;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
+import com.qudiandu.smartreader.ui.main.presenter.SRClassPresenter;
 import com.qudiandu.smartreader.ui.main.presenter.SRHomePresenter;
 import com.qudiandu.smartreader.ui.main.presenter.SRMainPresenter;
+import com.qudiandu.smartreader.ui.main.view.SRClassFragment;
 import com.qudiandu.smartreader.ui.main.view.SRHomeFragment;
 import com.qudiandu.smartreader.ui.main.view.SRMeFragment;
 import com.qudiandu.smartreader.base.adapter.ZYFragmentAdapter;
@@ -38,7 +40,9 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
 
     public static final int MAIN_HOME_INDEX = 0;
 
-    public static final int MAIN_ME_INDEX = 1;
+    public static final int MAIN_CLASS_INDEX = 1;
+
+    public static final int MAIN_ME_INDEX = 2;
 
     @Bind(R.id.mainViewPager)
     ViewPager mainViewPager;
@@ -49,6 +53,12 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     @Bind(R.id.homeName)
     TextView homeName;
 
+    @Bind(R.id.classImg)
+    ImageView classImg;
+
+    @Bind(R.id.className)
+    TextView className;
+
     @Bind(R.id.meImg)
     ImageView meImg;
 
@@ -56,6 +66,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     TextView meName;
 
     SRHomeFragment homeFragment;
+
+    SRClassFragment classFragment;
 
     SRMeFragment meFragment;
 
@@ -81,13 +93,16 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         hideActionLeftImg();
         fragmentAdapter = new ZYFragmentAdapter(getSupportFragmentManager());
         homeFragment = new SRHomeFragment();
+        classFragment = new SRClassFragment();
         meFragment = new SRMeFragment();
         fragmentAdapter.addFragment(homeFragment, "英语趣点读");
+        fragmentAdapter.addFragment(classFragment, "班级");
         fragmentAdapter.addFragment(meFragment, "我的");
 
         new SRHomePresenter(homeFragment);
+        new SRClassPresenter(classFragment);
 
-        mainViewPager.setOffscreenPageLimit(1);
+        mainViewPager.setOffscreenPageLimit(2);
         mainViewPager.setCurrentItem(0);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -114,15 +129,17 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         mActionBar.setLayoutParams(layoutParams);
     }
 
-    @OnClick({R.id.homeBtn, R.id.meBtn})
+    @OnClick({R.id.homeBtn, R.id.classBtn, R.id.meBtn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.homeBtn:
                 mainViewPager.setCurrentItem(0);
                 break;
-            case R.id.meBtn:
+            case R.id.classBtn:
                 mainViewPager.setCurrentItem(1);
-
+                break;
+            case R.id.meBtn:
+                mainViewPager.setCurrentItem(2);
                 break;
         }
     }
@@ -137,11 +154,24 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             meImg.setSelected(false);
             homeName.setTextColor(getResources().getColor(R.color.white));
             meName.setTextColor(getResources().getColor(R.color.black));
+            classImg.setSelected(false);
+            className.setTextColor(getResources().getColor(R.color.black));
             showActionBar();
+            setDarkMode(false);
+        } else if (mCurrentPage == MAIN_CLASS_INDEX) {
+            homeImg.setSelected(false);
+            meImg.setSelected(false);
+            homeName.setTextColor(getResources().getColor(R.color.black));
+            meName.setTextColor(getResources().getColor(R.color.black));
+            classImg.setSelected(true);
+            className.setTextColor(getResources().getColor(R.color.white));
+            hideActionBar();
             setDarkMode(false);
         } else if (mCurrentPage == MAIN_ME_INDEX) {
             homeImg.setSelected(false);
             meImg.setSelected(true);
+            classImg.setSelected(false);
+            className.setTextColor(getResources().getColor(R.color.black));
             homeName.setTextColor(getResources().getColor(R.color.black));
             meName.setTextColor(getResources().getColor(R.color.white));
             hideActionBar();

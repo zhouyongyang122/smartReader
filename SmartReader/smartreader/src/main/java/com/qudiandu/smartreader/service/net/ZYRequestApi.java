@@ -5,13 +5,16 @@ import com.qudiandu.smartreader.base.html5.ZYHtml5UrlBean;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.model.bean.SRAdert;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
+import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 import com.qudiandu.smartreader.ui.main.model.bean.SRGrade;
+import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkResponse;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
+import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
 
 import java.util.List;
 import java.util.Map;
@@ -97,4 +100,38 @@ public interface ZYRequestApi {
 
     @GET("show/catalogueDetail")
     Observable<ZYResponse<SRCatalogueDetail>> getCatalogueDetail(@Query("show_id") String show_id);
+
+    @GET("group/teacherGroup")
+    Observable<ZYResponse<List<SRClass>>> getTeacherClasss(@Query("start") int start, @Query("rows") int rows);
+
+    @GET("roup/userGroup")
+    Observable<ZYResponse<List<SRClass>>> getStudentClasss(@Query("start") int start, @Query("rows") int rows);
+
+    @GET("group/teachTaskList")
+    Observable<ZYResponse<List<SRTask>>> getTeacherTasks(@Query("group_id") int group_id, @Query("start") int start, @Query("rows") int rows);
+
+    @GET("group/userTaskList")
+    Observable<ZYResponse<List<SRTask>>> getStudentTasks(@Query("group_id") int group_id, @Query("start") int start, @Query("rows") int rows);
+
+    @POST("group/add")
+    Observable<ZYResponse> addClass(@Body Map<String, String> params);
+
+    @POST("group/memberAdd")
+    Observable<ZYResponse> joinClass(@Body Map<String, String> params);
+
+    @GET("book/catalogue")
+    Observable<ZYResponse<List<SRTaskCate>>> getTaskCates(@Query("book_id") String book_id, @Query("start") int start, @Query("rows") int rows);
+
+    @POST("group/taskAdd")
+    Observable<ZYResponse> addTask(@Body Map<String, String> params);
+
+    @GET("group/detail")
+    Observable<ZYResponse<SRClass>> getClassDetail(@Query("group_id") String group_id);
+
+    @GET("group/memberList")
+    Observable<ZYResponse<List<SRUser>>> getClassUsers(@Query("group_id") String group_id, @Query("start") int start, @Query("rows") int rows);
+
+    @POST("group/memberDel")
+    Observable<ZYResponse> removeUsers(@Query("group_id") String group_id, @Query("del_uid") String del_uid);
+
 }

@@ -57,15 +57,21 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
 
     String mergeTractAudioPath;
 
+    String group_id;
+
+    String task_id;
+
     int score;
 
-    public SRMarkPresenter(SRMarkContract.IView iView, ArrayList<SRTract> tracts, String bookId, String catalogue_id) {
+    public SRMarkPresenter(SRMarkContract.IView iView, ArrayList<SRTract> tracts, String bookId, String catalogue_id, String group_id, String task_id) {
         this.iView = iView;
         model = new SRMarkModel();
         this.iView.setPresenter(this);
         mTracts = tracts;
         this.bookId = bookId;
+        this.task_id = task_id;
         this.catalogue_id = catalogue_id;
+        this.group_id = group_id;
 
         for (SRTract tract : tracts) {
             tract.isRecordType = true;

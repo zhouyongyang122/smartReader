@@ -21,6 +21,7 @@ import com.qudiandu.smartreader.ui.main.contract.SRBookListContract;
 import com.qudiandu.smartreader.ui.main.model.SRAddBookManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookListItemVH;
+import com.qudiandu.smartreader.ui.task.activity.SRTaskCateActivity;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
@@ -40,45 +41,48 @@ public class SRBookListFragment extends ZYListDateFragment<SRBookListContract.IP
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RelativeLayout view = (RelativeLayout) super.onCreateView(inflater, container, savedInstanceState);
-
-        ((ZYSwipeRefreshRecyclerView) mRefreshRecyclerView).setPadding(ZYScreenUtils.dp2px(mActivity, 15), 0, ZYScreenUtils.dp2px(mActivity, 15), ZYScreenUtils.dp2px(mActivity, 50));
-
         mRefreshRecyclerView.setLoadMoreEnable(false);
 
-        textAdd = new TextView(mActivity);
-        textAdd.setGravity(Gravity.CENTER);
-        textAdd.setTextColor(ZYResourceUtils.getColor(R.color.white));
-        textAdd.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
-        textAdd.setTextSize(18);
-        textAdd.setText("确认添加");
-        textAdd.setVisibility(View.GONE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ZYScreenUtils.dp2px(mActivity, 50));
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        view.addView(textAdd, layoutParams);
+        if (mPresenter.isTaskSel()) {
+            ((ZYSwipeRefreshRecyclerView) mRefreshRecyclerView).setPadding(ZYScreenUtils.dp2px(mActivity, 15), 0, ZYScreenUtils.dp2px(mActivity, 15), 0);
+        } else {
+            ((ZYSwipeRefreshRecyclerView) mRefreshRecyclerView).setPadding(ZYScreenUtils.dp2px(mActivity, 15), 0, ZYScreenUtils.dp2px(mActivity, 15), ZYScreenUtils.dp2px(mActivity, 50));
+            textAdd = new TextView(mActivity);
+            textAdd.setGravity(Gravity.CENTER);
+            textAdd.setTextColor(ZYResourceUtils.getColor(R.color.white));
+            textAdd.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
+            textAdd.setTextSize(18);
+            textAdd.setText("确认添加");
+            textAdd.setVisibility(View.GONE);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ZYScreenUtils.dp2px(mActivity, 50));
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            view.addView(textAdd, layoutParams);
 
-        textAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (SRAddBookManager.getInstance().getAddBooksSize() <= 0) {
-                    ZYToast.show(mActivity, "还没有选择书籍!");
-                } else {
-                    EventBus.getDefault().post(new SREventSelectedBook());
-                    mPresenter.reportAddBookts();
-                    finish();
+            textAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (SRAddBookManager.getInstance().getAddBooksSize() <= 0) {
+                        ZYToast.show(mActivity, "还没有选择书籍!");
+                    } else {
+                        EventBus.getDefault().post(new SREventSelectedBook());
+                        mPresenter.reportAddBookts();
+                        finish();
+                    }
                 }
-            }
-        });
+            });
+        }
         return view;
     }
 
     @Override
     protected ZYBaseViewHolder<SRBook> createViewHolder() {
-        return new SRBookListItemVH(this);
+        return new SRBookListItemVH(this, mPresenter.isTaskSel());
     }
 
     @Override
     protected void onItemClick(View view, int position) {
-
+        SRBook book = mAdapter.getItem(position);
+        mActivity.startActivity(SRTaskCateActivity.createIntent(mActivity, book.book_id));
     }
 
     @Override

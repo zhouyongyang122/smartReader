@@ -14,5 +14,7 @@ public interface SRBookListContract {
 
     interface IPresenter extends ZYListDataContract.Presenter<SRBook> {
         void reportAddBookts();
+
+        boolean isTaskSel();
     }
 }

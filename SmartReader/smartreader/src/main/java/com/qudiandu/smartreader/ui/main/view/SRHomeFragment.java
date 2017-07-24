@@ -121,5 +121,7 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
         }
         mPresenter.getBooks().addAll(mPresenter.getBooks().size() - 1, books);
         bookVH.refreshData();
+
+        SRAddBookManager.getInstance().clearAddBooks();
     }
 }
