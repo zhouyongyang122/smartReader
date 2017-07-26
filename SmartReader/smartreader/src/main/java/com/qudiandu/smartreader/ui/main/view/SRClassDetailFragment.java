@@ -1,5 +1,7 @@
 package com.qudiandu.smartreader.ui.main.view;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
@@ -23,7 +25,6 @@ public class SRClassDetailFragment extends ZYListDateFragment<SRClassDetailContr
     @Override
     protected void init() {
         super.init();
-        mRefreshRecyclerView.getRecyclerView().setPadding(ZYScreenUtils.dp2px(mActivity, 5), 0, ZYScreenUtils.dp2px(mActivity, 5), 0);
         mRefreshRecyclerView.setRefreshEnable(false);
         headerVH = new SRClassDetailHeaderVH();
         mAdapter.addHeader(headerVH);
@@ -31,6 +32,11 @@ public class SRClassDetailFragment extends ZYListDateFragment<SRClassDetailContr
 
     public void refreshHeader(SRClass data) {
         headerVH.updateView(data, 0);
+    }
+
+    @Override
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new GridLayoutManager(mActivity, 5);
     }
 
     @Override

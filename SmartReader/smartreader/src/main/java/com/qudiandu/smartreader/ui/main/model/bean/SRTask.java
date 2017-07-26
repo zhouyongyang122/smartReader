@@ -1,6 +1,7 @@
 package com.qudiandu.smartreader.ui.main.model.bean;
 
 import com.qudiandu.smartreader.base.bean.ZYIBaseBean;
+import com.qudiandu.smartreader.utils.ZYDateUtils;
 
 import java.util.List;
 
@@ -42,6 +43,15 @@ public class SRTask implements ZYIBaseBean {
     public List<Finish> finish;
 
     public boolean isEdit;
+
+    public String getCreateTime() {
+        try {
+            return ZYDateUtils.getTimeString(Long.parseLong(create_time) * 1000, ZYDateUtils.MMDD12);
+        } catch (Exception e) {
+
+        }
+        return "";
+    }
 
     public class Finish {
         public int show_id;

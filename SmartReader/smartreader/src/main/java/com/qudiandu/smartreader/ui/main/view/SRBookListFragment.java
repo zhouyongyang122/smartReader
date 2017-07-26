@@ -93,7 +93,9 @@ public class SRBookListFragment extends ZYListDateFragment<SRBookListContract.IP
     @Override
     public void showList(boolean isHasMore) {
         super.showList(false);
-        textAdd.setVisibility(View.VISIBLE);
+        if(textAdd != null) {
+            textAdd.setVisibility(View.VISIBLE);
+        }
 
     }
 

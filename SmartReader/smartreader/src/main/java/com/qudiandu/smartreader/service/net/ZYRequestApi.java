@@ -15,6 +15,7 @@ import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
+import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 
 import java.util.List;
 import java.util.Map;
@@ -104,7 +105,7 @@ public interface ZYRequestApi {
     @GET("group/teacherGroup")
     Observable<ZYResponse<List<SRClass>>> getTeacherClasss(@Query("start") int start, @Query("rows") int rows);
 
-    @GET("roup/userGroup")
+    @GET("group/userGroup")
     Observable<ZYResponse<List<SRClass>>> getStudentClasss(@Query("start") int start, @Query("rows") int rows);
 
     @GET("group/teachTaskList")
@@ -133,5 +134,14 @@ public interface ZYRequestApi {
 
     @POST("group/memberDel")
     Observable<ZYResponse> removeUsers(@Query("group_id") String group_id, @Query("del_uid") String del_uid);
+
+    @GET("group/taskFinishList")
+    Observable<ZYResponse<List<SRTaskFinish>>> getTaskFinishs(@Query("group_id") String group_id, @Query("task_id") String task_id, @Query("start") int start, @Query("rows") int rows);
+
+    @POST("group/showComment")
+    Observable<ZYResponse> addComment(@Body Map<String, String> params);
+
+    @POST("group/taskRemind")
+    Observable<ZYResponse> taskRemind(@Body Map<String, String> params);
 
 }

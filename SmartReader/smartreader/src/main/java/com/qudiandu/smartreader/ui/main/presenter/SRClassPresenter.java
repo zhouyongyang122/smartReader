@@ -19,6 +19,7 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 import com.qudiandu.smartreader.ui.main.model.bean.SRPage;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
+import com.qudiandu.smartreader.ui.main.model.bean.SRTaskTitle;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.profile.model.SREditModel;
 
@@ -84,6 +85,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
         SRUser user = SRUserManager.getInstance().getUser();
         Observable<ZYResponse<List<SRClass>>> observable = null;
         if (user.isNoIdentity()) {
+            isRefreshing = false;
             return;
         } else if (user.isStudent()) {
             observable = mModel.getStudentClasss();
@@ -93,6 +95,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
         mSubscriptions.add(ZYNetSubscription.subscription(observable, new ZYNetSubscriber<ZYResponse<List<SRClass>>>() {
             @Override
             public void onSuccess(ZYResponse<List<SRClass>> response) {
+                isRefreshing = false;
                 if (response.data != null && response.data.size() > 0) {
                     mClasses.clear();
                     mClasses.addAll(response.data);
@@ -105,7 +108,6 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
                     mView.refreshClasses();
                     loadTasks(true);
                 } else {
-                    isRefreshing = false;
                     mView.showClassEmpty();
                 }
             }
@@ -128,6 +130,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
         SRUser user = SRUserManager.getInstance().getUser();
         Observable<ZYResponse<List<SRTask>>> observable = null;
         if (user.isNoIdentity()) {
+            isRefreshing = false;
             return;
         } else if (user.isStudent()) {
             observable = mModel.getStudentTasks(mCurrentClass.group_id, mStart, mRows);
@@ -144,7 +147,23 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
                 }
                 if (resuts.size() > 0) {
                     mStart += resuts.size();
-                    mData.addAll(resuts);
+
+                    String lastTime = null;
+                    if (mData.size() > 0) {
+                        lastTime = ((SRTask) mData.get(mData.size() - 1)).getCreateTime();
+                    } else {
+                        lastTime = resuts.get(0).getCreateTime();
+                        mData.add(new SRTaskTitle(lastTime));
+                    }
+                    for (SRTask task : resuts) {
+                        if (lastTime.equals(task.getCreateTime())) {
+                            mData.add(task);
+                        } else {
+                            lastTime = task.getCreateTime();
+                            mData.add(new SRTaskTitle(lastTime));
+                            mData.add(task);
+                        }
+                    }
                     mView.showList(true);
                 } else {
                     if (mData.size() > 0) {
@@ -306,5 +325,9 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
 
     public List<Object> getData() {
         return mData;
+    }
+
+    public SRClass getCurrentClass() {
+        return mCurrentClass;
     }
 }

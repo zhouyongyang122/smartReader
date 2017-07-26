@@ -28,6 +28,8 @@ public class SRUserParams {
 
     public int age;
 
+    public int identity;
+
     public Map<String, String> getParamas() {
         Map<String, String> paramas = new HashMap<String, String>();
         paramas.put("nickname", nickname);
@@ -36,6 +38,7 @@ public class SRUserParams {
         paramas.put("avatar", qianniuKey);
         paramas.put("grade", grade + "");
         paramas.put("age", age + "");
+        paramas.put("user_type", identity + "");
         return paramas;
     }
 
@@ -59,6 +62,9 @@ public class SRUserParams {
         if (sex <= 0) {
             return "你还没有设置性别";
         }
+        if (identity <= 0) {
+            return "你还没有设置身份";
+        }
         return null;
     }
 
@@ -71,6 +77,7 @@ public class SRUserParams {
         userParams.avatar = user.avatar;
         userParams.grade = user.grade;
         userParams.age = user.age;
+        userParams.identity = user.user_type;
         return userParams;
     }
 }

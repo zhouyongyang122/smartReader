@@ -98,6 +98,9 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
             mRootView.addView(markShareVH.getItemView());
         }
         markShareVH.updateView(response, 0);
+        if (!TextUtils.isEmpty(mPresenter.getGroupId())) {
+            markShareVH.setTitle("任务配音上传成功!");
+        }
     }
 
     @Override

@@ -28,10 +28,17 @@ public class SRTaskCateFragment extends ZYListDateFragment<SRTaskCateContract.IP
     SRTaskOKVH okvh;
 
     @Override
+    protected void init() {
+        super.init();
+        mRefreshRecyclerView.setRefreshEnable(false);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         okvh = new SRTaskOKVH(this);
         okvh.attachTo((ViewGroup) view);
+        okvh.updateView(null,0);
         okvh.hide();
     }
 
@@ -41,7 +48,7 @@ public class SRTaskCateFragment extends ZYListDateFragment<SRTaskCateContract.IP
             int index = 0;
             for (Object object : mPresenter.getDataList()) {
                 if (object instanceof SRTaskCate) {
-                    SRTaskCate taskCate = (SRTaskCate) mAdapter.getItem(position);
+                    SRTaskCate taskCate = (SRTaskCate) object;
                     if (index == position) {
                         taskCate.isCheck = true;
                     } else {

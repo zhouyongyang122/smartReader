@@ -184,7 +184,7 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
     }
 
     private void uploadmergeAudioToServers(final String qiniuKey, final String tractValues) {
-        mSubscriptions.add(ZYNetSubscription.subscription(model.catalogueAdd(qiniuKey, bookId, catalogue_id, score, tractValues), new ZYNetSubscriber<ZYResponse<SRCatalogueResponse>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(model.catalogueAdd(qiniuKey, bookId, catalogue_id, score, tractValues,group_id,task_id), new ZYNetSubscriber<ZYResponse<SRCatalogueResponse>>() {
             @Override
             public void onSuccess(ZYResponse<SRCatalogueResponse> response) {
                 super.onSuccess(response);
@@ -252,6 +252,10 @@ public class SRMarkPresenter extends ZYBasePresenter implements SRMarkContract.I
     private String getTime() {
         Date date = new Date();
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+
+    public String getGroupId() {
+        return group_id;
     }
 
     public ArrayList<SRTract> getTracks() {

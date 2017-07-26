@@ -42,18 +42,17 @@ public class SRUserManager {
                         user.upload_token = response.data.upload_token;
                         SRUserManager.getInstance().setUser(user);
                     } else {
-                        gotoReLogin();
+//                        gotoReLogin();
                     }
                 }
 
                 @Override
                 public void onFail(String message) {
-//                    super.onFail(message);
-                    gotoReLogin();
+//                    gotoReLogin();
                 }
             });
         } else {
-            gotoReLogin();
+//            gotoReLogin();
         }
     }
 

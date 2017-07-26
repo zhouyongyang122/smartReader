@@ -27,6 +27,7 @@ public class SRClassUsersFragment extends ZYListDateFragment<SRClassUsersContrac
         okvh = new SRTaskOKVH(this);
         okvh.attachTo((ViewGroup) view);
         okvh.setText("移除班级");
+        okvh.updateView(null, 0);
         okvh.hide();
     }
 

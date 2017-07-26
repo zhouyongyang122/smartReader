@@ -58,6 +58,9 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
     @Bind(R.id.textGender)
     TextView textGender;
 
+    @Bind(R.id.textdentity)
+    TextView textdentity;
+
     SRUserParams userParams;
 
     ZYPicSelect picSelect;
@@ -75,10 +78,11 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
         textGrade.setText(userParams.grade <= 0 ? "还没有设置年级" : userParams.grade + "年级");
         textAge.setText(userParams.age <= 0 ? "还没有设置年龄" : userParams.age + "岁");
         textGender.setText(userParams.sex <= 0 ? "还没有设置性别" : (userParams.sex == 1 ? "男" : "女"));
+        textdentity.setText(userParams.identity <= 0 ? "还没有设置身份" : (userParams.identity == 2 ? "老师" : "学生"));
         return view;
     }
 
-    @OnClick({R.id.imgAvatar, R.id.textName, R.id.textSchool, R.id.textGrade, R.id.textAge, R.id.textGender, R.id.textOk})
+    @OnClick({R.id.textdentity,R.id.imgAvatar, R.id.textName, R.id.textSchool, R.id.textGrade, R.id.textAge, R.id.textGender, R.id.textOk})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgAvatar:
@@ -101,6 +105,9 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
                 break;
             case R.id.textGender:
                 seletctGender();
+                break;
+            case R.id.textdentity:
+                selecteIdentity();
                 break;
             case R.id.textOk:
                 String tipMsg = userParams.checkParams();
@@ -173,6 +180,19 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
         });
         wheelSelectDialog.showDialog(0);
     }
+
+    private void selecteIdentity() {
+        String[] grades = new String[]{"学生", "老师"};
+        ZYWheelSelectDialog wheelSelectDialog = new ZYWheelSelectDialog(mActivity, grades, new ZYWheelSelectDialog.WheelSelectListener() {
+            @Override
+            public void onWheelSelected(ZYWheelSelectDialog dialog, int position, String value) {
+                userParams.identity = position + 1;
+                textdentity.setText(value);
+            }
+        });
+        wheelSelectDialog.showDialog(0);
+    }
+
 
     private void seletctAget() {
         final String[] ages = new String[58];

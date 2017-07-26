@@ -47,6 +47,9 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
     @Bind(R.id.textFinishNum)
     TextView textFinishNum;
 
+    @Bind(R.id.textScore)
+    TextView textScore;
+
     SRTask mData;
 
     boolean isTeacher;
@@ -61,6 +64,7 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
     @Override
     public void updateView(Object data, int position) {
         if (data != null && data instanceof SRTask) {
+            mItemView.setVisibility(View.VISIBLE);
             mData = (SRTask) data;
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, mData.page_url);
             textTitle.setText(mData.unit);
@@ -75,7 +79,19 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
             if (isTeacher) {
                 textFinishNum.setVisibility(View.VISIBLE);
                 textFinishNum.setText("完成度 " + mData.cur_num + "/" + mData.limit_num);
+                textFinish.setVisibility(View.GONE);
+            } else {
+                textFinish.setVisibility(View.VISIBLE);
             }
+
+            if(mData.finish != null && mData.finish.size() > 0){
+                textScore.setVisibility(View.VISIBLE);
+                textScore.setText(mData.finish.get(0).score + "");
+            }else {
+                textScore.setVisibility(View.GONE);
+            }
+        } else {
+            mItemView.setVisibility(View.GONE);
         }
     }
 

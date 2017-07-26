@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
@@ -36,6 +37,9 @@ public class SRMarkShareVH extends ZYBaseViewHolder<SRCatalogueResponse> {
     @Bind(R.id.rootView)
     LinearLayout rootView;
 
+    @Bind(R.id.textTitle)
+    TextView textTitle;
+
     @Override
     public void updateView(SRCatalogueResponse data, int position) {
         if (data != null) {
@@ -50,6 +54,13 @@ public class SRMarkShareVH extends ZYBaseViewHolder<SRCatalogueResponse> {
     public int getLayoutResId() {
         return R.layout.sr_mark_share;
     }
+
+    public void setTitle(String title) {
+        if (textTitle != null) {
+            textTitle.setText(title);
+        }
+    }
+
 
     public void hideView() {
         rootView.setVisibility(View.GONE);

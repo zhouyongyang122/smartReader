@@ -3,6 +3,7 @@ package com.qudiandu.smartreader.service.net;
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYToast;
 
@@ -55,10 +56,10 @@ public class ZYNetSubscriber<R extends ZYResponse> extends rx.Subscriber<R> {
                 case ZYResponse.STATUS_401:
                     //token失效
                     try {
-//                        ZYToast.show(SRApplication.getInstance(), "登录信息失效,请重新登录");
+                        SRUserManager.getInstance().loginOut();
                         SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
                     } catch (Exception e) {
-                        ZYLog.e(getClass().getSimpleName(),"onNext:" + e.getMessage());
+                        ZYLog.e(getClass().getSimpleName(), "onNext:" + e.getMessage());
                     }
                     onFail("登录信息失效,请重新登录");
                     break;

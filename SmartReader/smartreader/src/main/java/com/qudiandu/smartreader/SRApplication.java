@@ -13,6 +13,7 @@ import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.SRAppConstants;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.thirdParty.statistics.DataStatistics;
 import com.qudiandu.smartreader.utils.ZYUncaughtExceptionHandler;
@@ -79,6 +80,8 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
 //        XunFeiSDK.getInstance();
         //在这里初始化
         initBugTags();
+
+        SRUserManager.refreshToken();
     }
 
     private void initFileDir() {

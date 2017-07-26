@@ -15,13 +15,13 @@
             android:id="@+id/imgCheck"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginRight="15dp"
             android:background="@drawable/sr_bg_check_selector" />
 
         <ImageView
             android:id="@+id/imgAvatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="15dp"
             android:src="@drawable/def_avatar" />
 
         <TextView

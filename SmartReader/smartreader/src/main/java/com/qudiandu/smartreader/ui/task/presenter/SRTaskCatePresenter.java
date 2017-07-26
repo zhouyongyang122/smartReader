@@ -5,12 +5,11 @@ import com.qudiandu.smartreader.base.event.SREventSelectedTask;
 import com.qudiandu.smartreader.base.mvp.ZYListDataPresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
-import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTaskTitle;
 import com.qudiandu.smartreader.ui.task.model.SRTaskManager;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
 import com.qudiandu.smartreader.ui.task.contract.SRTaskCateContract;
-import com.qudiandu.smartreader.ui.task.model.SRTaskCateModel;
+import com.qudiandu.smartreader.ui.task.model.SRTaskModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,12 +20,12 @@ import java.util.List;
  * Created by ZY on 17/7/23.
  */
 
-public class SRTaskCatePresenter extends ZYListDataPresenter<SRTaskCateContract.IView, SRTaskCateModel, Object> implements SRTaskCateContract.IPresenter {
+public class SRTaskCatePresenter extends ZYListDataPresenter<SRTaskCateContract.IView, SRTaskModel, Object> implements SRTaskCateContract.IPresenter {
 
     String mBookId;
 
     public SRTaskCatePresenter(SRTaskCateContract.IView view, String bookId) {
-        super(view, new SRTaskCateModel());
+        super(view, new SRTaskModel());
         mBookId = bookId;
     }
 
@@ -42,7 +41,7 @@ public class SRTaskCatePresenter extends ZYListDataPresenter<SRTaskCateContract.
                     if (mDataList.size() > 0) {
                         lastUnit = ((SRTaskCate) mDataList.get(mDataList.size() - 1)).unit;
                     } else {
-                        lastUnit = ((SRTaskCate) results.get(0)).unit;
+                        lastUnit = response.data.get(0).unit;
                         results.add(new SRTaskTitle(lastUnit));
                     }
                     for (SRTaskCate taskCate : response.data) {

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="135dp"
+    android:layout_height="115dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -14,86 +14,53 @@
         android:background="@drawable/sr_bg_corner6dp_c5_solid">
 
         <ImageView
-            android:id="@+id/imgBg"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
+            android:id="@+id/imgAvatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/def_bg" />
+            android:src="@drawable/def_avatar" />
 
         <TextView
-            android:id="@+id/textTitle"
+            android:id="@+id/textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imgBg"
+            android:layout_alignTop="@+id/imgAvatar"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/imgBg"
-            android:text="标题标题"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/imgAvatar"
+            android:text="周咏炀"
             android:textColor="@color/c1"
             android:textSize="@dimen/f2" />
 
         <TextView
-            android:id="@+id/textSubTitle"
+            android:id="@+id/textTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textTitle"
+            android:layout_below="@+id/textName"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/imgBg"
-            android:text="副标题标题"
+            android:layout_toRightOf="@+id/imgAvatar"
+            android:text="完成时间 06-23 09:09"
             android:textColor="@color/c1"
             android:textSize="@dimen/f5" />
 
         <TextView
-            android:id="@+id/textFinishNum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textSubTitle"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/imgBg"
-            android:text="完成度 11/22"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f5"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/textFinish"
+            android:id="@+id/textComment"
             android:layout_width="55dp"
             android:layout_height="25dp"
-            android:layout_alignBottom="@+id/imgBg"
+            android:layout_alignBottom="@+id/imgAvatar"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/sr_bg_corner4dp_c11_solid"
             android:gravity="center"
-            android:text="去完成"
+            android:text="点评"
             android:textColor="@color/white"
             android:textSize="@dimen/f5"
-            android:visibility="gone"
             tools:visibility="visible" />
-
-        <RelativeLayout
-            android:id="@+id/layoutDel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/sr_bg_trans50_corner6dp"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <ImageView
-                android:id="@+id/imgDel"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/del"
-                android:visibility="visible" />
-
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/textScore"
@@ -106,7 +73,6 @@
             android:text="98"
             android:textColor="@color/white"
             android:textSize="@dimen/f3"
-            android:visibility="gone"
             tools:visibility="visible" />
 
     </RelativeLayout>

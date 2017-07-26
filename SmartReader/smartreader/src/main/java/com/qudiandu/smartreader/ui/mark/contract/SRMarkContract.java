@@ -23,6 +23,8 @@ public interface SRMarkContract {
 
     interface IPresenter extends ZYIBasePresenter {
 
+        String getGroupId();
+
         void uploadTractAudio(SRTract tract);
 
         ArrayList<SRTract> getTracks();

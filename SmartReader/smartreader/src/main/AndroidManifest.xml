@@ -118,6 +118,14 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.task.activity.SRTaskDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.task.activity.SRTaskCommentActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait"

@@ -35,7 +35,7 @@ public class SRClassUserItemVH extends ZYBaseViewHolder<SRUser> {
             } else {
                 imgCheck.setSelected(false);
             }
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgAvatar, data.avatar);
+            ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar,R.drawable.def_avatar,R.drawable.def_avatar);
             textName.setText(data.nickname);
 
             if (data.uid.equals(SRUserManager.getInstance().getUser().uid)) {

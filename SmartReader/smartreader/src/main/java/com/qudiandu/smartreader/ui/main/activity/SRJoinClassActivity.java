@@ -35,7 +35,7 @@ public class SRJoinClassActivity extends ZYBaseActivity {
     TextView textCode;
 
     public static Intent createIntent(Context context) {
-        return new Intent(context, SRCreateClassActivity.class);
+        return new Intent(context, SRJoinClassActivity.class);
     }
 
     CompositeSubscription mSubscription = new CompositeSubscription();
@@ -43,7 +43,7 @@ public class SRJoinClassActivity extends ZYBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sr_activity_create_class);
+        setContentView(R.layout.sr_activity_join_class);
 
         showTitle("加入班级");
         showActionRightTitle("加入班级", new View.OnClickListener() {

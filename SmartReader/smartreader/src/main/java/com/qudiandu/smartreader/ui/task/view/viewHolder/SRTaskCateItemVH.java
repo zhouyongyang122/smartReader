@@ -33,9 +33,9 @@ public class SRTaskCateItemVH extends ZYBaseViewHolder<Object> {
         if (data != null && data instanceof SRTaskCate) {
             SRTaskCate cate = (SRTaskCate) data;
             if (cate.isCheck) {
-                imgCheck.setSelected(true);
+                imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc4_solidc13);
             } else {
-                imgCheck.setSelected(false);
+                imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc2_solidwhite);
             }
 
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, cate.page_url);

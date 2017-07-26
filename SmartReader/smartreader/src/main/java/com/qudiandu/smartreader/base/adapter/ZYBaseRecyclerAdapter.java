@@ -163,7 +163,7 @@ public abstract class ZYBaseRecyclerAdapter<D> extends RecyclerView.Adapter {
         if (position >= 0 && position < mDatas.size()) {
             return mDatas.get(position);
         } else {
-            throw new IndexOutOfBoundsException("data size = " + mDatas.size() + " position = " + position);
+            return null;
         }
     }
 

@@ -33,6 +33,7 @@ public abstract class ZYBaseViewHolder<D> {
     }
 
     public void unAttach() {
+        mItemView.setVisibility(View.GONE);
         ViewGroup parentView = (ViewGroup) mItemView.getParent();
         parentView.removeView(mItemView);
     }

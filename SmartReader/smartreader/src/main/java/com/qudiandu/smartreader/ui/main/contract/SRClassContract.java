@@ -34,5 +34,6 @@ public interface SRClassContract {
         void updateIdentity(int indentity);
         boolean isRefreshing();
         void toFinishTask(final String bookLocalPath, final SRTask task);
+        SRClass getCurrentClass();
     }
 }

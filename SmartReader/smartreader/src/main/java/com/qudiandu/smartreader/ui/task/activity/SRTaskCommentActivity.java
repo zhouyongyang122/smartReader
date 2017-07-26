@@ -1,71 +1,73 @@
-package com.qudiandu.smartreader.ui.set.activity;
+package com.qudiandu.smartreader.ui.task.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
-import com.qudiandu.smartreader.service.net.ZYNetManager;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
-import com.qudiandu.smartreader.utils.ZYToast;
-
-import java.util.HashMap;
+import com.qudiandu.smartreader.ui.task.model.SRTaskModel;
 
 import butterknife.Bind;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by ZY on 17/4/9.
+ * Created by ZY on 17/7/24.
  */
 
-public class SRFeedBackActivity extends ZYBaseActivity {
+public class SRTaskCommentActivity extends ZYBaseActivity {
+
+    static final String SHOW_ID = "showId";
+
+    public static Intent createIntent(Context context, String showId) {
+        Intent intent = new Intent(context, SRTaskCommentActivity.class);
+        intent.putExtra(SHOW_ID, showId);
+        return intent;
+    }
 
     @Bind(R.id.textMsg)
-    TextView textMsg;
-
-    @Bind(R.id.textOk)
-    TextView textOk;
+    EditText textMsg;
 
     CompositeSubscription subscription = new CompositeSubscription();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sr_activity_feedback);
+        setContentView(R.layout.sr_activity_task_comment);
 
-        mActionBar.showTitle("反馈");
-        textMsg.setFilters(new InputFilter[]{new InputFilter.LengthFilter(240)});
+        mActionBar.showTitle("评论");
+        textMsg.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
 
-        textOk.setOnClickListener(new View.OnClickListener() {
+        showActionRightTitle("提交", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = textMsg.getText().toString();
-                if (TextUtils.isEmpty(msg)) {
-                    ZYToast.show(SRFeedBackActivity.this, "反馈内容不能为空!");
+                String comment = textMsg.getText().toString();
+                if (TextUtils.isEmpty(comment)) {
+                    showToast("评论内容不能为空");
                     return;
                 }
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("content", msg);
                 showProgress();
-                subscription.add(ZYNetSubscription.subscription(ZYNetManager.shareInstance().getApi().feedBack(params), new ZYNetSubscriber<ZYResponse>() {
+                subscription.add(ZYNetSubscription.subscription(new SRTaskModel().addComment(getIntent().getStringExtra(SHOW_ID), comment), new ZYNetSubscriber() {
                     @Override
                     public void onSuccess(ZYResponse response) {
-                        super.onSuccess(response);
                         hideProgress();
-                        ZYToast.show(SRFeedBackActivity.this, "反馈成功!");
+                        showToast("评论成功!");
                         finish();
                     }
 
                     @Override
                     public void onFail(String message) {
-                        super.onFail(message);
                         hideProgress();
+                        super.onFail(message);
                     }
                 }));
             }

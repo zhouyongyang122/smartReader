@@ -14,6 +14,8 @@ public class ZYDateUtils {
     public static final String YYMMDDHHMM24 = "yyyy-MM-dd HH:mm";
     public static final String YYMMDDHHMM12 = "yyyy-MM-dd hh:mm";
     public static final String YYMMDDHH = "yyyy-MM-dd";
+    public static final String MMDDHHMM12 = "MM-dd hh:mm";
+    public static final String MMDD12 = "MM月dd日";
 
     /**
      * 获取传入的时间差的天时分  传入时间为秒

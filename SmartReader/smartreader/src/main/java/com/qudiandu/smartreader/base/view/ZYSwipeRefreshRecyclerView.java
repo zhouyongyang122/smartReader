@@ -100,6 +100,9 @@ public class ZYSwipeRefreshRecyclerView extends RelativeLayout implements ZYISwi
                     if (mAdapter != null && mAdapter.getFooterSize() != 0) {
                         if (position == mAdapter.getItemCount() - 1) {
                             return gridLayoutManager.getSpanCount();
+                        }
+                        if (position < mAdapter.getHeaderSize()) {
+                            return gridLayoutManager.getSpanCount();
                         } else {
                             return 1;
                         }

@@ -28,8 +28,8 @@ public class SRClassDetailItemVH extends ZYBaseViewHolder<SRUser> {
     @Override
     public void findView(View view) {
         super.findView(view);
-        int itemWidth = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 10)) / 5;
-        int imgWidth = itemWidth - ZYScreenUtils.dp2px(mContext, 10);
+        int itemWidth = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 20)) / 5;
+        int imgWidth = itemWidth - ZYScreenUtils.dp2px(mContext, 20);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imgAvatar.getLayoutParams();
         layoutParams.height = imgWidth;
         imgAvatar.setLayoutParams(layoutParams);
@@ -38,7 +38,7 @@ public class SRClassDetailItemVH extends ZYBaseViewHolder<SRUser> {
     @Override
     public void updateView(SRUser data, int position) {
         if (data != null) {
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgAvatar, data.avatar);
+            ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar,R.drawable.def_avatar,R.drawable.def_avatar);
             textName.setText(data.nickname);
         }
     }

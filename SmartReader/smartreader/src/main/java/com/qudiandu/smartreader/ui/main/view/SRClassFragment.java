@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
+import com.qudiandu.smartreader.ui.main.activity.SRClassDetailActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRCreateClassActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRGradeActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRJoinClassActivity;
@@ -39,6 +41,7 @@ import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskFinishItemVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskItemVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskTitle;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
+import com.qudiandu.smartreader.ui.task.activity.SRTaskDetailActivity;
 import com.qudiandu.smartreader.ui.task.model.SRTaskManager;
 import com.qudiandu.smartreader.utils.ZYStatusBarUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
@@ -153,16 +156,19 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
             @Override
             public int getItemViewType(int position) {
-                if (SRUserManager.getInstance().getUser().type == SRUser.STUDY_TYPE) {
+                if (SRUserManager.getInstance().getUser().isStudent()) {
                     if (adapter.getItem(position) instanceof SRTaskTitle) {
                         return TITLE_TYPE;
+                    } else if (adapter.getItem(position) instanceof SRTask) {
+                        SRTask task = (SRTask) adapter.getItem(position);
+                        if (task.finish != null && task.finish.size() > 0 && !TextUtils.isEmpty(task.finish.get(0).comment)) {
+                            return TASK_FINISH_TYPE;
+                        }
+                        return TASK_TYPE;
+                    } else {
+                        return TASK_TYPE;
                     }
-                    SRTask task = (SRTask) adapter.getItem(position);
-                    if (task.finish != null && task.finish.size() > 0) {
-                        return TASK_FINISH_TYPE;
-                    }
-                    return TASK_TYPE;
-                } else if (SRUserManager.getInstance().getUser().type == SRUser.TEACHER_TYPE) {
+                } else if (SRUserManager.getInstance().getUser().isTeacher()) {
                     if (adapter.getItem(position) instanceof SRTaskTitle) {
                         return TITLE_TYPE;
                     } else {
@@ -175,7 +181,12 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         adapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Object object = adapter.getItem(position);
+                if (object instanceof SRTask) {
+                    if (SRUserManager.getInstance().getUser().isTeacher()) {
+                        mActivity.startActivity(SRTaskDetailActivity.createIntent(mActivity, (SRTask) object));
+                    }
+                }
             }
         });
 
@@ -186,28 +197,30 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         classListVH.attachTo(layoutClassRoot);
     }
 
-    @OnClick({R.id.textTitle, R.id.imgClassDetail, R.id.imgClassAdd, R.id.textAdd})
+    @OnClick({R.id.layoutTitle, R.id.imgClassDetail, R.id.imgClassAdd, R.id.textAdd})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textAdd:
-                if (SRUserManager.getInstance().getUser().type == SRUser.STUDY_TYPE) {
+                if (SRUserManager.getInstance().getUser().isStudent()) {
                     //加入班级
                     mActivity.startActivity(SRJoinClassActivity.createIntent(mActivity));
                 } else {
                     //添加作业
-                    SRClass srClass = mPresenter.getClasses().get(mPresenter.getCurrentClassPosition());
+                    SRClass srClass = mPresenter.getCurrentClass();
                     SRTaskManager.getInstance().setCurrentTaskClassId(srClass.group_id);
                     mActivity.startActivity(SRGradeActivity.createIntent(mActivity, true));
                 }
                 break;
             case R.id.imgClassDetail:
                 //班级详情
+                SRClass srClass = mPresenter.getCurrentClass();
+                mActivity.startActivity(SRClassDetailActivity.createIntent(mActivity, srClass.group_id + ""));
                 break;
             case R.id.imgClassAdd:
                 //新增班级
                 mActivity.startActivity(SRCreateClassActivity.createIntent(mActivity));
                 break;
-            case R.id.textTitle:
+            case R.id.layoutTitle:
                 if (classListVH.isvisiable()) {
                     imgArrow.setSelected(false);
                     classListVH.hide();
@@ -242,8 +255,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public void showLoading() {
         sRecyclerView.showLoading();
-        layoutProgressBar.setVisibility(View.VISIBLE);
-        layoutAction.setVisibility(View.GONE);
     }
 
     @Override
@@ -259,7 +270,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public void choseIdentitySuc() {
         choseIdentityVH.unAttach();
-        if (SRUserManager.getInstance().getUser().type == SRUser.STUDY_TYPE) {
+        if (SRUserManager.getInstance().getUser().isStudent()) {
             //加入班级
             mActivity.startActivity(SRJoinClassActivity.createIntent(mActivity));
         } else {
@@ -272,20 +283,22 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     public void refreshClasses() {
         layoutProgressBar.setVisibility(View.GONE);
         layoutAction.setVisibility(View.VISIBLE);
-        if (SRUserManager.getInstance().getUser().type == SRUser.STUDY_TYPE) {
+        if (SRUserManager.getInstance().getUser().isStudent()) {
             imgClassAdd.setVisibility(View.GONE);
-            textAdd.setText("添加班级");
-            mActivity.startActivity(SRJoinClassActivity.createIntent(mActivity));
+            textAdd.setText("加入班级");
         } else {
             imgClassAdd.setVisibility(View.VISIBLE);
             textAdd.setText("添加作业");
         }
+        SRClass srClass = mPresenter.getCurrentClass();
+        textTitle.setText(srClass.class_name);
+
     }
 
     @Override
     public void showClassEmpty() {
         ZYLoadingView loadingView = (ZYLoadingView) sRecyclerView.getLoadingView();
-        if (SRUserManager.getInstance().getUser().type == SRUser.STUDY_TYPE) {
+        if (SRUserManager.getInstance().getUser().isStudent()) {
             textWait.setText("还有没加入班级");
             loadingView.showEmptyBtn(new View.OnClickListener() {
                 @Override
@@ -325,7 +338,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         if (book != null) {
             if (book.isFinished()) {
                 //去完成任务
-
+                mPresenter.toFinishTask(book.savePath, task);
             } else {
                 ZYToast.show(mActivity, "任务相关的课本正在下载队列中,请回首页查看!");
             }
@@ -348,7 +361,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Override
     public void toFinishTask(SRTask task, ArrayList<SRTract> tracts) {
-        mActivity.startActivity(SRMarkActivity.createIntent(mActivity, tracts, task.book_id + "",task.catalogue_id + "",task.group_id + "",task.task_id + ""));
+        mActivity.startActivity(SRMarkActivity.createIntent(mActivity, tracts, task.book_id + "", task.catalogue_id + "", task.group_id + "", task.task_id + ""));
     }
 
     @Override

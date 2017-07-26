@@ -87,6 +87,8 @@ public class SRBookListItemVH extends ZYBaseViewHolder<SRBook> {
                         listener.onBookItemSelect(mData, mData.isCheck);
                     }
                 });
+            }else {
+                cardView.setClickable(false);
             }
         }
     }

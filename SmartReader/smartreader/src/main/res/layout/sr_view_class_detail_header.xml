@@ -10,14 +10,14 @@
         android:layout_height="125dp"
         android:background="@color/c5"
         android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textSchoolName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="学校名称: 中心小学"
             android:textColor="@color/c2"
             android:textSize="@dimen/f4" />
@@ -27,15 +27,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="班级名称: 中心小学"
             android:textColor="@color/c2"
             android:textSize="@dimen/f4" />
 
         <TextView
             android:id="@+id/textCode"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:drawablePadding="4dp"
+            android:drawableRight="@drawable/copy"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="邀请码: 9999999"
             android:textColor="@color/c2"
             android:textSize="@dimen/f4" />
