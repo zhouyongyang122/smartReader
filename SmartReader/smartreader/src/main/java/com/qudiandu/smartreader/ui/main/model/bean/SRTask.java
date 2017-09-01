@@ -3,6 +3,7 @@ package com.qudiandu.smartreader.ui.main.model.bean;
 import com.qudiandu.smartreader.base.bean.ZYIBaseBean;
 import com.qudiandu.smartreader.utils.ZYDateUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class SRTask implements ZYIBaseBean {
 
     public String page_url;//封面图
 
-    public List<Finish> finish;
+    public ArrayList<Finish> finish;
 
     public boolean isEdit;
 
@@ -53,7 +54,7 @@ public class SRTask implements ZYIBaseBean {
         return "";
     }
 
-    public class Finish {
+    public class Finish implements ZYIBaseBean{
         public int show_id;
         public int uid;
         public int group_id;

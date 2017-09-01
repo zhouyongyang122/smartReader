@@ -1,5 +1,6 @@
 package com.qudiandu.smartreader.ui.main.presenter;
 
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownState;
@@ -19,62 +20,41 @@ import java.util.List;
 
 public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.IPresenter {
 
-    private SRHomeContract.IView iView;
+    private SRHomeContract.IView mView;
 
     private SRMainModel model;
 
     private List<SRAdert> aderts;
 
-    private List<SRBook> books = new ArrayList<SRBook>();
+    private SRBook mBook;
 
     public SRHomePresenter(SRHomeContract.IView iView) {
-        this.iView = iView;
+        mView = iView;
         model = new SRMainModel();
-        this.iView.setPresenter(this);
+        mView.setPresenter(this);
     }
 
-    public void loadBooks() {
-        List<SRBook> results = SRBook.queryAll();
-        books.clear();
-
-        if (results != null && results.size() > 0) {
-            books.addAll(results);
-        }
-
-        for (SRBook book : results) {
-            if (book.getBook_id_int() <= 0) {
-                continue;
-            }
-            if (book.getState().getState() == ZYDownState.UNZIP.getState()) {
-                book.setState(ZYDownState.UNZIPERROR);
-            } else if (book.getState().getState() != ZYDownState.UNZIPERROR.getState() && book.getState().getState() != ZYDownState.FINISH.getState()) {
-                book.setState(ZYDownState.PAUSE);
-            }
-        }
-
-        SRBook defBook = new SRBook();
-        defBook.setBook_id("-1");
-        books.add(defBook);
-        iView.showBooks(books);
+    public void loadBook() {
+        mBook = SRBook.queryById(ZYPreferenceHelper.getInstance().getSelectBookId(0) + "");
+        mView.showBook(mBook);
     }
 
     @Override
     public void subscribe() {
-        iView.showProgress();
+        mView.showProgress();
         mSubscriptions.add(ZYNetSubscription.subscription(model.getAdverts(""), new ZYNetSubscriber<ZYResponse<List<SRAdert>>>() {
             @Override
             public void onSuccess(ZYResponse<List<SRAdert>> response) {
-                iView.hideProgress();
+                mView.hideProgress();
                 if (response.data != null && response.data.size() > 0) {
                     aderts = response.data;
-                    iView.showAderts(aderts);
+                    mView.showAderts(aderts);
                 }
             }
 
             @Override
             public void onFail(String message) {
-                iView.hideProgress();
-//                super.onFail(message);
+                mView.hideProgress();
             }
         }));
     }
@@ -83,7 +63,7 @@ public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.I
         return aderts;
     }
 
-    public List<SRBook> getBooks() {
-        return books;
+    public SRBook getBook() {
+        return mBook;
     }
 }

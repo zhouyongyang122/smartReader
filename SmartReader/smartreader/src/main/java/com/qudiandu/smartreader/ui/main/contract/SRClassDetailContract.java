@@ -15,6 +15,6 @@ public interface SRClassDetailContract {
     }
 
     interface IPresenter extends ZYListDataContract.Presenter<SRUser> {
-
+        SRClass getClassDetail();
     }
 }

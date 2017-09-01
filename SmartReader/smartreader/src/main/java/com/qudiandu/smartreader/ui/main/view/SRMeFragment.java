@@ -24,6 +24,7 @@ import com.qudiandu.smartreader.ui.profile.activity.SREditActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSetActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;
+import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
 import com.qudiandu.smartreader.utils.SRShareUtils;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 import com.third.loginshare.entity.ShareEntity;
@@ -77,6 +78,9 @@ public class SRMeFragment extends ZYBaseFragment {
     @Bind(R.id.textShare)
     TextView textShare;
 
+    @Bind(R.id.viewRemind)
+    View viewRemind;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,6 +104,8 @@ public class SRMeFragment extends ZYBaseFragment {
                 break;
             case R.id.imgMsg:
                 mActivity.startActivity(new Intent(mActivity, SRSysMsgActivity.class));
+                viewRemind.setVisibility(View.GONE);
+                SRMsgManager.getInstance().clearMsgRemind();
                 break;
             case R.id.textLogin:
                 mActivity.startActivity(SRLoginActivity.createIntent(mActivity));
@@ -126,6 +132,7 @@ public class SRMeFragment extends ZYBaseFragment {
     public void onResume() {
         super.onResume();
         refreshUserInfo();
+        refreshMsgRemind();
     }
 
     private void refreshUserInfo() {
@@ -155,5 +162,11 @@ public class SRMeFragment extends ZYBaseFragment {
         shareEntity.title = "英语趣点读";
         shareEntity.text = "快来下载英语趣点读,跟我一起学英语吧!";
         new SRShareUtils(mActivity, shareEntity).share();
+    }
+
+    public void refreshMsgRemind() {
+        if (SRMsgManager.getInstance().hasMsgRemind()) {
+            viewRemind.setVisibility(View.VISIBLE);
+        }
     }
 }

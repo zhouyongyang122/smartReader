@@ -18,5 +18,6 @@ public interface SRMainContract {
 
     interface IPresenter extends ZYIBasePresenter {
         void getVersion();
+        void msgRemind();
     }
 }

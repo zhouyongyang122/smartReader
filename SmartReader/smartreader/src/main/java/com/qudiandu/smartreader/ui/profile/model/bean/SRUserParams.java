@@ -35,7 +35,9 @@ public class SRUserParams {
         paramas.put("nickname", nickname);
         paramas.put("sex", sex + "'");
         paramas.put("school", school);
-        paramas.put("avatar", qianniuKey);
+        if (!TextUtils.isEmpty(qianniuKey)) {
+            paramas.put("avatar", qianniuKey);
+        }
         paramas.put("grade", grade + "");
         paramas.put("age", age + "");
         paramas.put("user_type", identity + "");

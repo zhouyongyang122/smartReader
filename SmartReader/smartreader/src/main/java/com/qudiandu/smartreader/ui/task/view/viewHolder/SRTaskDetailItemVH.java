@@ -1,5 +1,6 @@
 package com.qudiandu.smartreader.ui.task.view.viewHolder;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +39,8 @@ public class SRTaskDetailItemVH extends ZYBaseViewHolder<SRTaskFinish> {
 
     TaskDetailItemListener listener;
 
+    int mPosition;
+
     public SRTaskDetailItemVH(TaskDetailItemListener listener) {
         this.listener = listener;
     }
@@ -47,6 +50,7 @@ public class SRTaskDetailItemVH extends ZYBaseViewHolder<SRTaskFinish> {
     public void updateView(SRTaskFinish data, int position) {
         if (data != null) {
             mData = data;
+            mPosition = position;
             if (mData.show_id <= 0) {
                 mItemView.setVisibility(View.GONE);
                 return;
@@ -57,7 +61,13 @@ public class SRTaskDetailItemVH extends ZYBaseViewHolder<SRTaskFinish> {
             textName.setText(mData.nickname);
             textTime.setText(ZYDateUtils.getTimeString(Long.parseLong(mData.create_time) * 1000, ZYDateUtils.MMDDHHMM12));
             textScore.setText(mData.score + "");
-        }else {
+
+            if (!TextUtils.isEmpty(mData.comment)) {
+                textComment.setText("已点评");
+            } else {
+                textComment.setText("点评");
+            }
+        } else {
             mItemView.setVisibility(View.GONE);
         }
     }
@@ -66,13 +76,13 @@ public class SRTaskDetailItemVH extends ZYBaseViewHolder<SRTaskFinish> {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textComment:
-                listener.onCommentClick(mData);
+                listener.onCommentClick(mData, mPosition);
                 break;
         }
     }
 
     public interface TaskDetailItemListener {
-        void onCommentClick(SRTaskFinish finish);
+        void onCommentClick(SRTaskFinish finish, int position);
     }
 
     @Override

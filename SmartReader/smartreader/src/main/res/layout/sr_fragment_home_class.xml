@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="测试"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="@dimen/f3" />
 

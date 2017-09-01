@@ -22,6 +22,7 @@ public interface SRClassContract {
         void showClassEmpty();
         void showClassTaskEmpty();
         void toFinishTask(SRTask task, ArrayList<SRTract> tracts);
+        void delTaskSuc();
     }
 
     interface IPresenter extends ZYIBasePresenter {
@@ -35,5 +36,7 @@ public interface SRClassContract {
         boolean isRefreshing();
         void toFinishTask(final String bookLocalPath, final SRTask task);
         SRClass getCurrentClass();
+        void delTask();
+        void setDelTask(SRTask delTask);
     }
 }

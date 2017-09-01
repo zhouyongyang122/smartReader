@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.service.ZYUpdateService;
+import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.ui.main.contract.SRMainContract;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
@@ -31,6 +32,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
 /**
  * Created by ZY on 17/3/15.
@@ -87,6 +89,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         }
 
         XianShengSDK.getInstance().init(this);
+
+        SQLiteStudioService.instance().start(this);
     }
 
     private void initView() {
@@ -158,6 +162,7 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             className.setTextColor(getResources().getColor(R.color.black));
             showActionBar();
             setDarkMode(false);
+            classFragment.cancleManager();
         } else if (mCurrentPage == MAIN_CLASS_INDEX) {
             homeImg.setSelected(false);
             meImg.setSelected(false);
@@ -176,6 +181,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             meName.setTextColor(getResources().getColor(R.color.white));
             hideActionBar();
             setDarkMode(true);
+            meFragment.refreshMsgRemind();
+            classFragment.cancleManager();
         }
         showTitle(fragmentAdapter.getPageTitle(position).toString());
     }
@@ -210,6 +217,7 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     public void onResume() {
         super.onResume();
         mPresenter.getVersion();
+        mPresenter.msgRemind();
     }
 
     @Override
@@ -220,6 +228,7 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SQLiteStudioService.instance().stop();
     }
 
     @Override
@@ -239,6 +248,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MobclickAgent.onKillProcess(SRMainActivity.this);
+                        ZYDownloadManager.getInstance().cancleAll();
+                        ZYDownloadManager.getInstance().stopSer();
                         finish();
                         System.exit(0);
                     }

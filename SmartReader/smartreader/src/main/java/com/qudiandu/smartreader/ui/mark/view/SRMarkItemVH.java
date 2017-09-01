@@ -16,10 +16,9 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
-import com.qudiandu.smartreader.ui.main.model.SRPageManager;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkBean;
-import com.qudiandu.smartreader.utils.ZYFileUtils;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYToast;
 
@@ -134,7 +133,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                     layoutProgressBar.setVisibility(View.GONE);
                 }
 
-                SRPageManager.getInstance().startAudio(mData.getMp3Path(), mData.getAudioStart(), mData.getAudioEnd());
+                SRPlayManager.getInstance().startAudio(mData.getMp3Path(), mData.getAudioStart(), mData.getAudioEnd());
             } else {
                 layoutDef.setVisibility(View.VISIBLE);
                 layoutMark.setVisibility(View.GONE);
@@ -166,10 +165,10 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 }
                 break;
             case R.id.imgPlay:
-                SRPageManager.getInstance().startAudio(mData.getMp3Path(), mData.getAudioStart(), mData.getAudioEnd());
+                SRPlayManager.getInstance().startAudio(mData.getMp3Path(), mData.getAudioStart(), mData.getAudioEnd());
                 break;
             case R.id.imgRecord:
-                SRPageManager.getInstance().stopAudio();
+                SRPlayManager.getInstance().stopAudio();
                 imgRecord.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -183,7 +182,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 }
                 break;
             case R.id.layoutScore:
-                SRPageManager.getInstance().startAudio(markBean.audioPath);
+                SRPlayManager.getInstance().startAudio(markBean.audioPath);
                 break;
         }
     }

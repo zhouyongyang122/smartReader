@@ -33,6 +33,9 @@ public class SRClassTaskFinishItemVH extends ZYBaseViewHolder<Object> {
     @Bind(R.id.textComment)
     TextView textComment;
 
+    @Bind(R.id.textFinish)
+    TextView textFinish;
+
     SRTask mData;
 
     @Override
@@ -45,6 +48,8 @@ public class SRClassTaskFinishItemVH extends ZYBaseViewHolder<Object> {
             SRTask.Finish finish = mData.finish.get(0);
             textScore.setText(finish.score + "");
             textComment.setText(finish.comment);
+            textFinish.setText("已完成");
+            textFinish.setVisibility(View.VISIBLE);
         }
     }
 

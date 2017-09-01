@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
-import com.qudiandu.smartreader.ui.main.activity.SRBookListActivity;
+import com.qudiandu.smartreader.ui.main.activity.SRBookSelectActivity;
 import com.qudiandu.smartreader.ui.main.contract.SRGradeContract;
 import com.qudiandu.smartreader.ui.main.model.bean.SRGrade;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRGradeItemVH;
@@ -38,7 +38,7 @@ public class SRGradeFragment extends ZYListDateFragment<SRGradeContract.IPresent
     @Override
     protected void onItemClick(View view, int position) {
         SRGrade grade = mPresenter.getDataList().get(position);
-        mActivity.startActivity(SRBookListActivity.createIntent(mActivity, grade.grade_id + "", mPresenter.isTaskSel()));
+        mActivity.startActivity(SRBookSelectActivity.createIntent(mActivity, grade.grade_id + "", mPresenter.isTaskSel()));
     }
 
     @Override

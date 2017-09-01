@@ -18,10 +18,6 @@ public interface ZYIDownBase {
 
     void setCurrent(long current);
 
-    int getConnectonTime();
-
-    void setConnectonTime(int connectonTime);
-
     int getStateValue();
 
     void setStateValue(int stateValue);
@@ -34,19 +30,11 @@ public interface ZYIDownBase {
 
     void setUrl(String url);
 
-    ZYDownloadScriberListener getListener();
-
-    void setListener(ZYDownloadScriberListener listener);
-
-    ZYDownloadService getDownloadService();
-
-    void setDownloadService(ZYDownloadService downloadService);
-
     String getId();
 
     long save();
 
-    long update();
+    long update(boolean needInsert);
 
     void delete();
 }

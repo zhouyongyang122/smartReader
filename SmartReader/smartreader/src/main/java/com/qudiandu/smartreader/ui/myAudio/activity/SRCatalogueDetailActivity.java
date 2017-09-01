@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
-import com.qudiandu.smartreader.ui.main.model.SRPageManager;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.myAudio.presenter.SRCatalogueDetailPresenter;
 import com.qudiandu.smartreader.ui.myAudio.view.SRCatalogueDetailFragment;
 
@@ -43,7 +42,7 @@ public class SRCatalogueDetailActivity extends ZYBaseFragmentActivity<SRCatalogu
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SRPageManager.getInstance().setPagePlayListener(null);
-        SRPageManager.getInstance().stopAudio();
+        SRPlayManager.getInstance().setPagePlayListener(null);
+        SRPlayManager.getInstance().stopAudio();
     }
 }

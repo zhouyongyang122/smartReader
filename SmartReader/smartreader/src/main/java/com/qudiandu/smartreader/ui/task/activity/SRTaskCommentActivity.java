@@ -50,7 +50,7 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
         showActionRightTitle("提交", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String comment = textMsg.getText().toString();
+                final String comment = textMsg.getText().toString();
                 if (TextUtils.isEmpty(comment)) {
                     showToast("评论内容不能为空");
                     return;
@@ -61,6 +61,9 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
                     public void onSuccess(ZYResponse response) {
                         hideProgress();
                         showToast("评论成功!");
+                        Intent intent = new Intent();
+                        intent.putExtra("comment", comment);
+                        setResult(100, intent);
                         finish();
                     }
 

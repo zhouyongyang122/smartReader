@@ -9,6 +9,8 @@ import com.qudiandu.smartreader.ui.main.model.SRMainModel;
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.ui.main.contract.SRMainContract;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
+import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
+import com.qudiandu.smartreader.ui.set.model.bean.SRRemind;
 import com.qudiandu.smartreader.utils.ZYSystemUtils;
 
 /**
@@ -58,5 +60,23 @@ public class SRMainPresenter extends ZYBasePresenter implements SRMainContract.I
 
             ));
         }
+    }
+
+    public void msgRemind() {
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.msgRemind(), new ZYNetSubscriber<ZYResponse<SRRemind>>() {
+            @Override
+            public void onSuccess(ZYResponse<SRRemind> response) {
+                super.onSuccess(response);
+                if (response.data != null) {
+                    int first_msgid = response.data.first_msgid;
+                    SRMsgManager.getInstance().saveMsgRemind(first_msgid);
+                }
+            }
+
+            @Override
+            public void onFail(String message) {
+                super.onFail(message);
+            }
+        }));
     }
 }

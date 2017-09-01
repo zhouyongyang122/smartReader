@@ -1,10 +1,15 @@
 package com.qudiandu.smartreader.service.downNet.down;
 
-import java.lang.ref.SoftReference;
+import android.view.View;
+
+import com.qudiandu.smartreader.base.event.ZYEventDowloadUpdate;
+import com.qudiandu.smartreader.ui.main.model.SRBookFileManager;
+import com.qudiandu.smartreader.utils.ZYLog;
+import com.qudiandu.smartreader.utils.ZYToast;
+
+import org.greenrobot.eventbus.EventBus;
 
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by ZY on 17/3/17.
@@ -12,51 +17,39 @@ import rx.functions.Action1;
 
 public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownloadProgressListener {
 
-    private SoftReference<ZYDownloadScriberListener> downloadScriberListener;
-
     private ZYIDownBase downEntity;
 
-
     public ZYDownloadSubscriber(ZYIDownBase downEntity) {
-        this.downloadScriberListener = new SoftReference<>(downEntity.getListener());
-        this.downEntity = downEntity;
-    }
-
-    public void setDownInfo(ZYIDownBase downEntity) {
-        this.downloadScriberListener = new SoftReference<>(downEntity.getListener());
         this.downEntity = downEntity;
     }
 
     @Override
     public void onStart() {
+        ZYLog.e(getClass().getSimpleName(), "onStart: " + downEntity.getUrl());
         downEntity.setState(ZYDownState.START);
-        if (downloadScriberListener.get() != null) {
-            downloadScriberListener.get().onStart();
-        }
+        downEntity.save();
+        EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
     }
 
     @Override
     public void onCompleted() {
-        ZYDownloadManager.getInstance().removeEntity(downEntity);
-        downEntity.setState(ZYDownState.UNZIP);
-        downEntity.update();
-        if (downloadScriberListener.get() != null) {
-            downloadScriberListener.get().onComplete(downEntity);
-        }
+        ZYLog.e(getClass().getSimpleName(), "onCompleted: " + downEntity.getCurrent() + ":" + downEntity.getTotal());
+        ZYDownloadManager.getInstance().removeTask(downEntity.getId());
+        downEntity.setState(ZYDownState.FINISH);
+        downEntity.setCurrent(downEntity.getTotal());
+        downEntity.update(false);
+        EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
     }
 
     @Override
     public void onError(Throwable e) {
-        ZYDownloadManager.getInstance().removeEntity(downEntity);
-        if (downEntity.getCurrent() > 0 && downEntity.getCurrent() >= downEntity.getTotal()) {
-            downEntity.setState(ZYDownState.UNZIPERROR);
-        } else {
+        ZYLog.e(getClass().getSimpleName(), "onError: " + e.getMessage());
+        ZYDownloadManager.getInstance().removeTask(downEntity.getId());
+        if (downEntity.getState() != ZYDownState.PAUSE) {
             downEntity.setState(ZYDownState.ERROR);
         }
-        downEntity.update();
-        if (downloadScriberListener.get() != null) {
-            downloadScriberListener.get().onError(e.getMessage());
-        }
+        downEntity.update(false);
+        EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
     }
 
     @Override
@@ -65,22 +58,59 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
 
     @Override
     public void update(long current, long total, boolean done) {
-        downEntity.setTotal(total);
-        downEntity.setCurrent(current);
-        downEntity.setState(ZYDownState.DOWNING);
-        downEntity.update();
-        if (downloadScriberListener.get() != null) {
-            //是否考虑阻塞问题
-            rx.Observable.just(current).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<Long>() {
-                        @Override
-                        public void call(Long aLong) {
-                            if (downEntity.getState() == ZYDownState.PAUSE || downEntity.getState() == ZYDownState.STOP) {
-                                return;
-                            }
-                            downloadScriberListener.get().updateProgress(aLong, downEntity.getTotal());
-                        }
-                    });
+        if (downEntity.getTotal() > total) {
+            current = downEntity.getTotal() - total + current;
+        } else {
+            downEntity.setTotal(total);
         }
+        downEntity.setCurrent(current);
+        if (done) {
+            ZYLog.e(getClass().getSimpleName(), "update: " + current + ":" + downEntity.getTotal() + ":" + done);
+        } else {
+            if ((current - current % 1024) % (100 * 1024) == 0) {
+                ZYLog.e(getClass().getSimpleName(), "update: " + current + ":" + downEntity.getTotal() + ":" + done);
+            }
+        }
+        if (done) {
+            downEntity.setState(ZYDownState.UNZIP);
+            downEntity.update(false);
+            EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
+            unzip();
+        } else {
+            downEntity.setState(ZYDownState.DOWNING);
+            downEntity.update(false);
+            EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
+        }
+    }
+
+    private void unzip() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ZYLog.e(getClass().getSimpleName(), "准备解压");
+                SRBookFileManager.unZip(SRBookFileManager.getBookZipPath(downEntity.getId()), SRBookFileManager.getBookPath(downEntity.getId()), new SRBookFileManager.UnZipListener() {
+                    @Override
+                    public void unZipSuccess() {
+                        ZYLog.e(getClass().getSimpleName(), "准备成功");
+                        downEntity.setState(ZYDownState.FINISH);
+                        downEntity.update(false);
+                        EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
+                    }
+
+                    @Override
+                    public void unZipError() {
+                        ZYLog.e(getClass().getSimpleName(), "准备出错");
+                        downEntity.setState(ZYDownState.UNZIPERROR);
+                        downEntity.update(false);
+                        EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
+                    }
+                });
+            }
+        }.start();
     }
 }

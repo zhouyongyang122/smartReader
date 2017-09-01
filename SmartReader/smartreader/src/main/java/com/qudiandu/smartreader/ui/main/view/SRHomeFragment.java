@@ -13,10 +13,10 @@ import android.widget.LinearLayout;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.event.SREventSelectedBook;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
-import com.qudiandu.smartreader.ui.main.activity.SRBookDetailActivity;
+import com.qudiandu.smartreader.ui.main.activity.SRBookHomeActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRGradeActivity;
 import com.qudiandu.smartreader.ui.main.contract.SRHomeContract;
-import com.qudiandu.smartreader.ui.main.model.SRAddBookManager;
+import com.qudiandu.smartreader.ui.main.model.SRBookSelectManager;
 import com.qudiandu.smartreader.ui.main.model.SRBookFileManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRAdert;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
@@ -62,24 +62,15 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.loadBooks();
+        mPresenter.loadBook();
     }
 
     @Override
-    public void showBooks(List<SRBook> books) {
-        bookVH = new SRHomeBookVH(new SRHomeBookVH.HomeBookListener() {
-            @Override
-            public void onItemClick(SRBook book, int position) {
-                if (book.getBook_id_int() < 0) {
-                    mActivity.startActivity(SRGradeActivity.createIntent(mActivity));
-                } else {
-                    mActivity.startActivity(SRBookDetailActivity.createIntent(mActivity, book.savePath));
-                }
-            }
-        });
+    public void showBook(SRBook book) {
+        bookVH = new SRHomeBookVH();
         bookVH.bindView(LayoutInflater.from(mActivity).inflate(bookVH.getLayoutResId(), layout_module_root, false));
         layout_module_root.addView(bookVH.getItemView());
-        bookVH.updateView(books, 0);
+        bookVH.updateView(book, 0);
     }
 
     @Override
@@ -108,20 +99,5 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
         bannerVH.bindView(LayoutInflater.from(mActivity).inflate(bannerVH.getLayoutResId(), layout_module_root, false));
         layout_module_root.addView(bannerVH.getItemView(), 0);
         bannerVH.updateView(aderts, 0);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void eventBookSelected(SREventSelectedBook eventSelectedBook) {
-        ZYLog.e(getClass().getSimpleName(), "eventBookSelected: " + SRAddBookManager.getInstance().getAddBooksSize());
-
-        List<SRBook> books = SRAddBookManager.getInstance().getAddBooks();
-        for (SRBook book : books) {
-            book.setSavePath(SRBookFileManager.getBookZipPath(book.book_id));
-            book.save();
-        }
-        mPresenter.getBooks().addAll(mPresenter.getBooks().size() - 1, books);
-        bookVH.refreshData();
-
-        SRAddBookManager.getInstance().clearAddBooks();
     }
 }

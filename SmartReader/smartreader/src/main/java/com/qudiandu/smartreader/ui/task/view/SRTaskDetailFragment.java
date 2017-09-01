@@ -1,6 +1,9 @@
 package com.qudiandu.smartreader.ui.task.view;
 
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
@@ -23,7 +26,7 @@ public class SRTaskDetailFragment extends ZYListDateFragment<SRTaskDetailContrac
     @Override
     protected void onItemClick(View view, int position) {
         SRTaskFinish finish = mAdapter.getItem(position);
-        mActivity.startActivity(SRCatalogueDetailActivity.createIntent(mActivity, finish.show_id + ""));
+        startActivity(SRCatalogueDetailActivity.createIntent(mActivity, finish.show_id + ""));
     }
 
     @Override
@@ -43,7 +46,20 @@ public class SRTaskDetailFragment extends ZYListDateFragment<SRTaskDetailContrac
     }
 
     @Override
-    public void onCommentClick(SRTaskFinish finish) {
-        mActivity.startActivity(SRTaskCommentActivity.createIntent(mActivity, finish.show_id + ""));
+    public void onCommentClick(SRTaskFinish finish, int position) {
+        if (!TextUtils.isEmpty(finish.comment)) {
+            return;
+        }
+        startActivityForResult(SRTaskCommentActivity.createIntent(mActivity, finish.show_id + ""), position);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 100) {
+            SRTaskFinish finish = mAdapter.getItem(requestCode);
+            finish.comment = data.getStringExtra("comment");
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

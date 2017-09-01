@@ -59,4 +59,8 @@ public class SRClassDetailPresenter extends ZYListDataPresenter<SRClassDetailCon
             }
         }));
     }
+
+    public SRClass getClassDetail() {
+        return mClass;
+    }
 }

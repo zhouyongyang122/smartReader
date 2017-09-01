@@ -14,7 +14,6 @@ import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
-import com.qudiandu.smartreader.ui.main.view.SRBookDetailPageFragment;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;

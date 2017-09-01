@@ -1,24 +1,17 @@
 package com.qudiandu.smartreader.ui.main.view.viewhodler;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
-import com.qudiandu.smartreader.base.event.SREventSelectedBook;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
-import com.qudiandu.smartreader.ui.main.activity.SRMainActivity;
-import com.qudiandu.smartreader.ui.main.model.SRAddBookManager;
-import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
-import com.qudiandu.smartreader.utils.ZYToast;
-import com.umeng.analytics.MobclickAgent;
-
-import org.greenrobot.eventbus.EventBus;
+import com.qudiandu.smartreader.ui.task.activity.SRTaskCommentedActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -52,18 +45,18 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
 
     SRTask mData;
 
-    boolean isTeacher;
-
     ClassTaskItemListener listener;
 
-    public SRClassTaskItemVH(boolean isTeacher, ClassTaskItemListener listener) {
-        this.isTeacher = isTeacher;
+    int mPosition;
+
+    public SRClassTaskItemVH(ClassTaskItemListener listener) {
         this.listener = listener;
     }
 
     @Override
     public void updateView(Object data, int position) {
         if (data != null && data instanceof SRTask) {
+            mPosition = position;
             mItemView.setVisibility(View.VISIBLE);
             mData = (SRTask) data;
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, mData.page_url);
@@ -76,19 +69,24 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
                 layoutDel.setVisibility(View.GONE);
             }
 
-            if (isTeacher) {
+            if (SRUserManager.getInstance().getUser().isTeacher()) {
                 textFinishNum.setVisibility(View.VISIBLE);
                 textFinishNum.setText("完成度 " + mData.cur_num + "/" + mData.limit_num);
                 textFinish.setVisibility(View.GONE);
-            } else {
-                textFinish.setVisibility(View.VISIBLE);
             }
 
-            if(mData.finish != null && mData.finish.size() > 0){
+            if (mData.finish != null && mData.finish.size() > 0) {
                 textScore.setVisibility(View.VISIBLE);
                 textScore.setText(mData.finish.get(0).score + "");
-            }else {
+
+                if (!TextUtils.isEmpty(mData.finish.get(0).comment)) {
+                    textFinish.setText("看点评");
+                } else {
+                    textFinish.setText("已完成");
+                }
+            } else {
                 textScore.setVisibility(View.GONE);
+                textFinish.setText("去完成");
             }
         } else {
             mItemView.setVisibility(View.GONE);
@@ -104,6 +102,13 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textFinish:
+                if (mData.finish != null && mData.finish.size() > 0) {
+                    if (!TextUtils.isEmpty(mData.finish.get(0).comment)) {
+                        mContext.startActivity(SRTaskCommentedActivity.createIntent(mContext, mData));
+                        return;
+                    }
+                    return;
+                }
                 listener.onFinisheTask(mData);
                 break;
         }

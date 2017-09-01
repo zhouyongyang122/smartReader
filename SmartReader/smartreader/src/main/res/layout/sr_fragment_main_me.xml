@@ -38,6 +38,16 @@
                     android:background="@drawable/sr_bg_corner360dp_transparent40"
                     android:src="@drawable/msg" />
 
+                <View
+                    android:id="@+id/viewRemind"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="22dp"
+                    android:background="@drawable/sr_bg_ov_red"
+                    android:visibility="gone" />
+
                 <RelativeLayout
                     android:id="@+id/layoutUserInfo"
                     android:layout_width="match_parent"
@@ -165,12 +175,12 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
-                android:visibility="gone"
                 android:background="@drawable/sr_bg_corner6dp_c5_solid"
                 android:gravity="center"
                 android:text="分享"
                 android:textColor="@color/c6"
-                android:textSize="@dimen/f4" />
+                android:textSize="@dimen/f4"
+                android:visibility="gone" />
         </LinearLayout>
 
     </ScrollView>

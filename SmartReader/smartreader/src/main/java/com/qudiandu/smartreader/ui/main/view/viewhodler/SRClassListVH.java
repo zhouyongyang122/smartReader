@@ -36,6 +36,12 @@ public class SRClassListVH extends ZYBaseViewHolder<List<SRClass>> {
     @Override
     public void updateView(List<SRClass> data, int position) {
         if (data != null) {
+            mItemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hide();
+                }
+            });
             mData = data;
             adapter = new ZYBaseRecyclerAdapter<SRClass>(mData) {
                 @Override
@@ -48,9 +54,10 @@ public class SRClassListVH extends ZYBaseViewHolder<List<SRClass>> {
             adapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    listListener.onClassSelecte(adapter.getItem(position),position);
+                    listListener.onClassSelecte(adapter.getItem(position), position);
                 }
             });
+            adapter.notifyDataSetChanged();
             show();
         }
     }
@@ -67,6 +74,6 @@ public class SRClassListVH extends ZYBaseViewHolder<List<SRClass>> {
     }
 
     public interface ClassListListener {
-        void onClassSelecte(SRClass value,int position);
+        void onClassSelecte(SRClass value, int position);
     }
 }

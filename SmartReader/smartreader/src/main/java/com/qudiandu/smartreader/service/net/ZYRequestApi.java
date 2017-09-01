@@ -13,6 +13,7 @@ import com.qudiandu.smartreader.ui.mark.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkResponse;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
+import com.qudiandu.smartreader.ui.set.model.bean.SRRemind;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
@@ -143,5 +144,11 @@ public interface ZYRequestApi {
 
     @POST("group/taskRemind")
     Observable<ZYResponse> taskRemind(@Body Map<String, String> params);
+
+    @GET("basic/messageRemind")
+    Observable<ZYResponse<SRRemind>> msgRemind();
+
+    @POST("group/delTask")
+    Observable<ZYResponse> delTask(@Body Map<String, String> params);
 
 }

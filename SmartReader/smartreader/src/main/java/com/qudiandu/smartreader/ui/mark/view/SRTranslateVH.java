@@ -10,7 +10,7 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.translate.TranslateRequest;
 import com.qudiandu.smartreader.thirdParty.translate.YouDaoBean;
-import com.qudiandu.smartreader.ui.main.model.SRPageManager;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -61,7 +61,7 @@ public class SRTranslateVH extends ZYBaseViewHolder<YouDaoBean> {
                 break;
             case R.id.imgAudio:
                 if (mBean != null) {
-                    SRPageManager.getInstance().startAudio("http://dict.youdao.com/dictvoice?audio=" + mBean.query + "&amp;type=" + 1);
+                    SRPlayManager.getInstance().startAudio("http://dict.youdao.com/dictvoice?audio=" + mBean.query + "&amp;type=" + 1);
                 }
                 break;
         }
@@ -75,7 +75,7 @@ public class SRTranslateVH extends ZYBaseViewHolder<YouDaoBean> {
     public void hide() {
         if (mItemView != null) {
             TranslateRequest.getRequest().setRequestCallBack(null);
-            SRPageManager.getInstance().stopAudio();
+            SRPlayManager.getInstance().stopAudio();
             mItemView.setVisibility(View.GONE);
         }
     }

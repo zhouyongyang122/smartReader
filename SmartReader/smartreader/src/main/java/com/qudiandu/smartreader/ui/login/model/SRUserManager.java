@@ -40,6 +40,7 @@ public class SRUserManager {
                         user.auth_token = response.data.auth_token;
                         user.picture_token = response.data.picture_token;
                         user.upload_token = response.data.upload_token;
+                        user.refresh_token = response.data.refresh_token;
                         SRUserManager.getInstance().setUser(user);
                     } else {
 //                        gotoReLogin();
@@ -99,6 +100,16 @@ public class SRUserManager {
 
     public void setUser(SRUser user) {
         if (user != null) {
+
+            if(TextUtils.isEmpty(user.auth_token)){
+                user.auth_token = this.user.auth_token;
+                user.refresh_token = this.user.refresh_token;
+                user.upload_token = this.user.upload_token;
+                user.picture_token = this.user.picture_token;
+                user.type = this.user.type;
+                user.mobile = this.user.mobile;
+            }
+
             this.user = user;
             this.user.isLoginUser = true;
             this.user.update();

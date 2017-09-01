@@ -34,14 +34,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.activity.SRBookDetailActivity"
+            android:name=".ui.main.activity.SRBookHomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/splashTheme" />
         <activity
             android:name=".ui.main.activity.SRGradeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.SRBookListActivity"
+            android:name=".ui.main.activity.SRBookSelectActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.mark.activity.SRMarkActivity"
@@ -124,6 +124,16 @@
         <activity
             android:name=".ui.task.activity.SRTaskCommentActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.task.activity.SRTaskCommentedActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.book.activity.SRBooksActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".service.downNet.down.ZYDownloadService" />
 
         <activity
             android:name=".wxapi.WXEntryActivity"

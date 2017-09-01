@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +22,16 @@ import com.qudiandu.smartreader.base.view.ZYLoadingView;
 import com.qudiandu.smartreader.thirdParty.image.ZYIImageLoader;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
-import com.qudiandu.smartreader.ui.main.model.SRPageManager;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
-import com.qudiandu.smartreader.ui.main.view.SRBookDetailPageFragment;
 import com.qudiandu.smartreader.ui.myAudio.contract.SRCatalogueDetailContract;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
-import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
 import com.qudiandu.smartreader.utils.SRShareUtils;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYToast;
 import com.third.loginshare.entity.ShareEntity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,7 +41,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/6/10.
  */
 
-public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailContract.IPresenter> implements SRCatalogueDetailContract.IView, SRCatalogueDetailPageFragment.CatalogueDetailPageListener, SRPageManager.PagePlayListener {
+public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailContract.IPresenter> implements SRCatalogueDetailContract.IView, SRCatalogueDetailPageFragment.CatalogueDetailPageListener, SRPlayManager.PagePlayListener {
 
     @Bind(R.id.layoutRoot)
     RelativeLayout layoutRoot;
@@ -83,7 +79,7 @@ public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailC
         ButterKnife.bind(this, viewGroup);
         initLoadingView();
         mPresenter.loadData();
-        SRPageManager.getInstance().setPagePlayListener(this);
+        SRPlayManager.getInstance().setPagePlayListener(this);
         return viewGroup;
     }
 
@@ -158,10 +154,10 @@ public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailC
         if (autoPlayStatus) {
             return;
         }
-        SRPageManager.getInstance().setPagePlayListener(this);
+        SRPlayManager.getInstance().setPagePlayListener(this);
         textTitle.setVisibility(View.VISIBLE);
         textTitle.setText(tract.getTrack_genre());
-        SRPageManager.getInstance().startAudio(mPresenter.getCatalogueDetail().getAudioPath(), tract.getAudioStart(), tract.getAudioEnd());
+        SRPlayManager.getInstance().startAudio(mPresenter.getCatalogueDetail().getAudioPath(), tract.getAudioStart(), tract.getAudioEnd());
     }
 
     @Override
@@ -204,11 +200,11 @@ public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailC
                 for (SRTract tract : tracts) {
                     tract.setMp3Path(mPresenter.getCatalogueDetail().getAudioPath());
                 }
-                SRPageManager.getInstance().startRepeats(tracts, false);
+                SRPlayManager.getInstance().startRepeats(tracts, false);
             }
         } else {
             autoPlayStatus = false;
-            SRPageManager.getInstance().stopAudio();
+            SRPlayManager.getInstance().stopAudio();
             textPlay.setText("播放");
             textPre.setEnabled(true);
             textNext.setEnabled(true);
@@ -259,7 +255,7 @@ public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailC
             }
             break;
             case R.id.textPlay: {
-                SRPageManager.getInstance().setPagePlayListener(this);
+                SRPlayManager.getInstance().setPagePlayListener(this);
                 autoPlayOrStop();
             }
             break;

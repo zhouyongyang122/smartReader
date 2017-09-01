@@ -15,12 +15,16 @@ public interface SRHomeContract {
 
     interface IView extends ZYIBaseView<IPresenter> {
         void showAderts(List<SRAdert> aderts);
-        void showBooks(List<SRBook> books);
+
+        void showBook(SRBook book);
     }
 
     interface IPresenter extends ZYIBasePresenter {
+
+        void loadBook();
+
         List<SRAdert> getAderts();
-        void loadBooks();
-        List<SRBook> getBooks();
+
+        SRBook getBook();
     }
 }

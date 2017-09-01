@@ -35,12 +35,13 @@ public class SRSplashActivity extends ZYBaseActivity {
                 startActivity(new Intent(SRSplashActivity.this, SRMainActivity.class));
                 finish();
             }
-        }, 2000);
+        }, 1000);
 
         if (!ZYPreferenceHelper.getInstance().isInsertDefBook()) {
             SRBook book = new SRBook();
             book.setBook_id("0");
             book.setName("测试书籍");
+            book.setClass_id(0);
             book.setGrade_id("11");
             book.setPic("file:///android_asset/1/title.jpg");
             book.setGrade("一年级");
@@ -50,26 +51,9 @@ public class SRSplashActivity extends ZYBaseActivity {
             book.setSavePath("file:///android_asset/1/");
             ZYLog.e(getClass().getSimpleName(), "insertDefBook: " + book.save());
             ZYPreferenceHelper.getInstance().setInsertDefBook(true);
-
             ZYPreferenceHelper.getInstance().setShowTractBg(true);
             ZYPreferenceHelper.getInstance().setShowTractTrans(true);
         }
-
-//        List<SRBook> books = SRBook.queryAll();
-//        for (SRBook book : books) {
-//            if (book.getBook_id_int() > 0) {
-//                try {
-//                    ZYLog.e(getClass().getSimpleName(), "unZip-zipPath: " + book.getSavePath());
-//                    String unZipPath = SRBookFileManager.getBookPath(book.getBook_id());
-//                    SRBookFileManager.unZip(SRBookFileManager.getBookZipPath(book.getBook_id()), unZipPath);
-//                    book.setSavePath(unZipPath);
-//                    book.update();
-//                    ZYLog.e(getClass().getSimpleName(), "unZip-success: " + unZipPath);
-//                } catch (Exception e) {
-//                    ZYLog.e(getClass().getSimpleName(), "unZip-error: " + e.getMessage());
-//                }
-//            }
-//        }
     }
 
     @Override

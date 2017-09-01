@@ -10,6 +10,7 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkResponse;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
+import com.qudiandu.smartreader.ui.set.model.bean.SRRemind;
 
 import java.util.HashMap;
 import java.util.List;
@@ -85,5 +86,15 @@ public class SRMainModel extends ZYBaseModel {
 
     public Observable<ZYResponse> removeUsers(String group_id, String del_uid) {
         return mApi.removeUsers(group_id, del_uid);
+    }
+
+    public Observable<ZYResponse<SRRemind>> msgRemind() {
+        return mApi.msgRemind();
+    }
+
+    public Observable<ZYResponse> delTask(String task_id) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("task_id", task_id);
+        return mApi.delTask(params);
     }
 }

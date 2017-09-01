@@ -39,6 +39,14 @@ public class ZYPreferenceHelper {
         return instance;
     }
 
+    public int getSelectBookId(int classId) {
+        return getDefPre().getInt("select_" + classId, 0);
+    }
+
+    public void saveSelectBookId(int classId, int bookId) {
+        getDefPre().edit().putInt("select_" + classId, bookId).commit();
+    }
+
     public void setShowTractBg(boolean showTractBg) {
         getDefPre().edit().putBoolean(SHOW_TRACT_BG, showTractBg).commit();
     }

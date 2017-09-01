@@ -25,18 +25,19 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
      */
     public static class Properties {
         public final static Property Book_id = new Property(0, String.class, "book_id", true, "BOOK_ID");
-        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Grade_id = new Property(2, String.class, "grade_id", false, "GRADE_ID");
-        public final static Property Pic = new Property(3, String.class, "pic", false, "PIC");
-        public final static Property Grade = new Property(4, String.class, "grade", false, "GRADE");
-        public final static Property Zip = new Property(5, String.class, "zip", false, "ZIP");
-        public final static Property Update_time = new Property(6, String.class, "update_time", false, "UPDATE_TIME");
-        public final static Property SavePath = new Property(7, String.class, "savePath", false, "SAVE_PATH");
-        public final static Property Total = new Property(8, long.class, "total", false, "TOTAL");
-        public final static Property Current = new Property(9, long.class, "current", false, "CURRENT");
-        public final static Property ConnectonTime = new Property(10, int.class, "connectonTime", false, "CONNECTON_TIME");
-        public final static Property StateValue = new Property(11, int.class, "stateValue", false, "STATE_VALUE");
-        public final static Property LastPageIndex = new Property(12, int.class, "lastPageIndex", false, "LAST_PAGE_INDEX");
+        public final static Property Class_id = new Property(1, int.class, "class_id", false, "CLASS_ID");
+        public final static Property Name = new Property(2, String.class, "name", false, "NAME");
+        public final static Property Grade_id = new Property(3, String.class, "grade_id", false, "GRADE_ID");
+        public final static Property Pic = new Property(4, String.class, "pic", false, "PIC");
+        public final static Property Grade = new Property(5, String.class, "grade", false, "GRADE");
+        public final static Property Zip = new Property(6, String.class, "zip", false, "ZIP");
+        public final static Property Update_time = new Property(7, String.class, "update_time", false, "UPDATE_TIME");
+        public final static Property SavePath = new Property(8, String.class, "savePath", false, "SAVE_PATH");
+        public final static Property Total = new Property(9, long.class, "total", false, "TOTAL");
+        public final static Property Current = new Property(10, long.class, "current", false, "CURRENT");
+        public final static Property ConnectonTime = new Property(11, int.class, "connectonTime", false, "CONNECTON_TIME");
+        public final static Property StateValue = new Property(12, int.class, "stateValue", false, "STATE_VALUE");
+        public final static Property LastPageIndex = new Property(13, int.class, "lastPageIndex", false, "LAST_PAGE_INDEX");
     }
 
 
@@ -53,18 +54,19 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SRBOOK\" (" + //
                 "\"BOOK_ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: book_id
-                "\"NAME\" TEXT," + // 1: name
-                "\"GRADE_ID\" TEXT," + // 2: grade_id
-                "\"PIC\" TEXT," + // 3: pic
-                "\"GRADE\" TEXT," + // 4: grade
-                "\"ZIP\" TEXT," + // 5: zip
-                "\"UPDATE_TIME\" TEXT," + // 6: update_time
-                "\"SAVE_PATH\" TEXT," + // 7: savePath
-                "\"TOTAL\" INTEGER NOT NULL ," + // 8: total
-                "\"CURRENT\" INTEGER NOT NULL ," + // 9: current
-                "\"CONNECTON_TIME\" INTEGER NOT NULL ," + // 10: connectonTime
-                "\"STATE_VALUE\" INTEGER NOT NULL ," + // 11: stateValue
-                "\"LAST_PAGE_INDEX\" INTEGER NOT NULL );"); // 12: lastPageIndex
+                "\"CLASS_ID\" INTEGER NOT NULL ," + // 1: class_id
+                "\"NAME\" TEXT," + // 2: name
+                "\"GRADE_ID\" TEXT," + // 3: grade_id
+                "\"PIC\" TEXT," + // 4: pic
+                "\"GRADE\" TEXT," + // 5: grade
+                "\"ZIP\" TEXT," + // 6: zip
+                "\"UPDATE_TIME\" TEXT," + // 7: update_time
+                "\"SAVE_PATH\" TEXT," + // 8: savePath
+                "\"TOTAL\" INTEGER NOT NULL ," + // 9: total
+                "\"CURRENT\" INTEGER NOT NULL ," + // 10: current
+                "\"CONNECTON_TIME\" INTEGER NOT NULL ," + // 11: connectonTime
+                "\"STATE_VALUE\" INTEGER NOT NULL ," + // 12: stateValue
+                "\"LAST_PAGE_INDEX\" INTEGER NOT NULL );"); // 13: lastPageIndex
     }
 
     /** Drops the underlying database table. */
@@ -81,46 +83,47 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         if (book_id != null) {
             stmt.bindString(1, book_id);
         }
+        stmt.bindLong(2, entity.getClass_id());
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(2, name);
+            stmt.bindString(3, name);
         }
  
         String grade_id = entity.getGrade_id();
         if (grade_id != null) {
-            stmt.bindString(3, grade_id);
+            stmt.bindString(4, grade_id);
         }
  
         String pic = entity.getPic();
         if (pic != null) {
-            stmt.bindString(4, pic);
+            stmt.bindString(5, pic);
         }
  
         String grade = entity.getGrade();
         if (grade != null) {
-            stmt.bindString(5, grade);
+            stmt.bindString(6, grade);
         }
  
         String zip = entity.getZip();
         if (zip != null) {
-            stmt.bindString(6, zip);
+            stmt.bindString(7, zip);
         }
  
         String update_time = entity.getUpdate_time();
         if (update_time != null) {
-            stmt.bindString(7, update_time);
+            stmt.bindString(8, update_time);
         }
  
         String savePath = entity.getSavePath();
         if (savePath != null) {
-            stmt.bindString(8, savePath);
+            stmt.bindString(9, savePath);
         }
-        stmt.bindLong(9, entity.getTotal());
-        stmt.bindLong(10, entity.getCurrent());
-        stmt.bindLong(11, entity.getConnectonTime());
-        stmt.bindLong(12, entity.getStateValue());
-        stmt.bindLong(13, entity.getLastPageIndex());
+        stmt.bindLong(10, entity.getTotal());
+        stmt.bindLong(11, entity.getCurrent());
+        stmt.bindLong(12, entity.getConnectonTime());
+        stmt.bindLong(13, entity.getStateValue());
+        stmt.bindLong(14, entity.getLastPageIndex());
     }
 
     @Override
@@ -131,46 +134,47 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         if (book_id != null) {
             stmt.bindString(1, book_id);
         }
+        stmt.bindLong(2, entity.getClass_id());
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(2, name);
+            stmt.bindString(3, name);
         }
  
         String grade_id = entity.getGrade_id();
         if (grade_id != null) {
-            stmt.bindString(3, grade_id);
+            stmt.bindString(4, grade_id);
         }
  
         String pic = entity.getPic();
         if (pic != null) {
-            stmt.bindString(4, pic);
+            stmt.bindString(5, pic);
         }
  
         String grade = entity.getGrade();
         if (grade != null) {
-            stmt.bindString(5, grade);
+            stmt.bindString(6, grade);
         }
  
         String zip = entity.getZip();
         if (zip != null) {
-            stmt.bindString(6, zip);
+            stmt.bindString(7, zip);
         }
  
         String update_time = entity.getUpdate_time();
         if (update_time != null) {
-            stmt.bindString(7, update_time);
+            stmt.bindString(8, update_time);
         }
  
         String savePath = entity.getSavePath();
         if (savePath != null) {
-            stmt.bindString(8, savePath);
+            stmt.bindString(9, savePath);
         }
-        stmt.bindLong(9, entity.getTotal());
-        stmt.bindLong(10, entity.getCurrent());
-        stmt.bindLong(11, entity.getConnectonTime());
-        stmt.bindLong(12, entity.getStateValue());
-        stmt.bindLong(13, entity.getLastPageIndex());
+        stmt.bindLong(10, entity.getTotal());
+        stmt.bindLong(11, entity.getCurrent());
+        stmt.bindLong(12, entity.getConnectonTime());
+        stmt.bindLong(13, entity.getStateValue());
+        stmt.bindLong(14, entity.getLastPageIndex());
     }
 
     @Override
@@ -182,18 +186,19 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
     public SRBook readEntity(Cursor cursor, int offset) {
         SRBook entity = new SRBook( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // book_id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // grade_id
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // pic
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // grade
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // zip
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // update_time
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // savePath
-            cursor.getLong(offset + 8), // total
-            cursor.getLong(offset + 9), // current
-            cursor.getInt(offset + 10), // connectonTime
-            cursor.getInt(offset + 11), // stateValue
-            cursor.getInt(offset + 12) // lastPageIndex
+            cursor.getInt(offset + 1), // class_id
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // grade_id
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // pic
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // grade
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // zip
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // update_time
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // savePath
+            cursor.getLong(offset + 9), // total
+            cursor.getLong(offset + 10), // current
+            cursor.getInt(offset + 11), // connectonTime
+            cursor.getInt(offset + 12), // stateValue
+            cursor.getInt(offset + 13) // lastPageIndex
         );
         return entity;
     }
@@ -201,18 +206,19 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
     @Override
     public void readEntity(Cursor cursor, SRBook entity, int offset) {
         entity.setBook_id(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setGrade_id(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setPic(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setGrade(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setZip(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setUpdate_time(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setSavePath(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setTotal(cursor.getLong(offset + 8));
-        entity.setCurrent(cursor.getLong(offset + 9));
-        entity.setConnectonTime(cursor.getInt(offset + 10));
-        entity.setStateValue(cursor.getInt(offset + 11));
-        entity.setLastPageIndex(cursor.getInt(offset + 12));
+        entity.setClass_id(cursor.getInt(offset + 1));
+        entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setGrade_id(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setPic(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setGrade(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setZip(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setUpdate_time(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setSavePath(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setTotal(cursor.getLong(offset + 9));
+        entity.setCurrent(cursor.getLong(offset + 10));
+        entity.setConnectonTime(cursor.getInt(offset + 11));
+        entity.setStateValue(cursor.getInt(offset + 12));
+        entity.setLastPageIndex(cursor.getInt(offset + 13));
      }
     
     @Override

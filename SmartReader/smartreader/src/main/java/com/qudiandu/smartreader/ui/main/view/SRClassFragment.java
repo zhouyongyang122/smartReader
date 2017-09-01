@@ -5,13 +5,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -29,7 +27,7 @@ import com.qudiandu.smartreader.ui.main.activity.SRCreateClassActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRGradeActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRJoinClassActivity;
 import com.qudiandu.smartreader.ui.main.contract.SRClassContract;
-import com.qudiandu.smartreader.ui.main.model.SRAddBookManager;
+import com.qudiandu.smartreader.ui.main.model.SRBookSelectManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
@@ -37,9 +35,8 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRTaskTitle;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassChoseIdentityVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassListVH;
-import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskFinishItemVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskItemVH;
-import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskTitle;
+import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskTitleVH;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskDetailActivity;
 import com.qudiandu.smartreader.ui.task.model.SRTaskManager;
@@ -49,7 +46,6 @@ import com.qudiandu.smartreader.utils.ZYToast;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,7 +55,11 @@ import butterknife.OnClick;
  * Created by ZY on 17/7/22.
  */
 
-public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> implements SRClassContract.IView, SRClassChoseIdentityVH.ClassChoseIdentityListener, SRClassListVH.ClassListListener, SRClassTaskItemVH.ClassTaskItemListener {
+public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> implements SRClassContract.IView,
+        SRClassChoseIdentityVH.ClassChoseIdentityListener,
+        SRClassListVH.ClassListListener,
+        SRClassTaskItemVH.ClassTaskItemListener,
+        SRClassTaskTitleVH.ClassTaskTitleListener {
 
     final int TITLE_TYPE = 0;
 
@@ -102,6 +102,8 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     SRClassChoseIdentityVH choseIdentityVH;
 
     SRClassListVH classListVH;
+
+    private boolean mIsEdit;
 
     @Nullable
     @Override
@@ -147,11 +149,12 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
             @Override
             public ZYBaseViewHolder<Object> createViewHolder(int type) {
                 if (type == TITLE_TYPE) {
-                    return new SRClassTaskTitle();
+                    return new SRClassTaskTitleVH(SRClassFragment.this);
                 } else if (type == TASK_TYPE) {
-                    return new SRClassTaskItemVH(SRUserManager.getInstance().getUser().isTeacher(), SRClassFragment.this);
+                    return new SRClassTaskItemVH(SRClassFragment.this);
                 }
-                return new SRClassTaskFinishItemVH();
+//                return new SRClassTaskFinishItemVH();
+                return new SRClassTaskItemVH(SRClassFragment.this);
             }
 
             @Override
@@ -160,10 +163,10 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                     if (adapter.getItem(position) instanceof SRTaskTitle) {
                         return TITLE_TYPE;
                     } else if (adapter.getItem(position) instanceof SRTask) {
-                        SRTask task = (SRTask) adapter.getItem(position);
-                        if (task.finish != null && task.finish.size() > 0 && !TextUtils.isEmpty(task.finish.get(0).comment)) {
-                            return TASK_FINISH_TYPE;
-                        }
+//                        SRTask task = (SRTask) adapter.getItem(position);
+//                        if (task.finish != null && task.finish.size() > 0 && ) {
+//                            return TASK_FINISH_TYPE;
+//                        }
                         return TASK_TYPE;
                     } else {
                         return TASK_TYPE;
@@ -183,8 +186,26 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
             public void onItemClick(View view, int position) {
                 Object object = adapter.getItem(position);
                 if (object instanceof SRTask) {
+                    SRTask task = (SRTask) object;
                     if (SRUserManager.getInstance().getUser().isTeacher()) {
-                        mActivity.startActivity(SRTaskDetailActivity.createIntent(mActivity, (SRTask) object));
+                        if (task.isEdit) {
+                            mPresenter.setDelTask(task);
+                            new AlertDialog.Builder(mActivity).setTitle("删除").setMessage("是否删除任务?")
+                                    .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            mPresenter.delTask();
+                                        }
+                                    })
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    }).create().show();
+                            return;
+                        }
+                        mActivity.startActivity(SRTaskDetailActivity.createIntent(mActivity, task));
                     }
                 }
             }
@@ -199,6 +220,11 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @OnClick({R.id.layoutTitle, R.id.imgClassDetail, R.id.imgClassAdd, R.id.textAdd})
     public void onClick(View view) {
+        if (classListVH != null && classListVH.isvisiable()) {
+            imgArrow.setSelected(false);
+            classListVH.hide();
+            return;
+        }
         switch (view.getId()) {
             case R.id.textAdd:
                 if (SRUserManager.getInstance().getUser().isStudent()) {
@@ -298,8 +324,11 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public void showClassEmpty() {
         ZYLoadingView loadingView = (ZYLoadingView) sRecyclerView.getLoadingView();
+        layoutProgressBar.setVisibility(View.VISIBLE);
+        layoutAction.setVisibility(View.GONE);
         if (SRUserManager.getInstance().getUser().isStudent()) {
-            textWait.setText("还有没加入班级");
+            textWait.setText("我的班级");
+            loadingView.setEmptyText("您还没有加入任何班级");
             loadingView.showEmptyBtn(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -308,7 +337,8 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                 }
             }, "点击加入班级");
         } else {
-            textWait.setText("还有没创建班级");
+            textWait.setText("我的班级");
+            loadingView.setEmptyText("您还没有创建任何班级");
             loadingView.showEmptyBtn(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -321,6 +351,11 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Override
     public void showClassTaskEmpty() {
+        if (SRUserManager.getInstance().getUser().isStudent()) {
+            sRecyclerView.getLoadingView().setEmptyText("老师还没有布置作业");
+        }else {
+            sRecyclerView.getLoadingView().setEmptyText("你还没有添加作业");
+        }
         sRecyclerView.showEmpty();
     }
 
@@ -346,7 +381,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
             new AlertDialog.Builder(mActivity).setTitle("下载课本").setMessage("完成任务需要先下载对应的课本").setPositiveButton("下载", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    SRAddBookManager.getInstance().addBook(task.getBook());
+                    SRBookSelectManager.getInstance().addBook(task.getBook());
                     EventBus.getDefault().post(new SREventSelectedBook());
                     ZYToast.show(mActivity, "课本正在下载中,请下载完成后再来完成任务!");
                 }
@@ -365,10 +400,60 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     }
 
     @Override
+    public void delTaskSuc() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onTaskManagerClick(boolean isEdit) {
+        for (Object object : mPresenter.getData()) {
+            if (isEdit) {
+                if (object instanceof SRTaskTitle) {
+                    ((SRTaskTitle) object).isEdit = false;
+                } else if (object instanceof SRTask) {
+                    ((SRTask) object).isEdit = false;
+                }
+                mIsEdit = false;
+            } else {
+                if (object instanceof SRTaskTitle) {
+                    ((SRTaskTitle) object).isEdit = true;
+                } else if (object instanceof SRTask) {
+                    ((SRTask) object).isEdit = true;
+                }
+                mIsEdit = true;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+
+        if (choseIdentityVH != null && !SRUserManager.getInstance().getUser().isNoIdentity() && choseIdentityVH.isvisiable()) {
+            choseIdentityVH.hide();
+        }
+
         if (!mPresenter.isRefreshing()) {
             mPresenter.refreshClasss();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        cancleManager();
+        if (classListVH != null && classListVH.isvisiable()) {
+            classListVH.hide();
+        }
+    }
+
+    public void cancleManager() {
+        if (mIsEdit && adapter != null) {
+            onTaskManagerClick(true);
+        }
+        if (classListVH != null && classListVH.isvisiable()) {
+            classListVH.hide();
         }
     }
 }

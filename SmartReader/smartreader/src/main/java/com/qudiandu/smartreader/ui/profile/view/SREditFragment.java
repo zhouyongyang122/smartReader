@@ -117,7 +117,7 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
                 }
 
                 showProgress();
-                if (userParams.qianniuKey != null) {
+                if (userParams.avatar.startsWith("http")) {
                     mPresenter.editUser(userParams.getParamas());
                     return;
                 }

@@ -4,9 +4,8 @@ import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.service.db.entity.SRBookDao;
 import com.qudiandu.smartreader.service.db.entity.ZYBaseEntity;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownState;
-import com.qudiandu.smartreader.service.downNet.down.ZYDownloadScriberListener;
-import com.qudiandu.smartreader.service.downNet.down.ZYDownloadService;
 import com.qudiandu.smartreader.service.downNet.down.ZYIDownBase;
+import com.qudiandu.smartreader.utils.ZYLog;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -25,6 +24,8 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
 
     @Id
     public String book_id;
+    
+    public int class_id;
 
     public String name;
 
@@ -37,12 +38,6 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
     public String zip;
 
     public String update_time;
-
-    @Transient
-    public List<SRCatalogue> catalogue;
-
-    @Transient
-    public List<SRPage> page;
 
     public String savePath;
 
@@ -57,10 +52,10 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
     public int lastPageIndex;
 
     @Transient
-    public ZYDownloadService downloadService;
-    /*回调监听*/
+    public List<SRCatalogue> catalogue;
+
     @Transient
-    public ZYDownloadScriberListener listener;
+    public List<SRPage> page;
 
     @Transient
     public boolean isCheck;
@@ -71,12 +66,15 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
     @Transient
     public boolean isDeleteStatus;
 
+    @Transient
+    public static Object object = new Object();
 
-    @Generated(hash = 943368)
-    public SRBook(String book_id, String name, String grade_id, String pic, String grade, String zip,
-            String update_time, String savePath, long total, long current, int connectonTime,
-            int stateValue, int lastPageIndex) {
+    @Generated(hash = 1319784741)
+    public SRBook(String book_id, int class_id, String name, String grade_id, String pic, String grade,
+                  String zip, String update_time, String savePath, long total, long current, int connectonTime,
+                  int stateValue, int lastPageIndex) {
         this.book_id = book_id;
+        this.class_id = class_id;
         this.name = name;
         this.grade_id = grade_id;
         this.pic = pic;
@@ -98,43 +96,95 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
 
     @Override
     public long save() {
-        SRBookDao entityDao = ZYDBManager.getInstance().getWritableDaoSession().getSRBookDao();
-        return entityDao.insertOrReplace(this);
+        synchronized (object) {
+            SRBookDao entityDao = ZYDBManager.getInstance().getWritableDaoSession().getSRBookDao();
+            return entityDao.insertOrReplace(this);
+        }
     }
 
     @Override
     public long update() {
-        SRBookDao entityDao = ZYDBManager.getInstance().getWritableDaoSession().getSRBookDao();
-        return entityDao.insertOrReplace(this);
+        synchronized (object) {
+            SRBookDao entityDao = ZYDBManager.getInstance().getWritableDaoSession().getSRBookDao();
+            return entityDao.insertOrReplace(this);
+        }
     }
 
     @Override
     public void delete() {
-        SRBookDao entityDao = ZYDBManager.getInstance().getWritableDaoSession().getSRBookDao();
-        entityDao.delete(this);
+        synchronized (object) {
+            SRBookDao entityDao = ZYDBManager.getInstance().getWritableDaoSession().getSRBookDao();
+            entityDao.delete(this);
+        }
+    }
+
+    @Override
+    public long update(boolean needInsert) {
+        synchronized (object) {
+            try {
+                SRBookDao downloadEntityDao = ZYDBManager.getInstance().getWritableDaoSession().getSRBookDao();
+                if (!needInsert) {
+                    downloadEntityDao.update(this);
+                    return 1;
+                }
+                return downloadEntityDao.insertOrReplace(this);
+            } catch (Exception e) {
+                ZYLog.e(getClass().getSimpleName(), "update-error: " + e.getMessage());
+            }
+            return 0;
+        }
     }
 
     public static SRBook queryById(String book_id) {
-        SRBookDao entityDao = ZYDBManager.getInstance().getReadableDaoSession().getSRBookDao();
-        return entityDao.load(book_id);
-    }
-
-    public static SRBook queryByBookIdAndGradeId(int book_id, String grade_id) {
-        SRBookDao entityDao = ZYDBManager.getInstance().getReadableDaoSession().getSRBookDao();
-        QueryBuilder<SRBook> qb = entityDao.queryBuilder();
-        qb.where(SRBookDao.Properties.Book_id.eq(book_id), SRBookDao.Properties.Grade_id.eq(grade_id));
-        List<SRBook> list = qb.list();
-        if (list.isEmpty()) {
-            return null;
-        } else {
-            return list.get(0);
+        synchronized (object) {
+            SRBookDao entityDao = ZYDBManager.getInstance().getReadableDaoSession().getSRBookDao();
+            return entityDao.load(book_id);
         }
     }
 
     public static List<SRBook> queryAll() {
-        SRBookDao entityDao = ZYDBManager.getInstance().getReadableDaoSession().getSRBookDao();
-        QueryBuilder<SRBook> qb = entityDao.queryBuilder();
-        return qb.list();
+        synchronized (object) {
+            SRBookDao entityDao = ZYDBManager.getInstance().getReadableDaoSession().getSRBookDao();
+            QueryBuilder<SRBook> qb = entityDao.queryBuilder();
+            return qb.list();
+        }
+    }
+
+    public static List<SRBook> queryByClassId(int class_id) {
+        synchronized (object) {
+            SRBookDao entityDao = ZYDBManager.getInstance().getReadableDaoSession().getSRBookDao();
+            QueryBuilder<SRBook> qb = entityDao.queryBuilder();
+            return qb.where(SRBookDao.Properties.Class_id.eq(class_id)).build().list();
+        }
+    }
+
+    public static void changeErrorStatus() {
+        new Thread() {
+            @Override
+            public void run() {
+                synchronized (object) {
+                    try {
+                        List<SRBook> results = queryAll();
+                        if (results != null && results.size() > 0) {
+                            for (SRBook book : results) {
+                                if (book.getBook_id_int() <= 0) {
+                                    continue;
+                                }
+                                if (book.getState().getState() == ZYDownState.UNZIP.getState()) {
+                                    book.setState(ZYDownState.UNZIPERROR);
+                                } else if (book.getState().getState() != ZYDownState.UNZIPERROR.getState() && book.getState().getState() != ZYDownState.FINISH.getState()) {
+                                    book.setState(ZYDownState.PAUSE);
+                                }
+                                book.update();
+                            }
+                            ZYLog.e(getClass().getSimpleName(), "changeErrorStatus-suc");
+                        }
+                    } catch (Exception e) {
+                        ZYLog.e(getClass().getSimpleName(), "changeErrorStatus-error: " + e.getMessage());
+                    }
+                }
+            }
+        }.start();
     }
 
     @Override
@@ -308,7 +358,7 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
             case 7:
                 return "解压中";
             case 8:
-                return "解压出错";
+                return "解压出错,点击重试";
             default:
                 return "准备下载";
         }
@@ -320,22 +370,6 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
 
     public void setState(ZYDownState state) {
         this.stateValue = state.getState();
-    }
-
-    public ZYDownloadScriberListener getListener() {
-        return listener;
-    }
-
-    public void setListener(ZYDownloadScriberListener listener) {
-        this.listener = listener;
-    }
-
-    public ZYDownloadService getDownloadService() {
-        return downloadService;
-    }
-
-    public void setDownloadService(ZYDownloadService downloadService) {
-        this.downloadService = downloadService;
     }
 
     @Override
@@ -367,5 +401,13 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
 
     public void setLastPageIndex(int lastPageIndex) {
         this.lastPageIndex = lastPageIndex;
+    }
+
+    public int getClass_id() {
+        return this.class_id;
+    }
+
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
     }
 }

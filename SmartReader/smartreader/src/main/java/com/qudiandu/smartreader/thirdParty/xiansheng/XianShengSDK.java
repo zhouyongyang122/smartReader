@@ -141,7 +141,12 @@ public class XianShengSDK {
                         }
 
                         @Override
-                        public void onRecordingBuffer(byte[] bytes) {
+                        public void onRecordingBuffer(byte[] bytes, int i) {
+
+                        }
+
+                        @Override
+                        public void onRecordStop() {
 
                         }
 
@@ -179,7 +184,7 @@ public class XianShengSDK {
                     mIse.setFrontVadTime(10000);
                     mIse.setBackVadTime(10000);
                     //   构建引擎初始化参数
-                    JSONObject cfg_init = mIse.buildInitJson("t133", "d9e62294e0c9442b8c5dd606e8acfe9f");
+                    JSONObject cfg_init = mIse.buildInitJson("a133", "3c6cb028f3e6477ab74acbafbfa7cac2");
                     //   设置引擎初始化参数
                     mIse.setNewCfg(cfg_init);
                     //   引擎初始化

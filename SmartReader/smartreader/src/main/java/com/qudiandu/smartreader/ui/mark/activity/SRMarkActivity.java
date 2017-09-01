@@ -4,22 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
 
-import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
-import com.qudiandu.smartreader.ui.main.model.SRPageManager;
-import com.qudiandu.smartreader.ui.main.model.bean.SRPage;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.mark.presenter.SRMarkPresenter;
 import com.qudiandu.smartreader.ui.mark.view.SRMarkFragment;
-import com.qudiandu.smartreader.utils.ZYLog;
-import com.qudiandu.smartreader.utils.ZYWavMergeUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ZY on 17/4/2.
@@ -84,6 +76,6 @@ public class SRMarkActivity extends ZYBaseFragmentActivity<SRMarkFragment> imple
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SRPageManager.getInstance().stopAudio();
+        SRPlayManager.getInstance().stopAudio();
     }
 }

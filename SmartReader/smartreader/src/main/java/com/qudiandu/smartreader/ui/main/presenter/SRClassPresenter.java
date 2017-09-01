@@ -5,6 +5,7 @@ import com.google.gson.stream.JsonReader;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.event.SREventIdentityChange;
 import com.qudiandu.smartreader.base.event.SREventJoinClassSuc;
+import com.qudiandu.smartreader.base.event.SREventLogin;
 import com.qudiandu.smartreader.base.event.SREventSelectedTask;
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
@@ -32,6 +33,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +66,8 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
 
     boolean isRefreshing;
 
+    SRTask mDelTask;
+
     public SRClassPresenter(SRClassContract.IView iView) {
         mModel = new SRMainModel();
         mView = iView;
@@ -76,6 +80,8 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
     public void subscribe() {
         super.subscribe();
         isFirstLoad = true;
+        mData.clear();
+        mClasses.clear();
         mView.showLoading();
         refreshClasss();
     }
@@ -294,12 +300,50 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
         loadTasks(true);
     }
 
+    public void delTask() {
+        mView.showProgress();
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.delTask(mDelTask.task_id + ""), new ZYNetSubscriber<ZYResponse>() {
+            @Override
+            public void onSuccess(ZYResponse response) {
+                super.onSuccess(response);
+                mView.hideProgress();
+                getData().remove(mDelTask);
+                boolean isTitleVH = false;
+                Iterator<Object> dataIterator = getData().iterator();
+                while (dataIterator.hasNext()) {
+                    Object object = dataIterator.next();
+                    if (object instanceof SRTaskTitle) {
+                        if (isTitleVH) {
+                            dataIterator.remove();
+                            break;
+                        }
+                        isTitleVH = true;
+                    } else {
+                        isTitleVH = false;
+                    }
+                }
+                mView.delTaskSuc();
+            }
+
+            @Override
+            public void onFail(String message) {
+                mView.hideProgress();
+                super.onFail(message);
+            }
+        }));
+    }
+
+    public void setDelTask(SRTask delTask) {
+        mDelTask = delTask;
+    }
+
     public int getCurrentClassPosition() {
         return mCurrentClassPosition;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(SREventIdentityChange identityChange) {
+        mCurrentClass = null;
         subscribe();
     }
 
@@ -311,6 +355,11 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(SREventSelectedTask srEventSelectedTask) {
         refreshClasss();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(SREventLogin eventLogin) {
+        subscribe();
     }
 
     @Override

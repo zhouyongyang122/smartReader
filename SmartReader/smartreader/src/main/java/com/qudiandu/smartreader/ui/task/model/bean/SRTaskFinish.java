@@ -37,4 +37,6 @@ public class SRTaskFinish implements ZYIBaseBean {
     public String nickname;
 
     public String avatar;
+
+    public String comment;
 }
