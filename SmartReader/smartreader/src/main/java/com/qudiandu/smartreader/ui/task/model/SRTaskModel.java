@@ -3,15 +3,13 @@ package com.qudiandu.smartreader.ui.task.model;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBaseModel;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
+import com.qudiandu.smartreader.ui.task.model.bean.SRTaskProblem;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -43,10 +41,22 @@ public class SRTaskModel extends ZYBaseModel {
         return mApi.addComment(params);
     }
 
-    public Observable<ZYResponse> taskRemind(String group_id, String task_id){
+    public Observable<ZYResponse> taskRemind(String group_id, String task_id) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("group_id", group_id);
         params.put("task_id", task_id);
         return mApi.taskRemind(params);
+    }
+
+    public Observable<ZYResponse<SRTaskProblem>> getProblemTaskDetail(String task_id) {
+        return mApi.getProblemTaskDetail(task_id);
+    }
+
+    public Observable<ZYResponse> submitAnswer(int task_id, int group_id, String answer) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("task_id", task_id + "");
+        params.put("group_id", group_id + "");
+        params.put("answer", answer);
+        return mApi.submitAnswer(params);
     }
 }

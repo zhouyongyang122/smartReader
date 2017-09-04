@@ -12,8 +12,8 @@ android {
         applicationId "com.qudiandu.smartreader"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 6
-        versionName "1.2.1"
+        versionCode 7
+        versionName "1.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'armeabi'

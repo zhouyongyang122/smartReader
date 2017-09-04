@@ -75,21 +75,74 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
                 textFinish.setVisibility(View.GONE);
             }
 
-            if (mData.finish != null && mData.finish.size() > 0) {
-                textScore.setVisibility(View.VISIBLE);
-                textScore.setText(mData.finish.get(0).score + "");
-
-                if (!TextUtils.isEmpty(mData.finish.get(0).comment)) {
-                    textFinish.setText("看点评");
-                } else {
-                    textFinish.setText("已完成");
-                }
-            } else {
-                textScore.setVisibility(View.GONE);
-                textFinish.setText("去完成");
+            switch (mData.ctype) {
+                case SRTask.TASK_TYPE_RECORD:
+                    recordTask();
+                    break;
+                case SRTask.TASK_TYPE_LISTEN:
+                    listenTask();
+                    break;
+                case SRTask.TASK_TYPE_PIC:
+                    picTask();
+                    break;
+                case SRTask.TASK_TYPE_AUDIO:
+                    audioTask();
+                    break;
             }
+
+
         } else {
             mItemView.setVisibility(View.GONE);
+        }
+    }
+
+    private void recordTask() {
+        if (mData.isFinished()) {
+            textScore.setVisibility(View.VISIBLE);
+            textScore.setText(mData.finish.get(0).score + "");
+            if (mData.hasComment()) {
+                textFinish.setText("看点评");
+            } else {
+                textFinish.setText("已完成");
+            }
+        } else {
+            textScore.setVisibility(View.GONE);
+            textFinish.setText("去完成");
+        }
+    }
+
+    private void listenTask() {
+        textScore.setVisibility(View.GONE);
+        if (mData.isFinished()) {
+            textFinish.setText("已完成");
+        } else {
+            textFinish.setText("课程录音");
+        }
+    }
+
+    private void picTask() {
+        textScore.setVisibility(View.GONE);
+        if (mData.isFinished()) {
+            if (mData.hasComment()) {
+                textFinish.setText("看点评");
+            } else {
+                textFinish.setText("已完成");
+            }
+        } else {
+            textFinish.setText("选图答题");
+        }
+    }
+
+    private void audioTask() {
+        textScore.setVisibility(View.GONE);
+        if (mData.isFinished()) {
+            if (mData.hasComment()) {
+                textFinish.setText("看点评");
+            } else {
+                textFinish.setText("已完成");
+            }
+        } else {
+            textFinish.setText("语音答题");
         }
     }
 

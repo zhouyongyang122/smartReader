@@ -16,6 +16,7 @@ import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
 import com.qudiandu.smartreader.ui.set.model.bean.SRRemind;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
+import com.qudiandu.smartreader.ui.task.model.bean.SRTaskProblem;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 
 import java.util.List;
@@ -150,5 +151,11 @@ public interface ZYRequestApi {
 
     @POST("group/delTask")
     Observable<ZYResponse> delTask(@Body Map<String, String> params);
+
+    @GET("group/taskProblemDetail")
+    Observable<ZYResponse<SRTaskProblem>> getProblemTaskDetail(@Query("task_id") String task_id);
+
+    @POST("group/taskProblemFinish")
+    Observable<ZYResponse> submitAnswer(@Body Map<String, String> params);
 
 }

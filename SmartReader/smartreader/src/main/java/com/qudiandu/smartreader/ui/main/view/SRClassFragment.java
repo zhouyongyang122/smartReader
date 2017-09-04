@@ -153,25 +153,12 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                 } else if (type == TASK_TYPE) {
                     return new SRClassTaskItemVH(SRClassFragment.this);
                 }
-//                return new SRClassTaskFinishItemVH();
                 return new SRClassTaskItemVH(SRClassFragment.this);
             }
 
             @Override
             public int getItemViewType(int position) {
-                if (SRUserManager.getInstance().getUser().isStudent()) {
-                    if (adapter.getItem(position) instanceof SRTaskTitle) {
-                        return TITLE_TYPE;
-                    } else if (adapter.getItem(position) instanceof SRTask) {
-//                        SRTask task = (SRTask) adapter.getItem(position);
-//                        if (task.finish != null && task.finish.size() > 0 && ) {
-//                            return TASK_FINISH_TYPE;
-//                        }
-                        return TASK_TYPE;
-                    } else {
-                        return TASK_TYPE;
-                    }
-                } else if (SRUserManager.getInstance().getUser().isTeacher()) {
+                if (super.getItemViewType(position) == ZYBaseRecyclerAdapter.TYPE_NORMAL) {
                     if (adapter.getItem(position) instanceof SRTaskTitle) {
                         return TITLE_TYPE;
                     } else {
@@ -353,7 +340,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     public void showClassTaskEmpty() {
         if (SRUserManager.getInstance().getUser().isStudent()) {
             sRecyclerView.getLoadingView().setEmptyText("老师还没有布置作业");
-        }else {
+        } else {
             sRecyclerView.getLoadingView().setEmptyText("你还没有添加作业");
         }
         sRecyclerView.showEmpty();
