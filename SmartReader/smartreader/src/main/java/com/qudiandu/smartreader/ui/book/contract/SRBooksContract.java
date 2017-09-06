@@ -21,6 +21,8 @@ public interface SRBooksContract {
 
         void setEdit(boolean isEdit);
 
+        int getClassId();
+
         void loadDatas();
 
         List<SRBook> getDatas();

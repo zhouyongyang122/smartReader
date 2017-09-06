@@ -59,4 +59,8 @@ public class SRBooksPresenter extends ZYBasePresenter implements SRBooksContract
     public List<SRBook> getDatas() {
         return mDatas;
     }
+
+    public int getClassId(){
+        return mClassId;
+    }
 }

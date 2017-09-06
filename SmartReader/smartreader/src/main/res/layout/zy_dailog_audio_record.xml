@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sr_bg_corner6dp_c4_solid">
+
+    <ImageView
+        android:id="@+id/iv_record_status"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="33dp"
+        android:src="@drawable/zy_audio_recorder_drawables" />
+
+    <TextView
+        android:id="@+id/tv_record_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_record_status"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="15dp"
+        android:text="@string/btn_text_mic_tip_send"
+        android:textColor="@color/c6"
+        android:textSize="14sp"
+        android:visibility="visible" />
+
+</RelativeLayout>

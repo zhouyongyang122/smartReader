@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.event.SREventSelectedBook;
+import com.qudiandu.smartreader.base.event.SREventSelectedStudyBook;
 import com.qudiandu.smartreader.base.mvp.ZYBaseRecyclerFragment;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
@@ -130,7 +131,7 @@ public class SRBooksFragment extends ZYBaseRecyclerFragment<SRBooksContract.IPre
         if (book.getBook_id_int() < 0) {
             startActivity(SRGradeActivity.createIntent(mActivity));
         } else {
-            startActivity(SRBookHomeActivity.createIntent(mActivity, book.savePath));
+            EventBus.getDefault().post(new SREventSelectedStudyBook(mPresenter.getClassId(), book.getBook_id_int()));
         }
     }
 

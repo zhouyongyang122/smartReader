@@ -31,4 +31,17 @@
     <string name="toast_no_wechat">尚未安装微信，无法分享</string>
 
     <string name="complete">完成</string>
+
+    <!-- CommentPanelHelper -->
+    <string name="text_hold">按住  说话</string>
+    <string name="text_recording">松开  发送</string>
+    <string name="btn_text_mic_tip_send">手指向上滑  取消发送</string>
+    <string name="btn_text_mic_tip_cancel">手指松开  取消发送</string>
+    <string name="text_recording_now">手指上滑 取消发送</string>
+    <string name="text_recording_now2">松开 结束</string>
+    <string name="text_recording_cancel">松开手指  取消发送</string>
+    <string name="text_speak_time_short">录音时间太短</string>
+    <string name="text_press_to_speak">按住 说话</string>
+    <string name="text_no_show_again">不再显示</string>
+    <string name="text_talk_out_time">说话时间超长</string>
 </resources>

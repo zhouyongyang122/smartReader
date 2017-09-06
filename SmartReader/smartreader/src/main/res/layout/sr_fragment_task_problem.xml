@@ -19,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/c5"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="50dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -110,6 +111,18 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/textRecord"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/c3"
+        android:gravity="center"
+        android:text="按住  说话"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f2"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/layoutAnswerTip"

@@ -11,12 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.iflytek.cloud.thirdparty.V;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.task.contract.SRTaskProblemContact;
+import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskProblemAudioVH;
 import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskProblemPicVH;
 
 import butterknife.Bind;
@@ -63,7 +65,12 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     @Bind(R.id.textTip)
     TextView mTextTip;
 
+    @Bind(R.id.textRecord)
+    TextView textRecord;
+
     SRTaskProblemPicVH mProblemPicVH;
+
+    SRTaskProblemAudioVH mProblemAudioVH;
 
     @Nullable
     @Override
@@ -88,7 +95,9 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
             mProblemPicVH = new SRTaskProblemPicVH(this);
             mProblemPicVH.attachTo(mLayoutContent);
         } else {
-
+            textRecord.setVisibility(View.VISIBLE);
+            mProblemAudioVH = new SRTaskProblemAudioVH();
+            mProblemAudioVH.attachTo(mLayoutContent);
         }
     }
 

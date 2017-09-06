@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/sms_voice_alert"
+        android:maxLevel="1" />
+    <item
+        android:drawable="@drawable/sms_voice_record_0"
+        android:maxLevel="2" />
+    <item
+        android:drawable="@drawable/sms_voice_record_1"
+        android:maxLevel="3" />
+    <item
+        android:drawable="@drawable/sms_voice_record_2"
+        android:maxLevel="4" />
+    <item
+        android:drawable="@drawable/sms_voice_record_3"
+        android:maxLevel="5" />
+    <item
+        android:drawable="@drawable/sms_voice_record_4"
+        android:maxLevel="6" />
+    <item
+        android:drawable="@drawable/sms_voice_record_5"
+        android:maxLevel="7" />
+    <item
+        android:drawable="@drawable/sms_voice_record_6"
+        android:maxLevel="8" />
+    <item
+        android:drawable="@drawable/sms_voice_delete"
+        android:maxLevel="9" />
+</level-list>

@@ -20,6 +20,7 @@ public class SRBooksActivity extends ZYBaseFragmentActivity<SRBooksFragment> {
 
     public static Intent createIntent(Context context, int classId) {
         Intent intent = new Intent(context, SRBooksActivity.class);
+        intent.putExtra(CLASS_ID, classId);
         return intent;
     }
 

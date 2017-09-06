@@ -15,6 +15,7 @@ import com.qudiandu.smartreader.ui.book.activity.SRBooksActivity;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksAddItemVH;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksDefItemVH;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksItemVH;
+import com.qudiandu.smartreader.ui.main.activity.SRBookHomeActivity;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.utils.ZYFileUtils;
 
@@ -48,11 +49,16 @@ public class SRHomeBookVH extends ZYBaseViewHolder<SRBook> {
         return R.layout.sr_view_home_book;
     }
 
-    @OnClick({R.id.layoutBook})
+    @OnClick({R.id.layoutBook, R.id.layoutRead, R.id.layoutRecord})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layoutBook:
                 mContext.startActivity(SRBooksActivity.createIntent(mContext, 0));
+                break;
+            case R.id.layoutRead:
+                mContext.startActivity(SRBookHomeActivity.createIntent(mContext, mData.savePath));
+                break;
+            case R.id.layoutRecord:
                 break;
         }
     }
