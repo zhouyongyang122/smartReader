@@ -35,13 +35,15 @@ public class SRBookSelectPresenter extends ZYListDataPresenter<SRBookSelectContr
             @Override
             public void onSuccess(ZYResponse<List<SRBook>> response) {
                 if (response.data != null) {
-                    List<SRBook> books = new ArrayList<SRBook>();
-                    for (SRBook book : response.data) {
-                        if (SRBook.queryById(book.book_id) == null) {
-                            books.add(book);
+                    if (!isTaskSel) {
+                        List<SRBook> books = new ArrayList<SRBook>();
+                        for (SRBook book : response.data) {
+                            if (SRBook.queryById(book.book_id) == null) {
+                                books.add(book);
+                            }
                         }
+                        response.data = books;
                     }
-                    response.data = books;
                 }
                 success(response);
             }

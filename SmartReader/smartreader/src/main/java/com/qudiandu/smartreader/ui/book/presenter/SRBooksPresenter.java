@@ -2,7 +2,7 @@ package com.qudiandu.smartreader.ui.book.presenter;
 
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.ui.book.contract.SRBooksContract;
-import com.qudiandu.smartreader.ui.book.model.SRBooksModel;
+import com.qudiandu.smartreader.ui.book.model.SRBookModel;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class SRBooksPresenter extends ZYBasePresenter implements SRBooksContract
 
     SRBooksContract.IView mView;
 
-    SRBooksModel mMode;
+    SRBookModel mMode;
 
     int mClassId;
 
@@ -26,7 +26,7 @@ public class SRBooksPresenter extends ZYBasePresenter implements SRBooksContract
 
     public SRBooksPresenter(SRBooksContract.IView view, int classId) {
         mView = view;
-        mMode = new SRBooksModel();
+        mMode = new SRBookModel();
         mView.setPresenter(this);
         mClassId = classId;
     }

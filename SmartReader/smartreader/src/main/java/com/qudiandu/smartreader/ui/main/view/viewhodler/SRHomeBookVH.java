@@ -11,6 +11,7 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
+import com.qudiandu.smartreader.ui.book.activity.SRBookUnitsActivity;
 import com.qudiandu.smartreader.ui.book.activity.SRBooksActivity;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksAddItemVH;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksDefItemVH;
@@ -56,7 +57,7 @@ public class SRHomeBookVH extends ZYBaseViewHolder<SRBook> {
                 mContext.startActivity(SRBooksActivity.createIntent(mContext, 0));
                 break;
             case R.id.layoutRead:
-                mContext.startActivity(SRBookHomeActivity.createIntent(mContext, mData.savePath));
+                mContext.startActivity(SRBookUnitsActivity.createIntent(mContext, mData.savePath, mData.name));
                 break;
             case R.id.layoutRecord:
                 break;

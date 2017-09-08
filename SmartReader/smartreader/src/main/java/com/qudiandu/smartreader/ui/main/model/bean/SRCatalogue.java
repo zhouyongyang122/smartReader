@@ -29,6 +29,8 @@ public class SRCatalogue implements ZYIBaseBean {
 
     private String page_id;
 
+    private String page_url;//对应的书本封面地址
+
     private ArrayList<String> pageIds = new ArrayList<String>();
 
     public int getCatalogue_id() {
@@ -112,5 +114,13 @@ public class SRCatalogue implements ZYIBaseBean {
             ZYLog.e(getClass().getSimpleName(),"getFristPageId-error: " + e.getMessage());
         }
         return 0;
+    }
+
+    public String getPage_url() {
+        return page_url;
+    }
+
+    public void setPage_url(String page_url) {
+        this.page_url = page_url;
     }
 }
