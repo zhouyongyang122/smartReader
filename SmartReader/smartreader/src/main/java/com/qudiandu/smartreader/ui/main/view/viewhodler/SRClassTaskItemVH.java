@@ -60,7 +60,6 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
             mItemView.setVisibility(View.VISIBLE);
             mData = (SRTask) data;
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, mData.page_url);
-            textTitle.setText(mData.unit);
             textSubTitle.setText(mData.title);
             textFinish.setVisibility(View.VISIBLE);
             if (mData.isEdit) {
@@ -77,15 +76,19 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
 
             switch (mData.ctype) {
                 case SRTask.TASK_TYPE_RECORD:
+                    textTitle.setText(mData.unit);
                     recordTask();
                     break;
                 case SRTask.TASK_TYPE_LISTEN:
+                    textTitle.setText("课堂录音");
                     listenTask();
                     break;
                 case SRTask.TASK_TYPE_PIC:
+                    textTitle.setText("图片题");
                     picTask();
                     break;
                 case SRTask.TASK_TYPE_AUDIO:
+                    textTitle.setText("语音题");
                     audioTask();
                     break;
             }

@@ -29,10 +29,11 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:maxLines="1"
             android:layout_toRightOf="@+id/imgBg"
             android:text="标题标题"
             android:textColor="@color/c1"
-            android:textSize="@dimen/f2" />
+            android:textSize="@dimen/f3" />
 
         <TextView
             android:id="@+id/textSubTitle"
@@ -43,9 +44,11 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/imgBg"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="副标题标题"
             android:textColor="@color/c1"
-            android:textSize="@dimen/f5" />
+            android:textSize="@dimen/f6" />
 
         <TextView
             android:id="@+id/textFinishNum"
