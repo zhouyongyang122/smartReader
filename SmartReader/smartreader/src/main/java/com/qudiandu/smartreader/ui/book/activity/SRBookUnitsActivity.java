@@ -21,7 +21,7 @@ public class SRBookUnitsActivity extends ZYBaseFragmentActivity<SRBookUnitsFragm
     static final String TITLE = "title";
 
     public static Intent createIntent(Context context, String localPath, String title) {
-        Intent intent = new Intent(context, SRBookHomeActivity.class);
+        Intent intent = new Intent(context, SRBookUnitsActivity.class);
         intent.putExtra(LOCAL_PATH, localPath);
         intent.putExtra(TITLE, title);
         return intent;

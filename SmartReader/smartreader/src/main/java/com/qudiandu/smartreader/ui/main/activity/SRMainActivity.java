@@ -243,6 +243,10 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     @Override
     public void onBackPressed() {
 
+        if (!classFragment.onBackPressed()) {
+            return;
+        }
+
         new AlertDialog.Builder(this).setTitle("退出").setMessage("是否退出英语趣点读?")
                 .setPositiveButton("退出", new DialogInterface.OnClickListener() {
                     @Override

@@ -43,7 +43,7 @@ public class SRClassOrganizationCodeVH extends ZYBaseViewHolder {
         return R.layout.sr_view_organization_code;
     }
 
-    @OnClick({R.id.textComplete, R.id.textSelf})
+    @OnClick({R.id.textComplete, R.id.textSelf, R.id.ivLeftImg})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textSelf:
@@ -57,10 +57,15 @@ public class SRClassOrganizationCodeVH extends ZYBaseViewHolder {
                 }
                 mListener.onCompleteClick(code);
                 break;
+            case R.id.ivLeftImg:
+                mListener.onBackClick();
+                break;
         }
     }
 
     public interface ClassOrganizationCodeListener {
         void onCompleteClick(String code);
+
+        void onBackClick();
     }
 }

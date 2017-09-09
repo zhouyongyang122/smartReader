@@ -3,7 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/c2"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/c1">
+
+        <ImageView
+            android:id="@+id/ivLeftImg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/actionBarItemBackground"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back2" />
+
+        <TextView
+            android:id="@+id/textWait"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:gravity="center"
+            android:text="我是老师"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f4" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/c6" />
 
     <EditText
         android:id="@+id/textCode"
@@ -34,13 +68,15 @@
 
     <TextView
         android:id="@+id/textSelf"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:drawablePadding="4dp"
+        android:drawableRight="@drawable/yellow_triangle"
         android:gravity="center"
-        android:text="我没加入学校,我是个人 >"
+        android:text="我没加入学校,我是个人"
         android:textColor="@color/c7"
         android:textSize="@dimen/f1" />
 

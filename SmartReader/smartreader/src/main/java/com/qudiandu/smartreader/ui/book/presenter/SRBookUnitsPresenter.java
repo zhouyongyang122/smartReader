@@ -79,12 +79,13 @@ public class SRBookUnitsPresenter extends ZYBasePresenter implements SRBookUnits
                                 break;
                             }
                         }
+                        page.setLocalRootDirPath(mLocalPath);
                     }
 
                     for (SRCatalogue catalogue : book.catalogue) {
                         for (SRPage page : book.page) {
                             if (TextUtils.isEmpty(catalogue.getPage_url()) && catalogue.containsPage(page.getPage_id() + "")) {
-                                catalogue.setPage_url(mLocalPath + "/" + page.getPage_url());
+                                catalogue.setPage_url(page.getPicPath());
                             }
                         }
                     }
@@ -125,6 +126,6 @@ public class SRBookUnitsPresenter extends ZYBasePresenter implements SRBookUnits
                 break;
             }
         }
-        mView.toDubbing(tracts,mBook.book_id,cateId + "");
+        mView.toDubbing(tracts, mBook.book_id, cateId + "");
     }
 }

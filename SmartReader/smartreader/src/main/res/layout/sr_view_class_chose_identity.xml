@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c1"
+    android:background="@color/c2"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textWait"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:background="@color/c1"
         android:gravity="center"
         android:text="选择身份信息"
         android:textColor="@color/white"
@@ -82,5 +83,16 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="选择后的身份可以在个人资料里面进行修改哦!"
+        android:textColor="@color/c3"
+        android:textSize="@dimen/f4" />
 
 </LinearLayout>

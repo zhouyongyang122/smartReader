@@ -38,6 +38,7 @@
         android:layout_marginTop="20dp">
 
         <LinearLayout
+            android:id="@+id/layoutAction"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginLeft="15dp"
@@ -49,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/c10"
+                android:background="@drawable/reading"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -64,7 +65,8 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@drawable/def_avatar" />
+                    android:background="@drawable/def_avatar"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:background="@color/c10"
+                android:background="@drawable/dubbing"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -88,7 +90,8 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@drawable/def_avatar" />
+                    android:background="@drawable/def_avatar"
+                    android:visibility="invisible" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

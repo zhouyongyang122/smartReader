@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -19,6 +20,7 @@ import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksItemVH;
 import com.qudiandu.smartreader.ui.main.activity.SRBookHomeActivity;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.utils.ZYFileUtils;
+import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,20 @@ public class SRHomeBookVH extends ZYBaseViewHolder<SRBook> {
     @Bind(R.id.textTitle)
     TextView mTextTitle;
 
+    @Bind(R.id.layoutAction)
+    LinearLayout layoutAction;
+
     SRBook mData;
+
+    @Override
+    public void findView(View view) {
+        super.findView(view);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layoutAction.getLayoutParams();
+        int width = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 45)) / 2;
+        float scacle = 165.0f / 119.0f;
+        layoutParams.height = (int) ((float) width / scacle);
+        layoutAction.setLayoutParams(layoutParams);
+    }
 
     @Override
     public void updateView(SRBook data, int position) {
@@ -57,9 +72,10 @@ public class SRHomeBookVH extends ZYBaseViewHolder<SRBook> {
                 mContext.startActivity(SRBooksActivity.createIntent(mContext, 0));
                 break;
             case R.id.layoutRead:
-                mContext.startActivity(SRBookUnitsActivity.createIntent(mContext, mData.savePath, mData.name));
+                mContext.startActivity(SRBookHomeActivity.createIntent(mContext, mData.savePath));
                 break;
             case R.id.layoutRecord:
+                mContext.startActivity(SRBookUnitsActivity.createIntent(mContext, mData.savePath, mData.name));
                 break;
         }
     }

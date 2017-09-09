@@ -141,6 +141,10 @@
             android:name=".ui.task.activity.SRTaskListenActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.book.activity.SRBookUnitsActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".service.downNet.down.ZYDownloadService" />
 
         <activity

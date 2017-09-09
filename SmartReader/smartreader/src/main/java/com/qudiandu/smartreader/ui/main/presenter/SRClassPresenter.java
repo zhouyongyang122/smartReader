@@ -206,10 +206,13 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
             @Override
             public void onSuccess(ZYResponse<SRUser> response) {
                 mView.hideProgress();
-                SRUser user = SRUserManager.getInstance().getUser();
-                user.user_type = indentity;
-                user.school_id = response.data.school_id;
-                user.update();
+
+                SRUserManager.getInstance().setUser(response.data);
+
+//                SRUser user = SRUserManager.getInstance().getUser();
+//                user.user_type = indentity;
+//                user.school_id = response.data.school_id;
+//                user.update();
                 mView.choseIdentitySuc();
             }
 

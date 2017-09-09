@@ -33,20 +33,28 @@ public abstract class ZYBaseViewHolder<D> {
     }
 
     public void unAttach() {
-        mItemView.setVisibility(View.GONE);
-        ViewGroup parentView = (ViewGroup) mItemView.getParent();
-        parentView.removeView(mItemView);
+        try {
+            mItemView.setVisibility(View.GONE);
+            ViewGroup parentView = (ViewGroup) mItemView.getParent();
+            parentView.removeView(mItemView);
+        } catch (Exception e) {
+
+        }
     }
 
     public void show() {
-        mItemView.setVisibility(View.VISIBLE);
+        if (mItemView != null) {
+            mItemView.setVisibility(View.VISIBLE);
+        }
     }
 
     public void hide() {
-        mItemView.setVisibility(View.GONE);
+        if (mItemView != null) {
+            mItemView.setVisibility(View.GONE);
+        }
     }
 
-    public boolean isvisiable(){
+    public boolean isvisiable() {
         return mItemView.getVisibility() == View.VISIBLE;
     }
 

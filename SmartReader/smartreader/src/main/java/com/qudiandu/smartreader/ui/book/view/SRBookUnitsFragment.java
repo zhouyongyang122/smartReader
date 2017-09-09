@@ -49,7 +49,10 @@ public class SRBookUnitsFragment extends ZYBaseFragment<SRBookUnitsContract.IPre
         adapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                SRCatalogue catalogue = adapter.getItem(position);
+                if (catalogue != null) {
+                    mPresenter.toDubbing(catalogue.getCatalogue_id());
+                }
             }
         });
         recyclerView.setAdapter(adapter);
