@@ -113,10 +113,13 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
             mProblemPicVH.attachTo(mLayoutContent);
             mProblemPicVH.updateView(mPresenter.getProblem(), 0);
         } else {
-            textRecord.setVisibility(View.VISIBLE);
             mProblemAudioVH = new SRTaskProblemAudioVH();
             mProblemAudioVH.attachTo(mLayoutContent);
-
+            if (SRUserManager.getInstance().getUser().isTeacher()) {
+                mProblemAudioVH.updateView(new SRTaskAudio((int) mPresenter.getProblem().getAudioTime(), mPresenter.getProblem().audio), 0);
+                return;
+            }
+            textRecord.setVisibility(View.VISIBLE);
             textRecord.setListener(new ZYRecordAudioTextView.RecordAudioViewListener() {
                 @Override
                 public void onAudioRecordStart() {
