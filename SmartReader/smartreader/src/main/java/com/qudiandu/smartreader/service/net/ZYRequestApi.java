@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -155,7 +157,8 @@ public interface ZYRequestApi {
     @GET("group/taskProblemDetail")
     Observable<ZYResponse<SRTaskProblem>> getProblemTaskDetail(@Query("task_id") String task_id);
 
+    @FormUrlEncoded
     @POST("group/taskProblemFinish")
-    Observable<ZYResponse> submitAnswer(@Body Map<String, String> params);
+    Observable<ZYResponse> submitAnswer(@FieldMap Map<String, String> params);
 
 }

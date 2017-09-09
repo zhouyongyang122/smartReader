@@ -11,4 +11,9 @@ public class SRTaskAudio implements ZYIBaseBean {
     public long audioSize;
 
     public String audioPath;
+
+    public SRTaskAudio(long audioSize, String audioPath) {
+        this.audioSize = audioSize;
+        this.audioPath = audioPath;
+    }
 }

@@ -3,6 +3,7 @@ package com.qudiandu.smartreader.base.record;
 import android.media.MediaRecorder;
 import android.media.MediaRecorder.OnErrorListener;
 
+import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.utils.ZYLog;
 
 import java.io.IOException;
@@ -150,9 +151,15 @@ public class ZYRecordAudioManager {
                 }
                 mRecordLen += SPACE;
 
+                final int level_ = level;
                 if (mRecording) {
-                    mRecordAudioListener.onAudioAmplitudeChanged(level);
-                    mRecordAudioListener.onRecordAudioTimeChanged(mRecordLen);
+                    SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mRecordAudioListener.onAudioAmplitudeChanged(level_);
+                            mRecordAudioListener.onRecordAudioTimeChanged(mRecordLen);
+                        }
+                    });
                 }
             }
         };

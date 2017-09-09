@@ -59,13 +59,22 @@ public class SRTaskProblem implements ZYIBaseBean {
 
         public String audio;
 
-        public float audio_timelen;
+        public String audio_timelen;
 
         public String answer;
 
         public int ctype;
 
         public AnswerPic answer_pic;
+
+        public float getAudioTime() {
+            try {
+                return Float.valueOf(audio_timelen);
+            } catch (Exception e) {
+
+            }
+            return 0;
+        }
     }
 
     public class AnswerPic implements ZYIBaseBean {

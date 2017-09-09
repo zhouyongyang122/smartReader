@@ -77,6 +77,7 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
 
     private void initLoadingView() {
         mLoadingView = new ZYLoadingView(this);
+        mLoadingView.attach(mRootView);
         mLoadingView.setRetryListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,8 +136,13 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        if (!mPresenters.get(mPage).isFinised()) {
+            ZYToast.show(SRTaskProblemActivity.this, "还没有完成当前的任务哦!");
+            return;
+        }
         mPage++;
-        if (mPage >= mTaskProblem.problems.size()) {
+        mViewPage.setCurrentItem(mPage);
+        if (mPage >= mTaskProblem.problems.size() - 1) {
             showActionRightTitle("提交", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -157,13 +163,11 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
                     }));
                 }
             });
-            return;
         }
-        if (mPresenters.get(mPage).isFinised()) {
-            mViewPage.setCurrentItem(mPage);
-        } else {
-            ZYToast.show(SRTaskProblemActivity.this, "还没有完成当前的任务哦!");
-        }
+    }
+
+    public void addAnswer(String problemId, String answer) {
+        mAnswers.put(problemId, answer);
     }
 
     @Override

@@ -104,7 +104,9 @@ public class ZYRecordAudioTextView extends TextView implements ZYRecordAudioList
     private void handleRecordBtnDown(MotionEvent event) {
         SRPlayManager.getInstance().stopAudio();
         showValidView();
-        mRecordDialog.show();
+        if (mRecordDialog != null) {
+            mRecordDialog.show();
+        }
         if (!isRecordInStarting) {
             startRecord();
         }

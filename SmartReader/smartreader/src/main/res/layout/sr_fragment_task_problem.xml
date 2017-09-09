@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="50dp"
         android:background="@color/c2"
         android:scrollbars="none">
 
@@ -20,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/c5"
                 android:orientation="vertical"
-                android:paddingBottom="50dp">
+                android:paddingBottom="30dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -66,6 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/def_bg" />
 
                 <TextView
@@ -84,7 +87,6 @@
                     android:id="@+id/layoutVoice"
                     android:layout_width="250dp"
                     android:layout_height="43dp"
-                    android:layout_marginBottom="25dp"
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/sr_bg_corner4dp_c13">
 
@@ -95,13 +97,14 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/img_voice_left_3" />
+                        android:src="@drawable/voice" />
 
                     <TextView
                         android:id="@+id/textVoiceSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/imgVoice"
                         android:text="1分30秒"
                         android:textColor="@color/white"
@@ -112,7 +115,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <TextView
+    <com.qudiandu.smartreader.base.record.ZYRecordAudioTextView
         android:id="@+id/textRecord"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -122,13 +125,14 @@
         android:text="按住  说话"
         android:textColor="@color/white"
         android:textSize="@dimen/f2"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/layoutAnswerTip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent20"
+        android:background="@color/transparent40"
         android:visibility="gone">
 
         <LinearLayout
@@ -150,9 +154,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:gravity="center"
                 android:text="太棒了,回答正确!"
                 android:textColor="@color/c6"
-                android:textSize="@dimen/f4" />
+                android:textSize="@dimen/f6" />
 
         </LinearLayout>
     </RelativeLayout>

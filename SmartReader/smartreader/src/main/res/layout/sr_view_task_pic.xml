@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/c2"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:paddingBottom="30dp"
+    android:paddingTop="30dp">
 
     <RelativeLayout
         android:id="@+id/layoutA"
@@ -18,13 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:src="@drawable/def_bg" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/imgASel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/sr_bg_corner6dp_tran40" />
+            android:background="@drawable/sr_bg_corner6dp_tran40"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textA"
@@ -52,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:src="@drawable/def_bg" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/imgBSel"
@@ -87,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:src="@drawable/def_bg" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/imgCSel"
@@ -122,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:src="@drawable/def_bg" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/imgDSel"

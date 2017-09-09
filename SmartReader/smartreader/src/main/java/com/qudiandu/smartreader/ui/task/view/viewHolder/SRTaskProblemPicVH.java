@@ -7,6 +7,9 @@ import android.widget.RelativeLayout;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskProblem;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
@@ -100,31 +103,54 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     public void updateView(SRTaskProblem.Problem data, int position) {
         if (data != null) {
             mData = data;
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgA, data.answer_pic.A, ZYScreenUtils.dp2px(mContext, 4));
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgB, data.answer_pic.B, ZYScreenUtils.dp2px(mContext, 4));
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgC, data.answer_pic.C, ZYScreenUtils.dp2px(mContext, 4));
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgD, data.answer_pic.D, ZYScreenUtils.dp2px(mContext, 4));
+            if (SRUserManager.getInstance().getUser().isTeacher()) {
+                refreshSelImg(mData.answer);
+            }
         }
     }
 
     @OnClick({R.id.layoutA, R.id.layoutB, R.id.layoutC, R.id.layoutD})
     public void onClick(View view) {
-        int selIndex = 0;
+        if (SRUserManager.getInstance().getUser().isTeacher()) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.layoutA:
-                selIndex = 0;
+                refreshSelImg("A");
                 mListener.onAnswerSelect("A");
                 break;
             case R.id.layoutB:
-                selIndex = 1;
+                refreshSelImg("B");
                 mListener.onAnswerSelect("B");
                 break;
             case R.id.layoutC:
-                selIndex = 2;
+                refreshSelImg("C");
                 mListener.onAnswerSelect("C");
                 break;
             case R.id.layoutD:
-                selIndex = 3;
+                refreshSelImg("D");
                 mListener.onAnswerSelect("D");
                 break;
         }
 
+
+    }
+
+    private void refreshSelImg(String answer) {
+        int selIndex = 0;
+        if (answer.equals("A")) {
+            selIndex = 0;
+        } else if (answer.equals("B")) {
+            selIndex = 1;
+        } else if (answer.equals("C")) {
+            selIndex = 2;
+        } else if (answer.equals("D")) {
+            selIndex = 3;
+        }
         int index = 0;
         for (ImageView imageView : imgSels) {
             if (index == selIndex) {

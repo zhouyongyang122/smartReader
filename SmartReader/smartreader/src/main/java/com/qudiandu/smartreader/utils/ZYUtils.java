@@ -95,4 +95,23 @@ public class ZYUtils {
         } else
             return false;
     }
+
+    public static String getShowHourMinuteSecond(long timeSecond) {
+        long hour = timeSecond / 3600;
+        long minute = timeSecond / 60 % 60;
+        long second = timeSecond % 60;
+        String backStr = "";
+        if (hour > 0) {
+            backStr = backStr + hour + "小时";
+        }
+
+        if (minute > 0) {
+            backStr = backStr + minute + "分";
+        }
+
+        if (second > 0) {
+            backStr = backStr + second + "秒";
+        }
+        return backStr;
+    }
 }

@@ -100,6 +100,7 @@ public class SRTaskListenActivity extends ZYBaseActivity {
 
     private void initLoadingView() {
         mLoadingView = new ZYLoadingView(this);
+        mLoadingView.attach(mRootView);
         mLoadingView.setRetryListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +135,7 @@ public class SRTaskListenActivity extends ZYBaseActivity {
             pic = mProblem.pic;
         }
         ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgBg, pic);
-        refreshProgress(0, (int) (mProblem.audio_timelen * 1000));
+        refreshProgress(0, (int) (mProblem.getAudioTime() * 1000));
     }
 
     void refreshProgress(int currentPosition, int totalPosition) {

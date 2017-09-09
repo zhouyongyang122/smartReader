@@ -10,6 +10,8 @@ import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskAudio;
+import com.qudiandu.smartreader.utils.ZYFileUtils;
+import com.qudiandu.smartreader.utils.ZYUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -34,6 +36,7 @@ public class SRTaskProblemAudioVH extends ZYBaseViewHolder<SRTaskAudio> {
             show();
             mData = data;
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, SRUserManager.getInstance().getUser().avatar, R.drawable.def_avatar, R.drawable.def_avatar);
+            textVoiceSize.setText(ZYUtils.getShowHourMinuteSecond(mData.audioSize));
         }
     }
 
@@ -48,6 +51,12 @@ public class SRTaskProblemAudioVH extends ZYBaseViewHolder<SRTaskAudio> {
             case R.id.layoutVoice:
                 SRPlayManager.getInstance().startAudio(mData.audioPath);
                 break;
+        }
+    }
+
+    public void destory() {
+        if (mData != null && mData.audioPath != null) {
+            ZYFileUtils.delete(mData.audioPath);
         }
     }
 }
