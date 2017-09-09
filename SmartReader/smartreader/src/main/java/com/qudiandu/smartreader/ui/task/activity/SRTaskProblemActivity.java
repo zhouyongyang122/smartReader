@@ -68,6 +68,7 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sr_activity_task_problem);
+        mSubscription = new CompositeSubscription();
         initLoadingView();
         mTaskId = getIntent().getIntExtra(TASK_ID, 0);
         mLoadingView.showLoading();

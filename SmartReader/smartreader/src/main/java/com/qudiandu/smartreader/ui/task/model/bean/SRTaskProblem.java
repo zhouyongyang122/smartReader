@@ -59,11 +59,13 @@ public class SRTaskProblem implements ZYIBaseBean {
 
         public String audio;
 
+        public float audio_timelen;
+
         public String answer;
 
         public int ctype;
 
-        public List<AnswerPic> answer_pic;
+        public AnswerPic answer_pic;
     }
 
     public class AnswerPic implements ZYIBaseBean {

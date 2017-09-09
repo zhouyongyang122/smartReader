@@ -1,5 +1,7 @@
 package com.qudiandu.smartreader.ui.main.presenter;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
@@ -193,16 +195,20 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
         }));
     }
 
-    public void updateIdentity(final int indentity) {
+    public void updateIdentity(final int indentity, String code) {
         mView.showProgress();
         Map<String, String> params = new HashMap<String, String>();
         params.put("user_type", indentity + "");
+        if (!TextUtils.isEmpty(code)) {
+            params.put("code", code);
+        }
         mSubscriptions.add(ZYNetSubscription.subscription(new SREditModel().editUser(params), new ZYNetSubscriber<ZYResponse<SRUser>>() {
             @Override
             public void onSuccess(ZYResponse<SRUser> response) {
                 mView.hideProgress();
                 SRUser user = SRUserManager.getInstance().getUser();
                 user.user_type = indentity;
+                user.school_id = response.data.school_id;
                 user.update();
                 mView.choseIdentitySuc();
             }

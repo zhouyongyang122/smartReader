@@ -73,7 +73,7 @@
             android:gravity="center"
             android:text="去完成"
             android:textColor="@color/white"
-            android:textSize="@dimen/f5"
+            android:textSize="@dimen/f8"
             android:visibility="gone"
             tools:visibility="visible" />
 

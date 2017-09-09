@@ -65,11 +65,15 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="以上信息仅用于申请审核,绝不泄露"
+        android:text="以上信息仅用于申请审核,绝不泄露\n\n请您留意我们工作人员打来的电话，归属地为杭州，审核时间是：周一至周五16:00-18:00；
+2.如一直未联系您，您可以QQ与我们联系，QQ群号码：322968274，添加时请备注班级审核；
+
+                                感谢您的理解与支持"
         android:textColor="@color/c5"
         android:textSize="@dimen/f4" />
 

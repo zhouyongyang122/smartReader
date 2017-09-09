@@ -55,14 +55,16 @@ public class SRUser extends ZYBaseEntity {
 
     public String mobile;
 
+    public int school_id;//机构id
+
     @Transient
     public boolean isCheck;
 
-    @Generated(hash = 1493552440)
+    @Generated(hash = 30359122)
     public SRUser(String uid, String nickname, String avatar, int sex, String school,
-                  String refresh_token, int age, int endtime, String upload_token,
-                  String picture_token, int grade, String auth_token, boolean isLoginUser, int type,
-                  int user_type, String mobile) {
+            String refresh_token, int age, int endtime, String upload_token, String picture_token,
+            int grade, String auth_token, boolean isLoginUser, int type, int user_type, String mobile,
+            int school_id) {
         this.uid = uid;
         this.nickname = nickname;
         this.avatar = avatar;
@@ -79,6 +81,7 @@ public class SRUser extends ZYBaseEntity {
         this.type = type;
         this.user_type = user_type;
         this.mobile = mobile;
+        this.school_id = school_id;
     }
 
     @Generated(hash = 628471356)
@@ -107,11 +110,11 @@ public class SRUser extends ZYBaseEntity {
         return user_type == SRUser.TEACHER_TYPE;
     }
 
-    public boolean isStudent(){
+    public boolean isStudent() {
         return user_type == SRUser.STUDY_TYPE;
     }
 
-    public boolean isNoIdentity(){
+    public boolean isNoIdentity() {
         return user_type == SRUser.DEF_TYPE;
     }
 
@@ -249,5 +252,13 @@ public class SRUser extends ZYBaseEntity {
 
     public void setUser_type(int user_type) {
         this.user_type = user_type;
+    }
+
+    public int getSchool_id() {
+        return this.school_id;
+    }
+
+    public void setSchool_id(int school_id) {
+        this.school_id = school_id;
     }
 }

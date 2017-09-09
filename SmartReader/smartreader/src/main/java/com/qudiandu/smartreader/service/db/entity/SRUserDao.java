@@ -40,6 +40,7 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         public final static Property Type = new Property(13, int.class, "type", false, "TYPE");
         public final static Property User_type = new Property(14, int.class, "user_type", false, "USER_TYPE");
         public final static Property Mobile = new Property(15, String.class, "mobile", false, "MOBILE");
+        public final static Property School_id = new Property(16, int.class, "school_id", false, "SCHOOL_ID");
     }
 
 
@@ -70,7 +71,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
                 "\"IS_LOGIN_USER\" INTEGER NOT NULL ," + // 12: isLoginUser
                 "\"TYPE\" INTEGER NOT NULL ," + // 13: type
                 "\"USER_TYPE\" INTEGER NOT NULL ," + // 14: user_type
-                "\"MOBILE\" TEXT);"); // 15: mobile
+                "\"MOBILE\" TEXT," + // 15: mobile
+                "\"SCHOOL_ID\" INTEGER NOT NULL );"); // 16: school_id
     }
 
     /** Drops the underlying database table. */
@@ -134,6 +136,7 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         if (mobile != null) {
             stmt.bindString(16, mobile);
         }
+        stmt.bindLong(17, entity.getSchool_id());
     }
 
     @Override
@@ -191,6 +194,7 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         if (mobile != null) {
             stmt.bindString(16, mobile);
         }
+        stmt.bindLong(17, entity.getSchool_id());
     }
 
     @Override
@@ -216,7 +220,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
             cursor.getShort(offset + 12) != 0, // isLoginUser
             cursor.getInt(offset + 13), // type
             cursor.getInt(offset + 14), // user_type
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // mobile
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // mobile
+            cursor.getInt(offset + 16) // school_id
         );
         return entity;
     }
@@ -239,6 +244,7 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         entity.setType(cursor.getInt(offset + 13));
         entity.setUser_type(cursor.getInt(offset + 14));
         entity.setMobile(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setSchool_id(cursor.getInt(offset + 16));
      }
     
     @Override

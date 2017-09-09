@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +36,12 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRTaskTitle;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassChoseIdentityVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassListVH;
+import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassOrganizationCodeVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskItemVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskTitleVH;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskDetailActivity;
+import com.qudiandu.smartreader.ui.task.activity.SRTaskListenActivity;
 import com.qudiandu.smartreader.ui.task.model.SRTaskManager;
 import com.qudiandu.smartreader.utils.ZYStatusBarUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
@@ -59,7 +62,8 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         SRClassChoseIdentityVH.ClassChoseIdentityListener,
         SRClassListVH.ClassListListener,
         SRClassTaskItemVH.ClassTaskItemListener,
-        SRClassTaskTitleVH.ClassTaskTitleListener {
+        SRClassTaskTitleVH.ClassTaskTitleListener,
+        SRClassOrganizationCodeVH.ClassOrganizationCodeListener {
 
     final int TITLE_TYPE = 0;
 
@@ -100,6 +104,8 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     ZYBaseRecyclerAdapter<Object> adapter;
 
     SRClassChoseIdentityVH choseIdentityVH;
+
+    SRClassOrganizationCodeVH organizationCodeVH;
 
     SRClassListVH classListVH;
 
@@ -247,12 +253,21 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Override
     public void onStudentClick() {
-        mPresenter.updateIdentity(SRUser.STUDY_TYPE);
+        mPresenter.updateIdentity(SRUser.STUDY_TYPE, null);
     }
 
     @Override
     public void onTeacherClick() {
-        mPresenter.updateIdentity(SRUser.TEACHER_TYPE);
+        if (organizationCodeVH == null) {
+            organizationCodeVH = new SRClassOrganizationCodeVH(this);
+            organizationCodeVH.attachTo(rootView);
+        }
+        organizationCodeVH.show();
+    }
+
+    @Override
+    public void onCompleteClick(String code) {
+        mPresenter.updateIdentity(SRUser.TEACHER_TYPE, code);
     }
 
     @Override
@@ -283,6 +298,9 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public void choseIdentitySuc() {
         choseIdentityVH.unAttach();
+        if (organizationCodeVH != null) {
+            organizationCodeVH.unAttach();
+        }
         if (SRUserManager.getInstance().getUser().isStudent()) {
             //加入班级
             mActivity.startActivity(SRJoinClassActivity.createIntent(mActivity));
@@ -356,28 +374,43 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Override
     public void onFinisheTask(final SRTask task) {
-        SRBook book = SRBook.queryById(task.book_id + "");
-        if (book != null) {
-            if (book.isFinished()) {
-                //去完成任务
-                mPresenter.toFinishTask(book.savePath, task);
-            } else {
-                ZYToast.show(mActivity, "任务相关的课本正在下载队列中,请回首页查看!");
-            }
-        } else {
-            new AlertDialog.Builder(mActivity).setTitle("下载课本").setMessage("完成任务需要先下载对应的课本").setPositiveButton("下载", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    SRBookSelectManager.getInstance().addBook(task.getBook());
-                    EventBus.getDefault().post(new SREventSelectedBook());
-                    ZYToast.show(mActivity, "课本正在下载中,请下载完成后再来完成任务!");
-                }
-            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
 
+        switch (task.ctype) {
+            case SRTask.TASK_TYPE_RECORD: {
+                SRBook book = SRBook.queryById(task.book_id + "");
+                if (book != null) {
+                    if (book.isFinished()) {
+                        //去完成任务
+                        mPresenter.toFinishTask(book.savePath, task);
+                    } else {
+                        ZYToast.show(mActivity, "任务相关的课本正在下载队列中,请回首页查看!");
+                    }
+                } else {
+                    new AlertDialog.Builder(mActivity).setTitle("下载课本").setMessage("完成任务需要先下载对应的课本").setPositiveButton("下载", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SRBookSelectManager.getInstance().addBook(task.getBook());
+                            EventBus.getDefault().post(new SREventSelectedBook());
+                            ZYToast.show(mActivity, "课本正在下载中,请下载完成后再来完成任务!");
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).create().show();
                 }
-            }).create().show();
+            }
+            break;
+            case SRTask.TASK_TYPE_LISTEN:
+                startActivity(SRTaskListenActivity.createIntent(mActivity, task.task_id));
+                break;
+            case SRTask.TASK_TYPE_PIC:
+
+                break;
+            case SRTask.TASK_TYPE_AUDIO:
+
+                break;
         }
     }
 

@@ -18,25 +18,41 @@ public interface SRClassContract {
 
     interface IView extends ZYIBaseView<IPresenter>, ZYIListView {
         void choseIdentitySuc();
+
         void refreshClasses();
+
         void showClassEmpty();
+
         void showClassTaskEmpty();
+
         void toFinishTask(SRTask task, ArrayList<SRTract> tracts);
+
         void delTaskSuc();
     }
 
     interface IPresenter extends ZYIBasePresenter {
         void setSelectClass(int position);
+
         List<SRClass> getClasses();
+
         int getCurrentClassPosition();
+
         void refreshClasss();
+
         List<Object> getData();
+
         void loadTasks(boolean isRefresh);
-        void updateIdentity(int indentity);
+
+        void updateIdentity(int indentity, String code);
+
         boolean isRefreshing();
+
         void toFinishTask(final String bookLocalPath, final SRTask task);
+
         SRClass getCurrentClass();
+
         void delTask();
+
         void setDelTask(SRTask delTask);
     }
 }
