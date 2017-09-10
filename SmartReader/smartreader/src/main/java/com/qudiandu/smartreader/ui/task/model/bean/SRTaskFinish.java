@@ -10,6 +10,10 @@ public class SRTaskFinish implements ZYIBaseBean {
 
     public int show_id;
 
+    public int finish_id;
+
+    public int group_id;
+
     public int uid;
 
     public int task_id;

@@ -51,16 +51,22 @@ public class SRTaskDetailItemVH extends ZYBaseViewHolder<SRTaskFinish> {
         if (data != null) {
             mData = data;
             mPosition = position;
-            if (mData.show_id <= 0) {
+            if (mData.task_id <= 0) {
                 mItemView.setVisibility(View.GONE);
                 return;
             } else {
                 mItemView.setVisibility(View.VISIBLE);
             }
-            ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, mData.avatar);
+            ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, mData.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             textName.setText(mData.nickname);
             textTime.setText(ZYDateUtils.getTimeString(Long.parseLong(mData.create_time) * 1000, ZYDateUtils.MMDDHHMM12));
-            textScore.setText(mData.score + "");
+
+            if (mData.show_id <= 0) {
+                textScore.setVisibility(View.GONE);
+            } else {
+                textScore.setVisibility(View.VISIBLE);
+                textScore.setText(mData.score + "");
+            }
 
             if (!TextUtils.isEmpty(mData.comment)) {
                 textComment.setText("已点评");

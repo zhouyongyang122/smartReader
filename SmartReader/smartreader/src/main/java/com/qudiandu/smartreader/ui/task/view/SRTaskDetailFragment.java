@@ -10,6 +10,7 @@ import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.myAudio.activity.SRCatalogueDetailActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskCommentActivity;
+import com.qudiandu.smartreader.ui.task.activity.SRTaskProblemActivity;
 import com.qudiandu.smartreader.ui.task.contract.SRTaskDetailContract;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskDetailHeaderVH;
@@ -26,7 +27,13 @@ public class SRTaskDetailFragment extends ZYListDateFragment<SRTaskDetailContrac
     @Override
     protected void onItemClick(View view, int position) {
         SRTaskFinish finish = mAdapter.getItem(position);
-        startActivity(SRCatalogueDetailActivity.createIntent(mActivity, finish.show_id + ""));
+        if (finish != null) {
+            if (mPresenter.isProblemTask()) {
+                startActivity(SRTaskProblemActivity.createIntent(mActivity, 0, finish.finish_id));
+            } else {
+                startActivity(SRCatalogueDetailActivity.createIntent(mActivity, finish.show_id + ""));
+            }
+        }
     }
 
     @Override

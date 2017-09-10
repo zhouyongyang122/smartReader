@@ -405,10 +405,10 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                 startActivity(SRTaskListenActivity.createIntent(mActivity, task.task_id));
                 break;
             case SRTask.TASK_TYPE_PIC:
-                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id));
+                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id,0));
                 break;
             case SRTask.TASK_TYPE_AUDIO:
-                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id));
+                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id,0));
                 break;
         }
     }

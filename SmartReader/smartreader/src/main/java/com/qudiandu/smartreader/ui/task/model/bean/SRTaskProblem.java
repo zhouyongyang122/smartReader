@@ -63,6 +63,8 @@ public class SRTaskProblem implements ZYIBaseBean {
 
         public String answer;
 
+        public String user_answer;
+
         public int ctype;
 
         public AnswerPic answer_pic;
@@ -73,7 +75,7 @@ public class SRTaskProblem implements ZYIBaseBean {
             } catch (Exception e) {
 
             }
-            return 0;
+            return 55;
         }
     }
 

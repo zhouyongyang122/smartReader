@@ -142,6 +142,9 @@ public interface ZYRequestApi {
     @GET("group/taskFinishList")
     Observable<ZYResponse<List<SRTaskFinish>>> getTaskFinishs(@Query("group_id") String group_id, @Query("task_id") String task_id, @Query("start") int start, @Query("rows") int rows);
 
+    @GET("group/problemFinishList")
+    Observable<ZYResponse<List<SRTaskFinish>>> getProblemFinishs(@Query("group_id") String group_id, @Query("task_id") String task_id, @Query("start") int start, @Query("rows") int rows);
+
     @POST("group/showComment")
     Observable<ZYResponse> addComment(@Body Map<String, String> params);
 
@@ -156,6 +159,9 @@ public interface ZYRequestApi {
 
     @GET("group/taskProblemDetail")
     Observable<ZYResponse<SRTaskProblem>> getProblemTaskDetail(@Query("task_id") String task_id);
+
+    @GET("group/problemFinishDetail")
+    Observable<ZYResponse<SRTaskProblem>> getProblemFinishTaskDetail(@Query("finish_id") String finish_id);
 
     @FormUrlEncoded
     @POST("group/taskProblemFinish")

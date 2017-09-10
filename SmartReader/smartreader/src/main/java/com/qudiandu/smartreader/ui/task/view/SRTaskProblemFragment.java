@@ -116,7 +116,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
             mProblemAudioVH = new SRTaskProblemAudioVH();
             mProblemAudioVH.attachTo(mLayoutContent);
             if (SRUserManager.getInstance().getUser().isTeacher()) {
-                mProblemAudioVH.updateView(new SRTaskAudio((int) mPresenter.getProblem().getAudioTime(), mPresenter.getProblem().audio), 0);
+                mProblemAudioVH.updateView(new SRTaskAudio((int) mPresenter.getProblem().getAudioTime(), mPresenter.getProblem().user_answer), 0);
                 return;
             }
             textRecord.setVisibility(View.VISIBLE);

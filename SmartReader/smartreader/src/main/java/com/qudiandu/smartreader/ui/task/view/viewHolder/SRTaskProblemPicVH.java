@@ -108,7 +108,7 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
             ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgC, data.answer_pic.C, ZYScreenUtils.dp2px(mContext, 4));
             ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgD, data.answer_pic.D, ZYScreenUtils.dp2px(mContext, 4));
             if (SRUserManager.getInstance().getUser().isTeacher()) {
-                refreshSelImg(mData.answer);
+                refreshSelImg(mData.user_answer);
             }
         }
     }

@@ -128,13 +128,13 @@ public class SRBooksItemVH extends ZYBaseViewHolder<SRBook> {
                         return;
                     }
 
-                    if (mData.getState().getState() != ZYDownState.PAUSE.getState()) {
-                        ZYDownloadManager.getInstance().cancleBook(mData.getId());
-                        textStatus.setText(mData.getStateString());
-                    } else {
+                    if (mData.getState().getState() == ZYDownState.PAUSE.getState() || mData.getState().getState() == ZYDownState.ERROR.getState()) {
                         mData.setState(ZYDownState.WAIT);
                         textStatus.setText(mData.getStateString());
                         ZYDownloadManager.getInstance().addBook(mData);
+                    } else {
+                        ZYDownloadManager.getInstance().cancleBook(mData.getId());
+                        textStatus.setText(mData.getStateString());
                     }
                 }
             });

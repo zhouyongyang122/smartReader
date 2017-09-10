@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -44,6 +45,8 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
 
     public static final String TASK_ID = "task_id";
 
+    public static final String FINISH_ID = "finish_id";
+
     @Bind(R.id.viewPage)
     ZYNoScollViewPager mViewPage;
 
@@ -53,6 +56,8 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
 
     int mTaskId;
 
+    int mFinisId;
+
     SRTaskProblem mTaskProblem;
 
     Map<String, String> mAnswers = new HashMap<String, String>();
@@ -61,9 +66,10 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
 
     int mPage;
 
-    public static Intent createIntent(Context context, int taskId) {
+    public static Intent createIntent(Context context, int taskId, int finisId) {
         Intent intent = new Intent(context, SRTaskProblemActivity.class);
         intent.putExtra(TASK_ID, taskId);
+        intent.putExtra(FINISH_ID, finisId);
         return intent;
     }
 
@@ -74,6 +80,7 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
         mSubscription = new CompositeSubscription();
         initLoadingView();
         mTaskId = getIntent().getIntExtra(TASK_ID, 0);
+        mFinisId = getIntent().getIntExtra(FINISH_ID, 0);
         mLoadingView.showLoading();
         loadData();
     }
@@ -119,7 +126,13 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
     }
 
     private void loadData() {
-        mSubscription.add(ZYNetSubscription.subscription(new SRTaskModel().getProblemTaskDetail(mTaskId + ""), new ZYNetSubscriber<ZYResponse<SRTaskProblem>>() {
+        Observable<ZYResponse<SRTaskProblem>> observable = null;
+        if (mFinisId > 0) {
+            observable = new SRTaskModel().getProblemFinishTaskDetail(mFinisId + "");
+        } else {
+            observable = new SRTaskModel().getProblemTaskDetail(mTaskId + "");
+        }
+        mSubscription.add(ZYNetSubscription.subscription(observable, new ZYNetSubscriber<ZYResponse<SRTaskProblem>>() {
 
             @Override
             public void onSuccess(ZYResponse<SRTaskProblem> response) {

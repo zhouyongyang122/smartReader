@@ -10,11 +10,11 @@ import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 
 public interface SRTaskDetailContract {
 
-    interface IView extends ZYListDataContract.View<IPresenter>{
+    interface IView extends ZYListDataContract.View<IPresenter> {
         void refreshHeader(SRTask task);
     }
 
-    interface IPresenter extends ZYListDataContract.Presenter<SRTaskFinish>{
-
+    interface IPresenter extends ZYListDataContract.Presenter<SRTaskFinish> {
+        boolean isProblemTask();
     }
 }

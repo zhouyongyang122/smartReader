@@ -142,6 +142,9 @@ public class ZYFileUtils {
      * @param filePath
      */
     public static void delete(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return;
+        }
         File file = new File(filePath);
         delete(file, true);
     }
