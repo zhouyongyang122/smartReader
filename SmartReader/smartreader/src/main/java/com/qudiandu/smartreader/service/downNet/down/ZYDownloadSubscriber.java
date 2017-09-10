@@ -97,6 +97,7 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
                     @Override
                     public void unZipSuccess() {
                         ZYLog.e(getClass().getSimpleName(), "准备成功");
+                        downEntity.setSavePath(SRBookFileManager.getBookPath(downEntity.getId()));
                         downEntity.setState(ZYDownState.FINISH);
                         downEntity.update(false);
                         EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));

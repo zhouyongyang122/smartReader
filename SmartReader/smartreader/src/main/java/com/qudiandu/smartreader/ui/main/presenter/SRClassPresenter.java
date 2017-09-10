@@ -242,7 +242,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
             @Override
             public void call(Subscriber<? super SRBook> subscriber) {
                 try {
-                    FileInputStream inputStream = new FileInputStream(new File(bookLocalPath + "/book.json"));
+                    FileInputStream inputStream = new FileInputStream(new File(bookLocalPath + "book.json"));
                     JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
                     Gson gson = new Gson();
                     SRBookJson bookJson = gson.fromJson(reader, SRBookJson.class);
@@ -250,7 +250,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
                     //设置tract的音频路径和track对应的mark的id....
                     for (SRPage page : book.getPage()) {
                         for (SRTract tract : page.getTrack()) {
-                            tract.setMp3Path(bookLocalPath + "/mp3/" + tract.getMp3name());
+                            tract.setMp3Path(bookLocalPath + "mp3/" + tract.getMp3name());
                             tract.setBook_id(book.getBook_id_int());
                             tract.setMarkId(book.getId() + "_" + page.getPage_id() + "_" + tract.getTrack_id());
                         }

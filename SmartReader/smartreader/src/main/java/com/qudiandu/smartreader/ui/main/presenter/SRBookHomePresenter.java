@@ -66,7 +66,7 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                     if (localRootDirPath.startsWith("file:///")) {
                         inputStream = SRApplication.getInstance().getAssets().open("1/book.json");
                     } else {
-                        inputStream = new FileInputStream(new File(localRootDirPath + "/book.json"));
+                        inputStream = new FileInputStream(new File(localRootDirPath + "book.json"));
                     }
                     JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
                     Gson gson = new Gson();
@@ -96,7 +96,7 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                     //设置tract的音频路径和track对应的mark的id....
                     for (SRPage page : book.getPage()) {
                         for (SRTract tract : page.getTrack()) {
-                            tract.setMp3Path(localRootDirPath + "/mp3/" + tract.getMp3name());
+                            tract.setMp3Path(localRootDirPath + "mp3/" + tract.getMp3name());
                             tract.setBook_id(book.getBook_id_int());
                             tract.setMarkId(book.getId() + "_" + page.getPage_id() + "_" + tract.getTrack_id());
                         }

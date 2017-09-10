@@ -164,7 +164,7 @@ public class SRBooksFragment extends ZYBaseRecyclerFragment<SRBooksContract.IPre
         ZYLog.e(getClass().getSimpleName(), "eventBookSelected: " + SRBookSelectManager.getInstance().getAddBooksSize());
         List<ZYIDownBase> books = new ArrayList<ZYIDownBase>();
         for (SRBook book : SRBookSelectManager.getInstance().getAddBooks()) {
-            book.savePath = SRBookFileManager.getBookPath(book.book_id);
+            book.savePath = SRBookFileManager.getBookZipPath(book.book_id);
             books.add(book);
         }
         ZYDownloadManager.getInstance().addBooks(books);
