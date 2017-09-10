@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.event.SREventSelectedBook;
 import com.qudiandu.smartreader.base.event.SREventSelectedStudyBook;
@@ -17,6 +18,7 @@ import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.service.downNet.down.ZYIDownBase;
+import com.qudiandu.smartreader.ui.SRAppConstants;
 import com.qudiandu.smartreader.ui.book.contract.SRBooksContract;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksAddItemVH;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksDefItemVH;
@@ -161,7 +163,10 @@ public class SRBooksFragment extends ZYBaseRecyclerFragment<SRBooksContract.IPre
     public void eventBookSelected(SREventSelectedBook eventSelectedBook) {
         ZYLog.e(getClass().getSimpleName(), "eventBookSelected: " + SRBookSelectManager.getInstance().getAddBooksSize());
         List<ZYIDownBase> books = new ArrayList<ZYIDownBase>();
-        books.addAll(SRBookSelectManager.getInstance().getAddBooks());
+        for (SRBook book : SRBookSelectManager.getInstance().getAddBooks()) {
+            book.savePath = SRBookFileManager.getBookPath(book.book_id);
+            books.add(book);
+        }
         ZYDownloadManager.getInstance().addBooks(books);
         mPresenter.getDatas().addAll(SRBookSelectManager.getInstance().getAddBooks());
         mAdapter.notifyDataSetChanged();

@@ -67,7 +67,7 @@ public class SRBookUnitsPresenter extends ZYBasePresenter implements SRBookUnits
                     //设置tract的音频路径和track对应的mark的id....
                     for (SRPage page : book.getPage()) {
                         for (SRTract tract : page.getTrack()) {
-                            tract.setMp3Path(mLocalPath + "mp3/" + tract.getMp3name());
+                            tract.setMp3Path(mLocalPath + "/mp3/" + tract.getMp3name());
                             tract.setBook_id(book.getBook_id_int());
                             tract.setMarkId(book.getId() + "_" + page.getPage_id() + "_" + tract.getTrack_id());
                         }
