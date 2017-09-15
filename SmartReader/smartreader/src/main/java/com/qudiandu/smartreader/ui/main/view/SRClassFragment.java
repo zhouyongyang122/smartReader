@@ -64,8 +64,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         SRClassChoseIdentityVH.ClassChoseIdentityListener,
         SRClassListVH.ClassListListener,
         SRClassTaskItemVH.ClassTaskItemListener,
-        SRClassTaskTitleVH.ClassTaskTitleListener,
-        SRClassOrganizationCodeVH.ClassOrganizationCodeListener {
+        SRClassTaskTitleVH.ClassTaskTitleListener {
 
     final int TITLE_TYPE = 0;
 
@@ -106,8 +105,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     ZYBaseRecyclerAdapter<Object> adapter;
 
     SRClassChoseIdentityVH choseIdentityVH;
-
-    SRClassOrganizationCodeVH organizationCodeVH;
 
     SRClassListVH classListVH;
 
@@ -268,17 +265,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Override
     public void onTeacherClick() {
-        showOrganizationCodeVH();
-    }
-
-    @Override
-    public void onCompleteClick(String code) {
-        mPresenter.updateIdentity(SRUser.TEACHER_TYPE, code);
-    }
-
-    @Override
-    public void onBackClick() {
-        onBackPressed();
+        mPresenter.updateIdentity(SRUser.TEACHER_TYPE, null);
     }
 
     @Override
@@ -309,7 +296,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public void choseIdentitySuc() {
         hideChoseIdentityVH();
-        hideOrganizationCodeVH();
         if (SRUserManager.getInstance().getUser().isStudent()) {
             //加入班级
             mActivity.startActivity(SRJoinClassActivity.createIntent(mActivity));
@@ -458,14 +444,11 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public void onResume() {
         super.onResume();
-
         if (!SRUserManager.getInstance().getUser().isNoIdentity()) {
             hideChoseIdentityVH();
-            hideOrganizationCodeVH();
         } else {
             showChoseIdentityVH();
         }
-
         if (!mPresenter.isRefreshing()) {
             mPresenter.refreshClasss();
         }
@@ -494,20 +477,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         }
     }
 
-    void showOrganizationCodeVH() {
-        if (organizationCodeVH == null) {
-            organizationCodeVH = new SRClassOrganizationCodeVH(this);
-            organizationCodeVH.attachTo(rootView);
-        }
-        organizationCodeVH.show();
-    }
-
-    void hideOrganizationCodeVH() {
-        if (organizationCodeVH != null) {
-            organizationCodeVH.hide();
-        }
-    }
-
     public void cancleManager() {
         if (mIsEdit && adapter != null) {
             onTaskManagerClick(true);
@@ -518,10 +487,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     }
 
     public boolean onBackPressed() {
-        if (organizationCodeVH != null && organizationCodeVH.isvisiable()) {
-            hideOrganizationCodeVH();
-            return false;
-        }
         return true;
     }
 }

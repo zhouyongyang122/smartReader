@@ -1,77 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/c2"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/textSchool"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
-        android:gravity="center"
-        android:hint="输入学校名称"
-        android:textColor="@color/c1"
-        android:textSize="@dimen/f4" />
+        android:background="@color/c2"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textGrade"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_weight="1"
-            android:background="@drawable/sr_bg_corner6dp_c5_solid"
-            android:gravity="center"
-            android:hint="选择年级"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f4" />
+            <EditText
+                android:id="@+id/textSchool"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/sr_bg_corner6dp_c5_solid"
+                android:gravity="center"
+                android:hint="输入学校名称"
+                android:textColor="@color/c1"
+                android:textSize="@dimen/f4" />
 
-        <EditText
-            android:id="@+id/textClass"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/sr_bg_corner6dp_c5_solid"
-            android:gravity="center"
-            android:hint="输入班级名称"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f4" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/textPhone"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
-        android:gravity="center"
-        android:hint="输入联系电话"
-        android:textColor="@color/c1"
-        android:textSize="@dimen/f4" />
+                <TextView
+                    android:id="@+id/textGrade"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sr_bg_corner6dp_c5_solid"
+                    android:gravity="center"
+                    android:hint="选择年级"
+                    android:textColor="@color/c1"
+                    android:textSize="@dimen/f4" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="以上信息仅用于申请审核,绝不泄露\n\n请您留意我们工作人员打来的电话，归属地为杭州，审核时间是：周一至周五16:00-18:00；\n如一直未联系您，您可以QQ与我们联系，QQ群号码：322968274，添加时请备注班级审核；\n\n感谢您的理解与支持"
-        android:textColor="@color/c5"
-        android:textSize="@dimen/f4" />
+                <EditText
+                    android:id="@+id/textClass"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sr_bg_corner6dp_c5_solid"
+                    android:gravity="center"
+                    android:hint="输入班级名称"
+                    android:textColor="@color/c1"
+                    android:textSize="@dimen/f4" />
+            </LinearLayout>
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/textPhone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/sr_bg_corner6dp_c5_solid"
+                android:gravity="center"
+                android:hint="输入联系电话"
+                android:textColor="@color/c1"
+                android:textSize="@dimen/f4" />
+
+            <TextView
+                android:id="@+id/textCode"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:drawablePadding="4dp"
+                android:drawableRight="@drawable/yellow_triangle"
+                android:gravity="center"
+                android:text="合作学校,输入学校邀请码"
+                android:textColor="@color/c7"
+                android:textSize="@dimen/f1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="以上信息仅用于申请审核,绝不泄露"
+                android:textColor="@color/c5"
+                android:textSize="@dimen/f4" />
+
+            <TextView
+                android:id="@+id/textTip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="请您留意我们工作人员打来的电话，归属地为杭州，审核时间是：周一至周五16:00-18:00；\n如一直未联系您，您可以QQ与我们联系，QQ群号码：322968274，添加时请备注班级审核；\n\n感谢您的理解与支持"
+                android:textColor="@color/c5"
+                android:textSize="@dimen/f4" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -78,7 +78,8 @@
         android:gravity="center"
         android:text="我没加入学校,我是个人"
         android:textColor="@color/c7"
-        android:textSize="@dimen/f1" />
+        android:textSize="@dimen/f1"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="match_parent"

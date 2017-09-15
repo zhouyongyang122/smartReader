@@ -91,7 +91,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="40dp"
         android:gravity="center"
-        android:text="选择后的身份可以在个人资料里面进行修改哦!"
+        android:text="请正确选择您的身份,如果身份选择错误,可能会导致您无法使用班级功能。\n选择后的身份也可以在个人资料里面进行修改哦!"
         android:textColor="@color/c3"
         android:textSize="@dimen/f4" />
 
