@@ -41,7 +41,6 @@ public class SRSplashActivity extends ZYBaseActivity {
             SRBook book = new SRBook();
             book.setBook_id("0");
             book.setName("测试书籍");
-            book.setClass_id(0);
             book.setGrade_id("11");
             book.setPic("file:///android_asset/1/title.jpg");
             book.setGrade("一年级");

@@ -22,11 +22,14 @@ public class SRBookSelectPresenter extends ZYListDataPresenter<SRBookSelectContr
 
     boolean isTaskSel;
 
-    public SRBookSelectPresenter(SRBookSelectContract.IView view, String gradeId, boolean isTaskSel) {
+    private String mGradeName;
+
+    public SRBookSelectPresenter(SRBookSelectContract.IView view, String gradeId, boolean isTaskSel,String gradeName) {
         super(view, new SRMainModel());
         this.gradeId = gradeId;
         mRows = 40;
         this.isTaskSel = isTaskSel;
+        mGradeName = gradeName;
     }
 
     @Override
@@ -72,5 +75,9 @@ public class SRBookSelectPresenter extends ZYListDataPresenter<SRBookSelectContr
 
     public boolean isTaskSel() {
         return isTaskSel;
+    }
+
+    public String getGradeName() {
+        return mGradeName;
     }
 }

@@ -93,7 +93,7 @@ public class SRBookSelectFragment extends ZYListDateFragment<SRBookSelectContrac
     @Override
     public void showList(boolean isHasMore) {
         super.showList(false);
-        if(textAdd != null) {
+        if (textAdd != null) {
             textAdd.setVisibility(View.VISIBLE);
         }
 
@@ -107,6 +107,7 @@ public class SRBookSelectFragment extends ZYListDateFragment<SRBookSelectContrac
         }
 
         if (isSelected) {
+            book.grade = mPresenter.getGradeName();
             SRBookSelectManager.getInstance().addBook(book);
         } else {
             SRBookSelectManager.getInstance().removeBook(book);

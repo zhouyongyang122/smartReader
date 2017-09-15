@@ -57,7 +57,8 @@ public class SRTaskDetailFragment extends ZYListDateFragment<SRTaskDetailContrac
         if (!TextUtils.isEmpty(finish.comment)) {
             return;
         }
-        startActivityForResult(SRTaskCommentActivity.createIntent(mActivity, finish.show_id + ""), position);
+        finish.ctype = mPresenter.getTask().ctype;
+        startActivityForResult(SRTaskCommentActivity.createIntent(mActivity, finish), position);
     }
 
     @Override

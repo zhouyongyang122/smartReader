@@ -43,4 +43,6 @@ public class SRTaskFinish implements ZYIBaseBean {
     public String avatar;
 
     public String comment;
+
+    public int ctype;
 }

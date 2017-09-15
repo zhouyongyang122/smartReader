@@ -9,16 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qudiandu.smartreader.SRApplication;
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.event.SREventSelectedBook;
-import com.qudiandu.smartreader.base.event.SREventSelectedStudyBook;
 import com.qudiandu.smartreader.base.mvp.ZYBaseRecyclerFragment;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.service.downNet.down.ZYIDownBase;
-import com.qudiandu.smartreader.ui.SRAppConstants;
 import com.qudiandu.smartreader.ui.book.contract.SRBooksContract;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksAddItemVH;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBooksDefItemVH;
@@ -133,7 +131,8 @@ public class SRBooksFragment extends ZYBaseRecyclerFragment<SRBooksContract.IPre
         if (book.getBook_id_int() < 0) {
             startActivity(SRGradeActivity.createIntent(mActivity));
         } else {
-            EventBus.getDefault().post(new SREventSelectedStudyBook(mPresenter.getClassId(), book.getBook_id_int()));
+            ZYPreferenceHelper.getInstance().saveSelectBookId(mPresenter.getClassId(), book.getBook_id_int());
+            finish();
         }
     }
 
@@ -168,8 +167,14 @@ public class SRBooksFragment extends ZYBaseRecyclerFragment<SRBooksContract.IPre
             books.add(book);
         }
         ZYDownloadManager.getInstance().addBooks(books);
+
+        mPresenter.getDatas().remove(mPresenter.getDatas().size() - 1);
         mPresenter.getDatas().addAll(SRBookSelectManager.getInstance().getAddBooks());
+        SRBook addBook = new SRBook();
+        addBook.setBook_id("-1");
+        mPresenter.getDatas().add(addBook);
         mAdapter.notifyDataSetChanged();
+
         SRBookSelectManager.getInstance().clearAddBooks();
     }
 }

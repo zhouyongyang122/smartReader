@@ -36,6 +36,9 @@ public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.I
 
     public void loadBook() {
         mBook = SRBook.queryById(ZYPreferenceHelper.getInstance().getSelectBookId(0) + "");
+        if (mBook == null) {
+            mBook = SRBook.queryById("0");
+        }
         mView.showBook(mBook);
     }
 

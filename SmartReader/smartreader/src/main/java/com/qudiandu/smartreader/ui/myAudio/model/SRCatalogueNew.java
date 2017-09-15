@@ -16,9 +16,7 @@ public class SRCatalogueNew extends SRCatalogue implements ZYIBaseBean {
 
     private int book_id;//对应的书本id
 
-    private int create_time;//配音时间
-
-    private String page_url;//对应的书本封面地址
+    private long create_time;//配音时间
 
     private String score;//分数
 
@@ -53,20 +51,12 @@ public class SRCatalogueNew extends SRCatalogue implements ZYIBaseBean {
         this.book_id = book_id;
     }
 
-    public int getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(int create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
-    }
-
-    public String getPage_url() {
-        return page_url;
-    }
-
-    public void setPage_url(String page_url) {
-        this.page_url = page_url;
     }
 
     public int getScore() {

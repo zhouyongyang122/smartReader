@@ -22,6 +22,7 @@ import com.qudiandu.smartreader.base.record.ZYRecordAudioTextView;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.mark.view.SRMarkFragment;
@@ -47,7 +48,8 @@ import butterknife.OnClick;
  */
 
 public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.IPresenter> implements SRTaskProblemContact.IView,
-        SRTaskProblemPicVH.TaskProblemPicListener {
+        SRTaskProblemPicVH.TaskProblemPicListener,
+        Runnable {
 
     @Bind(R.id.layoutContent)
     LinearLayout mLayoutContent;
@@ -162,7 +164,6 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
                                         ZYLog.e(SRMarkFragment.class.getSimpleName(), "uploadAudio-key: " + picKey);
                                         ((SRTaskProblemActivity) mActivity).addAnswer(mPresenter.getProblem().problem_id + "", picKey);
                                         mProblemAudioVH.updateView(new SRTaskAudio(durationSe, filePath), 0);
-                                        textRecord.setVisibility(View.GONE);
                                         mPresenter.setFinised(true);
                                     } catch (Exception e) {
                                         ZYToast.show(mActivity, e.getMessage() + "");
@@ -197,14 +198,45 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     public void onAnswerSelect(String answer) {
         mPresenter.setFinised(true);
         ((SRTaskProblemActivity) mActivity).addAnswer(mPresenter.getProblem().problem_id + "", answer);
-        mLayoutAnswerTip.setVisibility(View.VISIBLE);
-        if (mPresenter.getProblem().answer.equals(answer)) {
-            mImgTip.setBackgroundResource(R.drawable.right);
-            mTextTip.setText("太棒了，回答正确!");
-        } else {
-            mImgTip.setBackgroundResource(R.drawable.worry);
-            mTextTip.setText("答题不仔细，回答错误!");
+        showAnswerTip(answer);
+    }
+
+    void showAnswerTip(String answer) {
+        if (mLayoutAnswerTip != null) {
+            mLayoutAnswerTip.setVisibility(View.VISIBLE);
+            if (mPresenter.getProblem().answer.equals(answer)) {
+                mImgTip.setBackgroundResource(R.drawable.right);
+                mTextTip.setText("太棒了，回答正确!");
+            } else {
+                mImgTip.setBackgroundResource(R.drawable.worry);
+                mTextTip.setText("答题不仔细，回答错误!");
+            }
+            mLayoutAnswerTip.postDelayed(this, 1500);
         }
+    }
+
+    void hideAnswerTip() {
+        if (mLayoutAnswerTip != null) {
+            mLayoutAnswerTip.removeCallbacks(this);
+            mLayoutAnswerTip.setVisibility(View.GONE);
+        }
+    }
+
+    public void play() {
+        SRPlayManager.getInstance().stopAudio();
+        if (SRUserManager.getInstance().getUser().isTeacher()) {
+            if (mPresenter.getProblem().ctype == SRTask.TASK_TYPE_AUDIO) {
+                SRPlayManager.getInstance().startAudio(mPresenter.getProblem().user_answer);
+            }
+        } else {
+            SRPlayManager.getInstance().startAudio(mPresenter.getProblem().audio);
+        }
+    }
+
+
+    @Override
+    public void run() {
+        hideAnswerTip();
     }
 
     @OnClick({R.id.layoutVoice, R.id.layoutAnswerTip})
@@ -214,7 +246,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
                 SRPlayManager.getInstance().startAudio(mPresenter.getProblem().audio);
                 break;
             case R.id.layoutAnswerTip:
-                mLayoutAnswerTip.setVisibility(View.GONE);
+                hideAnswerTip();
                 break;
         }
     }

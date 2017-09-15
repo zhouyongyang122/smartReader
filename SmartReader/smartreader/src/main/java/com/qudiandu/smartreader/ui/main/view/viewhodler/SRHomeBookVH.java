@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,6 +57,9 @@ public class SRHomeBookVH extends ZYBaseViewHolder<SRBook> {
     public void updateView(SRBook data, int position) {
         if (data != null) {
             mData = data;
+            if (TextUtils.isEmpty(data.getGrade())) {
+                data.setGrade("");
+            }
             mTextTitle.setText(mData.getGrade() + "." + mData.getName());
         }
     }

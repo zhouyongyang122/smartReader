@@ -64,6 +64,8 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
 
     List<SRTaskProblemPresenter> mPresenters = new ArrayList<SRTaskProblemPresenter>();
 
+    ZYFragmentAdapter mAdapter;
+
     int mPage;
 
     public static Intent createIntent(Context context, int taskId, int finisId) {
@@ -98,23 +100,23 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
     }
 
     private void initFragments() {
-        ZYFragmentAdapter adapter = new ZYFragmentAdapter(this.getSupportFragmentManager());
+        mAdapter = new ZYFragmentAdapter(this.getSupportFragmentManager());
         SRTaskProblemFragment problemFragment;
         for (SRTaskProblem.Problem problem : mTaskProblem.problems) {
             problemFragment = new SRTaskProblemFragment();
             mPresenters.add(new SRTaskProblemPresenter(problemFragment, problem, mTaskProblem.getTeacher()));
-            adapter.addFragment(problemFragment, problem.title + "");
+            mAdapter.addFragment(problemFragment, problem.title + "");
         }
-        mViewPage.setAdapter(adapter);
+        mViewPage.setAdapter(mAdapter);
         mViewPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                SRPlayManager.getInstance().stopAudio();
+//                SRPlayManager.getInstance().stopAudio();
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                ((SRTaskProblemFragment) mAdapter.getItem(position)).play();
             }
 
             @Override
@@ -123,6 +125,8 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
             }
         });
         mViewPage.setOffscreenPageLimit(4);
+
+        ((SRTaskProblemFragment) mAdapter.getItem(0)).play();
     }
 
     private void loadData() {
@@ -139,7 +143,11 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
                 mLoadingView.showNothing();
                 mTaskProblem = response.data;
                 showTitle(mTaskProblem.title);
-                showActionRightTitle("下一题", SRTaskProblemActivity.this);
+                if (mTaskProblem.problems.size() > 1) {
+                    showActionRightTitle("下一题", SRTaskProblemActivity.this);
+                } else {
+                    submit();
+                }
                 initFragments();
             }
 
@@ -159,45 +167,49 @@ public class SRTaskProblemActivity extends ZYBaseActivity implements View.OnClic
         mPage++;
         mViewPage.setCurrentItem(mPage);
         if (mPage >= mTaskProblem.problems.size() - 1) {
-            if (SRUserManager.getInstance().getUser().isStudent()) {
-                showActionRightTitle("提交", new View.OnClickListener() {
+            submit();
+        }
+    }
+
+    private void submit() {
+
+        String title = "提交";
+        if (SRUserManager.getInstance().getUser().isTeacher()) {
+            title = "完成";
+        }
+        showActionRightTitle(title, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SRUserManager.getInstance().getUser().isTeacher()) {
+                    onBackPressed();
+                    return;
+                }
+
+                if (!mPresenters.get(mPage).isFinised()) {
+                    ZYToast.show(SRTaskProblemActivity.this, "还没有完成当前的任务哦!");
+                    return;
+                }
+
+                Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+                String value = gson.toJson(mAnswers);
+
+                showProgress();
+                mSubscription.add(ZYNetSubscription.subscription(new SRTaskModel().submitAnswer(mTaskId, mTaskProblem.group_id, value), new ZYNetSubscriber() {
                     @Override
-                    public void onClick(View v) {
-
-                        if (!mPresenters.get(mPage).isFinised()) {
-                            ZYToast.show(SRTaskProblemActivity.this, "还没有完成当前的任务哦!");
-                            return;
-                        }
-
-                        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-                        String value = gson.toJson(mAnswers);
-
-                        showProgress();
-                        mSubscription.add(ZYNetSubscription.subscription(new SRTaskModel().submitAnswer(mTaskId, mTaskProblem.group_id, value), new ZYNetSubscriber() {
-                            @Override
-                            public void onSuccess(ZYResponse response) {
-                                hideProgress();
-                                ZYToast.show(SRTaskProblemActivity.this, "任务提交成功!");
-                                onBackPressed();
-                            }
-
-                            @Override
-                            public void onFail(String message) {
-                                hideProgress();
-                                super.onFail(message);
-                            }
-                        }));
-                    }
-                });
-            } else {
-                showActionRightTitle("完成", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    public void onSuccess(ZYResponse response) {
+                        hideProgress();
+                        ZYToast.show(SRTaskProblemActivity.this, "任务提交成功!");
                         onBackPressed();
                     }
-                });
+
+                    @Override
+                    public void onFail(String message) {
+                        hideProgress();
+                        super.onFail(message);
+                    }
+                }));
             }
-        }
+        });
     }
 
     public void addAnswer(String problemId, String answer) {

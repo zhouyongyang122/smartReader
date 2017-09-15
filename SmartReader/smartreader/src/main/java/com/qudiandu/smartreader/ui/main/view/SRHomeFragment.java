@@ -62,14 +62,15 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.loadBook();
     }
 
     @Override
     public void showBook(SRBook book) {
-        bookVH = new SRHomeBookVH();
-        bookVH.bindView(LayoutInflater.from(mActivity).inflate(bookVH.getLayoutResId(), layout_module_root, false));
-        layout_module_root.addView(bookVH.getItemView());
+        if (bookVH == null) {
+            bookVH = new SRHomeBookVH();
+            bookVH.bindView(LayoutInflater.from(mActivity).inflate(bookVH.getLayoutResId(), layout_module_root, false));
+            layout_module_root.addView(bookVH.getItemView());
+        }
         bookVH.updateView(book, 0);
     }
 
@@ -99,5 +100,11 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
         bannerVH.bindView(LayoutInflater.from(mActivity).inflate(bannerVH.getLayoutResId(), layout_module_root, false));
         layout_module_root.addView(bannerVH.getItemView(), 0);
         bannerVH.updateView(aderts, 0);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.loadBook();
     }
 }

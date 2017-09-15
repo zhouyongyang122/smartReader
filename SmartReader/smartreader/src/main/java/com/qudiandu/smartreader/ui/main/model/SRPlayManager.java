@@ -200,9 +200,10 @@ public class SRPlayManager implements ZYIPlayer.PlayerCallBack {
             case ZYIPlayer.PLAYER_ERROR_UNKNOWN:
             case ZYIPlayer.PLAYER_ERROR_NET:
                 lastAudioPath = null;
+                stopAudio();
                 break;
         }
-        return false;
+        return true;
     }
 
     public void setPagePlayListener(PagePlayListener pagePlayListener) {

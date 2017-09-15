@@ -38,7 +38,7 @@ public class SRGradeFragment extends ZYListDateFragment<SRGradeContract.IPresent
     @Override
     protected void onItemClick(View view, int position) {
         SRGrade grade = mPresenter.getDataList().get(position);
-        mActivity.startActivity(SRBookSelectActivity.createIntent(mActivity, grade.grade_id + "", mPresenter.isTaskSel()));
+        mActivity.startActivity(SRBookSelectActivity.createIntent(mActivity, grade.grade_id + "", grade.grade, mPresenter.isTaskSel()));
     }
 
     @Override

@@ -24,8 +24,8 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
 
     @Id
     public String book_id;
-    
-    public int class_id;
+
+    public String class_id;
 
     public String name;
 
@@ -69,10 +69,10 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
     @Transient
     public static Object object = new Object();
 
-    @Generated(hash = 1319784741)
-    public SRBook(String book_id, int class_id, String name, String grade_id, String pic, String grade,
-                  String zip, String update_time, String savePath, long total, long current, int connectonTime,
-                  int stateValue, int lastPageIndex) {
+
+    @Generated(hash = 888260248)
+    public SRBook(String book_id, String class_id, String name, String grade_id, String pic, String grade, String zip, String update_time, String savePath, long total,
+                  long current, int connectonTime, int stateValue, int lastPageIndex) {
         this.book_id = book_id;
         this.class_id = class_id;
         this.name = name;
@@ -150,10 +150,13 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
         }
     }
 
-    public static List<SRBook> queryByClassId(int class_id) {
+    public static List<SRBook> queryByClassId(String class_id) {
         synchronized (object) {
             SRBookDao entityDao = ZYDBManager.getInstance().getReadableDaoSession().getSRBookDao();
             QueryBuilder<SRBook> qb = entityDao.queryBuilder();
+            if (class_id.equals("0")) {
+                return qb.where(SRBookDao.Properties.Class_id.isNull()).build().list();
+            }
             return qb.where(SRBookDao.Properties.Class_id.eq(class_id)).build().list();
         }
     }
@@ -403,11 +406,11 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
         this.lastPageIndex = lastPageIndex;
     }
 
-    public int getClass_id() {
+    public String getClass_id() {
         return this.class_id;
     }
 
-    public void setClass_id(int class_id) {
+    public void setClass_id(String class_id) {
         this.class_id = class_id;
     }
 }

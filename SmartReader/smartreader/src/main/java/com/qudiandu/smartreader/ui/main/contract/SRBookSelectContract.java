@@ -15,6 +15,8 @@ public interface SRBookSelectContract {
     interface IPresenter extends ZYListDataContract.Presenter<SRBook> {
         void reportAddBookts();
 
+        String getGradeName();
+
         boolean isTaskSel();
     }
 }

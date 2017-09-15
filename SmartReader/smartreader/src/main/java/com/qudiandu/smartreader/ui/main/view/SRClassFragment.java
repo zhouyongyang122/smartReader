@@ -40,6 +40,7 @@ import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassOrganizationCodeV
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskItemVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskTitleVH;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
+import com.qudiandu.smartreader.ui.task.activity.SRTaskCommentedActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskDetailActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskListenActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskProblemActivity;
@@ -199,6 +200,15 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                             return;
                         }
                         mActivity.startActivity(SRTaskDetailActivity.createIntent(mActivity, task));
+                    } else {
+                        if (task.finish != null && task.finish.size() > 0) {
+                            if (!TextUtils.isEmpty(task.finish.get(0).comment)) {
+                                startActivity(SRTaskCommentedActivity.createIntent(mActivity, task));
+                                return;
+                            }
+                            return;
+                        }
+                        onFinisheTask(task);
                     }
                 }
             }
@@ -405,10 +415,10 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                 startActivity(SRTaskListenActivity.createIntent(mActivity, task.task_id));
                 break;
             case SRTask.TASK_TYPE_PIC:
-                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id,0));
+                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id, 0));
                 break;
             case SRTask.TASK_TYPE_AUDIO:
-                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id,0));
+                startActivity(SRTaskProblemActivity.createIntent(mActivity, task.task_id, 0));
                 break;
         }
     }

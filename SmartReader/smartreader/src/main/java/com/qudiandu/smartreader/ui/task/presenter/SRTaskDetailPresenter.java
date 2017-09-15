@@ -63,4 +63,8 @@ public class SRTaskDetailPresenter extends ZYListDataPresenter<SRTaskDetailContr
     public boolean isProblemTask() {
         return mIsProblemTask;
     }
+
+    public SRTask getTask() {
+        return mTask;
+    }
 }

@@ -32,7 +32,7 @@ public class SRBooksPresenter extends ZYBasePresenter implements SRBooksContract
     }
 
     public void loadDatas() {
-        List<SRBook> results = SRBook.queryByClassId(mClassId);
+        List<SRBook> results = SRBook.queryByClassId(mClassId + "");
         mDatas.clear();
         if (results != null && results.size() > 0) {
             mDatas.addAll(results);
@@ -60,7 +60,7 @@ public class SRBooksPresenter extends ZYBasePresenter implements SRBooksContract
         return mDatas;
     }
 
-    public int getClassId(){
+    public int getClassId() {
         return mClassId;
     }
 }

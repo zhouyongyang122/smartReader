@@ -246,7 +246,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
 
     @Override
     public void xfRecordEnd(final String path) {
-
+        markBean.audioPath = path;
     }
 
     @Override

@@ -54,7 +54,7 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
             textUnit.setText(data.getUnit());
             textTitle.setText(data.getTitle());
 
-            textTime.setText(ZYDateUtils.getTimeString(data.getCreate_time() * 1000, "MM月dd日 hh:mm"));
+            textTime.setText(ZYDateUtils.getTimeString(data.getCreate_time() * 1000, "MM月dd日 HH:mm"));
 
             if (data.getScore() >= 60) {
                 textScore.setVisibility(View.VISIBLE);
@@ -70,7 +70,7 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
 
             if (data.isEdit()) {
                 layoutDel.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 layoutDel.setVisibility(View.GONE);
             }
         }

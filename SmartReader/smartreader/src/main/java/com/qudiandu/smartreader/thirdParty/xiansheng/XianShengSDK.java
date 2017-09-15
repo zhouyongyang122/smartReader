@@ -10,6 +10,7 @@ import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.utils.ZYFileUtils;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.xs.SingEngine;
+import com.yalantis.ucrop.util.FileUtils;
 
 import org.json.JSONObject;
 
@@ -147,7 +148,7 @@ public class XianShengSDK {
 
                         @Override
                         public void onRecordStop() {
-
+                            ZYLog.e(TAG, "onRecordStop");
                         }
 
                         @Override
@@ -187,6 +188,8 @@ public class XianShengSDK {
                     JSONObject cfg_init = mIse.buildInitJson("a133", "3c6cb028f3e6477ab74acbafbfa7cac2");
                     //   设置引擎初始化参数
                     mIse.setNewCfg(cfg_init);
+                    mIse.setWavPath(SRApplication.TRACT_AUDIO_ROOT_DIR);
+                    mIse.setLogLevel(4);
                     //   引擎初始化
                     mIse.newEngine();
                 } catch (Exception e) {
@@ -221,19 +224,23 @@ public class XianShengSDK {
             }
             if (listener != null) {
 
-                File file = new File(mIse.getWavPath());
-                File[] files = file.listFiles();
-                if (files.length > 0) {
-                    File pcmFile = files[0];
-                    File wavFile = new File(saveWavPath);
-                    wavFile.delete();
-                    wavFile.createNewFile();
-                    new PcmToWavUtil().pcmToWav(pcmFile.getAbsolutePath(), wavFile.getAbsolutePath());
+//                File file = new File(mIse.getWavPath());
+//                File[] files = file.listFiles();
+//                if (files.length > 0) {
+//                    File pcmFile = files[0];
+//                    File wavFile = new File(saveWavPath);
+//                    wavFile.delete();
+//                    wavFile.createNewFile();
+//                    new PcmToWavUtil().pcmToWav(pcmFile.getAbsolutePath(), wavFile.getAbsolutePath());
+//
+//                    ZYLog.e(TAG, "audio-wav-path: " + saveWavPath);
+//                }
 
-                    ZYLog.e(TAG, "audio-wav-path: " + saveWavPath);
-                }
+//                ZYFileUtils.copy(saveWavPath, mIse.getWavPath());
 
-                listener.xfRecordEnd(saveWavPath);
+//                ZYLog.e(TAG, "audio-wav-path: " + saveWavPath);
+//                FileUtils.copyFile(mIse.getWavPath(), saveWavPath);
+                listener.xfRecordEnd(mIse.getWavPath());
             }
         } catch (Exception e) {
             ZYLog.e(TAG, "stop-error: " + e.getMessage());
@@ -247,9 +254,7 @@ public class XianShengSDK {
             this.saveWavPath = saveWavPath;
             currentTime = 0;
             maxTime = listener.xfRecordTime();
-
-            ZYFileUtils.delete(mIse.getWavPath(), false);
-
+//            ZYFileUtils.delete(mIse.getWavPath(), false);
             JSONObject request = new JSONObject();
             request.put("coreType", "en.sent.score");
             request.put("refText", listener.xfMarkString());
@@ -261,7 +266,7 @@ public class XianShengSDK {
             //开始测评
             mIse.start();
 
-
+            ZYLog.e(TAG, "start...: " + request.toString());
             if (listener != null) {
                 listener.xfRecordStart();
             }

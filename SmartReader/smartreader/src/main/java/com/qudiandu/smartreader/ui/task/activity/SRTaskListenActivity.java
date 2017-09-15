@@ -38,7 +38,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by ZY on 17/9/9.
  */
 
-public class SRTaskListenActivity extends ZYBaseActivity {
+public class SRTaskListenActivity extends ZYBaseActivity implements Runnable {
 
     public static final String TASK_ID = "task_id";
 
@@ -136,6 +136,7 @@ public class SRTaskListenActivity extends ZYBaseActivity {
         }
         ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgBg, pic);
         refreshProgress(0, (int) (mProblem.getAudioTime() * 1000));
+        play();
     }
 
     void refreshProgress(int currentPosition, int totalPosition) {
@@ -150,8 +151,16 @@ public class SRTaskListenActivity extends ZYBaseActivity {
             imgPlay.setImageResource(R.drawable.icon_stop_big);
             imgPlaySmall.setImageResource(R.drawable.icon_stop);
             imgBg.clearAnimation();
-            imgBg.startAnimation(mAnima);
+            imgBg.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    imgBg.startAnimation(mAnima);
+                }
+            },1000);
+            imgPlay.postDelayed(this, 3000);
         } else {
+            imgPlay.removeCallbacks(this);
+            imgPlay.setVisibility(View.VISIBLE);
             imgPlay.setImageResource(R.drawable.icon_play_big);
             imgPlaySmall.setImageResource(R.drawable.icon_play);
             imgBg.clearAnimation();
@@ -176,20 +185,31 @@ public class SRTaskListenActivity extends ZYBaseActivity {
         }));
     }
 
-    @OnClick({R.id.imgPlay, R.id.imgPlaySmall})
+    @OnClick({R.id.imgPlay, R.id.imgPlaySmall, R.id.layoutRoot})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgPlay:
             case R.id.imgPlaySmall:
-                if (!mIsStartPlay) {
-                    mIsStartPlay = true;
-                    ZYAudioPlayManager.getInstance().play(mProblem.audio);
-                    refreshPlayState(true);
-                } else {
-                    refreshPlayState(!ZYAudioPlayManager.getInstance().isPlaying());
-                    ZYAudioPlayManager.getInstance().startOrPuase();
+                play();
+                break;
+            case R.id.layoutRoot:
+                if (imgPlay.getVisibility() == View.GONE) {
+                    imgPlay.removeCallbacks(this);
+                    imgPlay.setVisibility(View.VISIBLE);
+                    imgPlay.postDelayed(this, 3000);
                 }
                 break;
+        }
+    }
+
+    private void play() {
+        if (!mIsStartPlay) {
+            mIsStartPlay = true;
+            ZYAudioPlayManager.getInstance().play(mProblem.audio);
+            refreshPlayState(true);
+        } else {
+            refreshPlayState(!ZYAudioPlayManager.getInstance().isPlaying());
+            ZYAudioPlayManager.getInstance().startOrPuase();
         }
     }
 
@@ -223,6 +243,11 @@ public class SRTaskListenActivity extends ZYBaseActivity {
             mIsStartPlay = false;
         }
         refreshProgress(playEvent.currentDuration, playEvent.totalDuration);
+    }
+
+    @Override
+    public void run() {
+        imgPlay.setVisibility(View.GONE);
     }
 
     @Override

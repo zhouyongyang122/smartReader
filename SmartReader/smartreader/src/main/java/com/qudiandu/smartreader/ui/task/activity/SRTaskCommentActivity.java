@@ -16,6 +16,7 @@ import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.ui.task.model.SRTaskModel;
+import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 
 import butterknife.Bind;
 import rx.subscriptions.CompositeSubscription;
@@ -26,16 +27,18 @@ import rx.subscriptions.CompositeSubscription;
 
 public class SRTaskCommentActivity extends ZYBaseActivity {
 
-    static final String SHOW_ID = "showId";
+    static final String FINISH = "finish";
 
-    public static Intent createIntent(Context context, String showId) {
+    public static Intent createIntent(Context context, SRTaskFinish taskFinish) {
         Intent intent = new Intent(context, SRTaskCommentActivity.class);
-        intent.putExtra(SHOW_ID, showId);
+        intent.putExtra(FINISH, taskFinish);
         return intent;
     }
 
     @Bind(R.id.textMsg)
     EditText textMsg;
+
+    SRTaskFinish mFinish;
 
     CompositeSubscription subscription = new CompositeSubscription();
 
@@ -44,6 +47,7 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sr_activity_task_comment);
 
+        mFinish = (SRTaskFinish) getIntent().getSerializableExtra(FINISH);
         mActionBar.showTitle("评论");
         textMsg.setFilters(new InputFilter[]{new InputFilter.LengthFilter(200)});
 
@@ -56,7 +60,7 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
                     return;
                 }
                 showProgress();
-                subscription.add(ZYNetSubscription.subscription(new SRTaskModel().addComment(getIntent().getStringExtra(SHOW_ID), comment), new ZYNetSubscriber() {
+                subscription.add(ZYNetSubscription.subscription(new SRTaskModel().addComment(mFinish, comment), new ZYNetSubscriber() {
                     @Override
                     public void onSuccess(ZYResponse response) {
                         hideProgress();

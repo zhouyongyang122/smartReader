@@ -25,7 +25,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
      */
     public static class Properties {
         public final static Property Book_id = new Property(0, String.class, "book_id", true, "BOOK_ID");
-        public final static Property Class_id = new Property(1, int.class, "class_id", false, "CLASS_ID");
+        public final static Property Class_id = new Property(1, String.class, "class_id", false, "CLASS_ID");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
         public final static Property Grade_id = new Property(3, String.class, "grade_id", false, "GRADE_ID");
         public final static Property Pic = new Property(4, String.class, "pic", false, "PIC");
@@ -54,7 +54,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SRBOOK\" (" + //
                 "\"BOOK_ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: book_id
-                "\"CLASS_ID\" INTEGER NOT NULL ," + // 1: class_id
+                "\"CLASS_ID\" TEXT," + // 1: class_id
                 "\"NAME\" TEXT," + // 2: name
                 "\"GRADE_ID\" TEXT," + // 3: grade_id
                 "\"PIC\" TEXT," + // 4: pic
@@ -83,7 +83,11 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         if (book_id != null) {
             stmt.bindString(1, book_id);
         }
-        stmt.bindLong(2, entity.getClass_id());
+ 
+        String class_id = entity.getClass_id();
+        if (class_id != null) {
+            stmt.bindString(2, class_id);
+        }
  
         String name = entity.getName();
         if (name != null) {
@@ -134,7 +138,11 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
         if (book_id != null) {
             stmt.bindString(1, book_id);
         }
-        stmt.bindLong(2, entity.getClass_id());
+ 
+        String class_id = entity.getClass_id();
+        if (class_id != null) {
+            stmt.bindString(2, class_id);
+        }
  
         String name = entity.getName();
         if (name != null) {
@@ -186,7 +194,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
     public SRBook readEntity(Cursor cursor, int offset) {
         SRBook entity = new SRBook( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // book_id
-            cursor.getInt(offset + 1), // class_id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // class_id
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // grade_id
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // pic
@@ -206,7 +214,7 @@ public class SRBookDao extends AbstractDao<SRBook, String> {
     @Override
     public void readEntity(Cursor cursor, SRBook entity, int offset) {
         entity.setBook_id(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setClass_id(cursor.getInt(offset + 1));
+        entity.setClass_id(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setGrade_id(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setPic(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));

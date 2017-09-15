@@ -16,5 +16,6 @@ public interface SRTaskDetailContract {
 
     interface IPresenter extends ZYListDataContract.Presenter<SRTaskFinish> {
         boolean isProblemTask();
+        SRTask getTask();
     }
 }

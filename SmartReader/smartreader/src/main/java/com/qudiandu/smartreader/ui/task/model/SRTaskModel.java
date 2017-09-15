@@ -38,9 +38,14 @@ public class SRTaskModel extends ZYBaseModel {
         return mApi.getProblemFinishs(group_id, task_id, start, rows);
     }
 
-    public Observable<ZYResponse> addComment(String show_id, String comment) {
+    public Observable<ZYResponse> addComment(SRTaskFinish finish, String comment) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("show_id", show_id);
+        params.put("ctype", finish.ctype + "");
+        if (finish.show_id > 0) {
+            params.put("show_id", finish.show_id + "");
+        } else {
+            params.put("problem_finish_id", finish.finish_id + "");
+        }
         params.put("comment", comment);
         return mApi.addComment(params);
     }
@@ -56,7 +61,7 @@ public class SRTaskModel extends ZYBaseModel {
         return mApi.getProblemTaskDetail(task_id);
     }
 
-    public Observable<ZYResponse<SRTaskProblem>> getProblemFinishTaskDetail(String finish_id){
+    public Observable<ZYResponse<SRTaskProblem>> getProblemFinishTaskDetail(String finish_id) {
         return mApi.getProblemFinishTaskDetail(finish_id);
     }
 

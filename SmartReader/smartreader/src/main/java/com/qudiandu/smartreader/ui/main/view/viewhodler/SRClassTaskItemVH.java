@@ -72,6 +72,8 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
                 textFinishNum.setVisibility(View.VISIBLE);
                 textFinishNum.setText("完成度 " + mData.cur_num + "/" + mData.limit_num);
                 textFinish.setVisibility(View.GONE);
+            } else {
+                textFinishNum.setVisibility(View.GONE);
             }
 
             switch (mData.ctype) {

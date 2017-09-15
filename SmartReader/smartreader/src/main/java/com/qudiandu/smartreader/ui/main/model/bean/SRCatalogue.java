@@ -29,7 +29,7 @@ public class SRCatalogue implements ZYIBaseBean {
 
     private String page_id;
 
-    private String page_url;//对应的书本封面地址
+    public String page_url;//对应的书本封面地址
 
     private ArrayList<String> pageIds = new ArrayList<String>();
 

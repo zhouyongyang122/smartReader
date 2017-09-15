@@ -165,6 +165,9 @@ public class ZYFileUtils {
      * @param deleteRoot - 是否删除根目录
      */
     public static void delete(String filePath, boolean deleteRoot) {
+        if (TextUtils.isEmpty(filePath)) {
+            return;
+        }
         File file = new File(filePath);
         delete(file, deleteRoot);
     }

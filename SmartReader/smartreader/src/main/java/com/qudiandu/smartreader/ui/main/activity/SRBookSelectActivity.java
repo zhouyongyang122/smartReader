@@ -22,18 +22,22 @@ public class SRBookSelectActivity extends ZYBaseFragmentActivity<SRBookSelectFra
 
     static final String GRADE_ID = "grade_id";
 
+    static final String GRADE_NAME = "grade_name";
+
     static final String TASK_SELECTE = "task_select";
 
-    public static Intent createIntent(Context context, String grade_id) {
+    public static Intent createIntent(Context context, String grade_id, String gradeName) {
         Intent intent = new Intent(context, SRBookSelectActivity.class);
         intent.putExtra(GRADE_ID, grade_id);
+        intent.putExtra(GRADE_NAME, gradeName);
         return intent;
     }
 
-    public static Intent createIntent(Context context, String grade_id, boolean isTaskSelect) {
+    public static Intent createIntent(Context context, String grade_id, String gradeName, boolean isTaskSelect) {
         Intent intent = new Intent(context, SRBookSelectActivity.class);
         intent.putExtra(GRADE_ID, grade_id);
         intent.putExtra(TASK_SELECTE, isTaskSelect);
+        intent.putExtra(GRADE_NAME, gradeName);
         return intent;
     }
 
@@ -42,7 +46,7 @@ public class SRBookSelectActivity extends ZYBaseFragmentActivity<SRBookSelectFra
         super.onCreate(savedInstanceState);
         mActionBar.showTitle("添加课程");
         SRBookSelectManager.getInstance().clearAddBooks();
-        new SRBookSelectPresenter(mFragment, getIntent().getStringExtra(GRADE_ID), getIntent().getBooleanExtra(TASK_SELECTE, false));
+        new SRBookSelectPresenter(mFragment, getIntent().getStringExtra(GRADE_ID), getIntent().getBooleanExtra(TASK_SELECTE, false), getIntent().getStringExtra(GRADE_NAME));
     }
 
     @Override
