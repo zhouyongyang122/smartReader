@@ -54,8 +54,8 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
     @Bind(R.id.textCode)
     TextView textCode;
 
-    @Bind(R.id.textTip)
-    TextView textTip;
+//    @Bind(R.id.textTip)
+//    TextView textTip;
 
     ZYWheelSelectDialog wheelSelectDialog;
 
@@ -122,10 +122,10 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
 
         if (SRUserManager.getInstance().getUser().school_id <= 0) {
             textCode.setVisibility(View.VISIBLE);
-            textTip.setVisibility(View.VISIBLE);
+//            textTip.setVisibility(View.VISIBLE);
         } else {
             textCode.setVisibility(View.GONE);
-            textTip.setVisibility(View.GONE);
+//            textTip.setVisibility(View.GONE);
         }
     }
 
@@ -178,7 +178,7 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
                 SRUserManager.getInstance().setUser(response.data);
                 hideOrganizationCodeVH();
                 textCode.setVisibility(View.GONE);
-                textTip.setVisibility(View.GONE);
+//                textTip.setVisibility(View.GONE);
             }
 
             @Override
