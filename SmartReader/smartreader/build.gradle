@@ -18,6 +18,11 @@ android {
         ndk {
             abiFilters 'armeabi'
         }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "6ae35acf53f004bf97618fbe", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
 
     signingConfigs {
@@ -119,4 +124,6 @@ dependencies {
     compile files('libs/weibosdkcore_v3.1.1.jar')
     compile files('libs/ssound.jar')
     compile files('libs/SQLiteStudioRemote.jar')
+    compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
 }

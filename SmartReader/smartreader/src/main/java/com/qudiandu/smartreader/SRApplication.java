@@ -11,6 +11,7 @@ import com.bugtags.library.BugtagsOptions;
 import com.qudiandu.smartreader.BuildConfig;
 import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
+import com.qudiandu.smartreader.thirdParty.jpush.SRJPushSDK;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.SRAppConstants;
@@ -89,6 +90,8 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
         ZYDownloadManager.getInstance().startSer();
 
         SRBook.changeErrorStatus();
+
+        SRJPushSDK.init(this);
     }
 
     private void initFileDir() {
