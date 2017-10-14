@@ -2,13 +2,14 @@ package com.qudiandu.smartreader.ui.task.view.viewHolder;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.base.player.ZYAudioPlayManager;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
-import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskAudio;
 import com.qudiandu.smartreader.utils.ZYFileUtils;
 import com.qudiandu.smartreader.utils.ZYUtils;
@@ -28,6 +29,9 @@ public class SRTaskProblemAudioVH extends ZYBaseViewHolder<SRTaskAudio> {
     @Bind(R.id.textVoiceSize)
     TextView textVoiceSize;
 
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
+
     SRTaskAudio mData;
 
     @Override
@@ -45,11 +49,29 @@ public class SRTaskProblemAudioVH extends ZYBaseViewHolder<SRTaskAudio> {
         return R.layout.sr_view_task_audio;
     }
 
+    public void showProgress(boolean show) {
+        if (progressBar != null) {
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    public String getAudioUrl() {
+        if (mData != null) {
+            return mData.audioPath;
+        }
+        return "";
+    }
+
     @OnClick({R.id.layoutVoice})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layoutVoice:
-                SRPlayManager.getInstance().startAudio(mData.audioPath);
+                if (ZYAudioPlayManager.getInstance().isSamePlay(mData.audioPath) &&
+                        ZYAudioPlayManager.getInstance().isStartPlay()) {
+                    ZYAudioPlayManager.getInstance().startOrPuase();
+                } else {
+                    ZYAudioPlayManager.getInstance().play(mData.audioPath);
+                }
                 break;
         }
     }

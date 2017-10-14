@@ -19,10 +19,16 @@ public class ZYAudionPlayEvent implements ZYIBaseBean {
 
     String msg;
 
+    public String url;
+
     public ZYAudionPlayEvent(int state, String msg, int currentDuration, int totalDuration) {
         this.currentDuration = currentDuration;
         this.totalDuration = totalDuration;
         this.msg = msg;
         this.state = state;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

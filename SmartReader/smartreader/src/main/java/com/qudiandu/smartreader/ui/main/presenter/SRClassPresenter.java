@@ -82,6 +82,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
     public void subscribe() {
         super.subscribe();
         isFirstLoad = true;
+        mCurrentClass = null;
         mData.clear();
         mClasses.clear();
         mView.showLoading();

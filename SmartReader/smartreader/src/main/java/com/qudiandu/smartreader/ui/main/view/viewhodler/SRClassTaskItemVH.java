@@ -119,7 +119,7 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
     private void listenTask() {
         textScore.setVisibility(View.GONE);
         if (mData.isFinished()) {
-            textFinish.setText("已完成");
+            textFinish.setText("课程录音");
         } else {
             textFinish.setText("课程录音");
         }
@@ -160,6 +160,10 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textFinish:
+                if (mData.ctype == SRTask.TASK_TYPE_LISTEN) {
+                    listener.onFinisheTask(mData);
+                    return;
+                }
                 if (mData.finish != null && mData.finish.size() > 0) {
                     if (!TextUtils.isEmpty(mData.finish.get(0).comment)) {
                         mContext.startActivity(SRTaskCommentedActivity.createIntent(mContext, mData));

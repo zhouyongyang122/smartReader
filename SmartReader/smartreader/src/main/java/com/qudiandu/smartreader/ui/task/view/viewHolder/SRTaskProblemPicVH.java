@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
@@ -31,8 +32,8 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Bind(R.id.imgA)
     ImageView imgA;
 
-    @Bind(R.id.imgASel)
-    ImageView imgASel;
+    @Bind(R.id.textA)
+    TextView textA;
 
     @Bind(R.id.layoutD)
     RelativeLayout layoutD;
@@ -40,8 +41,8 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Bind(R.id.imgD)
     ImageView imgD;
 
-    @Bind(R.id.imgDSel)
-    ImageView imgDSel;
+    @Bind(R.id.textD)
+    TextView textD;
 
     @Bind(R.id.layoutC)
     RelativeLayout layoutC;
@@ -49,8 +50,8 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Bind(R.id.imgC)
     ImageView imgC;
 
-    @Bind(R.id.imgCSel)
-    ImageView imgCSel;
+    @Bind(R.id.textC)
+    TextView textC;
 
     @Bind(R.id.layoutB)
     RelativeLayout layoutB;
@@ -58,12 +59,19 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Bind(R.id.imgB)
     ImageView imgB;
 
-    @Bind(R.id.imgBSel)
-    ImageView imgBSel;
+    @Bind(R.id.textB)
+    TextView textB;
+
+    @Bind(R.id.layoutLineTwo)
+    LinearLayout layoutLineTwo;
+
+    @Bind(R.id.layoutLineOne)
+    LinearLayout layoutLineOne;
 
     SRTaskProblem.Problem mData;
 
-    List<ImageView> imgSels = new ArrayList<ImageView>();
+    List<RelativeLayout> imgSels = new ArrayList<RelativeLayout>();
+    List<TextView> imgIcons = new ArrayList<TextView>();
 
     TaskProblemPicListener mListener;
 
@@ -74,39 +82,35 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Override
     public void findView(View view) {
         super.findView(view);
-        float scale = 354.0f / 153.0f;
-        int with = ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 30);
+        float scale = 172.0f / 110.0f;
+        int with = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 45)) / 2;
         float height = (float) with / scale;
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layoutA.getLayoutParams();
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layoutLineOne.getLayoutParams();
         layoutParams.height = (int) height;
-        layoutA.setLayoutParams(layoutParams);
+        layoutLineOne.setLayoutParams(layoutParams);
 
-        layoutParams = (LinearLayout.LayoutParams) layoutB.getLayoutParams();
+        layoutParams = (LinearLayout.LayoutParams) layoutLineTwo.getLayoutParams();
         layoutParams.height = (int) height;
-        layoutB.setLayoutParams(layoutParams);
+        layoutLineTwo.setLayoutParams(layoutParams);
 
-        layoutParams = (LinearLayout.LayoutParams) layoutC.getLayoutParams();
-        layoutParams.height = (int) height;
-        layoutC.setLayoutParams(layoutParams);
-
-        layoutParams = (LinearLayout.LayoutParams) layoutD.getLayoutParams();
-        layoutParams.height = (int) height;
-        layoutD.setLayoutParams(layoutParams);
-
-        imgSels.add(imgASel);
-        imgSels.add(imgBSel);
-        imgSels.add(imgCSel);
-        imgSels.add(imgDSel);
+        imgSels.add(layoutA);
+        imgIcons.add(textA);
+        imgSels.add(layoutB);
+        imgIcons.add(textB);
+        imgSels.add(layoutC);
+        imgIcons.add(textC);
+        imgSels.add(layoutD);
+        imgIcons.add(textD);
     }
 
     @Override
     public void updateView(SRTaskProblem.Problem data, int position) {
         if (data != null) {
             mData = data;
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgA, data.answer_pic.A, ZYScreenUtils.dp2px(mContext, 4));
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgB, data.answer_pic.B, ZYScreenUtils.dp2px(mContext, 4));
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgC, data.answer_pic.C, ZYScreenUtils.dp2px(mContext, 4));
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgD, data.answer_pic.D, ZYScreenUtils.dp2px(mContext, 4));
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgA, data.answer_pic.A, ZYScreenUtils.dp2px(mContext, 6));
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgB, data.answer_pic.B, ZYScreenUtils.dp2px(mContext, 6));
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgC, data.answer_pic.C, ZYScreenUtils.dp2px(mContext, 6));
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgD, data.answer_pic.D, ZYScreenUtils.dp2px(mContext, 6));
             if (SRUserManager.getInstance().getUser().isTeacher()) {
                 refreshSelImg(mData.user_answer);
             }
@@ -152,11 +156,18 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
             selIndex = 3;
         }
         int index = 0;
-        for (ImageView imageView : imgSels) {
+        for (RelativeLayout imageView : imgSels) {
             if (index == selIndex) {
-                imageView.setVisibility(View.VISIBLE);
+                if (answer.equals(mData.answer)) {
+                    imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c13);
+                    imgIcons.get(index).setBackgroundResource(R.drawable.chose_right_background);
+                } else {
+                    imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c10);
+                    imgIcons.get(index).setBackgroundResource(R.drawable.chose_right_worry_background);
+                }
             } else {
-                imageView.setVisibility(View.GONE);
+                imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_solid);
+                imgIcons.get(index).setBackgroundResource(R.drawable.wait_chose_background);
             }
             index++;
         }

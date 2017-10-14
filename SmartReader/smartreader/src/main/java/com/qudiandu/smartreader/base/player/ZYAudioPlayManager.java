@@ -1,6 +1,7 @@
 package com.qudiandu.smartreader.base.player;
 
 import android.os.Handler;
+import android.text.TextUtils;
 
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.event.ZYAudionPlayEvent;
@@ -44,10 +45,17 @@ public class ZYAudioPlayManager implements ZYAudioPlayer.PlayerCallBack {
     //播放完成
     public static int STATE_COMPLETED = 9;
 
+    //停止播放
+    public static int STATE_STOP = 10;
+
     private static ZYAudioPlayManager instance;
+
+    private String mUrl;
 
     //音频播放器
     ZYAudioPlayer audioPlayer;
+
+    boolean mIsStartPlay;
 
     Handler handler = new Handler();
 
@@ -74,10 +82,12 @@ public class ZYAudioPlayManager implements ZYAudioPlayer.PlayerCallBack {
     }
 
     public void play(String url) {
-        getAudioPlayer().stop();
+        stop();
+        mUrl = url;
         stopProgressUpdate();
         sendCallBack(STATE_PREPARING, "播放器初使化中");
         getAudioPlayer().open(url, 0);
+        mIsStartPlay = true;
     }
 
     public void startOrPuase() {
@@ -106,12 +116,26 @@ public class ZYAudioPlayManager implements ZYAudioPlayer.PlayerCallBack {
     }
 
     public void stop() {
+        mIsStartPlay = false;
+        stopProgressUpdate();
         getAudioPlayer().stop();
+        sendCallBack(STATE_STOP, "停止播放");
     }
 
     public void seekTo(int currentProgress, int totalProgress) {
         float progress = (float) currentProgress / (float) totalProgress;
         getAudioPlayer().seekTo((int) (progress * audioPlayer.getDuration()));
+    }
+
+    public boolean isStartPlay() {
+        return mIsStartPlay;
+    }
+
+    public boolean isSamePlay(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return false;
+        }
+        return url.equals(mUrl);
     }
 
     /**
@@ -155,6 +179,7 @@ public class ZYAudioPlayManager implements ZYAudioPlayer.PlayerCallBack {
 
     private void sendCallBack(int state, String msg) {
         ZYAudionPlayEvent playEvent = new ZYAudionPlayEvent(state, msg, audioPlayer.getCurrentPosition(), audioPlayer.getDuration());
+        playEvent.setUrl(mUrl);
         EventBus.getDefault().post(playEvent);
     }
 
@@ -177,6 +202,7 @@ public class ZYAudioPlayManager implements ZYAudioPlayer.PlayerCallBack {
                 break;
             case ZYIPlayer.PLAYER_COMPLETIIONED:
                 stopProgressUpdate();
+                stop();
                 sendCallBack(STATE_COMPLETED, "播放完成");
                 break;
             case ZYIPlayer.PLAYER_ERROR_SYSTEM:

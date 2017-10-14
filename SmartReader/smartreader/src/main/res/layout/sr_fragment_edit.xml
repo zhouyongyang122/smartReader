@@ -237,7 +237,8 @@
                 android:gravity="center"
                 android:text="提交"
                 android:textColor="@color/white"
-                android:textSize="@dimen/f4" />
+                android:textSize="@dimen/f4"
+                android:visibility="gone" />
         </LinearLayout>
 
     </ScrollView>

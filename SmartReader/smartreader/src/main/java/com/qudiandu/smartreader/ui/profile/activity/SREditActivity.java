@@ -3,6 +3,7 @@ package com.qudiandu.smartreader.ui.profile.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
 import com.qudiandu.smartreader.ui.profile.presenter.SREditPresenter;
@@ -20,6 +21,13 @@ public class SREditActivity extends ZYBaseFragmentActivity<SREditFragment> {
 
         mActionBar.showTitle("我的信息");
         new SREditPresenter(mFragment);
+
+        showActionRightTitle("保存", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragment.save();
+            }
+        });
     }
 
     @Override

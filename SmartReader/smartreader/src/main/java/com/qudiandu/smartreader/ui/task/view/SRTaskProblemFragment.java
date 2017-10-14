@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,23 +18,27 @@ import com.qiniu.rs.CallRet;
 import com.qiniu.rs.UploadCallRet;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
+import com.qudiandu.smartreader.base.event.ZYAudionPlayEvent;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
+import com.qudiandu.smartreader.base.player.ZYAudioPlayManager;
 import com.qudiandu.smartreader.base.record.ZYRecordAudioTextView;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
-import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
-import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.mark.view.SRMarkFragment;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskProblemActivity;
 import com.qudiandu.smartreader.ui.task.contract.SRTaskProblemContact;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskAudio;
+import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskProblemAudioVH;
 import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskProblemPicVH;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYToast;
 import com.qudiandu.smartreader.utils.ZYUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -84,12 +89,37 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     @Bind(R.id.textTip)
     TextView mTextTip;
 
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
+
     @Bind(R.id.textRecord)
     ZYRecordAudioTextView textRecord;
+
+    @Bind(R.id.textPre)
+    TextView textPre;
+
+    @Bind(R.id.textNext)
+    TextView textNext;
 
     SRTaskProblemPicVH mProblemPicVH;
 
     SRTaskProblemAudioVH mProblemAudioVH;
+
+    boolean mHasPre;
+
+    boolean mHasNext;
+
+    boolean mHasSubmit;
+
+    SRTaskFinish mTaskFinish;
+
+    boolean mIsGoNext;
+
+    public void init(boolean hasPre, boolean hasNext, SRTaskFinish taskFinish) {
+        mHasPre = hasPre;
+        mHasNext = hasNext;
+        mTaskFinish = taskFinish;
+    }
 
     @Nullable
     @Override
@@ -101,10 +131,26 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     }
 
     private void initView() {
+
+        if (!mHasNext) {
+            String title = "提交";
+            if (SRUserManager.getInstance().getUser().isTeacher()) {
+                title = "完成";
+            }
+            textNext.setText(title);
+            mHasSubmit = true;
+        } else {
+            textNext.setText("下一题");
+        }
+
+        if (!mHasPre) {
+            textPre.setVisibility(View.GONE);
+        }
+
         ZYImageLoadHelper.getImageLoader().loadCircleImage(this, mImgAvatar, mPresenter.getTeacher().avatar, R.drawable.def_avatar, R.drawable.def_avatar);
         mTextName.setText(mPresenter.getTeacher().nickname);
         mTextTime.setText(mPresenter.getTeacher().getCreateTime());
-        ZYImageLoadHelper.getImageLoader().loadCircleImage(this, mImgBg, mPresenter.getProblem().pic, R.drawable.def_bg, R.drawable.def_bg);
+        ZYImageLoadHelper.getImageLoader().loadRoundImage(this, mImgBg, mPresenter.getProblem().pic, R.drawable.def_bg, R.drawable.def_bg, 8);
         mTextDesc.setText(mPresenter.getProblem().description);
         if (!TextUtils.isEmpty(mPresenter.getProblem().audio)) {
             mLayoutVoice.setVisibility(View.VISIBLE);
@@ -198,22 +244,24 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     public void onAnswerSelect(String answer) {
         mPresenter.setFinised(true);
         ((SRTaskProblemActivity) mActivity).addAnswer(mPresenter.getProblem().problem_id + "", answer);
-        showAnswerTip(answer);
-    }
-
-    void showAnswerTip(String answer) {
-        if (mLayoutAnswerTip != null) {
-            mLayoutAnswerTip.setVisibility(View.VISIBLE);
-            if (mPresenter.getProblem().answer.equals(answer)) {
-                mImgTip.setBackgroundResource(R.drawable.right);
-                mTextTip.setText("太棒了，回答正确!");
-            } else {
-                mImgTip.setBackgroundResource(R.drawable.worry);
-                mTextTip.setText("答题不仔细，回答错误!");
-            }
-            mLayoutAnswerTip.postDelayed(this, 1500);
+        if (!mHasSubmit) {
+            mLayoutAnswerTip.postDelayed(this, 800);
         }
     }
+
+//    void showAnswerTip(String answer) {
+//        if (mLayoutAnswerTip != null) {
+//            mLayoutAnswerTip.setVisibility(View.VISIBLE);
+//            if (mPresenter.getProblem().answer.equals(answer)) {
+//                mImgTip.setBackgroundResource(R.drawable.right);
+//                mTextTip.setText("太棒了，回答正确!");
+//            } else {
+//                mImgTip.setBackgroundResource(R.drawable.worry);
+//                mTextTip.setText("答题不仔细，回答错误!");
+//            }
+//            mLayoutAnswerTip.postDelayed(this, 1500);
+//        }
+//    }
 
     void hideAnswerTip() {
         if (mLayoutAnswerTip != null) {
@@ -223,37 +271,100 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     }
 
     public void play() {
-        SRPlayManager.getInstance().stopAudio();
+        mIsGoNext = false;
+        ZYAudioPlayManager.getInstance().stop();
         if (SRUserManager.getInstance().getUser().isTeacher()) {
             if (mPresenter.getProblem().ctype == SRTask.TASK_TYPE_AUDIO) {
-                SRPlayManager.getInstance().startAudio(mPresenter.getProblem().user_answer);
+                ZYAudioPlayManager.getInstance().play(mPresenter.getProblem().user_answer);
             }
         } else {
-            SRPlayManager.getInstance().startAudio(mPresenter.getProblem().audio);
+            ZYAudioPlayManager.getInstance().play(mPresenter.getProblem().audio);
         }
     }
 
 
     @Override
     public void run() {
-        hideAnswerTip();
+//        hideAnswerTip();
+        if (mIsGoNext) {
+            return;
+        }
+        next();
     }
 
-    @OnClick({R.id.layoutVoice, R.id.layoutAnswerTip})
+    @OnClick({R.id.layoutVoice, R.id.layoutAnswerTip, R.id.textNext, R.id.textPre})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layoutVoice:
-                SRPlayManager.getInstance().startAudio(mPresenter.getProblem().audio);
+                if (ZYAudioPlayManager.getInstance().isSamePlay(mPresenter.getProblem().audio) &&
+                        ZYAudioPlayManager.getInstance().isStartPlay()) {
+                    ZYAudioPlayManager.getInstance().startOrPuase();
+                } else {
+                    ZYAudioPlayManager.getInstance().play(mPresenter.getProblem().audio);
+                }
                 break;
             case R.id.layoutAnswerTip:
                 hideAnswerTip();
                 break;
+            case R.id.textNext:
+                mIsGoNext = true;
+                mLayoutAnswerTip.removeCallbacks(this);
+                next();
+                break;
+            case R.id.textPre:
+                ((SRTaskProblemActivity) mActivity).pre();
+                break;
+        }
+    }
+
+    void next() {
+        if (mHasSubmit) {
+            if (!SRUserManager.getInstance().getUser().isTeacher()) {
+                if (!mPresenter.isFinised()) {
+                    ZYToast.show(mActivity, "还没有完成当前的任务哦!");
+                    return;
+                }
+            }
+            ((SRTaskProblemActivity) mActivity).submit();
+        } else {
+            if (!SRUserManager.getInstance().getUser().isTeacher()) {
+                if (!mPresenter.isFinised()) {
+                    ZYToast.show(mActivity, "还没有完成当前的任务哦!");
+                    return;
+                }
+            }
+            ((SRTaskProblemActivity) mActivity).next();
         }
     }
 
     private String getTime() {
         Date date = new Date();
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(ZYAudionPlayEvent playEvent) {
+        if (playEvent != null) {
+            if (mPresenter.getProblem().audio.equals(playEvent.url)) {
+                if (playEvent.state == ZYAudioPlayManager.STATE_ERROR ||
+                        playEvent.state == ZYAudioPlayManager.STATE_PAUSED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_COMPLETED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_STOP) {
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            } else if (mProblemAudioVH != null && mProblemAudioVH.getAudioUrl().equals(playEvent.url)) {
+                if (playEvent.state == ZYAudioPlayManager.STATE_ERROR ||
+                        playEvent.state == ZYAudioPlayManager.STATE_PAUSED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_COMPLETED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_STOP) {
+                    mProblemAudioVH.showProgress(false);
+                } else {
+                    mProblemAudioVH.showProgress(true);
+                }
+            }
+        }
     }
 
     @Override

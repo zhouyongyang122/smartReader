@@ -198,6 +198,12 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                         }
                         mActivity.startActivity(SRTaskDetailActivity.createIntent(mActivity, task));
                     } else {
+
+                        if (task.ctype == SRTask.TASK_TYPE_LISTEN) {
+                            onFinisheTask(task);
+                            return;
+                        }
+
                         if (task.finish != null && task.finish.size() > 0) {
                             if (!TextUtils.isEmpty(task.finish.get(0).comment)) {
                                 startActivity(SRTaskCommentedActivity.createIntent(mActivity, task));

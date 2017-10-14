@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
-import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
+import com.qudiandu.smartreader.base.player.ZYAudioPlayManager;
 import com.qudiandu.smartreader.utils.ZYFileUtils;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
@@ -102,7 +102,7 @@ public class ZYRecordAudioTextView extends TextView implements ZYRecordAudioList
     }
 
     private void handleRecordBtnDown(MotionEvent event) {
-        SRPlayManager.getInstance().stopAudio();
+        ZYAudioPlayManager.getInstance().stop();
         showValidView();
         if (mRecordDialog != null) {
             mRecordDialog.show();

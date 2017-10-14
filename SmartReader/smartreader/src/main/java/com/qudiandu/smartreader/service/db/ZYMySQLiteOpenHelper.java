@@ -7,6 +7,7 @@ import com.github.yuweiguocn.library.greendao.MigrationHelper;
 import com.qudiandu.smartreader.service.db.entity.DaoMaster;
 import com.qudiandu.smartreader.service.db.entity.SRBookDao;
 import com.qudiandu.smartreader.service.db.entity.SRMarkBeanDao;
+import com.qudiandu.smartreader.service.db.entity.SRTaskListenHistoryDao;
 import com.qudiandu.smartreader.service.db.entity.SRUserDao;
 
 import org.greenrobot.greendao.database.Database;
@@ -23,6 +24,6 @@ public class ZYMySQLiteOpenHelper extends DaoMaster.OpenHelper {
 
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
-        MigrationHelper.migrate(db, SRBookDao.class, SRUserDao.class, SRMarkBeanDao.class);
+        MigrationHelper.migrate(db, SRBookDao.class, SRUserDao.class, SRMarkBeanDao.class, SRTaskListenHistoryDao.class);
     }
 }

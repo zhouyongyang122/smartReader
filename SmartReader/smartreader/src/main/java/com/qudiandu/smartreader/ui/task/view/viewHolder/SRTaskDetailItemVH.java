@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
+import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
+import com.qudiandu.smartreader.ui.task.model.SRTaskModel;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 import com.qudiandu.smartreader.utils.ZYDateUtils;
 
@@ -39,10 +41,13 @@ public class SRTaskDetailItemVH extends ZYBaseViewHolder<SRTaskFinish> {
 
     TaskDetailItemListener listener;
 
+    boolean mShowComment;
+
     int mPosition;
 
-    public SRTaskDetailItemVH(TaskDetailItemListener listener) {
+    public SRTaskDetailItemVH(TaskDetailItemListener listener, boolean showComment) {
         this.listener = listener;
+        mShowComment = showComment;
     }
 
 
@@ -68,10 +73,15 @@ public class SRTaskDetailItemVH extends ZYBaseViewHolder<SRTaskFinish> {
                 textScore.setText(mData.score + "");
             }
 
-            if (!TextUtils.isEmpty(mData.comment)) {
-                textComment.setText("已点评");
+            if (!mShowComment) {
+                textComment.setVisibility(View.GONE);
             } else {
-                textComment.setText("点评");
+                textComment.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(mData.comment)) {
+                    textComment.setText("已点评");
+                } else {
+                    textComment.setText("点评");
+                }
             }
         } else {
             mItemView.setVisibility(View.GONE);

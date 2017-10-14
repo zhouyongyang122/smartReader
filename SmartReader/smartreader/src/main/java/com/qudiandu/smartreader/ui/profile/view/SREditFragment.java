@@ -82,7 +82,7 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
         return view;
     }
 
-    @OnClick({R.id.textdentity,R.id.imgAvatar, R.id.textName, R.id.textSchool, R.id.textGrade, R.id.textAge, R.id.textGender, R.id.textOk})
+    @OnClick({R.id.textdentity, R.id.imgAvatar, R.id.textName, R.id.textSchool, R.id.textGrade, R.id.textAge, R.id.textGender, R.id.textOk})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgAvatar:
@@ -110,51 +110,55 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
                 selecteIdentity();
                 break;
             case R.id.textOk:
-                String tipMsg = userParams.checkParams();
-                if (tipMsg != null) {
-                    ZYToast.show(mActivity, tipMsg);
-                    return;
-                }
 
-                showProgress();
-                if (userParams.avatar.startsWith("http")) {
-                    mPresenter.editUser(userParams.getParamas());
-                    return;
-                }
-                String key = getTime() + File.separator + System.currentTimeMillis()
-                        + SRUserManager.getInstance().getUser().uid + ".jpg";
-
-                ZYUtils.uploadFile(mActivity, key, userParams.avatar, SRUserManager.getInstance().getUser().picture_token, new CallBack() {
-                    @Override
-                    public void onProcess(long current, long total) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(UploadCallRet ret) {
-                        if (ret != null) {
-                            try {
-                                String picKey = ret.getKey();
-                                userParams.qianniuKey = picKey;
-                                mPresenter.editUser(userParams.getParamas());
-                            } catch (Exception e) {
-                                hideProgress();
-                                ZYToast.show(mActivity, e.getMessage() + "");
-                            }
-                        } else {
-                            hideProgress();
-                            ZYToast.show(mActivity, "上传失败,请重新选择头像,再重试");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(CallRet ret) {
-                        hideProgress();
-                        ZYToast.show(mActivity, "上传失败: " + ret.getStatusCode());
-                    }
-                });
                 break;
         }
+    }
+
+    public void save() {
+        String tipMsg = userParams.checkParams();
+        if (tipMsg != null) {
+            ZYToast.show(mActivity, tipMsg);
+            return;
+        }
+
+        showProgress();
+        if (userParams.avatar.startsWith("http")) {
+            mPresenter.editUser(userParams.getParamas());
+            return;
+        }
+        String key = getTime() + File.separator + System.currentTimeMillis()
+                + SRUserManager.getInstance().getUser().uid + ".jpg";
+
+        ZYUtils.uploadFile(mActivity, key, userParams.avatar, SRUserManager.getInstance().getUser().picture_token, new CallBack() {
+            @Override
+            public void onProcess(long current, long total) {
+
+            }
+
+            @Override
+            public void onSuccess(UploadCallRet ret) {
+                if (ret != null) {
+                    try {
+                        String picKey = ret.getKey();
+                        userParams.qianniuKey = picKey;
+                        mPresenter.editUser(userParams.getParamas());
+                    } catch (Exception e) {
+                        hideProgress();
+                        ZYToast.show(mActivity, e.getMessage() + "");
+                    }
+                } else {
+                    hideProgress();
+                    ZYToast.show(mActivity, "上传失败,请重新选择头像,再重试");
+                }
+            }
+
+            @Override
+            public void onFailure(CallRet ret) {
+                hideProgress();
+                ZYToast.show(mActivity, "上传失败: " + ret.getStatusCode());
+            }
+        });
     }
 
     private void seletctGrade() {

@@ -45,5 +45,14 @@
             android:text="1分30秒"
             android:textColor="@color/white"
             android:textSize="@dimen/f5" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="20dp"
+            android:visibility="gone"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp" />
     </RelativeLayout>
 </RelativeLayout>
