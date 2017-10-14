@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -35,6 +36,7 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTaskTitle;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassChoseIdentityVH;
+import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassDetailHeaderVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassListVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassOrganizationCodeVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskItemVH;
@@ -45,6 +47,7 @@ import com.qudiandu.smartreader.ui.task.activity.SRTaskDetailActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskListenActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskProblemActivity;
 import com.qudiandu.smartreader.ui.task.model.SRTaskManager;
+import com.qudiandu.smartreader.utils.ZYScreenUtils;
 import com.qudiandu.smartreader.utils.ZYStatusBarUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 
@@ -85,11 +88,8 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Bind(R.id.layoutAction)
     LinearLayout layoutAction;
 
-    @Bind(R.id.imgClassDetail)
-    ImageView imgClassDetail;
-
-    @Bind(R.id.imgClassAdd)
-    ImageView imgClassAdd;
+    @Bind(R.id.textCreate)
+    TextView textCreate;
 
     @Bind(R.id.textTitle)
     TextView textTitle;
@@ -99,10 +99,15 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Bind(R.id.textAdd)
     TextView textAdd;
 
+    @Bind(R.id.layoutHeader)
+    LinearLayout layoutHeader;
+
     @Bind(R.id.sRecyclerView)
     ZYSwipeRefreshRecyclerView sRecyclerView;
 
     ZYBaseRecyclerAdapter<Object> adapter;
+
+    SRClassDetailHeaderVH detailHeaderVH;
 
     SRClassChoseIdentityVH choseIdentityVH;
 
@@ -137,6 +142,11 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                 mPresenter.subscribe();
             }
         });
+
+        ZYLoadingView loadingView = (ZYLoadingView) sRecyclerView.getLoadingView();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) loadingView.getView().getLayoutParams();
+        layoutParams.height = ZYScreenUtils.getScreenHeight(mActivity) - ZYScreenUtils.dp2px(mActivity, 200);
+        loadingView.getView().setLayoutParams(layoutParams);
         sRecyclerView.setRefreshListener(new ZYRefreshListener() {
             @Override
             public void onRefresh() {
@@ -217,6 +227,9 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
             }
         });
 
+        detailHeaderVH = new SRClassDetailHeaderVH();
+        detailHeaderVH.attachTo(layoutHeader);
+
         sRecyclerView.setAdapter(adapter);
         sRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
 
@@ -224,7 +237,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         classListVH.attachTo(layoutClassRoot);
     }
 
-    @OnClick({R.id.layoutTitle, R.id.imgClassDetail, R.id.imgClassAdd, R.id.textAdd})
+    @OnClick({R.id.layoutTitle, R.id.textCreate, R.id.textAdd})
     public void onClick(View view) {
         if (classListVH != null && classListVH.isvisiable()) {
             imgArrow.setSelected(false);
@@ -243,12 +256,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                     mActivity.startActivity(SRGradeActivity.createIntent(mActivity, true));
                 }
                 break;
-            case R.id.imgClassDetail:
-                //班级详情
-                SRClass srClass = mPresenter.getCurrentClass();
-                mActivity.startActivity(SRClassDetailActivity.createIntent(mActivity, srClass.group_id + ""));
-                break;
-            case R.id.imgClassAdd:
+            case R.id.textCreate:
                 //新增班级
                 mActivity.startActivity(SRCreateClassActivity.createIntent(mActivity));
                 break;
@@ -316,14 +324,15 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         layoutProgressBar.setVisibility(View.GONE);
         layoutAction.setVisibility(View.VISIBLE);
         if (SRUserManager.getInstance().getUser().isStudent()) {
-            imgClassAdd.setVisibility(View.GONE);
+            textCreate.setVisibility(View.GONE);
             textAdd.setText("加入班级");
         } else {
-            imgClassAdd.setVisibility(View.VISIBLE);
+            textCreate.setVisibility(View.VISIBLE);
             textAdd.setText("添加作业");
         }
         SRClass srClass = mPresenter.getCurrentClass();
         textTitle.setText(srClass.class_name);
+        detailHeaderVH.updateView(srClass, 0);
 
     }
 
@@ -371,6 +380,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         mPresenter.setSelectClass(positon);
         textTitle.setText(value.class_name);
         imgArrow.setSelected(false);
+        detailHeaderVH.updateView(value, 0);
     }
 
     @Override

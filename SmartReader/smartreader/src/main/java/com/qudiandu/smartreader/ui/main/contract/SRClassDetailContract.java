@@ -11,10 +11,8 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 public interface SRClassDetailContract {
 
     interface IView extends ZYListDataContract.View<IPresenter> {
-        void refreshHeader(SRClass data);
     }
 
     interface IPresenter extends ZYListDataContract.Presenter<SRUser> {
-        SRClass getClassDetail();
     }
 }
