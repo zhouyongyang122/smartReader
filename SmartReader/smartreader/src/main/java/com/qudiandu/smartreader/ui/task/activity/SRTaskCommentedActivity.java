@@ -4,17 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.base.event.ZYAudionPlayEvent;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
+import com.qudiandu.smartreader.base.player.ZYAudioPlayManager;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.utils.ZYDateUtils;
+import com.qudiandu.smartreader.utils.ZYUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by ZY on 17/7/31.
@@ -40,7 +50,18 @@ public class SRTaskCommentedActivity extends ZYBaseActivity {
     @Bind(R.id.textComment)
     TextView textComment;
 
+    @Bind(R.id.layoutVoice)
+    RelativeLayout layoutVoice;
+
+    @Bind(R.id.textVoiceSize)
+    TextView textVoiceSize;
+
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
+
     SRTask mData;
+
+    SRTask.Finish mFinish;
 
     public static Intent createIntent(Context context, SRTask task) {
         Intent intent = new Intent(context, SRTaskCommentedActivity.class);
@@ -56,9 +77,49 @@ public class SRTaskCommentedActivity extends ZYBaseActivity {
         ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, mData.page_url);
         textTitle.setText(mData.unit);
         textSubTitle.setText(mData.title);
-        SRTask.Finish finish = mData.finish.get(0);
-        textScore.setText(finish.score + "");
-        textComment.setText(finish.comment);
+        mFinish = mData.finish.get(0);
+        textScore.setText(mFinish.score + "");
+        textComment.setText(mFinish.comment);
         textTime.setText("完成时间 " + ZYDateUtils.getTimeString(Long.parseLong(mData.create_time) * 1000, ZYDateUtils.MMDDHHMM12));
+
+        if (!TextUtils.isEmpty(mFinish.audio)) {
+            layoutVoice.setVisibility(View.VISIBLE);
+            textVoiceSize.setText(ZYUtils.getShowHourMinuteSecond((int) mFinish.getAudioTime()));
+        }
+    }
+
+    @OnClick({R.id.layoutVoice})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.layoutVoice:
+                if (ZYAudioPlayManager.getInstance().isStartPlay()) {
+                    ZYAudioPlayManager.getInstance().startOrPuase();
+                } else {
+                    ZYAudioPlayManager.getInstance().play(mFinish.audio);
+                }
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(ZYAudionPlayEvent playEvent) {
+        if (playEvent != null) {
+            if (mFinish.audio.equals(playEvent.url)) {
+                if (playEvent.state == ZYAudioPlayManager.STATE_ERROR ||
+                        playEvent.state == ZYAudioPlayManager.STATE_PAUSED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_COMPLETED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_STOP) {
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ZYAudioPlayManager.getInstance().stop();
     }
 }

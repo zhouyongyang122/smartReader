@@ -38,13 +38,17 @@ public class SRTaskModel extends ZYBaseModel {
         return mApi.getProblemFinishs(group_id, task_id, start, rows);
     }
 
-    public Observable<ZYResponse> addComment(SRTaskFinish finish, String comment) {
+    public Observable<ZYResponse> addComment(SRTaskFinish finish, String comment, String comment_audio, String comment_audio_timelen) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("ctype", finish.ctype + "");
         if (finish.show_id > 0) {
             params.put("show_id", finish.show_id + "");
         } else {
             params.put("problem_finish_id", finish.finish_id + "");
+        }
+        if (comment_audio != null) {
+            params.put("comment_audio", comment_audio);
+            params.put("comment_audio_timelen", comment_audio_timelen);
         }
         params.put("comment", comment);
         return mApi.addComment(params);

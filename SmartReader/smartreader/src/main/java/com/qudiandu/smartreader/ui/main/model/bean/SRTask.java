@@ -95,7 +95,17 @@ public class SRTask implements ZYIBaseBean {
         public int supports;
         public String answer;
         public String audio;
+        public String audio_timelen;
         public String problem_id;
+
+        public float getAudioTime() {
+            try {
+                return Float.valueOf(audio_timelen);
+            } catch (Exception e) {
+
+            }
+            return 55;
+        }
     }
 
     public SRBook getBook() {

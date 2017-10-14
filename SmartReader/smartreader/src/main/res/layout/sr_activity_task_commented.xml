@@ -43,8 +43,10 @@
                         android:layout_alignTop="@+id/imgBg"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_toRightOf="@+id/imgBg"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="标题标题"
                         android:textColor="@color/c1"
                         android:textSize="@dimen/f2" />
@@ -58,6 +60,8 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_toRightOf="@+id/imgBg"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="副标题标题"
                         android:textColor="@color/c1"
                         android:textSize="@dimen/f5" />
@@ -71,9 +75,11 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_toRightOf="@+id/imgBg"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="完成时间 06-23 09:09"
                         android:textColor="@color/c1"
-                        android:textSize="@dimen/f5" />
+                        android:textSize="@dimen/f6" />
 
                     <TextView
                         android:id="@+id/textScore"
@@ -115,6 +121,46 @@
                 android:text="小伙子不错哦"
                 android:textColor="@color/white"
                 android:textSize="@dimen/f4" />
+
+            <RelativeLayout
+                android:id="@+id/layoutVoice"
+                android:layout_width="200dp"
+                android:layout_height="43dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/imgAvatar"
+                android:background="@drawable/sr_bg_corner4dp_c13"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/imgVoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/voice" />
+
+                <TextView
+                    android:id="@+id/textVoiceSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/imgVoice"
+                    android:text="1分30秒"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/f5" />
+            </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>

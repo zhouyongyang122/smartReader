@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c2"
-    android:orientation="vertical"
-    android:padding="15dp">
+    android:background="@color/c2">
 
     <EditText
         android:id="@+id/textMsg"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/sr_bg_corner4dp_c5_solid"
         android:gravity="left|top"
         android:hint="请输入评论内容(最多200字)"
         android:padding="15dp"
         android:textColor="@color/c6"
         android:textSize="@dimen/f3" />
-</LinearLayout>
+
+    <com.qudiandu.smartreader.base.record.ZYRecordAudioTextView
+        android:id="@+id/textRecord"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/c3"
+        android:gravity="center"
+        android:text="按住  说话"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f2"
+        android:visibility="visible" />
+</RelativeLayout>
