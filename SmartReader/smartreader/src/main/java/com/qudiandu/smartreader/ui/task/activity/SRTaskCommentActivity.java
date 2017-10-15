@@ -8,6 +8,9 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.qiniu.rs.CallBack;
 import com.qiniu.rs.CallRet;
@@ -15,7 +18,9 @@ import com.qiniu.rs.UploadCallRet;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
+import com.qudiandu.smartreader.base.event.ZYAudionPlayEvent;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
+import com.qudiandu.smartreader.base.player.ZYAudioPlayManager;
 import com.qudiandu.smartreader.base.record.ZYRecordAudioTextView;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
@@ -27,6 +32,9 @@ import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYToast;
 import com.qudiandu.smartreader.utils.ZYUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -56,7 +64,22 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
     @Bind(R.id.textRecord)
     ZYRecordAudioTextView textRecord;
 
+    @Bind(R.id.layoutVoice)
+    RelativeLayout layoutVoice;
+
+    @Bind(R.id.textVoiceSize)
+    TextView textVoiceSize;
+
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
+
     SRTaskFinish mFinish;
+
+    String mQiniuKey;
+
+    int mDurationSe;
+
+    String mFilePath;
 
     CompositeSubscription subscription = new CompositeSubscription();
 
@@ -74,10 +97,10 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
             public void onClick(View v) {
                 final String comment = textMsg.getText().toString();
                 if (TextUtils.isEmpty(comment)) {
-                    showToast("评论内容不能为空");
+                    ZYToast.show(SRTaskCommentActivity.this, "评论内容不能为空");
                     return;
                 }
-                submitComment(comment, null, null);
+                submitComment(comment, mQiniuKey, mDurationSe + "");
             }
         });
 
@@ -119,10 +142,12 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
                             hideProgress();
                             if (ret != null) {
                                 try {
-                                    String picKey = ret.getKey();
-                                    ZYLog.e(SRMarkFragment.class.getSimpleName(), "uploadAudio-key: " + picKey);
-                                    final String comment = textMsg.getText().toString();
-                                    submitComment(comment, picKey, durationSe + "");
+                                    mQiniuKey = ret.getKey();
+                                    mDurationSe = durationSe;
+                                    ZYLog.e(SRMarkFragment.class.getSimpleName(), "uploadAudio-key: " + mQiniuKey);
+                                    layoutVoice.setVisibility(View.VISIBLE);
+                                    textVoiceSize.setText(ZYUtils.getShowHourMinuteSecond(mDurationSe));
+                                    mFilePath = filePath;
                                 } catch (Exception e) {
                                     ZYToast.show(SRTaskCommentActivity.this, e.getMessage() + "");
                                 }
@@ -177,9 +202,39 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
         }));
     }
 
+    @OnClick({R.id.layoutVoice})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.layoutVoice:
+                if (ZYAudioPlayManager.getInstance().isStartPlay()) {
+                    ZYAudioPlayManager.getInstance().startOrPuase();
+                } else {
+                    ZYAudioPlayManager.getInstance().play(mFilePath);
+                }
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(ZYAudionPlayEvent playEvent) {
+        if (playEvent != null) {
+            if (mFilePath.equals(playEvent.url)) {
+                if (playEvent.state == ZYAudioPlayManager.STATE_ERROR ||
+                        playEvent.state == ZYAudioPlayManager.STATE_PAUSED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_COMPLETED ||
+                        playEvent.state == ZYAudioPlayManager.STATE_STOP) {
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ZYAudioPlayManager.getInstance().stop();
         subscription.unsubscribe();
     }
 }

@@ -1,12 +1,18 @@
 package com.qudiandu.smartreader.ui.mark.model.bean;
 
+import android.text.TextUtils;
+
 import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.service.db.entity.SRMarkBeanDao;
 import com.qudiandu.smartreader.service.db.entity.ZYBaseEntity;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Transient;
+
+import java.util.ArrayList;
 
 /**
  * Created by ZY on 17/4/2.
@@ -28,15 +34,24 @@ public class SRMarkBean extends ZYBaseEntity {
 
     public String show_track_id;//分享时 服务器返回的id
 
-    @Generated(hash = 557787890)
+    public String jsonValue;//打分结果
+
+    @Transient
+    private XSBean xsBean;
+
+    @Transient
+    public String value;
+
+    @Generated(hash = 540598131)
     public SRMarkBean(String mark_id, int score, long audioTime, String audioPath, String share_url,
-            String show_track_id) {
+            String show_track_id, String jsonValue) {
         this.mark_id = mark_id;
         this.score = score;
         this.audioTime = audioTime;
         this.audioPath = audioPath;
         this.share_url = share_url;
         this.show_track_id = show_track_id;
+        this.jsonValue = jsonValue;
     }
 
     @Generated(hash = 1822869650)
@@ -118,4 +133,41 @@ public class SRMarkBean extends ZYBaseEntity {
         return bookId + "_" + pageId + "_" + tractId;
     }
 
+    public void setScoreBean(XSBean bean) {
+        xsBean = bean;
+    }
+
+    public XSBean getScoreBean() {
+        if (xsBean == null) {
+            if (TextUtils.isEmpty(jsonValue)) {
+                return null;
+            }
+            xsBean = XSBean.createXSBean(jsonValue);
+        }
+        return xsBean;
+    }
+
+    public ArrayList<String> getValues() {
+        ArrayList<String> values = new ArrayList<String>();
+        if (!TextUtils.isEmpty(value)) {
+            String[] valueStrs = value.split(" ");
+            for (String str : valueStrs) {
+                int strInt = str.charAt(0);
+                if ((strInt > 64 && strInt < 91)
+                        || (strInt > 96 && strInt < 123)
+                        || (strInt > 47 && strInt < 58)) {
+                    values.add(str);
+                }
+            }
+        }
+        return values;
+    }
+
+    public String getJsonValue() {
+        return this.jsonValue;
+    }
+
+    public void setJsonValue(String jsonValue) {
+        this.jsonValue = jsonValue;
+    }
 }

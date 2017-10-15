@@ -56,15 +56,20 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
 
     SRMarkShareVH markShareVH;
 
+    SRMarkHeaderVH headerVH;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        RelativeLayout view = (RelativeLayout) super.onCreateView(inflater, container, savedInstanceState);
+
+        headerVH = new SRMarkHeaderVH();
+        headerVH.attachTo(view);
 
         adapter = new ZYBaseRecyclerAdapter<SRTract>(mPresenter.getTracks()) {
             @Override
             public ZYBaseViewHolder<SRTract> createViewHolder(int type) {
-                return new SRMarkItemVH(SRMarkFragment.this);
+                return new SRMarkItemVH(SRMarkFragment.this,headerVH);
             }
         };
 
@@ -72,6 +77,7 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.BELOW, R.id.layoutMarkHeader);
 
         ((ZYSwipeRefreshRecyclerView) mRefreshRecyclerView).setLayoutParams(params);
 
@@ -79,8 +85,9 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
         mRefreshRecyclerView.setRefreshEnable(false);
         mRefreshRecyclerView.setLoadMoreEnable(false);
         mRefreshRecyclerView.setAdapter(adapter);
-
         mRefreshRecyclerView.showList(false);
+
+        headerVH.updateView(mPresenter.getTracks().get(0).getMarkBean(), 0);
 
         return view;
     }
@@ -216,6 +223,8 @@ public class SRMarkFragment extends ZYBaseRecyclerFragment<SRMarkContract.IPrese
         if (trackClickListener != null) {
             trackClickListener.onTrackClick(position, mPresenter.getTracks().size(), tract);
         }
+
+        headerVH.updateView(tract.getMarkBean(), 0);
     }
 
     @Override

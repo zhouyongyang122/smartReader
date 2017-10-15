@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
 import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
@@ -89,8 +90,11 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
 
     private int mPosition;
 
-    public SRMarkItemVH(MarkItemListener listener) {
+    SRMarkHeaderVH mHeaderVH;
+
+    public SRMarkItemVH(MarkItemListener listener, SRMarkHeaderVH headerVH) {
         this.listener = listener;
+        mHeaderVH = headerVH;
     }
 
     @Override
@@ -188,7 +192,6 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     }
 
     private void startRecord() {
-//        XunFeiSDK.getInstance().start(this);
         XianShengSDK.getInstance().start(this, markBean.audioPath);
         layoutProgressBar.setVisibility(View.VISIBLE);
         progressBar.setProgress(0);
@@ -257,21 +260,24 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
     }
 
     @Override
-    public void xfMarkEnd(int score) {
+    public void xfMarkEnd(XSBean bean, String jsonValue) {
         if (listener != null) {
             listener.onMarkEnd();
         }
         layoutScore.setVisibility(View.VISIBLE);
         imgShare.setVisibility(View.VISIBLE);
         layoutProgressBar.setVisibility(View.GONE);
-        markBean.score = score;
+        markBean.score = bean.result.overall;
+        markBean.jsonValue = jsonValue;
+        markBean.setScoreBean(bean);
 
         if (markBean.score >= 60) {
             layoutScore.setBackgroundResource(R.drawable.sr_bg_corner360_c9_solid);
         } else {
             layoutScore.setBackgroundResource(R.drawable.sr_bg_corner360_c10_solid);
         }
-        textScore.setText(score + "");
+        textScore.setText(bean.result.overall + "");
+        mHeaderVH.updateView(markBean, 0);
         markBean.update();
     }
 

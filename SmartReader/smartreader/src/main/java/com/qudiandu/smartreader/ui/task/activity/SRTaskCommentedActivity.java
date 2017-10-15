@@ -82,7 +82,7 @@ public class SRTaskCommentedActivity extends ZYBaseActivity {
         textComment.setText(mFinish.comment);
         textTime.setText("完成时间 " + ZYDateUtils.getTimeString(Long.parseLong(mData.create_time) * 1000, ZYDateUtils.MMDDHHMM12));
 
-        if (!TextUtils.isEmpty(mFinish.audio)) {
+        if (!TextUtils.isEmpty(mFinish.comment_audio)) {
             layoutVoice.setVisibility(View.VISIBLE);
             textVoiceSize.setText(ZYUtils.getShowHourMinuteSecond((int) mFinish.getAudioTime()));
         }
@@ -95,7 +95,7 @@ public class SRTaskCommentedActivity extends ZYBaseActivity {
                 if (ZYAudioPlayManager.getInstance().isStartPlay()) {
                     ZYAudioPlayManager.getInstance().startOrPuase();
                 } else {
-                    ZYAudioPlayManager.getInstance().play(mFinish.audio);
+                    ZYAudioPlayManager.getInstance().play(mFinish.comment_audio);
                 }
                 break;
         }
@@ -104,7 +104,7 @@ public class SRTaskCommentedActivity extends ZYBaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void event(ZYAudionPlayEvent playEvent) {
         if (playEvent != null) {
-            if (mFinish.audio.equals(playEvent.url)) {
+            if (mFinish.comment_audio.equals(playEvent.url)) {
                 if (playEvent.state == ZYAudioPlayManager.STATE_ERROR ||
                         playEvent.state == ZYAudioPlayManager.STATE_PAUSED ||
                         playEvent.state == ZYAudioPlayManager.STATE_COMPLETED ||

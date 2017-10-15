@@ -12,6 +12,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvaluator;
 import com.iflytek.cloud.SpeechUtility;
 import com.qudiandu.smartreader.SRApplication;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 import com.qudiandu.smartreader.thirdParty.xunfei.xml.XmlResultParser;
 import com.qudiandu.smartreader.utils.ZYLog;
 
@@ -186,7 +187,7 @@ public class XunFeiSDK {
                         XmlResultParser resultParser = new XmlResultParser();
                         FinalResult finalResult = (FinalResult) resultParser.parse(mLastResult);
                         if (listener != null) {
-                            listener.xfMarkEnd((int) (finalResult.total_score * 100 / 5));
+//                            listener.xfMarkEnd((int) (finalResult.total_score * 100 / 5));
                             return;
                         }
                     }
@@ -270,7 +271,7 @@ public class XunFeiSDK {
 
         void xfMarkStart();
 
-        void xfMarkEnd(int score);
+        void xfMarkEnd(XSBean bean, String json);
 
         void xfMarkError(String error);
     }

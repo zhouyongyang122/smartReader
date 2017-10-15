@@ -194,6 +194,7 @@ public class SRTract implements ZYIBaseBean {
                 markBean.audioPath = SRApplication.TRACT_AUDIO_ROOT_DIR + markId;
                 markBean.audioTime = (long) (getTractTime() * 1000);
             }
+            markBean.value = track_txt;
         }
         return markBean;
     }

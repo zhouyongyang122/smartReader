@@ -70,12 +70,12 @@ public class SRTask implements ZYIBaseBean {
     }
 
 
-    public boolean isFinished(){
+    public boolean isFinished() {
         return finish != null && finish.size() > 0;
     }
 
-    public boolean hasComment(){
-        if(isFinished()){
+    public boolean hasComment() {
+        if (isFinished()) {
             return !TextUtils.isEmpty(finish.get(0).comment);
         }
         return false;
@@ -95,12 +95,13 @@ public class SRTask implements ZYIBaseBean {
         public int supports;
         public String answer;
         public String audio;
-        public String audio_timelen;
+        public String comment_audio_timelen;
+        public String comment_audio;
         public String problem_id;
 
         public float getAudioTime() {
             try {
-                return Float.valueOf(audio_timelen);
+                return Float.valueOf(comment_audio_timelen);
             } catch (Exception e) {
 
             }

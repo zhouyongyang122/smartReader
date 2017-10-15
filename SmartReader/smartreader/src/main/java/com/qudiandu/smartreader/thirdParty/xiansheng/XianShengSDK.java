@@ -74,11 +74,11 @@ public class XianShengSDK {
                                 public void run() {
                                     if (listener != null) {
                                         if (jsonObject != null) {
-                                            XSBean bean = new Gson().fromJson(String.valueOf(jsonObject), XSBean.class);
+                                            XSBean bean = XSBean.createXSBean(String.valueOf(jsonObject));
                                             if (bean == null || bean.result == null) {
                                                 listener.xfMarkError("打分失败,请重新尝试!");
                                             } else {
-                                                listener.xfMarkEnd(bean.result.overall);
+                                                listener.xfMarkEnd(bean, String.valueOf(jsonObject));
                                             }
                                         } else {
                                             listener.xfMarkError("打分失败,请重新尝试!");

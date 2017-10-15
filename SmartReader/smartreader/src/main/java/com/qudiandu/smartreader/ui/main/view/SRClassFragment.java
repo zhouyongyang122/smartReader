@@ -324,7 +324,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         layoutProgressBar.setVisibility(View.GONE);
         layoutAction.setVisibility(View.VISIBLE);
         if (SRUserManager.getInstance().getUser().isStudent()) {
-            textCreate.setVisibility(View.GONE);
+            textCreate.setVisibility(View.INVISIBLE);
             textAdd.setText("加入班级");
         } else {
             textCreate.setVisibility(View.VISIBLE);

@@ -30,6 +30,7 @@ public class SRMarkBeanDao extends AbstractDao<SRMarkBean, String> {
         public final static Property AudioPath = new Property(3, String.class, "audioPath", false, "AUDIO_PATH");
         public final static Property Share_url = new Property(4, String.class, "share_url", false, "SHARE_URL");
         public final static Property Show_track_id = new Property(5, String.class, "show_track_id", false, "SHOW_TRACK_ID");
+        public final static Property JsonValue = new Property(6, String.class, "jsonValue", false, "JSON_VALUE");
     }
 
 
@@ -50,7 +51,8 @@ public class SRMarkBeanDao extends AbstractDao<SRMarkBean, String> {
                 "\"AUDIO_TIME\" INTEGER NOT NULL ," + // 2: audioTime
                 "\"AUDIO_PATH\" TEXT," + // 3: audioPath
                 "\"SHARE_URL\" TEXT," + // 4: share_url
-                "\"SHOW_TRACK_ID\" TEXT);"); // 5: show_track_id
+                "\"SHOW_TRACK_ID\" TEXT," + // 5: show_track_id
+                "\"JSON_VALUE\" TEXT);"); // 6: jsonValue
     }
 
     /** Drops the underlying database table. */
@@ -84,6 +86,11 @@ public class SRMarkBeanDao extends AbstractDao<SRMarkBean, String> {
         if (show_track_id != null) {
             stmt.bindString(6, show_track_id);
         }
+ 
+        String jsonValue = entity.getJsonValue();
+        if (jsonValue != null) {
+            stmt.bindString(7, jsonValue);
+        }
     }
 
     @Override
@@ -111,6 +118,11 @@ public class SRMarkBeanDao extends AbstractDao<SRMarkBean, String> {
         if (show_track_id != null) {
             stmt.bindString(6, show_track_id);
         }
+ 
+        String jsonValue = entity.getJsonValue();
+        if (jsonValue != null) {
+            stmt.bindString(7, jsonValue);
+        }
     }
 
     @Override
@@ -126,7 +138,8 @@ public class SRMarkBeanDao extends AbstractDao<SRMarkBean, String> {
             cursor.getLong(offset + 2), // audioTime
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // audioPath
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // share_url
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // show_track_id
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // show_track_id
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // jsonValue
         );
         return entity;
     }
@@ -139,6 +152,7 @@ public class SRMarkBeanDao extends AbstractDao<SRMarkBean, String> {
         entity.setAudioPath(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setShare_url(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setShow_track_id(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setJsonValue(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override
