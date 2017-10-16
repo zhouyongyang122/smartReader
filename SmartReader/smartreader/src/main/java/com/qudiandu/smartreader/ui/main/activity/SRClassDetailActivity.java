@@ -31,9 +31,9 @@ public class SRClassDetailActivity extends ZYBaseFragmentActivity<SRClassDetailF
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SRClass srClass = (SRClass) getIntent().getSerializableExtra(CLASS);
-        showTitle("班级成员(" + srClass.cur_num + ")");
-        if (SRUserManager.getInstance().getUser().uid.equals(srClass.uid + "")) {
+        mClass = (SRClass) getIntent().getSerializableExtra(CLASS);
+        showTitle("班级成员(" + mClass.cur_num + ")");
+        if (SRUserManager.getInstance().getUser().uid.equals(mClass.uid + "")) {
             showActionRightTitle("管理", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -41,7 +41,7 @@ public class SRClassDetailActivity extends ZYBaseFragmentActivity<SRClassDetailF
                 }
             });
         }
-        new SRClassDetailPresenter(mFragment, getIntent().getStringExtra(srClass.group_id + ""));
+        new SRClassDetailPresenter(mFragment, mClass.group_id + "");
     }
 
     @Override

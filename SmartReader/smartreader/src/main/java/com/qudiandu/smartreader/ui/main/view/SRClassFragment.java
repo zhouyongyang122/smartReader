@@ -22,6 +22,7 @@ import com.qudiandu.smartreader.base.view.ZYLoadingView;
 import com.qudiandu.smartreader.base.view.ZYRefreshListener;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.activity.SRClassDetailActivity;
@@ -29,6 +30,7 @@ import com.qudiandu.smartreader.ui.main.activity.SRCreateClassActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRGradeActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRJoinClassActivity;
 import com.qudiandu.smartreader.ui.main.contract.SRClassContract;
+import com.qudiandu.smartreader.ui.main.model.SRBookFileManager;
 import com.qudiandu.smartreader.ui.main.model.SRBookSelectManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
@@ -400,8 +402,9 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                     new AlertDialog.Builder(mActivity).setTitle("下载课本").setMessage("完成任务需要先下载对应的课本").setPositiveButton("下载", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SRBookSelectManager.getInstance().addBook(task.getBook());
-                            EventBus.getDefault().post(new SREventSelectedBook());
+                            SRBook downBook = task.getBook();
+                            downBook.savePath = SRBookFileManager.getBookZipPath(downBook.book_id);
+                            ZYDownloadManager.getInstance().addBook(downBook);
                             ZYToast.show(mActivity, "课本正在下载中,请下载完成后再来完成任务!");
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
