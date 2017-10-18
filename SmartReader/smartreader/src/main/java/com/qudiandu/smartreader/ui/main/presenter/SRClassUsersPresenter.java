@@ -40,7 +40,7 @@ public class SRClassUsersPresenter extends ZYListDataPresenter<SRClassUsersContr
     }
 
     public void removeUsers() {
-        String del_uid = null;
+        String del_uid = "";
         final ArrayList<SRUser> removeUsers = new ArrayList<SRUser>();
         for (SRUser user : mDataList) {
             if (user.isCheck) {
@@ -54,11 +54,13 @@ public class SRClassUsersPresenter extends ZYListDataPresenter<SRClassUsersContr
                 @Override
                 public void onSuccess(ZYResponse response) {
                     mDataList.removeAll(removeUsers);
+                    mView.hideProgress();
                     mView.delUserSuc();
                 }
 
                 @Override
                 public void onFail(String message) {
+                    mView.hideProgress();
                     super.onFail(message);
                 }
             }));

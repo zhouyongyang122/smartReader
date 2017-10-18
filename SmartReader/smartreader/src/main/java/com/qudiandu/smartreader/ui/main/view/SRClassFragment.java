@@ -335,7 +335,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         SRClass srClass = mPresenter.getCurrentClass();
         textTitle.setText(srClass.class_name);
         detailHeaderVH.updateView(srClass, 0);
-
+        detailHeaderVH.show();
     }
 
     @Override
@@ -364,6 +364,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                 }
             }, "点击创建班级");
         }
+        detailHeaderVH.hide();
     }
 
     @Override

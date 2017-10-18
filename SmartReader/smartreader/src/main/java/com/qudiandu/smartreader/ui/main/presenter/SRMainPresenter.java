@@ -3,6 +3,7 @@ package com.qudiandu.smartreader.ui.main.presenter;
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
+import com.qudiandu.smartreader.service.net.ZYNetManager;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.ui.main.model.SRMainModel;
@@ -11,7 +12,10 @@ import com.qudiandu.smartreader.ui.main.contract.SRMainContract;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
 import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
 import com.qudiandu.smartreader.ui.set.model.bean.SRRemind;
+import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYSystemUtils;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by ZY on 17/3/16.
@@ -78,5 +82,28 @@ public class SRMainPresenter extends ZYBasePresenter implements SRMainContract.I
                 super.onFail(message);
             }
         }));
+    }
+
+    public void uploadJpushId() {
+        //jpush-id:190e35f7e0414ba9a8b
+        try {
+            ZYLog.e(getClass().getSimpleName(), "Jpush-id:" + JPushInterface.getRegistrationID(SRApplication.getInstance().getCurrentActivity()));
+            if (!ZYPreferenceHelper.getInstance().hasUploadJPushId()) {
+                mSubscriptions.add(ZYNetSubscription.subscription(ZYNetManager.shareInstance().getApi().pushInfo(JPushInterface.getRegistrationID(SRApplication.getInstance().getCurrentActivity())), new ZYNetSubscriber() {
+                    @Override
+                    public void onSuccess(ZYResponse response) {
+                        ZYLog.e(getClass().getSimpleName(), "Jpush-id上传成功...............");
+                        ZYPreferenceHelper.getInstance().setUploadJPushId(true);
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+
+                    }
+                }));
+            }
+        } catch (Exception e) {
+
+        }
     }
 }

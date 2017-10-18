@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.qudiandu.smartreader.ui.main.activity.SRMainActivity;
+import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;
+import com.qudiandu.smartreader.ui.web.SRWebViewActivity;
 import com.qudiandu.smartreader.utils.ZYLog;
 
 import org.json.JSONException;
@@ -46,11 +49,28 @@ public class SRJPushSelfReceiver extends BroadcastReceiver {
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 ZYLog.e(TAG, "[MyReceiver] 用户点击打开了通知");
+
+                Intent localIntent = null;
+                try {
+                    String msgJson = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+                    Gson gson = new Gson();
+                    SRJpushMsg jpushMsg = gson.fromJson(msgJson, SRJpushMsg.class);
+                    if (jpushMsg.type.equals(SRJpushMsg.OPEN_TYPE)) {
+                        localIntent = new Intent(context, SRMainActivity.class);
+                    } else if (jpushMsg.type.equals(SRJpushMsg.SYSTME_TYPE)) {
+                        localIntent = new Intent(context, SRSysMsgActivity.class);
+                    } else if (jpushMsg.type.equals(SRJpushMsg.URL_TYPE)) {
+                        localIntent = SRWebViewActivity.createIntent(context, jpushMsg.data.url, "");
+                    }
+                    localIntent = new Intent(context, SRMainActivity.class);
+                } catch (Exception e) {
+                    localIntent = new Intent(context, SRMainActivity.class);
+                }
+
                 //打开自定义的Activity
-                Intent i = new Intent(context, SRMainActivity.class);
-                i.putExtras(bundle);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(i);
+                localIntent.putExtras(bundle);
+                localIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(localIntent);
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 ZYLog.e(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));

@@ -82,6 +82,7 @@ public class ZYAudioPlayManager implements ZYAudioPlayer.PlayerCallBack {
     }
 
     public void play(String url) {
+        ZYLog.e(getClass().getSimpleName(), "play-url: " + url);
         stop();
         mUrl = url;
         stopProgressUpdate();
@@ -209,6 +210,7 @@ public class ZYAudioPlayManager implements ZYAudioPlayer.PlayerCallBack {
             case ZYIPlayer.PLAYER_ERROR_UNKNOWN:
             case ZYIPlayer.PLAYER_ERROR_NET:
                 stopProgressUpdate();
+                stop();
                 sendCallBack(STATE_ERROR, "播放出错");
                 break;
         }

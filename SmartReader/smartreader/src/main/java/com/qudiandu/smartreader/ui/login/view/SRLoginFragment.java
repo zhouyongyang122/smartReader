@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.base.view.ZYClearEditView;
 import com.qudiandu.smartreader.thirdParty.qq.TencentManager;

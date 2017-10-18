@@ -2,6 +2,8 @@ package com.qudiandu.smartreader;
 
 import android.content.SharedPreferences;
 
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+
 /**
  * Created by ZY on 17/3/27.
  */
@@ -22,6 +24,8 @@ public class ZYPreferenceHelper {
 
     public static final String TRACT_SPEED = "tract_speed";//句子朗读速度
 
+    public static final String JPUSH_UPLOADED = "jpush_uploaded";//极光id是否上传
+
     private SharedPreferences defPre;
 
     private ZYPreferenceHelper() {
@@ -37,6 +41,18 @@ public class ZYPreferenceHelper {
             }
         }
         return instance;
+    }
+
+    public boolean hasUploadJPushId(){
+        String uid = SRUserManager.getInstance().getUser().getUid();
+        String key = uid + "_" + JPUSH_UPLOADED;
+        return getDefPre().getBoolean(key,false);
+    }
+
+    public void setUploadJPushId(boolean uploaded){
+        String uid = SRUserManager.getInstance().getUser().getUid();
+        String key = uid + "_" + JPUSH_UPLOADED;
+        getDefPre().edit().putBoolean(key,uploaded).commit();
     }
 
     public int getSelectBookId(int classId) {

@@ -31,9 +31,9 @@ public class SRClassUserItemVH extends ZYBaseViewHolder<SRUser> {
     public void updateView(SRUser data, int position) {
         if (data != null) {
             if (data.isCheck) {
-                imgCheck.setSelected(true);
+                imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc4_solidc13);
             } else {
-                imgCheck.setSelected(false);
+                imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc2_solidwhite);
             }
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar,R.drawable.def_avatar,R.drawable.def_avatar);
             textName.setText(data.nickname);

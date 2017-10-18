@@ -167,4 +167,6 @@ public interface ZYRequestApi {
     @POST("group/taskProblemFinish")
     Observable<ZYResponse> submitAnswer(@FieldMap Map<String, String> params);
 
+    @POST("user/pushinfo")
+    Observable<ZYResponse> pushInfo(@Query("registration_id") String registration_id);
 }

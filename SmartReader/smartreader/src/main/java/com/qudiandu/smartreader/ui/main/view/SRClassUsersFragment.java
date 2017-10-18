@@ -37,7 +37,7 @@ public class SRClassUsersFragment extends ZYListDateFragment<SRClassUsersContrac
         if (user.uid.equals(SRUserManager.getInstance().getUser().uid)) {
             return;
         }
-        user.isCheck = true;
+        user.isCheck = !user.isCheck;
         mAdapter.notifyDataSetChanged();
     }
 

@@ -2,19 +2,25 @@ package com.qudiandu.smartreader.ui.login.presenter;
 
 import android.text.TextUtils;
 
+import com.qudiandu.smartreader.SRApplication;
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.event.SREventLogin;
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
+import com.qudiandu.smartreader.service.net.ZYNetManager;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.ui.login.contract.SRLoginContract;
 import com.qudiandu.smartreader.ui.login.model.SRLoginModel;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
+import com.qudiandu.smartreader.utils.ZYLog;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by ZY on 17/4/4.
@@ -52,6 +58,7 @@ public class SRLoginPresenter extends ZYBasePresenter implements SRLoginContract
                     SRUserManager.getInstance().setUser(user);
                     EventBus.getDefault().post(new SREventLogin());
                     iView.loginSuccess("登录成功");
+                    uploadJpushId();
                 } else {
                     onFail("登录失败,请重新尝试!");
                 }
@@ -86,6 +93,7 @@ public class SRLoginPresenter extends ZYBasePresenter implements SRLoginContract
                     SRUserManager.getInstance().setUser(user);
                     EventBus.getDefault().post(new SREventLogin());
                     iView.loginSuccess("登录成功");
+                    uploadJpushId();
                 } else {
                     onFail("登录失败,请重新尝试!");
                 }
@@ -97,5 +105,22 @@ public class SRLoginPresenter extends ZYBasePresenter implements SRLoginContract
                 super.onFail(message);
             }
         }));
+    }
+
+    void uploadJpushId() {
+        if (!ZYPreferenceHelper.getInstance().hasUploadJPushId()) {
+            mSubscriptions.add(ZYNetSubscription.subscription(ZYNetManager.shareInstance().getApi().pushInfo(JPushInterface.getRegistrationID(SRApplication.getInstance().getCurrentActivity())), new ZYNetSubscriber() {
+                @Override
+                public void onSuccess(ZYResponse response) {
+                    ZYLog.e(getClass().getSimpleName(), "Jpush-id上传成功...............");
+                    ZYPreferenceHelper.getInstance().setUploadJPushId(true);
+                }
+
+                @Override
+                public void onFail(String message) {
+
+                }
+            }));
+        }
     }
 }

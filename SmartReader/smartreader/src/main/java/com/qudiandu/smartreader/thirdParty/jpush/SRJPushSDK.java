@@ -12,7 +12,7 @@ import cn.jpush.client.android.BuildConfig;
 public class SRJPushSDK {
 
     public static void init(Context context) {
-        JPushInterface.setDebugMode(BuildConfig.DEBUG);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(context);            // 初始化 JPush
     }
 }

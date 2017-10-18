@@ -26,12 +26,14 @@ import com.qudiandu.smartreader.ui.main.view.SRHomeFragment;
 import com.qudiandu.smartreader.ui.main.view.SRMeFragment;
 import com.qudiandu.smartreader.base.adapter.ZYFragmentAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
+import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYStatusBarUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
 /**
@@ -91,6 +93,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         XianShengSDK.getInstance().init(this);
 
         SQLiteStudioService.instance().start(this);
+
+        mPresenter.uploadJpushId();
     }
 
     private void initView() {
