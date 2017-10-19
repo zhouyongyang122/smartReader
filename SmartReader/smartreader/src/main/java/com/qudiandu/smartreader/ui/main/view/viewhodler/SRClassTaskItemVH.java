@@ -105,6 +105,11 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
         if (mData.isFinished()) {
             textScore.setVisibility(View.VISIBLE);
             textScore.setText(mData.finish.get(0).score + "");
+            if(mData.finish.get(0).score < 60){
+                textScore.setBackgroundResource(R.drawable.unpass);
+            }else {
+                textScore.setBackgroundResource(R.drawable.pass);
+            }
             if (mData.hasComment()) {
                 textFinish.setText("看点评");
             } else {

@@ -115,7 +115,7 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
                 textEn.setMovementMethod(LinkMovementMethod.getInstance());
 
                 if (markBean.score > 0) {
-                    layoutMark.setBackgroundResource(R.drawable.sr_bg_corner6dp_c1_solid);
+                    layoutMark.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_solid);
                     layoutScore.setVisibility(View.VISIBLE);
                     layoutShare.setVisibility(View.VISIBLE);
                     if (markBean.score >= 60) {
@@ -267,7 +267,6 @@ public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK
         layoutShare.setVisibility(View.VISIBLE);
         layoutRecording.setVisibility(View.GONE);
         layoutRecord.setVisibility(View.VISIBLE);
-        layoutMark.setBackgroundResource(R.drawable.sr_bg_corner6dp_c1_solid);
         markBean.score = bean.result.overall;
         markBean.jsonValue = jsonValue;
         markBean.setScoreBean(bean);
