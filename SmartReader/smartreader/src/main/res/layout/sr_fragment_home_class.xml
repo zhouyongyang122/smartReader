@@ -23,6 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="添加班级"
+            android:visibility="invisible"
+            tools:visibility="visible"
             android:textColor="@color/white"
             android:textSize="@dimen/f4" />
 

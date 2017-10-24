@@ -196,6 +196,10 @@ public class ZYLoadingView implements ZYILoadingView {
         showEmpty();
     }
 
+    public void hideEmptyBtn(){
+        mBtnEmpty.setVisibility(View.GONE);
+    }
+
     @Override
     public void setErrorView(View view) {
         if (view != null) {

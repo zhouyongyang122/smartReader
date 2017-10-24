@@ -374,7 +374,9 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         } else {
             sRecyclerView.getLoadingView().setEmptyText("你还没有添加作业");
         }
-        sRecyclerView.showEmpty();
+        ZYLoadingView loadingView = (ZYLoadingView) sRecyclerView.getLoadingView();
+        loadingView.hideEmptyBtn();
+        loadingView.showEmpty();
     }
 
     @Override

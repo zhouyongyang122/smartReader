@@ -42,7 +42,7 @@
             android:background="@drawable/sr_bg_corner360dp_transparent40"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/f3"
+            android:textSize="@dimen/f8"
             android:visibility="gone" />
 
     </RelativeLayout>
