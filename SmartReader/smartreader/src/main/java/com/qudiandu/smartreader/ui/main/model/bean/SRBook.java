@@ -359,7 +359,7 @@ public class SRBook extends ZYBaseEntity implements ZYIDownBase {
             case 6:
                 return "下载完成";
             case 7:
-                return "解压中";
+                return "解压中...";
             case 8:
                 return "解压出错,点击重试";
             default:

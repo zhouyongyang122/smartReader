@@ -1,10 +1,12 @@
 package com.qudiandu.smartreader.ui.mark.view;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -34,6 +36,9 @@ public class SRMarkHeaderVH extends ZYBaseViewHolder<SRMarkBean> {
 
     @Bind(R.id.layoutRoot)
     RelativeLayout layoutRoot;
+
+    @Bind(R.id.scrollView)
+    ScrollView scrollView;
 
     LayoutInflater inflater;
 
@@ -79,14 +84,20 @@ public class SRMarkHeaderVH extends ZYBaseViewHolder<SRMarkBean> {
                     index++;
                 }
             }
+
+            index = index < 3 ? index : 3;
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) scrollView.getLayoutParams();
+            layoutParams.height = ZYScreenUtils.dp2px(mContext, 35) * index;
+            scrollView.setLayoutParams(layoutParams);
         }
     }
 
     public LinearLayout getScoreLinear(int index, int lastId) {
         LinearLayout linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
         linearLayout.setId(100 + lastId);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (index > 0) {
             layoutParams.topMargin = ZYScreenUtils.dp2px(mContext, 10);
             layoutParams.addRule(RelativeLayout.BELOW, 100 + lastId - 1);

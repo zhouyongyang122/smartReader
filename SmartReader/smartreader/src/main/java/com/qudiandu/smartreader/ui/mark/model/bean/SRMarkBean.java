@@ -44,7 +44,7 @@ public class SRMarkBean extends ZYBaseEntity {
 
     @Generated(hash = 540598131)
     public SRMarkBean(String mark_id, int score, long audioTime, String audioPath, String share_url,
-            String show_track_id, String jsonValue) {
+                      String show_track_id, String jsonValue) {
         this.mark_id = mark_id;
         this.score = score;
         this.audioTime = audioTime;
@@ -151,12 +151,16 @@ public class SRMarkBean extends ZYBaseEntity {
         ArrayList<String> values = new ArrayList<String>();
         if (!TextUtils.isEmpty(value)) {
             String[] valueStrs = value.split(" ");
-            for (String str : valueStrs) {
-                int strInt = str.charAt(0);
-                if ((strInt > 64 && strInt < 91)
-                        || (strInt > 96 && strInt < 123)
-                        || (strInt > 47 && strInt < 58)) {
-                    values.add(str);
+            if (valueStrs.length > 0) {
+                for (String str : valueStrs) {
+                    if(str.length() > 0) {
+                        int strInt = str.charAt(0);
+                        if ((strInt > 64 && strInt < 91)
+                                || (strInt > 96 && strInt < 123)
+                                || (strInt > 47 && strInt < 58)) {
+                            values.add(str);
+                        }
+                    }
                 }
             }
         }

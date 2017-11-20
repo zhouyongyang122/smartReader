@@ -109,9 +109,7 @@ public class SRUserManager {
                 user.type = this.user.type;
                 user.mobile = this.user.mobile;
                 user.school_id = this.user.school_id;
-                user.user_type = this.user.user_type;
             }
-
             this.user = user;
             this.user.isLoginUser = true;
             this.user.update();

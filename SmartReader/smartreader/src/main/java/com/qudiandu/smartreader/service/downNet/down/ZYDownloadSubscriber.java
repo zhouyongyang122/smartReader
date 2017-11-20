@@ -34,11 +34,14 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
     @Override
     public void onCompleted() {
         ZYLog.e(getClass().getSimpleName(), "onCompleted: " + downEntity.getCurrent() + ":" + downEntity.getTotal());
+        ZYLog.e(getClass().getSimpleName(), "准备解压");
         ZYDownloadManager.getInstance().removeTask(downEntity.getId());
-        downEntity.setState(ZYDownState.FINISH);
+//        downEntity.setState(ZYDownState.FINISH);
         downEntity.setCurrent(downEntity.getTotal());
+        downEntity.setState(ZYDownState.UNZIP);
         downEntity.update(false);
         EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
+        unzip();
     }
 
     @Override
@@ -71,16 +74,17 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
                 ZYLog.e(getClass().getSimpleName(), "update: " + current + ":" + downEntity.getTotal() + ":" + done);
             }
         }
-        if (done) {
-            downEntity.setState(ZYDownState.UNZIP);
-            downEntity.update(false);
-            EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
-            unzip();
-        } else {
-            downEntity.setState(ZYDownState.DOWNING);
-            downEntity.update(false);
-            EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
-        }
+//        if (done) {
+//            ZYLog.e(getClass().getSimpleName(), "准备解压");
+//            downEntity.setState(ZYDownState.UNZIP);
+//            downEntity.update(false);
+//            EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
+//            unzip();
+//        } else {
+        downEntity.setState(ZYDownState.DOWNING);
+        downEntity.update(false);
+        EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));
+//        }
     }
 
     private void unzip() {
@@ -92,11 +96,10 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ZYLog.e(getClass().getSimpleName(), "准备解压");
                 SRBookFileManager.unZip(SRBookFileManager.getBookZipPath(downEntity.getId()), SRBookFileManager.getBookPath(downEntity.getId()), new SRBookFileManager.UnZipListener() {
                     @Override
                     public void unZipSuccess() {
-                        ZYLog.e(getClass().getSimpleName(), "准备成功");
+                        ZYLog.e(getClass().getSimpleName(), "解压成功");
                         downEntity.setSavePath(SRBookFileManager.getBookPath(downEntity.getId()));
                         downEntity.setState(ZYDownState.FINISH);
                         downEntity.update(false);
@@ -105,7 +108,7 @@ public class ZYDownloadSubscriber<T> extends Subscriber<T> implements ZYDownload
 
                     @Override
                     public void unZipError() {
-                        ZYLog.e(getClass().getSimpleName(), "准备出错");
+                        ZYLog.e(getClass().getSimpleName(), "解压出错");
                         downEntity.setState(ZYDownState.UNZIPERROR);
                         downEntity.update(false);
                         EventBus.getDefault().post(new ZYEventDowloadUpdate(downEntity));

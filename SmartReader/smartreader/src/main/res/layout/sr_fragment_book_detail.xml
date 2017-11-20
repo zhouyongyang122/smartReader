@@ -15,8 +15,7 @@
     <RelativeLayout
         android:id="@+id/layoutTopBar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="22dp"
+        android:layout_height="100dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
@@ -36,11 +35,14 @@
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
+            android:padding="5dp"
             android:background="@drawable/sr_bg_corner360dp_transparent40"
             android:gravity="center"
+            android:minHeight="40dp"
             android:textColor="@color/white"
             android:textSize="@dimen/f8"
             android:visibility="gone" />
@@ -143,8 +145,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@color/c7"
-                    android:paddingTop="8dp"
                     android:gravity="center"
+                    android:paddingTop="8dp"
                     android:text="练口语"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f5" />
@@ -163,9 +165,9 @@
 
             <ImageView
                 android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/microphone"
-                android:layout_height="30dp" />
+                android:src="@drawable/microphone" />
         </RelativeLayout>
 
         <LinearLayout

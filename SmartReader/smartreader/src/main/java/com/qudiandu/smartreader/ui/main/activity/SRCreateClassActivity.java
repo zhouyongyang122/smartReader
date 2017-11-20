@@ -103,11 +103,12 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
                     @Override
                     public void onSuccess(ZYResponse response) {
                         hideProgress();
-                        if (SRUserManager.getInstance().getUser().school_id <= 0) {
-                            ZYToast.show(SRCreateClassActivity.this, "班级申请成功,请等待审核结果!");
-                        } else {
-                            ZYToast.show(SRCreateClassActivity.this, "班级创建成功!");
-                        }
+//                        if (SRUserManager.getInstance().getUser().school_id <= 0) {
+//                            ZYToast.show(SRCreateClassActivity.this, "班级申请成功,请等待审核结果!");
+//                        } else {
+//                            ZYToast.show(SRCreateClassActivity.this, "班级创建成功!");
+//                        }
+                        ZYToast.show(SRCreateClassActivity.this, "班级创建成功!");
                         finish();
                     }
 

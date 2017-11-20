@@ -164,6 +164,7 @@ public class SRBooksItemVH extends ZYBaseViewHolder<SRBook> {
                 textStatus.setText("下载中" + (int) progress + "%");
                 progressView.setProgress((int) progress);
             } else {
+                ZYLog.e(getClass().getSimpleName(), mData.getStateString());
                 textStatus.setText(mData.getStateString());
             }
         }
