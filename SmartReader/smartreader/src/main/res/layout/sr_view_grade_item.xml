@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
         android:gravity="center"
         android:text="一年级"
         android:textColor="@color/black"

@@ -1,32 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c2">
+    android:background="@color/c1">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/layout_refresh"
+    <LinearLayout
+        android:id="@+id/layoutBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="40dp"
+        android:orientation="horizontal">
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="15dp"
+            android:text="1年级下.人教版"
+            android:textColor="@color/c7"
+            android:textSize="@dimen/f1" />
 
-            <LinearLayout
-                android:id="@+id/layout_module_root"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/imgMsg"
+                android:layout_width="28dp"
+                android:layout_height="21dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/study_icon_message" />
 
-        </android.support.v4.widget.NestedScrollView>
+            <View
+                android:id="@+id/viewRedPoint"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignRight="@+id/imgMsg"
+                android:layout_alignTop="@+id/imgMsg"
+                android:background="@drawable/sr_bg_ov_red"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </RelativeLayout>
+    </LinearLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <LinearLayout
+        android:id="@+id/layout_module_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layoutBar"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 </RelativeLayout>

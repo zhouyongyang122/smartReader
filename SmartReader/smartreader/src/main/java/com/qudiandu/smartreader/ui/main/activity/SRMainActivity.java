@@ -3,7 +3,6 @@ package com.qudiandu.smartreader.ui.main.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -26,14 +25,12 @@ import com.qudiandu.smartreader.ui.main.view.SRHomeFragment;
 import com.qudiandu.smartreader.ui.main.view.SRMeFragment;
 import com.qudiandu.smartreader.base.adapter.ZYFragmentAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
-import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYStatusBarUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
 /**
@@ -83,17 +80,11 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sr_activity_main);
+        hideActionBar();
         new SRMainPresenter(this);
         initView();
-        ZYStatusBarUtils.immersiveStatusBar(this, 1);
-        if (ZYStatusBarUtils.isCanLightStatusBar()) {
-            ZYStatusBarUtils.tintStatusBar(this, Color.TRANSPARENT, 0);
-        }
-
         XianShengSDK.getInstance().init(this);
-
         SQLiteStudioService.instance().start(this);
-
         mPresenter.uploadJpushId();
     }
 
@@ -164,9 +155,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             meName.setTextColor(getResources().getColor(R.color.black));
             classImg.setSelected(false);
             className.setTextColor(getResources().getColor(R.color.black));
-            showActionBar();
-            setDarkMode(false);
             classFragment.cancleManager();
+            homeFragment.refreshMsgRemind();
         } else if (mCurrentPage == MAIN_CLASS_INDEX) {
             homeImg.setSelected(false);
             meImg.setSelected(false);
@@ -174,8 +164,6 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             meName.setTextColor(getResources().getColor(R.color.black));
             classImg.setSelected(true);
             className.setTextColor(getResources().getColor(R.color.white));
-            hideActionBar();
-            setDarkMode(false);
         } else if (mCurrentPage == MAIN_ME_INDEX) {
             homeImg.setSelected(false);
             meImg.setSelected(true);
@@ -183,9 +171,6 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             className.setTextColor(getResources().getColor(R.color.black));
             homeName.setTextColor(getResources().getColor(R.color.black));
             meName.setTextColor(getResources().getColor(R.color.white));
-            hideActionBar();
-            setDarkMode(true);
-            meFragment.refreshMsgRemind();
             classFragment.cancleManager();
         }
         showTitle(fragmentAdapter.getPageTitle(position).toString());

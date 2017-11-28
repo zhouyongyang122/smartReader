@@ -22,15 +22,10 @@ public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.I
 
     private SRHomeContract.IView mView;
 
-    private SRMainModel model;
-
-    private List<SRAdert> aderts;
-
     private SRBook mBook;
 
     public SRHomePresenter(SRHomeContract.IView iView) {
         mView = iView;
-        model = new SRMainModel();
         mView.setPresenter(this);
     }
 
@@ -40,30 +35,6 @@ public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.I
             mBook = SRBook.queryById("0");
         }
         mView.showBook(mBook);
-    }
-
-    @Override
-    public void subscribe() {
-        mView.showProgress();
-        mSubscriptions.add(ZYNetSubscription.subscription(model.getAdverts(""), new ZYNetSubscriber<ZYResponse<List<SRAdert>>>() {
-            @Override
-            public void onSuccess(ZYResponse<List<SRAdert>> response) {
-                mView.hideProgress();
-                if (response.data != null && response.data.size() > 0) {
-                    aderts = response.data;
-                    mView.showAderts(aderts);
-                }
-            }
-
-            @Override
-            public void onFail(String message) {
-                mView.hideProgress();
-            }
-        }));
-    }
-
-    public List<SRAdert> getAderts() {
-        return aderts;
     }
 
     public SRBook getBook() {

@@ -1,14 +1,15 @@
 package com.qudiandu.smartreader.ui.book.view.viewHolder;
 
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
+
 import butterknife.Bind;
 
 /**
@@ -19,12 +20,6 @@ public class SRBooksAddItemVH extends ZYBaseViewHolder<SRBook> {
 
     @Bind(R.id.imgBg)
     ImageView imgBg;
-
-    @Bind(R.id.progressBgView)
-    View progressBgView;
-
-    @Bind(R.id.cardView)
-    CardView cardView;
 
     SRBook mData;
 
@@ -46,10 +41,6 @@ public class SRBooksAddItemVH extends ZYBaseViewHolder<SRBook> {
         float height = width / scale;
         layoutParams.height = (int) height;
         imgBg.setLayoutParams(layoutParams);
-
-        layoutParams = (RelativeLayout.LayoutParams) progressBgView.getLayoutParams();
-        layoutParams.height = (int) height;
-        progressBgView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -71,7 +62,7 @@ public class SRBooksAddItemVH extends ZYBaseViewHolder<SRBook> {
                 mItemView.setVisibility(View.VISIBLE);
             }
 
-            cardView.setOnClickListener(new View.OnClickListener() {
+            imgBg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {

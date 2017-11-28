@@ -23,9 +23,6 @@ public class SRBooksDefItemVH extends ZYBaseViewHolder<SRBook> {
     @Bind(R.id.imgBg)
     ImageView imgBg;
 
-    @Bind(R.id.progressBgView)
-    View progressBgView;
-
     @Bind(R.id.cardView)
     CardView cardView;
 
@@ -49,10 +46,6 @@ public class SRBooksDefItemVH extends ZYBaseViewHolder<SRBook> {
         float height = width / scale;
         layoutParams.height = (int) height;
         imgBg.setLayoutParams(layoutParams);
-
-        layoutParams = (RelativeLayout.LayoutParams) progressBgView.getLayoutParams();
-        layoutParams.height = (int) height;
-        progressBgView.setLayoutParams(layoutParams);
     }
 
     @Override

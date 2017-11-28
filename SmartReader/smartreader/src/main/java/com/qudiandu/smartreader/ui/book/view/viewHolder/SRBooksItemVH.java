@@ -50,6 +50,9 @@ public class SRBooksItemVH extends ZYBaseViewHolder<SRBook> {
     @Bind(R.id.imgDel)
     ImageView imgDel;
 
+    @Bind(R.id.textTip)
+    TextView textTip;
+
     SRBook mData;
 
     private HomeBookItemListener listener;
@@ -77,6 +80,8 @@ public class SRBooksItemVH extends ZYBaseViewHolder<SRBook> {
         layoutParams = (RelativeLayout.LayoutParams) progressBgView.getLayoutParams();
         layoutParams.height = (int) height;
         progressBgView.setLayoutParams(layoutParams);
+
+        textTip.setText(mData.getGrade() + "-" + mData.getName());
     }
 
     @Override

@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c2"
-    android:orientation="vertical">
+    android:background="@color/c1">
 
     <LinearLayout
         android:id="@+id/layoutBook"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/c5"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingLeft="15dp"
-            android:text="1年级下.人教版"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f5" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,78 +18,125 @@
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:text="切换教材"
-            android:textColor="@color/c6"
-            android:textSize="@dimen/f8" />
+            android:textColor="@color/c9"
+            android:textSize="@dimen/f3" />
 
         <ImageView
             android:layout_width="10dp"
-            android:layout_height="18dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/more" />
+            android:layout_height="15dp"
+            android:layout_marginLeft="2dp"
+            android:rotation="180"
+            android:src="@drawable/back2" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/layoutAction"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/layoutRead"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/reading"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/study_icon_textbookreading"
+                    android:visibility="visible" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="点读"
-                    android:textColor="@color/c1"
-                    android:textSize="@dimen/f1" />
-
-                <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/def_avatar"
-                    android:visibility="invisible" />
+                    android:layout_marginTop="5dp"
+                    android:text="课本点读"
+                    android:textColor="@color/c9"
+                    android:textSize="@dimen/f3" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutRecord"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/dubbing"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/study_icon_textbook_dubbing"
+                    android:visibility="visible" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="配音"
-                    android:textColor="@color/c1"
-                    android:textSize="@dimen/f1" />
+                    android:layout_marginTop="5dp"
+                    android:text="课本配音"
+                    android:textColor="@color/c9"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/layoutPractice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/def_avatar"
-                    android:visibility="invisible" />
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/study_icon_vocabularyexercises"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="词汇练习"
+                    android:textColor="@color/c9"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTranslate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/study_icon_dictionary_connection"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="词典翻译"
+                    android:textColor="@color/c9"
+                    android:textSize="@dimen/f3" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

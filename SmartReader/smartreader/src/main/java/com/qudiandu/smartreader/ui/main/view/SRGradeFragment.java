@@ -31,7 +31,7 @@ public class SRGradeFragment extends ZYListDateFragment<SRGradeContract.IPresent
         mRefreshRecyclerView.setRefreshEnable(false);
         int space = ZYScreenUtils.dp2px(mActivity, 15);
         mRefreshRecyclerView.getRecyclerView().setPadding(space, 0, space, 0);
-        mRefreshRecyclerView.getRecyclerView().setBackgroundColor(ZYResourceUtils.getColor(R.color.c2));
+        mRefreshRecyclerView.getRecyclerView().setBackgroundColor(ZYResourceUtils.getColor(R.color.c1));
         return view;
     }
 

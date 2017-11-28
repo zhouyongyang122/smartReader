@@ -35,6 +35,9 @@ public class ZYActionBar extends RelativeLayout {
     @Bind(R.id.ivRightImg)
     public ImageView mIvRightImg;
 
+    @Bind(R.id.viewLine)
+    View mViewLine;
+
     public ZYActionBar(Context context) {
         super(context);
         init(context);
@@ -95,6 +98,14 @@ public class ZYActionBar extends RelativeLayout {
         mTvRightTile.setVisibility(GONE);
         mIvRightImg.setImageResource(res);
         mIvRightImg.setOnClickListener(clickListener);
+    }
+
+    public void showLine(boolean show) {
+        if (show) {
+            mViewLine.setVisibility(VISIBLE);
+        } else {
+            mViewLine.setVisibility(GONE);
+        }
     }
 
     public void onDestory() {

@@ -121,7 +121,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.sr_fragment_home_class, container, false);
-        rootView.setPadding(0, ZYStatusBarUtils.getStatusBarHeight(mActivity), 0, 0);
+//        rootView.setPadding(0, ZYStatusBarUtils.getStatusBarHeight(mActivity), 0, 0);
         ButterKnife.bind(this, rootView);
         initView();
         return rootView;

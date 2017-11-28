@@ -4,20 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/c2"
+    android:background="@color/c1"
+    android:paddingTop="10dp"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="4dp"
-        android:text="人教版:"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        android:textSize="@dimen/f7" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
@@ -50,10 +39,20 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:visibility="gone"
-                android:background="@drawable/sr_bg_corner360dp_boder1dpc2_solidwhite" />
+                android:background="@drawable/sr_bg_corner360dp_boder1dpc2_solidwhite"
+                android:visibility="gone" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:text="人教版"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f3" />
 
 </LinearLayout>
