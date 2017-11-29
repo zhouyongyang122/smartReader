@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -26,35 +27,29 @@ import butterknife.OnClick;
 
 public class SRSetActivity extends ZYBaseActivity {
 
-    @Bind(R.id.textChangePwd)
-    TextView textChangePwd;
+    @Bind(R.id.layoutChangePwd)
+    RelativeLayout layoutChangePwd;
 
-    @Bind(R.id.textBind)
-    TextView textBind;
+    @Bind(R.id.layoutBind)
+    RelativeLayout layoutBind;
 
-    @Bind(R.id.textExit)
-    TextView textExit;
+    @Bind(R.id.layoutExit)
+    RelativeLayout layoutExit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sr_activity_set);
 
-        if (SRUserManager.getInstance().isGuesterUser(false)) {
-            textChangePwd.setVisibility(View.GONE);
-            textBind.setVisibility(View.GONE);
-            textExit.setVisibility(View.GONE);
-        }
-
         mActionBar.showTitle("设置");
 
         ZYHtml5UrlRequest.getInstance().getParamas(null);
     }
 
-    @OnClick({R.id.textProtocol, R.id.textCopyRight, R.id.textChangePwd, R.id.textBind, R.id.textExit})
+    @OnClick({R.id.layoutProtocol, R.id.layoutCopyRight, R.id.layoutChangePwd, R.id.layoutBind, R.id.layoutExit})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.textProtocol:
+            case R.id.layoutProtocol:
                 ZYHtml5UrlRequest.getInstance().getParamas(new ZYHtml5UrlRequest.Html5UrlRequestListener() {
                     @Override
                     public void onHtm5UrlRequestStart() {
@@ -72,7 +67,7 @@ public class SRSetActivity extends ZYBaseActivity {
                     }
                 });
                 break;
-            case R.id.textCopyRight:
+            case R.id.layoutCopyRight:
                 ZYHtml5UrlRequest.getInstance().getParamas(new ZYHtml5UrlRequest.Html5UrlRequestListener() {
                     @Override
                     public void onHtm5UrlRequestStart() {
@@ -90,13 +85,13 @@ public class SRSetActivity extends ZYBaseActivity {
                     }
                 });
                 break;
-            case R.id.textChangePwd:
+            case R.id.layoutChangePwd:
                 startActivity(SRRegisterActivity.createIntent(this, SRRegisterPresenter.CHANGE_PWD_TYPE));
                 break;
-            case R.id.textBind:
+            case R.id.layoutBind:
                 startActivity(SRRegisterActivity.createIntent(this, SRRegisterPresenter.BIND_TYPE));
                 break;
-            case R.id.textExit:
+            case R.id.layoutExit:
                 new AlertDialog.Builder(this).setTitle("退出登录").setMessage("确认退出当前账号?").setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -120,11 +115,17 @@ public class SRSetActivity extends ZYBaseActivity {
 
         SRUser user = SRUserManager.getInstance().getUser();
         if (user.type <= 1) {
-            textChangePwd.setVisibility(View.VISIBLE);
-            textBind.setVisibility(View.GONE);
+            layoutChangePwd.setVisibility(View.VISIBLE);
+            layoutBind.setVisibility(View.GONE);
         } else {
-            textChangePwd.setVisibility(View.GONE);
-            textBind.setVisibility(View.VISIBLE);
+            layoutChangePwd.setVisibility(View.GONE);
+            layoutBind.setVisibility(View.VISIBLE);
+        }
+
+        if (SRUserManager.getInstance().isGuesterUser(false)) {
+            layoutChangePwd.setVisibility(View.GONE);
+            layoutBind.setVisibility(View.GONE);
+            layoutExit.setVisibility(View.GONE);
         }
     }
 }

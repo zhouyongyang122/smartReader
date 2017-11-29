@@ -22,12 +22,12 @@ public class SREditActivity extends ZYBaseFragmentActivity<SREditFragment> {
         mActionBar.showTitle("我的信息");
         new SREditPresenter(mFragment);
 
-        showActionRightTitle("保存", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mFragment.save();
-            }
-        });
+//        showActionRightTitle("保存", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mFragment.save();
+//            }
+//        });
     }
 
     @Override

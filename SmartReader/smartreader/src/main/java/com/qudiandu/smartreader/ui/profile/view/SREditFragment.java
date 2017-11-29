@@ -82,7 +82,7 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
         return view;
     }
 
-    @OnClick({R.id.textdentity, R.id.imgAvatar, R.id.textName, R.id.textSchool, R.id.textGrade, R.id.textAge, R.id.textGender, R.id.textOk})
+    @OnClick({R.id.textdentity, R.id.imgAvatar, R.id.textName, R.id.textSchool, R.id.textGrade, R.id.textAge, R.id.textGender, R.id.layoutOk})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgAvatar:
@@ -109,8 +109,8 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
             case R.id.textdentity:
                 selecteIdentity();
                 break;
-            case R.id.textOk:
-
+            case R.id.layoutOk:
+                save();
                 break;
         }
     }

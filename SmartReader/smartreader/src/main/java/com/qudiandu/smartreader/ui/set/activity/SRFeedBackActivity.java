@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -29,8 +30,8 @@ public class SRFeedBackActivity extends ZYBaseActivity {
     @Bind(R.id.textMsg)
     TextView textMsg;
 
-    @Bind(R.id.textOk)
-    TextView textOk;
+    @Bind(R.id.layoutOk)
+    RelativeLayout layoutOk;
 
     CompositeSubscription subscription = new CompositeSubscription();
 
@@ -42,7 +43,7 @@ public class SRFeedBackActivity extends ZYBaseActivity {
         mActionBar.showTitle("反馈");
         textMsg.setFilters(new InputFilter[]{new InputFilter.LengthFilter(240)});
 
-        textOk.setOnClickListener(new View.OnClickListener() {
+        layoutOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String msg = textMsg.getText().toString();

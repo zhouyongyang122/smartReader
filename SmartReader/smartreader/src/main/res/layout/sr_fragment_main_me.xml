@@ -7,7 +7,7 @@
     android:background="@color/c1"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layoutBar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -15,12 +15,9 @@
 
         <TextView
             android:id="@+id/textTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:maxLines="1"
-            android:paddingLeft="15dp"
             android:text="我"
             android:textColor="@color/c7"
             android:textSize="@dimen/f1" />
@@ -32,9 +29,10 @@
             android:layout_marginRight="15dp"
             android:gravity="center"
             android:text="编辑"
+            android:layout_alignParentRight="true"
             android:textColor="@color/white"
             android:textSize="@dimen/f2" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -111,7 +109,7 @@
                     android:gravity="center"
                     android:minWidth="80dp"
                     android:text="我的作品"
-                    android:textColor="@color/c6"
+                    android:textColor="@color/c1"
                     android:textSize="@dimen/f2" />
 
                 <ImageView
@@ -140,7 +138,7 @@
                     android:gravity="center"
                     android:minWidth="80dp"
                     android:text="意见反馈"
-                    android:textColor="@color/c6"
+                    android:textColor="@color/c1"
                     android:textSize="@dimen/f2" />
 
                 <ImageView
@@ -169,7 +167,7 @@
                     android:gravity="center"
                     android:minWidth="80dp"
                     android:text="设置"
-                    android:textColor="@color/c6"
+                    android:textColor="@color/c1"
                     android:textSize="@dimen/f2" />
 
                 <ImageView

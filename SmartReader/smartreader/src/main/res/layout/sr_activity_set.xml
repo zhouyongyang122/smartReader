@@ -5,68 +5,141 @@
     android:background="@color/c1"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textProtocol"
+    <RelativeLayout
+        android:id="@+id/layoutProtocol"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/sr_bg_corner6dp_white_solid"
-        android:gravity="center"
-        android:text="使用协议"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f2" />
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
-    <TextView
-        android:id="@+id/textCopyRight"
+        <TextView
+            android:id="@+id/textProtocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:minWidth="80dp"
+            android:text="使用协议"
+            android:textColor="@color/c1"
+            android:textSize="@dimen/f2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/textProtocol"
+            android:src="@drawable/icon_useprotocol" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutCopyRight"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner6dp_white_solid"
-        android:gravity="center"
-        android:text="版权申明"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f2" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
-    <TextView
-        android:id="@+id/textChangePwd"
+        <TextView
+            android:id="@+id/textCopyRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:minWidth="80dp"
+            android:text="版权申明"
+            android:textColor="@color/c1"
+            android:textSize="@dimen/f2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/textCopyRight"
+            android:src="@drawable/icon_copyrightfeedback" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutChangePwd"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner6dp_white_solid"
-        android:gravity="center"
-        android:text="修改密码"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f2" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
-    <TextView
-        android:id="@+id/textBind"
+        <TextView
+            android:id="@+id/textChangePwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:minWidth="80dp"
+            android:text="修改密码"
+            android:textColor="@color/c1"
+            android:textSize="@dimen/f2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/textChangePwd"
+            android:src="@drawable/icon_modifypassword" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutBind"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner6dp_white_solid"
-        android:gravity="center"
-        android:text="绑定手机号码"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f2" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
-    <TextView
-        android:id="@+id/textExit"
+        <TextView
+            android:id="@+id/textBind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:minWidth="80dp"
+            android:text="绑定手机"
+            android:textColor="@color/c1"
+            android:textSize="@dimen/f2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/textBind"
+            android:src="@drawable/icon_bindmobilephone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutExit"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/sr_bg_corner6dp_c2_solid"
-        android:gravity="center"
-        android:text="退出登录"
-        android:textColor="@color/white"
-        android:textSize="@dimen/f2" />
+        android:background="@drawable/sr_bg_corner360dp_white_solid"
+        android:padding="3dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/sr_bg_ov_red"
+            android:gravity="center"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f1" />
+    </RelativeLayout>
 </LinearLayout>

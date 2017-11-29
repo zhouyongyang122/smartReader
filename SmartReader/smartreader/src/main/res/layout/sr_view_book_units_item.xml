@@ -11,7 +11,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid">
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
         <ImageView
             android:id="@+id/imgBg"
@@ -34,7 +34,7 @@
             android:singleLine="true"
             android:text="Unit One"
             android:textColor="@color/c1"
-            android:textSize="@dimen/f2" />
+            android:textSize="@dimen/f1" />
 
         <TextView
             android:id="@+id/textTitle"
@@ -48,6 +48,6 @@
             android:singleLine="true"
             android:text="Unit One"
             android:textColor="@color/c1"
-            android:textSize="@dimen/f4" />
+            android:textSize="@dimen/f3" />
     </RelativeLayout>
 </RelativeLayout>

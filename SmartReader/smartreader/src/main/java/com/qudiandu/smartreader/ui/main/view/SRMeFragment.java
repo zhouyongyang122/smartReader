@@ -54,7 +54,7 @@ public class SRMeFragment extends ZYBaseFragment {
         return view;
     }
 
-    @OnClick({R.id.textEdit, R.id.textMyAudio, R.id.textLogin, R.id.textFeedBack, R.id.textSet})
+    @OnClick({R.id.textEdit, R.id.layoutMyAudio, R.id.textLogin, R.id.layoutFeedBack, R.id.layoutSet})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textEdit:
@@ -63,13 +63,13 @@ public class SRMeFragment extends ZYBaseFragment {
             case R.id.textLogin:
                 mActivity.startActivity(SRLoginActivity.createIntent(mActivity));
                 break;
-            case R.id.textFeedBack:
+            case R.id.layoutFeedBack:
                 startActivity(new Intent(mActivity, SRFeedBackActivity.class));
                 break;
-            case R.id.textSet:
+            case R.id.layoutSet:
                 mActivity.startActivity(new Intent(mActivity, SRSetActivity.class));
                 break;
-            case R.id.textMyAudio:
+            case R.id.layoutMyAudio:
                 if (SRUserManager.getInstance().isGuesterUser(true)) {
                     return;
                 }
