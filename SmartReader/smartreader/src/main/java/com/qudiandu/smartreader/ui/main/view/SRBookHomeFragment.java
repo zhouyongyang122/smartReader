@@ -12,13 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
-import com.qudiandu.smartreader.base.view.ZYRoudCornerRelativeLayout;
 import com.qudiandu.smartreader.ui.main.contract.SRBookHomeContract;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
@@ -30,7 +30,6 @@ import com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookHomeSetVH;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
 import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.utils.ZYLog;
-import com.qudiandu.smartreader.utils.ZYResourceUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 
 import java.util.ArrayList;
@@ -65,13 +64,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     RelativeLayout layoutBottomBar;
 
     @Bind(R.id.layout_score)
-    ZYRoudCornerRelativeLayout layout_score;
-
-    @Bind(R.id.textScore)
-    TextView textScore;
-
-    @Bind(R.id.textScoreTip)
-    TextView textScoreTip;
+    LinearLayout layout_score;
 
     @Bind(R.id.textSingle)
     TextView textSingle;
@@ -85,11 +78,11 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     @Bind(R.id.layoutRepeats)
     RelativeLayout layoutRepeats;
 
-    @Bind(R.id.textStop)
-    TextView textStop;
+    @Bind(R.id.imgStop)
+    ImageView imgStop;
 
-    @Bind(R.id.textPause)
-    TextView textPause;
+    @Bind(R.id.imgPause)
+    ImageView imgPause;
 
     @Bind(R.id.layoutSelTip)
     RelativeLayout layoutSelTip;
@@ -111,6 +104,8 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     private boolean isSelectingRepeats;
 
     private boolean isShowTrans;
+
+    boolean isPuase;
 
     @Nullable
     @Override
@@ -154,7 +149,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
         viewPage.setCurrentItem(mPresenter.getBookData().lastPageIndex);
     }
 
-    @OnClick({R.id.imgBack, R.id.textSet, R.id.imgMenu, R.id.layout_score, R.id.textSingle, R.id.textRepeat, R.id.textStop, R.id.textPause, R.id.textSelCancle})
+    @OnClick({R.id.imgBack, R.id.textSet, R.id.imgMenu, R.id.layout_score, R.id.textSingle, R.id.textRepeat, R.id.imgStop, R.id.imgPause, R.id.textSelCancle})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
@@ -179,7 +174,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
             break;
             case R.id.layout_score: {
                 SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
-                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id,page.getCatalogueId() + ""));
+                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id, page.getCatalogueId() + ""));
                 if (mPresenter.isSingleRepeat()) {
                     mPresenter.stopSingleRepeat();
                 }
@@ -195,24 +190,27 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
                 mPresenter.setRepeats(true);
                 layoutSelTip.setVisibility(View.VISIBLE);
                 textSelTip.setText("请点击选择复读起点区域");
-                textPause.setText("暂停");
+                imgPause.setImageResource(R.drawable.cq_icon_suspend);
+                isPuase = false;
                 layoutBottomBar.setVisibility(View.GONE);
                 isSelectingRepeats = true;
                 SRPlayManager.getInstance().setPagePlayListener(this);
                 break;
-            case R.id.textStop:
+            case R.id.imgStop:
                 mPresenter.stopRepeats();
                 layoutBottomBar.setVisibility(View.VISIBLE);
                 layoutRepeats.setVisibility(View.GONE);
                 onTractPlayComplete(null);
                 break;
-            case R.id.textPause:
-                if (textPause.getText().toString().equals("播放")) {
-                    textPause.setText("暂停");
+            case R.id.imgPause:
+                if (isPuase) {
+                    imgPause.setImageResource(R.drawable.cq_icon_suspend);
+                    isPuase = false;
                     mPresenter.continueRepeats();
                 } else {
-                    textPause.setText("播放");
+                    imgPause.setImageResource(R.drawable.cq_icon_play);
                     mPresenter.puaseRepeats();
+                    isPuase = true;
                 }
                 break;
             case R.id.textSelCancle:
@@ -254,22 +252,19 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
         }
 
         mPresenter.onSelecteTrack(tract);
-
-//        SRMarkBean markBean = SRMarkBean.queryById(SRMarkBean.getMarkId(mPresenter.getBookData().book_id, tract.getPage_id() + "", tract.getTrack_id() + ""));
-//        refreshScore(markBean == null ? 0 : markBean.score);
     }
 
     private void refreshScore(int score) {
-        if (score > 0) {
-            textScore.setText(score + "");
-            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c9));
-            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
-
-        } else {
-            textScore.setText("配音");
-            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
-            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c1));
-        }
+//        if (score > 0) {
+//            textScore.setText(score + "");
+//            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c9));
+//            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
+//
+//        } else {
+//            textScore.setText("配音");
+//            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
+//            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c1));
+//        }
     }
 
     @Override

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent80"
+    android:background="@color/transparent90"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -22,7 +22,7 @@
             android:gravity="center"
             android:text="目录"
             android:textColor="@color/white"
-            android:textSize="@dimen/f2"
+            android:textSize="@dimen/f1"
             android:visibility="visible" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:gravity="center"
             android:text="关闭"
             android:textColor="@color/white"
-            android:textSize="@dimen/f2"
+            android:textSize="@dimen/f1"
             android:visibility="visible" />
     </RelativeLayout>
 
