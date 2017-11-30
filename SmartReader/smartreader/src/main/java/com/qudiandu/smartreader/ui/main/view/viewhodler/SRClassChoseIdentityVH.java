@@ -2,6 +2,7 @@ package com.qudiandu.smartreader.ui.main.view.viewhodler;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
@@ -22,7 +23,12 @@ public class SRClassChoseIdentityVH extends ZYBaseViewHolder<Object> {
     @Bind(R.id.imgTeacher)
     ImageView imgTeacher;
 
+    @Bind(R.id.layoutSure)
+    RelativeLayout layoutSure;
+
     ClassChoseIdentityListener listener;
+
+    boolean isChoseTeacher;
 
     public SRClassChoseIdentityVH(ClassChoseIdentityListener listener) {
         this.listener = listener;
@@ -38,17 +44,30 @@ public class SRClassChoseIdentityVH extends ZYBaseViewHolder<Object> {
         return R.layout.sr_view_class_chose_identity;
     }
 
-    @OnClick({R.id.imgStudent, R.id.imgTeacher})
+    @OnClick({R.id.imgStudent, R.id.imgTeacher, R.id.layoutSure})
     public void onClick(View view) {
         if (SRUserManager.getInstance().isGuesterUser(true)) {
             return;
         }
         switch (view.getId()) {
             case R.id.imgTeacher:
-                listener.onTeacherClick();
+                isChoseTeacher = true;
+                imgStudent.setSelected(false);
+                imgTeacher.setSelected(true);
+                layoutSure.setVisibility(View.VISIBLE);
                 break;
             case R.id.imgStudent:
-                listener.onStudentClick();
+                isChoseTeacher = false;
+                imgStudent.setSelected(true);
+                imgTeacher.setSelected(false);
+                layoutSure.setVisibility(View.VISIBLE);
+                break;
+            case R.id.layoutSure:
+                if (isChoseTeacher) {
+                    listener.onTeacherClick();
+                } else {
+                    listener.onStudentClick();
+                }
                 break;
         }
     }

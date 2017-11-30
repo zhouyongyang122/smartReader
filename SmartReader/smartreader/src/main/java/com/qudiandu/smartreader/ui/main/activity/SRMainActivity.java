@@ -151,26 +151,17 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         if (mCurrentPage == MAIN_HOME_INDEX) {
             homeImg.setSelected(true);
             meImg.setSelected(false);
-            homeName.setTextColor(getResources().getColor(R.color.white));
-            meName.setTextColor(getResources().getColor(R.color.black));
             classImg.setSelected(false);
-            className.setTextColor(getResources().getColor(R.color.black));
             classFragment.cancleManager();
             homeFragment.refreshMsgRemind();
         } else if (mCurrentPage == MAIN_CLASS_INDEX) {
+            classImg.setSelected(true);
             homeImg.setSelected(false);
             meImg.setSelected(false);
-            homeName.setTextColor(getResources().getColor(R.color.black));
-            meName.setTextColor(getResources().getColor(R.color.black));
-            classImg.setSelected(true);
-            className.setTextColor(getResources().getColor(R.color.white));
         } else if (mCurrentPage == MAIN_ME_INDEX) {
-            homeImg.setSelected(false);
             meImg.setSelected(true);
+            homeImg.setSelected(false);
             classImg.setSelected(false);
-            className.setTextColor(getResources().getColor(R.color.black));
-            homeName.setTextColor(getResources().getColor(R.color.black));
-            meName.setTextColor(getResources().getColor(R.color.white));
             classFragment.cancleManager();
         }
         showTitle(fragmentAdapter.getPageTitle(position).toString());

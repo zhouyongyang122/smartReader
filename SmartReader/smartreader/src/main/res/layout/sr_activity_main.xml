@@ -35,8 +35,8 @@
 
             <ImageView
                 android:id="@+id/homeImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/sr_selector_main_home_img" />
 
@@ -46,9 +46,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/homeImg"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
                 android:text="首页"
-                android:textColor="@color/black"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/c8"
+                android:textSize="@dimen/f3" />
 
         </RelativeLayout>
 
@@ -61,8 +62,8 @@
 
             <ImageView
                 android:id="@+id/classImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/sr_selector_main_class_img" />
 
@@ -72,9 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/classImg"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
                 android:text="班级"
-                android:textColor="@color/black"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/c8"
+                android:textSize="@dimen/f3" />
 
         </RelativeLayout>
 
@@ -87,8 +89,8 @@
 
             <ImageView
                 android:id="@+id/meImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/sr_selector_main_me_img" />
 
@@ -98,9 +100,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/meImg"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
                 android:text="我"
-                android:textColor="@color/white"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/c8"
+                android:textSize="@dimen/f3" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

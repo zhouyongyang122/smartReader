@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/c1"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <TextView
@@ -15,56 +17,53 @@
         android:textSize="@dimen/f1" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="90dp"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_width="116dp"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imgStudent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/student" />
+                android:layout_height="116dp"
+                android:src="@drawable/sr_selector_student" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/imgStudent"
-                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/imgStudent"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="我是学生"
-                android:textColor="@color/c6"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/c8"
+                android:textSize="@dimen/f3" />
         </RelativeLayout>
 
 
         <RelativeLayout
-            android:layout_width="0dp"
+            android:layout_width="116dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginLeft="30dp">
 
             <ImageView
                 android:id="@+id/imgTeacher"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/teacher" />
+                android:layout_height="116dp"
+                android:src="@drawable/sr_selector_teacher" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/imgTeacher"
-                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/imgTeacher"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="我是老师"
-                android:textColor="@color/c6"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/c8"
+                android:textSize="@dimen/f3" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -97,6 +96,8 @@
         android:layout_height="50dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        tools:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="40dp"
         android:background="@drawable/sr_bg_corner360dp_white_solid"
         android:padding="3dp">
