@@ -8,17 +8,13 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.main.model.bean.SRVersion;
-import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkResponse;
-import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
+import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkResponse;
 import com.qudiandu.smartreader.ui.set.model.bean.SRRemind;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**

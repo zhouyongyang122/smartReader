@@ -1,4 +1,4 @@
-package com.qudiandu.smartreader.ui.mark.model;
+package com.qudiandu.smartreader.ui.dubbing.model;
 
 import android.text.TextUtils;
 
@@ -13,10 +13,10 @@ import java.util.Map;
 import rx.Observable;
 
 /**
- * Created by ZY on 17/4/2.
+ * Created by ZY on 17/12/1.
  */
 
-public class SRMarkModel extends ZYBaseModel {
+public class SRDubbingModel extends ZYBaseModel {
 
     public Observable<ZYResponse<SRMarkResponse>> trackAdd(Map<String, String> params) {
         return mApi.trackAdd(params);

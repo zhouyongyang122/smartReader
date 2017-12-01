@@ -1,4 +1,4 @@
-package com.qudiandu.smartreader.ui.mark.model.bean;
+package com.qudiandu.smartreader.ui.dubbing.model.bean;
 
 import android.text.TextUtils;
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
-import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkBean;
+import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import java.util.List;

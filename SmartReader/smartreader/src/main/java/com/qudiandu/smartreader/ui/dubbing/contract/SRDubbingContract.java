@@ -1,4 +1,4 @@
-package com.qudiandu.smartreader.ui.mark.contract;
+package com.qudiandu.smartreader.ui.dubbing.contract;
 
 import com.qudiandu.smartreader.base.mvp.ZYIBasePresenter;
 import com.qudiandu.smartreader.base.mvp.ZYIBaseView;
@@ -9,10 +9,10 @@ import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
 import java.util.ArrayList;
 
 /**
- * Created by ZY on 17/4/2.
+ * Created by ZY on 17/12/1.
  */
 
-public interface SRMarkContract {
+public interface SRDubbingContract {
 
     interface IView extends ZYIBaseView<IPresenter> {
         void uploadAudioSuc(SRMarkBean markBean);
@@ -21,12 +21,16 @@ public interface SRMarkContract {
 
     interface IPresenter extends ZYIBasePresenter {
 
+        int getPageId();
+
         String getGroupId();
 
-        void uploadTractAudio(SRTract tract);
+        void uploadTractAudio();
 
-        ArrayList<SRTract> getTracks();
+        SRTract getTrack();
 
-        void uploadMergedTractAudio();
+        String getCatalogueId();
+
+        String getTaskId();
     }
 }

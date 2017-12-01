@@ -28,7 +28,7 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookHomeMenuVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookHomeSetVH;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
-import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkBean;
+import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYToast;
 

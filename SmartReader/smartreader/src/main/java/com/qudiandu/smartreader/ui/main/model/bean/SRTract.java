@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.bean.ZYIBaseBean;
-import com.qudiandu.smartreader.ui.mark.model.bean.SRMarkBean;
+import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
 
 /**
  * Created by ZY on 17/3/28.
