@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:gravity="bottom"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:background="@color/c1"
+    android:orientation="horizontal"
+    android:paddingTop="10dp">
 
     <View
         android:layout_width="10dp"
         android:layout_height="18dp"
-        android:background="@color/c11" />
+        android:background="@color/c11"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:layout_weight="1"
         android:gravity="bottom"
         android:text="标题"

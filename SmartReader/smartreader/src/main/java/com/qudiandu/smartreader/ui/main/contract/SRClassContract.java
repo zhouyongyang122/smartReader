@@ -39,6 +39,8 @@ public interface SRClassContract {
 
         void refreshClasss();
 
+        List<String> getClassNames();
+
         List<Object> getData();
 
         void loadTasks(boolean isRefresh);

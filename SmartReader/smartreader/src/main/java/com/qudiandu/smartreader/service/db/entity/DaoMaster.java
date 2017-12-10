@@ -21,17 +21,17 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
+        SRMarkBeanDao.createTable(db, ifNotExists);
         SRUserDao.createTable(db, ifNotExists);
         SRBookDao.createTable(db, ifNotExists);
-        SRMarkBeanDao.createTable(db, ifNotExists);
         SRTaskListenHistoryDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
+        SRMarkBeanDao.dropTable(db, ifExists);
         SRUserDao.dropTable(db, ifExists);
         SRBookDao.dropTable(db, ifExists);
-        SRMarkBeanDao.dropTable(db, ifExists);
         SRTaskListenHistoryDao.dropTable(db, ifExists);
     }
 
@@ -51,9 +51,9 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
+        registerDaoClass(SRMarkBeanDao.class);
         registerDaoClass(SRUserDao.class);
         registerDaoClass(SRBookDao.class);
-        registerDaoClass(SRMarkBeanDao.class);
         registerDaoClass(SRTaskListenHistoryDao.class);
     }
 

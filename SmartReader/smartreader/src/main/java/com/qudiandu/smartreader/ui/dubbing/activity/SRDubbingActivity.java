@@ -14,10 +14,15 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
+import com.qudiandu.smartreader.thirdParty.translate.TranslateRequest;
+import com.qudiandu.smartreader.thirdParty.translate.YouDaoBean;
 import com.qudiandu.smartreader.ui.dubbing.presenter.SRDubbingPresenter;
 import com.qudiandu.smartreader.ui.dubbing.view.SRDubbingFragment;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
+import com.qudiandu.smartreader.ui.mark.view.SRTranslateVH;
+import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
+import com.qudiandu.smartreader.utils.ZYToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +34,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/12/1.
  */
 
-public class SRDubbingActivity extends ZYBaseActivity {
+public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragment.TranslateListener {
 
     static final String TRACTS = "tracts";
     static final String BOOK_ID = "book_id";
@@ -78,6 +83,8 @@ public class SRDubbingActivity extends ZYBaseActivity {
 
     List<SRDubbingFragment> mFragments = new ArrayList<>();
 
+    SRTranslateVH translateVH;
+
     ArrayList<SRTract> mTracts;
     String mBookId;
     String mCatalogueId;
@@ -102,6 +109,7 @@ public class SRDubbingActivity extends ZYBaseActivity {
         int pageIndex = 0;
         for (SRTract tract : mTracts) {
             fragment = new SRDubbingFragment();
+            fragment.setTranslateListener(this);
             new SRDubbingPresenter(fragment, tract, mCatalogueId, mTaskId, mGroupId, pageIndex);
             mFragments.add(fragment);
             pageIndex++;
@@ -139,6 +147,36 @@ public class SRDubbingActivity extends ZYBaseActivity {
             case R.id.layoutSubmit:
                 break;
         }
+    }
+
+    @Override
+    public void onTranslate(String word) {
+        ZYLog.e(getClass().getSimpleName(), "translate: " + word);
+        if (translateVH == null) {
+            translateVH = new SRTranslateVH();
+            translateVH.attachTo(mRootView);
+        }
+        translateVH.show(null);
+        TranslateRequest.getRequest().translate(word, new TranslateRequest.TranslateRequestCallBack() {
+            @Override
+            public void translateCallBack(YouDaoBean translateBean, String errorMsg) {
+                if (translateBean != null) {
+                    translateVH.show(translateBean);
+                } else {
+                    ZYToast.show(SRDubbingActivity.this, errorMsg == null ? "网络错误,请重试尝试!" : errorMsg);
+                    translateVH.hide();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (translateVH != null && translateVH.isVisibility()) {
+            translateVH.hide();
+            return;
+        }
+        super.onBackPressed();
     }
 
     private class DubbingAdapter extends FragmentStatePagerAdapter {

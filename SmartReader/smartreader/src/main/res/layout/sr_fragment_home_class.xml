@@ -19,50 +19,41 @@
 
         <TextView
             android:id="@+id/textCreate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="63dp"
+            android:layout_height="27dp"
             android:layout_centerVertical="true"
-            android:text="添加班级"
-            android:visibility="invisible"
-            tools:visibility="visible"
+            android:background="@drawable/sr_bg_corner4dp_white_c2"
+            android:gravity="center"
+            android:text="+ 班级"
             android:textColor="@color/white"
-            android:textSize="@dimen/f4" />
+            android:textSize="@dimen/f3"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
-        <LinearLayout
-            android:id="@+id/layoutTitle"
+        <TextView
+            android:id="@+id/textTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:id="@+id/textTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text=""
-                android:textColor="@color/white"
-                android:textSize="@dimen/f3" />
-
-            <ImageView
-                android:id="@+id/imgArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/sr_selector_arrow" />
-        </LinearLayout>
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/f3" />
 
         <TextView
             android:id="@+id/textAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="27dp"
             android:layout_centerVertical="true"
-            android:text="添加作业"
+            android:background="@drawable/sr_bg_corner4dp_white_c2"
+            android:gravity="center"
+            android:text="布置任务"
             android:textColor="@color/white"
-            android:textSize="@dimen/f4" />
+            android:textSize="@dimen/f3" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +73,7 @@
             android:layout_centerVertical="true"
             android:text="数据请求中..."
             android:textColor="@color/white"
-            android:textSize="@dimen/f4" />
+            android:textSize="@dimen/f1" />
     </LinearLayout>
 
     <View
@@ -127,17 +118,8 @@
             android:id="@+id/sRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/c2"
+            android:background="@color/c1"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.CoordinatorLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutClassRoot"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="41dp"
-        android:orientation="vertical">
-
-    </LinearLayout>
 
 </RelativeLayout>

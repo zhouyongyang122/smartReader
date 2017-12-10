@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
+import com.qudiandu.smartreader.ui.dubbing.activity.SRDubbingActivity;
 import com.qudiandu.smartreader.ui.main.contract.SRBookHomeContract;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
@@ -174,7 +175,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
             break;
             case R.id.layout_score: {
                 SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
-                mActivity.startActivity(SRMarkActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id, page.getCatalogueId() + ""));
+                mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id, page.getCatalogueId() + "",page.getPage_name()));
                 if (mPresenter.isSingleRepeat()) {
                     mPresenter.stopSingleRepeat();
                 }

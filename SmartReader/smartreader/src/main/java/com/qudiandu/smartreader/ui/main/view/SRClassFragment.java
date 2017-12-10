@@ -9,29 +9,26 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
-import com.qudiandu.smartreader.base.event.SREventSelectedBook;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.base.view.ZYLoadingView;
+import com.qudiandu.smartreader.base.view.ZYOptionPicker;
 import com.qudiandu.smartreader.base.view.ZYRefreshListener;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
-import com.qudiandu.smartreader.ui.main.activity.SRClassDetailActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRCreateClassActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRGradeActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRJoinClassActivity;
 import com.qudiandu.smartreader.ui.main.contract.SRClassContract;
 import com.qudiandu.smartreader.ui.main.model.SRBookFileManager;
-import com.qudiandu.smartreader.ui.main.model.SRBookSelectManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
@@ -39,8 +36,6 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRTaskTitle;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassChoseIdentityVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassDetailHeaderVH;
-import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassListVH;
-import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassOrganizationCodeVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskItemVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskTitleVH;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
@@ -50,7 +45,6 @@ import com.qudiandu.smartreader.ui.task.activity.SRTaskListenActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskProblemActivity;
 import com.qudiandu.smartreader.ui.task.model.SRTaskManager;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
-import com.qudiandu.smartreader.utils.ZYStatusBarUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,6 +54,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.OptionPicker;
 
 /**
  * Created by ZY on 17/7/22.
@@ -67,7 +62,6 @@ import butterknife.OnClick;
 
 public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> implements SRClassContract.IView,
         SRClassChoseIdentityVH.ClassChoseIdentityListener,
-        SRClassListVH.ClassListListener,
         SRClassTaskItemVH.ClassTaskItemListener,
         SRClassTaskTitleVH.ClassTaskTitleListener {
 
@@ -84,9 +78,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Bind(R.id.textWait)
     TextView textWait;
 
-    @Bind(R.id.layoutClassRoot)
-    LinearLayout layoutClassRoot;
-
     @Bind(R.id.layoutAction)
     LinearLayout layoutAction;
 
@@ -95,8 +86,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Bind(R.id.textTitle)
     TextView textTitle;
-    @Bind(R.id.imgArrow)
-    ImageView imgArrow;
 
     @Bind(R.id.textAdd)
     TextView textAdd;
@@ -112,8 +101,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     SRClassDetailHeaderVH detailHeaderVH;
 
     SRClassChoseIdentityVH choseIdentityVH;
-
-    SRClassListVH classListVH;
 
     private boolean mIsEdit;
 
@@ -229,23 +216,28 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
             }
         });
 
-        detailHeaderVH = new SRClassDetailHeaderVH();
+        detailHeaderVH = new SRClassDetailHeaderVH(new SRClassDetailHeaderVH.ClassDetailHeaderListener() {
+            @Override
+            public void onClassChangeClick() {
+                new ZYOptionPicker(mActivity, mPresenter.getClassNames(), new OptionPicker.OnOptionPickListener() {
+                    @Override
+                    public void onOptionPicked(int positon, String item) {
+                        mPresenter.setSelectClass(positon);
+                        textTitle.setText(item);
+                        detailHeaderVH.updateView(mPresenter.getCurrentClass(), 0);
+                    }
+                }).show();
+            }
+        });
         detailHeaderVH.attachTo(layoutHeader);
 
         sRecyclerView.setAdapter(adapter);
         sRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
 
-        classListVH = new SRClassListVH(this);
-        classListVH.attachTo(layoutClassRoot);
     }
 
-    @OnClick({R.id.layoutTitle, R.id.textCreate, R.id.textAdd})
+    @OnClick({R.id.textCreate, R.id.textAdd})
     public void onClick(View view) {
-        if (classListVH != null && classListVH.isvisiable()) {
-            imgArrow.setSelected(false);
-            classListVH.hide();
-            return;
-        }
         switch (view.getId()) {
             case R.id.textAdd:
                 if (SRUserManager.getInstance().getUser().isStudent()) {
@@ -261,15 +253,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
             case R.id.textCreate:
                 //新增班级
                 mActivity.startActivity(SRCreateClassActivity.createIntent(mActivity));
-                break;
-            case R.id.layoutTitle:
-                if (classListVH.isvisiable()) {
-                    imgArrow.setSelected(false);
-                    classListVH.hide();
-                } else {
-                    imgArrow.setSelected(true);
-                    classListVH.updateView(mPresenter.getClasses(), 0);
-                }
                 break;
         }
     }
@@ -379,14 +362,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
         loadingView.showEmpty();
     }
 
-    @Override
-    public void onClassSelecte(SRClass value, int positon) {
-        classListVH.hide();
-        mPresenter.setSelectClass(positon);
-        textTitle.setText(value.class_name);
-        imgArrow.setSelected(false);
-        detailHeaderVH.updateView(value, 0);
-    }
 
     @Override
     public void onFinisheTask(final SRTask task) {
@@ -480,9 +455,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     public void onPause() {
         super.onPause();
         cancleManager();
-        if (classListVH != null && classListVH.isvisiable()) {
-            classListVH.hide();
-        }
     }
 
     void showChoseIdentityVH() {
@@ -502,9 +474,6 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     public void cancleManager() {
         if (mIsEdit && adapter != null) {
             onTaskManagerClick(true);
-        }
-        if (classListVH != null && classListVH.isvisiable()) {
-            classListVH.hide();
         }
     }
 

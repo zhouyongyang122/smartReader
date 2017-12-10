@@ -3,6 +3,7 @@ package com.qudiandu.smartreader.ui.main.view.viewhodler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -30,7 +31,7 @@ public class SRClassDetailItemVH extends ZYBaseViewHolder<SRUser> {
         super.findView(view);
         int itemWidth = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 20)) / 5;
         int imgWidth = itemWidth - ZYScreenUtils.dp2px(mContext, 20);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imgAvatar.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imgAvatar.getLayoutParams();
         layoutParams.height = imgWidth;
         imgAvatar.setLayoutParams(layoutParams);
     }

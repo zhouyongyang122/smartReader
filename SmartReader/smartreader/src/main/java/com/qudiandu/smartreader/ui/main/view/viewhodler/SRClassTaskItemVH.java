@@ -12,6 +12,7 @@ import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskCommentedActivity;
+import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -59,7 +60,7 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
             mPosition = position;
             mItemView.setVisibility(View.VISIBLE);
             mData = (SRTask) data;
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, mData.page_url);
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgBg, mData.page_url, ZYScreenUtils.dp2px(mContext, 6));
             textSubTitle.setText(mData.title);
             textFinish.setVisibility(View.VISIBLE);
             if (mData.isEdit) {
@@ -105,9 +106,9 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
         if (mData.isFinished()) {
             textScore.setVisibility(View.VISIBLE);
             textScore.setText(mData.finish.get(0).score + "");
-            if(mData.finish.get(0).score < 60){
+            if (mData.finish.get(0).score < 60) {
                 textScore.setBackgroundResource(R.drawable.unpass);
-            }else {
+            } else {
                 textScore.setBackgroundResource(R.drawable.pass);
             }
             if (mData.hasComment()) {

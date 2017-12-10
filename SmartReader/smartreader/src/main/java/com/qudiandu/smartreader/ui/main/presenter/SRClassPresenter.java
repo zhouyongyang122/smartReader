@@ -345,6 +345,14 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
         return mCurrentClassPosition;
     }
 
+    public List<String> getClassNames() {
+        List<String> names = new ArrayList<String>();
+        for (SRClass srClass : mClasses) {
+            names.add(srClass.class_name);
+        }
+        return names;
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(SREventIdentityChange identityChange) {
         mCurrentClass = null;

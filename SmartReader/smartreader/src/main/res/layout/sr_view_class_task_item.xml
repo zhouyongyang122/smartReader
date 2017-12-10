@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="135dp"
+    android:layout_height="109dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -11,12 +11,12 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid">
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
         <ImageView
             android:id="@+id/imgBg"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
+            android:layout_width="105dp"
+            android:layout_height="74dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:src="@drawable/def_bg" />
@@ -28,9 +28,8 @@
             android:layout_alignTop="@+id/imgBg"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:maxLines="1"
             android:layout_toRightOf="@+id/imgBg"
+            android:maxLines="1"
             android:text="标题标题"
             android:textColor="@color/c1"
             android:textSize="@dimen/f3" />
@@ -42,26 +41,26 @@
             android:layout_below="@+id/textTitle"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/imgBg"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text="副标题标题"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f6" />
+            android:textColor="@color/c7"
+            android:textSize="@dimen/f3" />
 
         <TextView
             android:id="@+id/textFinishNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textSubTitle"
+            android:layout_alignBottom="@+id/imgBg"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/imgBg"
             android:text="完成度 11/22"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f5"
+            android:textColor="@color/c7"
+            android:textSize="@dimen/f4"
             android:visibility="gone"
             tools:visibility="visible" />
 

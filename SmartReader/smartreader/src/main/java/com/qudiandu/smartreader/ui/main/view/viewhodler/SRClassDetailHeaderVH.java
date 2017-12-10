@@ -29,13 +29,22 @@ public class SRClassDetailHeaderVH extends ZYBaseViewHolder<SRClass> {
     @Bind(R.id.textCode)
     TextView textCode;
 
+    @Bind(R.id.textClassUser)
+    TextView textClassUser;
+
     SRClass mData;
+
+    ClassDetailHeaderListener mListener;
+
+    public SRClassDetailHeaderVH(ClassDetailHeaderListener listener) {
+        mListener = listener;
+    }
 
     @Override
     public void updateView(SRClass data, int position) {
         if (data != null) {
             mData = data;
-        }else {
+        } else {
             mItemView.setVisibility(View.GONE);
         }
 
@@ -47,7 +56,7 @@ public class SRClassDetailHeaderVH extends ZYBaseViewHolder<SRClass> {
         }
     }
 
-    @OnClick({R.id.textCode, R.id.textUsers})
+    @OnClick({R.id.textCode, R.id.textUsers, R.id.textClassUser})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textCode:
@@ -58,11 +67,18 @@ public class SRClassDetailHeaderVH extends ZYBaseViewHolder<SRClass> {
             case R.id.textUsers://班级详情
                 mContext.startActivity(SRClassDetailActivity.createIntent(mContext, mData));
                 break;
+            case R.id.textClassUser:
+                mListener.onClassChangeClick();
+                break;
         }
     }
 
     @Override
     public int getLayoutResId() {
         return R.layout.sr_view_class_detail_header;
+    }
+
+    public interface ClassDetailHeaderListener {
+        void onClassChangeClick();
     }
 }

@@ -7,11 +7,18 @@
     android:paddingRight="10dp"
     android:paddingTop="20dp">
 
-    <ImageView
-        android:id="@+id/imgAvatar"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/def_avatar" />
+        android:background="@drawable/sr_bg_corner360dp_white_solid"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/def_avatar" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textName"
@@ -21,7 +28,7 @@
         android:gravity="center"
         android:singleLine="true"
         android:text="周咏炀"
-        android:textColor="@color/c5"
-        android:textSize="@dimen/f6" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/f3" />
 
 </LinearLayout>
