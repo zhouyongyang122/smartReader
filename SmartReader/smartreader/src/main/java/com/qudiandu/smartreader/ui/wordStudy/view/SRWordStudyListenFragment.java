@@ -20,6 +20,7 @@ import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyListenInputWordVH;
+import com.qudiandu.smartreader.utils.ZYLog;
 
 import java.util.ArrayList;
 
@@ -97,6 +98,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ZYLog.e(SRWordStudyListenFragment.class.getSimpleName(), "onTextChanged: " + s.toString());
             }
 
             @Override
@@ -104,6 +106,8 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                 if (s.toString().length() == 0) {
                     return;
                 }
+
+                ZYLog.e(SRWordStudyListenFragment.class.getSimpleName(), "afterTextChanged: " + s.toString());
 
                 if (builder.length() < inputWordVHS.size()) {
                     builder.append(s.toString());
@@ -170,6 +174,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
 
     public void showSoftInput() {
         editWords.requestFocus();
+        editWords.setFocusable(true);
         InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editWords, 0);
     }

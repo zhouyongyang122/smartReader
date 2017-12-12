@@ -9,12 +9,12 @@
         android:id="@+id/editWords"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@null"
+        android:background="@color/c2"
         android:cursorVisible="false"
         android:gravity="center"
         android:inputType="textPhonetic"
         android:maxLength="16"
-        android:text="测试测试"
+        android:text=""
         android:textColor="@color/c1" />
 
     <LinearLayout
