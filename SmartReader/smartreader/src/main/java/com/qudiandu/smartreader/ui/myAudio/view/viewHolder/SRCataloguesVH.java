@@ -10,6 +10,7 @@ import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
 import com.qudiandu.smartreader.utils.ZYDateUtils;
+import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -50,7 +51,7 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
     public void updateView(SRCatalogueNew data, int position) {
         if (data != null) {
             mData = data;
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPage_url(), R.drawable.def_bg, R.drawable.def_bg);
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgBg, data.getPage_url(), ZYScreenUtils.dp2px(mContext, 6), R.drawable.def_bg, R.drawable.def_bg);
             textUnit.setText(data.getUnit());
             textTitle.setText(data.getTitle());
 
