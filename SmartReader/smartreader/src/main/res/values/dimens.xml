@@ -11,4 +11,7 @@
     <dimen name="f8">10sp</dimen>
     <dimen name="f9">10sp</dimen>
     <!-- ================ui定义的常用字体大小=================-->
+
+    <dimen name="default_corner_radius">6dp</dimen>
+    <dimen name="default_shadow_radius">6dp</dimen>
 </resources>

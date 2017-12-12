@@ -113,7 +113,7 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
         rootView = inflater.inflate(R.layout.sr_fragment_dubbing, container, false);
         ButterKnife.bind(this, rootView);
 
-        textNum.setText(mPresenter.getPageId());
+        textNum.setText((mPresenter.getPageId() + 1) + "");
         dubbingWordVH = new SRDubbingWordVH();
         dubbingWordVH.attachTo(layoutScoreRoot);
 
@@ -130,10 +130,10 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
 
     private void refreshView() {
         SRMarkBean mMart = mPresenter.getTrack().getMarkBean();
-        layoutRecord.setVisibility(View.VISIBLE);
+        layoutPlayAudio.setVisibility(View.VISIBLE);
         layoutRecording.setVisibility(View.INVISIBLE);
         if (mMart.score > 0) {
-            layoutPlayAudio.setVisibility(View.VISIBLE);
+            layoutRecord.setVisibility(View.VISIBLE);
             layoutShare.setVisibility(View.VISIBLE);
             textScoreTip.setVisibility(View.INVISIBLE);
             textScore.setVisibility(View.VISIBLE);
@@ -152,7 +152,7 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
         } else {
             textScoreTip.setVisibility(View.VISIBLE);
             textScore.setVisibility(View.INVISIBLE);
-            layoutPlayAudio.setVisibility(View.GONE);
+            layoutRecord.setVisibility(View.GONE);
             layoutShare.setVisibility(View.GONE);
         }
 
@@ -464,7 +464,6 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
         Date date = new Date();
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
-
 
     public interface TranslateListener {
         void onTranslate(String word);

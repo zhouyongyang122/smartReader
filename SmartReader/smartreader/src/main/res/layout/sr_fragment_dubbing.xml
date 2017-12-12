@@ -1,276 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sr_bg_corner6dp_white_solid"
+    android:background="@color/c1"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.qudiandu.smartreader.base.view.ZYShadowLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:sl_cornerRadius="6dp"
+        app:sl_dy="1dp"
+        app:sl_shadowColor="#7fc1cbcc"
+        app:sl_shadowRadius="6dp">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textEn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="46dp"
-                android:gravity="center"
-                android:text="what's you name"
-                android:textColor="@color/c6"
-                android:textSize="@dimen/f1" />
-
-            <TextView
-                android:id="@+id/textCn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textEn"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="你叫什么名字啊"
-                android:textColor="@color/c6"
-                android:textSize="@dimen/f1" />
+            android:layout_height="match_parent"
+            android:background="@drawable/sr_bg_corner6dp_white_solid"
+            android:scrollbars="none">
 
             <RelativeLayout
-                android:id="@+id/layoutRecording"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textCn"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <com.qudiandu.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/progressView"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    zyCircleProgressView:bg_color="@color/c2"
-                    zyCircleProgressView:cur_progress="10"
-                    zyCircleProgressView:max_progress="100"
-                    zyCircleProgressView:progress_bg_color="@color/c7"
-                    zyCircleProgressView:progress_color="@color/white"
-                    zyCircleProgressView:stroke_width="8dp" />
-
-                <TextView
-                    android:id="@+id/textProgress"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:gravity="center"
-                    android:text="2.s"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/f2"
-                    android:visibility="visible" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/progressView"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:text="正在录音"
-                    android:textColor="@color/c7"
-                    android:textSize="@dimen/f3" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutRecord"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textCn"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:visibility="visible">
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/icon_sound_recording" />
+                android:paddingBottom="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="点击录音"
-                    android:textColor="@color/c7"
-                    android:textSize="@dimen/f3" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutAction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutRecord"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/layoutPlayAudio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/icon_playoriginalsound" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="播放原音"
-                        android:textColor="@color/c15"
-                        android:textSize="@dimen/f4" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutPlayRecord"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/icon_playvideo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="播放录音"
-                        android:textColor="@color/c7"
-                        android:textSize="@dimen/f4" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutShare"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/icon_share" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="点击分享"
-                        android:textColor="@color/c7"
-                        android:textSize="@dimen/f4" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutScoreTip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutAction"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="25dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1px"
-                    android:layout_weight="1"
-                    android:background="@color/c7" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textEn"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:text="评测成绩"
+                    android:layout_marginTop="46dp"
+                    android:gravity="center"
+                    android:text="what's you name"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f1" />
+
+                <TextView
+                    android:id="@+id/textCn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textEn"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="你叫什么名字啊"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f1" />
+
+                <RelativeLayout
+                    android:id="@+id/layoutRecording"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textCn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.qudiandu.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/progressView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        zyCircleProgressView:bg_color="@color/c2"
+                        zyCircleProgressView:cur_progress="10"
+                        zyCircleProgressView:max_progress="100"
+                        zyCircleProgressView:progress_bg_color="@color/c7"
+                        zyCircleProgressView:progress_color="@color/white"
+                        zyCircleProgressView:stroke_width="8dp" />
+
+                    <TextView
+                        android:id="@+id/textProgress"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="2.s"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/f2"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/progressView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:text="正在录音"
+                        android:textColor="@color/c7"
+                        android:textSize="@dimen/f3" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutRecord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textCn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/icon_sound_recording" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="点击录音"
+                        android:textColor="@color/c7"
+                        android:textSize="@dimen/f3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutAction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutRecord"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/layoutPlayAudio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/icon_playoriginalsound" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="播放原音"
+                            android:textColor="@color/c15"
+                            android:textSize="@dimen/f4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutPlayRecord"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/icon_playvideo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="播放录音"
+                            android:textColor="@color/c7"
+                            android:textSize="@dimen/f4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutShare"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/icon_share" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="点击分享"
+                            android:textColor="@color/c7"
+                            android:textSize="@dimen/f4" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutScoreTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutAction"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1px"
+                        android:layout_weight="1"
+                        android:background="@color/c7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="评测成绩"
+                        android:textColor="@color/c7"
+                        android:textSize="@dimen/f3" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1px"
+                        android:layout_weight="1"
+                        android:background="@color/c7" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textScoreTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutScoreTip"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="赶紧去录个音,看看能得多少分"
                     android:textColor="@color/c7"
                     android:textSize="@dimen/f3" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1px"
-                    android:layout_weight="1"
-                    android:background="@color/c7" />
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/textScore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutScoreTip"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="总分 98"
+                    android:textColor="@color/c7"
+                    android:textSize="@dimen/f3"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/textScoreTip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutScoreTip"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="赶紧去录个音,看看能得多少分"
-                android:textColor="@color/c7"
-                android:textSize="@dimen/f3" />
+                <RelativeLayout
+                    android:id="@+id/layoutScoreRoot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textScore"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="10dp">
 
-            <TextView
-                android:id="@+id/textScore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutScoreTip"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="总分 98"
-                android:textColor="@color/c7"
-                android:textSize="@dimen/f3"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-            <RelativeLayout
-                android:id="@+id/layoutScoreRoot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textScore"
-                android:gravity="center_horizontal"
-                android:paddingBottom="10dp">
-
+                </RelativeLayout>
             </RelativeLayout>
-        </RelativeLayout>
-    </ScrollView>
+        </ScrollView>
 
-    <TextView
-        android:id="@+id/textNum"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/page"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="1"
-        android:textColor="@color/c9"
-        android:textSize="@dimen/f1" />
+        <TextView
+            android:id="@+id/textNum"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/page"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="1"
+            android:textColor="@color/c9"
+            android:textSize="@dimen/f1" />
+    </com.qudiandu.smartreader.base.view.ZYShadowLayout>
 
 </RelativeLayout>

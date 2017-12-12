@@ -22,6 +22,7 @@ import com.qudiandu.smartreader.base.view.ZYRefreshListener;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
+import com.qudiandu.smartreader.ui.dubbing.activity.SRDubbingActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.activity.SRCreateClassActivity;
@@ -408,7 +409,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Override
     public void toFinishTask(SRTask task, ArrayList<SRTract> tracts) {
-        mActivity.startActivity(SRMarkActivity.createIntent(mActivity, tracts, task.book_id + "", task.catalogue_id + "", task.group_id + "", task.task_id + ""));
+        mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, tracts, task.book_id + "", task.catalogue_id + "", task.group_id + "", task.task_id + "",""));
     }
 
     @Override

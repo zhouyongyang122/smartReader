@@ -14,6 +14,7 @@ import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.book.contract.SRBookUnitsContract;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBookUnitsItemVH;
+import com.qudiandu.smartreader.ui.dubbing.activity.SRDubbingActivity;
 import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
@@ -62,7 +63,7 @@ public class SRBookUnitsFragment extends ZYBaseFragment<SRBookUnitsContract.IPre
 
     @Override
     public void toDubbing(ArrayList<SRTract> tracts, String bookId, String cateId) {
-        mActivity.startActivity(SRMarkActivity.createIntent(mActivity, tracts, bookId, cateId));
+        mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, tracts, bookId, cateId,""));
     }
 
     @Override

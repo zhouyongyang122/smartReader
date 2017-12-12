@@ -79,6 +79,9 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
     @Bind(R.id.textPage)
     TextView mTextPage;
 
+    @Bind(R.id.layoutSubmit)
+    RelativeLayout layoutSubmit;
+
     DubbingAdapter mAdapter;
 
     List<SRDubbingFragment> mFragments = new ArrayList<>();
@@ -115,14 +118,9 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
             pageIndex++;
         }
 
-        int width = ZYScreenUtils.getScreenWidth(this) - ZYScreenUtils.dp2px(this, 60);
-        float scale = 315.0f / 493.0f;
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViewPage.getLayoutParams();
-        layoutParams.height = (int) (width / scale);
-        mViewPage.setLayoutParams(layoutParams);
         mAdapter = new DubbingAdapter(getSupportFragmentManager());
         mViewPage.setAdapter(mAdapter);
-        mViewPage.setPageTransformer(false, new ScaleTransformer());
+//        mViewPage.setPageTransformer(false, new ScaleTransformer());
         mViewPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -132,6 +130,13 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
             @Override
             public void onPageSelected(int position) {
                 mTextPage.setText((position + 1) + "/" + mFragments.size());
+                if (position >= mFragments.size() - 1) {
+                    layoutSubmit.setVisibility(View.VISIBLE);
+                    mTextPage.setVisibility(View.GONE);
+                } else {
+                    mTextPage.setVisibility(View.VISIBLE);
+                    layoutSubmit.setVisibility(View.GONE);
+                }
             }
 
             @Override
