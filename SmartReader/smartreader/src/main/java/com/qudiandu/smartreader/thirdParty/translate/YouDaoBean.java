@@ -17,6 +17,9 @@ public class YouDaoBean implements ZYIBaseBean {
 
     public YouDaoBasic basic;
 
+    //例句
+    public List<Example> web;
+
     /**
      * 音标
      *
@@ -25,6 +28,24 @@ public class YouDaoBean implements ZYIBaseBean {
     public String getPhonetic() {
         if (basic != null && basic.phonetic != null) {
             return basic.phonetic;
+        }
+        return "";
+    }
+
+    public String getExample() {
+        String example = "";
+        try {
+            if (web != null && web.size() > 0) {
+                for (Example value : web) {
+                    example += "\n例句: " + value.key + "\n";
+                    for (String cn : value.value) {
+                        example += cn + "\n";
+                    }
+                }
+            }
+            return example;
+        } catch (Exception e) {
+
         }
         return "";
     }
@@ -51,4 +72,10 @@ public class YouDaoBean implements ZYIBaseBean {
         //词意
         public List<String> explains;
     }
+
+    public class Example implements ZYIBaseBean {
+        public String key;
+        public String[] value;
+    }
+
 }

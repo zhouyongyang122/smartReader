@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.iflytek.cloud.thirdparty.V;
 import com.qiniu.rs.CallBack;
 import com.qiniu.rs.CallRet;
 import com.qiniu.rs.UploadCallRet;
@@ -62,12 +60,6 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     @Bind(R.id.imgAvatar)
     ImageView mImgAvatar;
 
-    @Bind(R.id.textName)
-    TextView mTextName;
-
-    @Bind(R.id.textTime)
-    TextView mTextTime;
-
     @Bind(R.id.imgBg)
     ImageView mImgBg;
 
@@ -77,29 +69,23 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     @Bind(R.id.layoutVoice)
     RelativeLayout mLayoutVoice;
 
-    @Bind(R.id.textVoiceSize)
-    TextView mTextVoiceSize;
+    @Bind(R.id.imgVoice)
+    ImageView mImgVoice;
 
-    @Bind(R.id.layoutAnswerTip)
-    RelativeLayout mLayoutAnswerTip;
-
-    @Bind(R.id.imgTip)
-    ImageView mImgTip;
-
-    @Bind(R.id.textTip)
-    TextView mTextTip;
-
-    @Bind(R.id.progressBar)
-    ProgressBar progressBar;
+    @Bind(R.id.layoutRecord)
+    LinearLayout mLayoutRecord;
 
     @Bind(R.id.textRecord)
-    ZYRecordAudioTextView textRecord;
+    ZYRecordAudioTextView mTextRecord;
 
-    @Bind(R.id.textPre)
-    TextView textPre;
+    @Bind(R.id.layoutPre)
+    LinearLayout mLayoutPre;
 
-    @Bind(R.id.textNext)
-    TextView textNext;
+    @Bind(R.id.layoutNext)
+    LinearLayout mLayoutNext;
+
+    @Bind(R.id.textSubmit)
+    TextView mTextSubmit;
 
     SRTaskProblemPicVH mProblemPicVH;
 
@@ -133,33 +119,31 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     private void initView() {
 
         if (!mHasNext) {
+            mTextSubmit.setVisibility(View.VISIBLE);
             String title = "提交";
             if (SRUserManager.getInstance().getUser().isTeacher()) {
                 title = "完成";
             }
-            textNext.setText(title);
+            mTextSubmit.setText(title);
             mHasSubmit = true;
-        } else {
-            textNext.setText("下一题");
+            mLayoutNext.setVisibility(View.INVISIBLE);
         }
 
         if (!mHasPre) {
-            textPre.setVisibility(View.GONE);
+            mLayoutPre.setVisibility(View.INVISIBLE);
         }
 
         ZYImageLoadHelper.getImageLoader().loadCircleImage(this, mImgAvatar, mPresenter.getTeacher().avatar, R.drawable.def_avatar, R.drawable.def_avatar);
-        mTextName.setText(mPresenter.getTeacher().nickname);
-        mTextTime.setText(mPresenter.getTeacher().getCreateTime());
         ZYImageLoadHelper.getImageLoader().loadRoundImage(this, mImgBg, mPresenter.getProblem().pic, R.drawable.def_bg, R.drawable.def_bg, 8);
         mTextDesc.setText(mPresenter.getProblem().description);
         if (!TextUtils.isEmpty(mPresenter.getProblem().audio)) {
             mLayoutVoice.setVisibility(View.VISIBLE);
-            mTextVoiceSize.setText(ZYUtils.getShowHourMinuteSecond((int) mPresenter.getProblem().getAudioTime()));
         }
         if (mPresenter.getProblem().ctype == SRTask.TASK_TYPE_PIC) {
             mProblemPicVH = new SRTaskProblemPicVH(this);
             mProblemPicVH.attachTo(mLayoutContent);
             mProblemPicVH.updateView(mPresenter.getProblem(), 0);
+            mLayoutRecord.setVisibility(View.INVISIBLE);
         } else {
             mProblemAudioVH = new SRTaskProblemAudioVH();
             mProblemAudioVH.attachTo(mLayoutContent);
@@ -167,8 +151,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
                 mProblemAudioVH.updateView(new SRTaskAudio((int) mPresenter.getProblem().getAudioTime(), mPresenter.getProblem().user_answer), 0);
                 return;
             }
-            textRecord.setVisibility(View.VISIBLE);
-            textRecord.setListener(new ZYRecordAudioTextView.RecordAudioViewListener() {
+            mTextRecord.setListener(new ZYRecordAudioTextView.RecordAudioViewListener() {
                 @Override
                 public void onAudioRecordStart() {
 
@@ -245,28 +228,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
         mPresenter.setFinised(true);
         ((SRTaskProblemActivity) mActivity).addAnswer(mPresenter.getProblem().problem_id + "", answer);
         if (!mHasSubmit) {
-            mLayoutAnswerTip.postDelayed(this, 800);
-        }
-    }
-
-//    void showAnswerTip(String answer) {
-//        if (mLayoutAnswerTip != null) {
-//            mLayoutAnswerTip.setVisibility(View.VISIBLE);
-//            if (mPresenter.getProblem().answer.equals(answer)) {
-//                mImgTip.setBackgroundResource(R.drawable.right);
-//                mTextTip.setText("太棒了，回答正确!");
-//            } else {
-//                mImgTip.setBackgroundResource(R.drawable.worry);
-//                mTextTip.setText("答题不仔细，回答错误!");
-//            }
-//            mLayoutAnswerTip.postDelayed(this, 1500);
-//        }
-//    }
-
-    void hideAnswerTip() {
-        if (mLayoutAnswerTip != null) {
-            mLayoutAnswerTip.removeCallbacks(this);
-            mLayoutAnswerTip.setVisibility(View.GONE);
+            mImgAvatar.postDelayed(this, 800);
         }
     }
 
@@ -285,14 +247,13 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
 
     @Override
     public void run() {
-//        hideAnswerTip();
         if (mIsGoNext) {
             return;
         }
         next();
     }
 
-    @OnClick({R.id.layoutVoice, R.id.layoutAnswerTip, R.id.textNext, R.id.textPre})
+    @OnClick({R.id.layoutVoice, R.id.textNext, R.id.textPre, R.id.textSubmit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layoutVoice:
@@ -303,16 +264,15 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
                     ZYAudioPlayManager.getInstance().play(mPresenter.getProblem().audio);
                 }
                 break;
-            case R.id.layoutAnswerTip:
-                hideAnswerTip();
-                break;
             case R.id.textNext:
                 mIsGoNext = true;
-                mLayoutAnswerTip.removeCallbacks(this);
+                mImgAvatar.removeCallbacks(this);
                 next();
                 break;
             case R.id.textPre:
                 ((SRTaskProblemActivity) mActivity).pre();
+                break;
+            case R.id.textSubmit:
                 break;
         }
     }
@@ -350,9 +310,9 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
                         playEvent.state == ZYAudioPlayManager.STATE_PAUSED ||
                         playEvent.state == ZYAudioPlayManager.STATE_COMPLETED ||
                         playEvent.state == ZYAudioPlayManager.STATE_STOP) {
-                    progressBar.setVisibility(View.GONE);
+                    mImgVoice.setImageResource(R.drawable.qa_icon_play);
                 } else {
-                    progressBar.setVisibility(View.VISIBLE);
+                    mImgVoice.setImageResource(R.drawable.qa_icon_suspend);
                 }
             } else if (mProblemAudioVH != null && mProblemAudioVH.getAudioUrl().equals(playEvent.url)) {
                 if (playEvent.state == ZYAudioPlayManager.STATE_ERROR ||

@@ -3,14 +3,12 @@ package com.qudiandu.smartreader.ui.task.view.viewHolder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
-import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskProblem;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
@@ -26,8 +24,8 @@ import butterknife.OnClick;
 
 public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> {
 
-    @Bind(R.id.layoutA)
-    RelativeLayout layoutA;
+    @Bind(R.id.imgBgA)
+    ImageView imgBgA;
 
     @Bind(R.id.imgA)
     ImageView imgA;
@@ -35,8 +33,8 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Bind(R.id.textA)
     TextView textA;
 
-    @Bind(R.id.layoutD)
-    RelativeLayout layoutD;
+    @Bind(R.id.imgBgD)
+    ImageView imgBgD;
 
     @Bind(R.id.imgD)
     ImageView imgD;
@@ -44,8 +42,8 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Bind(R.id.textD)
     TextView textD;
 
-    @Bind(R.id.layoutC)
-    RelativeLayout layoutC;
+    @Bind(R.id.imgBgC)
+    ImageView imgBgC;
 
     @Bind(R.id.imgC)
     ImageView imgC;
@@ -53,8 +51,8 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Bind(R.id.textC)
     TextView textC;
 
-    @Bind(R.id.layoutB)
-    RelativeLayout layoutB;
+    @Bind(R.id.imgBgB)
+    ImageView imgBgB;
 
     @Bind(R.id.imgB)
     ImageView imgB;
@@ -70,7 +68,7 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
 
     SRTaskProblem.Problem mData;
 
-    List<RelativeLayout> imgSels = new ArrayList<RelativeLayout>();
+    List<ImageView> imgSels = new ArrayList<ImageView>();
     List<TextView> imgIcons = new ArrayList<TextView>();
 
     TaskProblemPicListener mListener;
@@ -93,13 +91,13 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
         layoutParams.height = (int) height;
         layoutLineTwo.setLayoutParams(layoutParams);
 
-        imgSels.add(layoutA);
+        imgSels.add(imgBgA);
         imgIcons.add(textA);
-        imgSels.add(layoutB);
+        imgSels.add(imgBgB);
         imgIcons.add(textB);
-        imgSels.add(layoutC);
+        imgSels.add(imgBgC);
         imgIcons.add(textC);
-        imgSels.add(layoutD);
+        imgSels.add(imgBgD);
         imgIcons.add(textD);
     }
 
@@ -156,17 +154,18 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
             selIndex = 3;
         }
         int index = 0;
-        for (RelativeLayout imageView : imgSels) {
+        for (ImageView imageView : imgSels) {
             if (index == selIndex) {
+                imageView.setVisibility(View.VISIBLE);
                 if (answer.equals(mData.answer)) {
-                    imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c13);
+                    imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white_tr);
                     imgIcons.get(index).setBackgroundResource(R.drawable.chose_right_background);
                 } else {
-                    imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c10);
+                    imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white_tr);
                     imgIcons.get(index).setBackgroundResource(R.drawable.chose_right_worry_background);
                 }
             } else {
-                imageView.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_solid);
+                imageView.setVisibility(View.INVISIBLE);
                 imgIcons.get(index).setBackgroundResource(R.drawable.wait_chose_background);
             }
             index++;

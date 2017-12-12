@@ -18,6 +18,8 @@ import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskProblem;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
+import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyUnit;
+import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 
 import java.util.List;
 import java.util.Map;
@@ -169,4 +171,10 @@ public interface ZYRequestApi {
 
     @POST("user/pushinfo")
     Observable<ZYResponse> pushInfo(@Query("registration_id") String registration_id);
+
+    @POST("book/unit")
+    Observable<ZYResponse<List<SRWordStudyUnit>>> getBookUnits(@Query("book_id") String book_id);
+
+    @POST("book/unitWords")
+    Observable<ZYResponse<List<SRWordStudyWord>>> getUnitWords(@Query("unit_id") String unit_id);
 }

@@ -11,7 +11,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid">
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
         <ImageView
             android:id="@+id/imgAvatar"
@@ -31,7 +31,7 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/imgAvatar"
             android:text="周咏炀"
-            android:textColor="@color/c1"
+            android:textColor="@color/c6"
             android:textSize="@dimen/f2" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/imgAvatar"
             android:text="完成时间 06-23 09:09"
-            android:textColor="@color/c1"
+            android:textColor="@color/c7"
             android:textSize="@dimen/f5" />
 
         <TextView

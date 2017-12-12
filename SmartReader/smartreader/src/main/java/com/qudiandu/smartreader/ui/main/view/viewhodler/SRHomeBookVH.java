@@ -8,6 +8,8 @@ import com.qudiandu.smartreader.ui.book.activity.SRBookUnitsActivity;
 import com.qudiandu.smartreader.ui.book.activity.SRBooksActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRBookHomeActivity;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
+import com.qudiandu.smartreader.ui.translate.SRTranslateActivity;
+import com.qudiandu.smartreader.ui.wordStudy.activity.SRWordStudyUnitsActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -45,8 +47,10 @@ public class SRHomeBookVH extends ZYBaseViewHolder<SRBook> {
                 mContext.startActivity(SRBookUnitsActivity.createIntent(mContext, mData.savePath, mData.name));
                 break;
             case R.id.layoutPractice:
+                mContext.startActivity(SRWordStudyUnitsActivity.createIntent(mContext, mData));
                 break;
             case R.id.layoutTranslate:
+                mContext.startActivity(SRTranslateActivity.createIntent(mContext));
                 break;
         }
     }

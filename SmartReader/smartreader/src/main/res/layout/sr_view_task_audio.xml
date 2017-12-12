@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/c2"
     android:paddingBottom="30dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
@@ -25,7 +24,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="4dp"
         android:layout_toLeftOf="@+id/imgAvatar"
-        android:background="@drawable/sr_bg_corner4dp_c13">
+        android:background="@drawable/sr_bg_task_audio">
 
         <ImageView
             android:id="@+id/imgVoice"
@@ -44,15 +43,27 @@
             android:layout_toRightOf="@+id/imgVoice"
             android:text="1分30秒"
             android:textColor="@color/white"
-            android:textSize="@dimen/f5" />
+            android:textSize="@dimen/f3" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="20dp"
-            android:visibility="gone"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="40dp" />
+            android:layout_marginRight="40dp"
+            android:visibility="gone" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgAvatar"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/icon_exclamatory_mark_2"
+        android:drawablePadding="4dp"
+        android:gravity="top|left"
+        android:text="提交前可以听一下语音,看是否有错误,如果有错误可以重新录音哦!"
+        android:textColor="@color/c7"
+        android:textSize="@dimen/f3" />
 </RelativeLayout>

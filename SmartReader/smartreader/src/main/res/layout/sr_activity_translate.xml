@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c1"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <EditText
+                android:id="@+id/editSearch"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
+                android:hint="输入要查询的单词"
+                android:imeOptions="actionSearch"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/c6"
+                android:textColorHint="@color/c7"
+                android:textSize="@dimen/f2" />
+
+            <TextView
+                android:id="@+id/btnSearch"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/sr_bg_corner360dp_c4_solid"
+                android:gravity="center"
+                android:text="查询"
+                android:textColor="@color/c1"
+                android:textSize="@dimen/f1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="top"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textEnWord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="查询"
+                        android:textColor="@color/c6"
+                        android:textSize="@dimen/f1" />
+
+                    <TextView
+                        android:id="@+id/textExplanation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="音标"
+                        android:textColor="@color/c7"
+                        android:textSize="@dimen/f1" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textCnWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="中译"
+                    android:textColor="@color/c7"
+                    android:textSize="@dimen/f1" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textExample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:text="例句"
+                android:textColor="@color/c7"
+                android:textSize="@dimen/f1" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

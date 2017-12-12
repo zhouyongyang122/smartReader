@@ -149,6 +149,18 @@
             android:name=".ui.dubbing.activity.SRDubbingActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.translate.SRTranslateActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.wordStudy.activity.SRWordStudyUnitsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.wordStudy.activity.SRWordStudyHomeActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".service.downNet.down.ZYDownloadService" />
 
         <activity

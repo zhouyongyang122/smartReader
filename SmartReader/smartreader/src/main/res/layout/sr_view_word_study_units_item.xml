@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c1"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="Unit1 hello"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f1" />
+
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="14dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/vocabulary_exercises_icon_entry" />
+
+    </LinearLayout>
+
+</LinearLayout>

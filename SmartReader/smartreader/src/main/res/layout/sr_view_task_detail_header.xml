@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/c2"
+    android:background="@color/c1"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:background="@color/c5"
+        android:layout_height="100dp"
+        android:background="@color/c1"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@id/imgBg"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="80dp"
             android:src="@drawable/def_bg" />
 
         <LinearLayout
@@ -32,8 +32,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lesson One"
-                android:textColor="@color/c2"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/f3" />
 
             <TextView
                 android:id="@+id/textTitle"
@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="lessontow"
-                android:textColor="@color/c2"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/f3" />
 
             <TextView
                 android:id="@+id/textProgress"
@@ -50,8 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="完成度 12/38"
-                android:textColor="@color/c2"
-                android:textSize="@dimen/f4" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/f3" />
         </LinearLayout>
 
     </LinearLayout>
@@ -59,7 +59,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -72,7 +72,7 @@
             android:layout_weight="1"
             android:text="已完成学员 (12)"
             android:textColor="@color/white"
-            android:textSize="@dimen/f4" />
+            android:textSize="@dimen/f3" />
     </LinearLayout>
 
 </LinearLayout>

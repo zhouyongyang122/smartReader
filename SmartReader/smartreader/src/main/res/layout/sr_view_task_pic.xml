@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/c2"
     android:orientation="vertical"
     android:paddingBottom="15dp"
     android:paddingTop="15dp">
@@ -19,9 +18,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:padding="2dp">
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imgA"
@@ -40,6 +37,12 @@
                 android:text="A"
                 android:textColor="@color/c2"
                 android:textSize="@dimen/f2" />
+
+            <ImageView
+                android:id="@+id/imgBgA"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sr_bg_corner6dp_c5_white_tr" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -47,9 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:padding="2dp">
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imgB"
@@ -68,13 +69,19 @@
                 android:text="B"
                 android:textColor="@color/c2"
                 android:textSize="@dimen/f2" />
+
+            <ImageView
+                android:id="@+id/imgBgB"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sr_bg_corner6dp_c3_white_tr" />
         </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutLineTwo"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:id="@+id/layoutLineTwo"
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
@@ -84,9 +91,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:padding="2dp">
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imgC"
@@ -105,6 +110,12 @@
                 android:text="C"
                 android:textColor="@color/c2"
                 android:textSize="@dimen/f2" />
+
+            <ImageView
+                android:id="@+id/imgBgC"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sr_bg_corner6dp_c5_white_tr" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -112,9 +123,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/sr_bg_corner6dp_c4_solid"
-            android:padding="2dp">
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imgD"
@@ -133,6 +142,12 @@
                 android:text="D"
                 android:textColor="@color/c2"
                 android:textSize="@dimen/f2" />
+
+            <ImageView
+                android:id="@+id/imgBgD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/sr_bg_corner6dp_c5_white_tr" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
