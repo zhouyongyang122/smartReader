@@ -73,6 +73,9 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
     @Bind(R.id.textNext)
     TextView textNext;
 
+    @Bind(R.id.textEn)
+    TextView textEn;
+
     SRWordStudyWord mWord;
 
     WordStudyPracticeFragmentListener mListener;
@@ -88,22 +91,28 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sr_fragment_word_sutdy_practice, container, false);
         ButterKnife.bind(this, view);
+
+        textEn.setText(mWord.word);
         if (mIsPicType) {
             layoutPic.setVisibility(View.VISIBLE);
             layoutText.setVisibility(View.GONE);
 
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicA, mWord.pic_problem.A, ZYScreenUtils.dp2px(mActivity, 6));
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicB, mWord.pic_problem.B, ZYScreenUtils.dp2px(mActivity, 6));
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicC, mWord.pic_problem.C, ZYScreenUtils.dp2px(mActivity, 6));
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicD, mWord.pic_problem.D, ZYScreenUtils.dp2px(mActivity, 6));
+            if (mWord.pic_problem != null) {
+                ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicA, mWord.pic_problem.A, ZYScreenUtils.dp2px(mActivity, 6));
+                ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicB, mWord.pic_problem.B, ZYScreenUtils.dp2px(mActivity, 6));
+                ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicC, mWord.pic_problem.C, ZYScreenUtils.dp2px(mActivity, 6));
+                ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgPicD, mWord.pic_problem.D, ZYScreenUtils.dp2px(mActivity, 6));
+            }
         } else {
             layoutPic.setVisibility(View.GONE);
             layoutText.setVisibility(View.VISIBLE);
 
-            textA.setText(mWord.text_problem.A);
-            textB.setText(mWord.text_problem.B);
-            textC.setText(mWord.text_problem.C);
-            textD.setText(mWord.text_problem.D);
+            if (mWord.text_problem != null) {
+                textA.setText(mWord.text_problem.A);
+                textB.setText(mWord.text_problem.B);
+                textC.setText(mWord.text_problem.C);
+                textD.setText(mWord.text_problem.D);
+            }
         }
         if (mLastWord) {
             textNext.setText("完成");
@@ -189,11 +198,11 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                 layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
             } else {
                 layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutPicB.setBackgroundResource(R.color.white);
-                layoutPicC.setBackgroundResource(R.color.white);
-                layoutPicD.setBackgroundResource(R.color.white);
                 isRight = false;
             }
+            layoutPicB.setBackgroundResource(R.color.white);
+            layoutPicC.setBackgroundResource(R.color.white);
+            layoutPicD.setBackgroundResource(R.color.white);
         } else if (answer.equals("B")) {
             isSelected = true;
             if (answer.equals(mWord.pic_answer)) {
@@ -201,11 +210,11 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                 layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
             } else {
                 layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutPicA.setBackgroundResource(R.color.white);
-                layoutPicC.setBackgroundResource(R.color.white);
-                layoutPicD.setBackgroundResource(R.color.white);
                 isRight = false;
             }
+            layoutPicA.setBackgroundResource(R.color.white);
+            layoutPicC.setBackgroundResource(R.color.white);
+            layoutPicD.setBackgroundResource(R.color.white);
         } else if (answer.equals("C")) {
             isSelected = true;
             if (answer.equals(mWord.pic_answer)) {
@@ -213,11 +222,11 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                 layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
             } else {
                 layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutPicB.setBackgroundResource(R.color.white);
-                layoutPicA.setBackgroundResource(R.color.white);
-                layoutPicD.setBackgroundResource(R.color.white);
                 isRight = false;
             }
+            layoutPicB.setBackgroundResource(R.color.white);
+            layoutPicA.setBackgroundResource(R.color.white);
+            layoutPicD.setBackgroundResource(R.color.white);
         } else if (answer.equals("D")) {
             isSelected = true;
             if (answer.equals(mWord.pic_answer)) {
@@ -225,11 +234,11 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                 layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
             } else {
                 layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutPicB.setBackgroundResource(R.color.white);
-                layoutPicC.setBackgroundResource(R.color.white);
-                layoutPicA.setBackgroundResource(R.color.white);
                 isRight = false;
             }
+            layoutPicB.setBackgroundResource(R.color.white);
+            layoutPicC.setBackgroundResource(R.color.white);
+            layoutPicA.setBackgroundResource(R.color.white);
         }
 
         if (isRight) {
@@ -251,46 +260,46 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
             } else {
                 isRight = false;
                 layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             }
+            layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("B")) {
             isSelected = true;
             if (answer.equals(mWord.text_answer)) {
-                isRight = false;
+                isRight = true;
                 layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
             } else {
-                isRight = true;
+                isRight = false;
                 layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             }
+            layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("C")) {
             isSelected = true;
             if (answer.equals(mWord.text_answer)) {
-                isRight = false;
+                isRight = true;
                 layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
             } else {
-                isRight = true;
+                isRight = false;
                 layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             }
+            layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("D")) {
             isSelected = true;
             if (answer.equals(mWord.text_answer)) {
-                isRight = false;
+                isRight = true;
                 layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
             } else {
-                isRight = true;
+                isRight = false;
                 layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-                layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             }
+            layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         }
 
         if (isRight) {

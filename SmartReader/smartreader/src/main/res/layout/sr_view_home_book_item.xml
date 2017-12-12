@@ -78,10 +78,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardView"
         android:layout_marginTop="6dp"
-        android:gravity="center"
+        android:gravity="left"
         android:text="试用教材"
         android:textColor="@color/white"
-        android:textSize="@dimen/f3" />
+        android:textSize="@dimen/f4" />
 
 
 </RelativeLayout>

@@ -87,6 +87,9 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
     @Bind(R.id.textSubmit)
     TextView mTextSubmit;
 
+    @Bind(R.id.viewSpace)
+    View viewSpace;
+
     SRTaskProblemPicVH mProblemPicVH;
 
     SRTaskProblemAudioVH mProblemAudioVH;
@@ -140,6 +143,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
             mLayoutVoice.setVisibility(View.VISIBLE);
         }
         if (mPresenter.getProblem().ctype == SRTask.TASK_TYPE_PIC) {
+            viewSpace.setVisibility(View.GONE);
             mProblemPicVH = new SRTaskProblemPicVH(this);
             mProblemPicVH.attachTo(mLayoutContent);
             mProblemPicVH.updateView(mPresenter.getProblem(), 0);
@@ -148,6 +152,8 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
             mProblemAudioVH = new SRTaskProblemAudioVH();
             mProblemAudioVH.attachTo(mLayoutContent);
             if (SRUserManager.getInstance().getUser().isTeacher()) {
+                viewSpace.setVisibility(View.GONE);
+                mLayoutRecord.setVisibility(View.INVISIBLE);
                 mProblemAudioVH.updateView(new SRTaskAudio((int) mPresenter.getProblem().getAudioTime(), mPresenter.getProblem().user_answer), 0);
                 return;
             }
@@ -194,6 +200,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
                                         ((SRTaskProblemActivity) mActivity).addAnswer(mPresenter.getProblem().problem_id + "", picKey);
                                         mProblemAudioVH.updateView(new SRTaskAudio(durationSe, filePath), 0);
                                         mPresenter.setFinised(true);
+                                        viewSpace.setVisibility(View.GONE);
                                     } catch (Exception e) {
                                         ZYToast.show(mActivity, e.getMessage() + "");
                                     }
@@ -253,7 +260,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
         next();
     }
 
-    @OnClick({R.id.layoutVoice, R.id.textNext, R.id.textPre, R.id.textSubmit})
+    @OnClick({R.id.layoutVoice, R.id.layoutNext, R.id.layoutPre, R.id.textSubmit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layoutVoice:
@@ -264,15 +271,16 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
                     ZYAudioPlayManager.getInstance().play(mPresenter.getProblem().audio);
                 }
                 break;
-            case R.id.textNext:
+            case R.id.layoutNext:
                 mIsGoNext = true;
                 mImgAvatar.removeCallbacks(this);
                 next();
                 break;
-            case R.id.textPre:
+            case R.id.layoutPre:
                 ((SRTaskProblemActivity) mActivity).pre();
                 break;
             case R.id.textSubmit:
+                ((SRTaskProblemActivity) mActivity).submit();
                 break;
         }
     }

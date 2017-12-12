@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyListenInputWordVH;
 
@@ -45,9 +46,13 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
 
     char[] mValues;
 
+    StringBuffer builder;
+
     int mIndex;
 
-    StringBuffer builder;
+    WordStudyListener mListener;
+
+    boolean mIsLastIndex;
 
     ArrayList<SRWordStudyListenInputWordVH> inputWordVHS = new ArrayList<SRWordStudyListenInputWordVH>();
 
@@ -108,18 +113,44 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
             }
         });
 
+        if (mIsLastIndex) {
+            btnNext.setText("完成");
+        }
+
         return view;
     }
 
-    @OnClick({R.id.imgDel, R.id.imgPlay, R.id.btnNext})
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (mIndex == 0) {
+            editWords.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showSoftInput();
+                }
+            }, 500);
+        }
+    }
+
+    @OnClick({R.id.imgDel, R.id.imgPlay, R.id.btnNext, R.id.layoutInputWord})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgDel:
                 delTextValue();
                 break;
             case R.id.imgPlay:
+                SRPlayManager.getInstance().startAudio("http://dict.youdao.com/dictvoice?audio=" + mWord.word + "&amp;type=" + 1);
                 break;
             case R.id.btnNext:
+                if (mIsLastIndex) {
+                    mListener.onFinished();
+                    return;
+                }
+                mListener.onNext();
+                break;
+            case R.id.layoutInputWord:
+                showSoftInput();
                 break;
         }
     }
@@ -133,9 +164,19 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
             inputWordVHS.get(len - 1).updateView(builder.substring(len - 1, len), 0);
         }
         if (len == 6) {
-            InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(editWords.getWindowToken(), 0);
+            hideSoftInput();
         }
+    }
+
+    public void showSoftInput() {
+        editWords.requestFocus();
+        InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editWords, 0);
+    }
+
+    public void hideSoftInput() {
+        InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editWords.getWindowToken(), 0);
     }
 
     private void delTextValue() {
@@ -150,8 +191,23 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
         inputWordVHS.get(len - 1).updateView("", 0);
     }
 
-    public void setWord(SRWordStudyWord word) {
+    public void setWord(SRWordStudyWord word, int index) {
         mWord = word;
         mValues = mWord.word.toCharArray();
+        mIndex = index;
+    }
+
+    public void setListener(WordStudyListener listener) {
+        mListener = listener;
+    }
+
+    public void setIsLastIndex(boolean isLastIndex) {
+        this.mIsLastIndex = isLastIndex;
+    }
+
+    public interface WordStudyListener {
+        void onNext();
+
+        void onFinished();
     }
 }

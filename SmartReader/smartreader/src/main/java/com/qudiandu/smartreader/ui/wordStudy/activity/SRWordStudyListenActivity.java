@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.adapter.ZYFragmentAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 import com.qudiandu.smartreader.ui.wordStudy.view.SRWordStudyListenFragment;
 
@@ -26,6 +27,10 @@ public class SRWordStudyListenActivity extends ZYBaseActivity {
     @Bind(R.id.viewPage)
     ViewPager viewPage;
 
+    ZYFragmentAdapter adapter;
+
+    int mIndex = 0;
+
     public static Intent createIntent(Context context, ArrayList<SRWordStudyWord> words) {
         Intent intent = new Intent(context, SRWordStudyListenActivity.class);
         intent.putExtra("words", words);
@@ -39,12 +44,28 @@ public class SRWordStudyListenActivity extends ZYBaseActivity {
         ButterKnife.bind(this);
 
         final ArrayList<SRWordStudyWord> words = (ArrayList<SRWordStudyWord>) getIntent().getSerializableExtra("words");
-        ZYFragmentAdapter adapter = new ZYFragmentAdapter(getSupportFragmentManager());
+        adapter = new ZYFragmentAdapter(getSupportFragmentManager());
         SRWordStudyListenFragment listenFragment;
+        int index = 0;
         for (SRWordStudyWord srWordStudyWord : words) {
             listenFragment = new SRWordStudyListenFragment();
-            listenFragment.setWord(srWordStudyWord);
+            listenFragment.setWord(srWordStudyWord,index);
+            if (index >= words.size() - 1) {
+                listenFragment.setIsLastIndex(true);
+            }
+            listenFragment.setListener(new SRWordStudyListenFragment.WordStudyListener() {
+                @Override
+                public void onNext() {
+                    viewPage.setCurrentItem(++mIndex);
+                }
+
+                @Override
+                public void onFinished() {
+                    finish();
+                }
+            });
             adapter.addFragment(listenFragment, "");
+            index++;
         }
         viewPage.setAdapter(adapter);
 
@@ -57,6 +78,8 @@ public class SRWordStudyListenActivity extends ZYBaseActivity {
             @Override
             public void onPageSelected(int position) {
                 mActionBar.showTitle((position + 1) + "/" + words.size());
+                SRWordStudyListenFragment fragment = (SRWordStudyListenFragment) adapter.getItem(mIndex);
+                fragment.showSoftInput();
             }
 
             @Override
@@ -64,5 +87,11 @@ public class SRWordStudyListenActivity extends ZYBaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SRPlayManager.getInstance().stopAudio();
     }
 }

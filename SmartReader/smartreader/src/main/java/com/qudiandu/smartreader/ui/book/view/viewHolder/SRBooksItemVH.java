@@ -80,14 +80,13 @@ public class SRBooksItemVH extends ZYBaseViewHolder<SRBook> {
         layoutParams = (RelativeLayout.LayoutParams) progressBgView.getLayoutParams();
         layoutParams.height = (int) height;
         progressBgView.setLayoutParams(layoutParams);
-
-        textTip.setText(mData.getGrade() + "-" + mData.getName());
     }
 
     @Override
     public void updateView(SRBook data, final int position) {
         if (data != null) {
             mData = data;
+            textTip.setText(mData.getGrade() + "-" + mData.getName());
             if (mData.isDeleteStatus) {
                 imgDel.setVisibility(View.VISIBLE);
             } else {

@@ -80,16 +80,16 @@ public class SRTaskProblemPicVH extends ZYBaseViewHolder<SRTaskProblem.Problem> 
     @Override
     public void findView(View view) {
         super.findView(view);
-        float scale = 172.0f / 110.0f;
-        int with = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 45)) / 2;
-        float height = (float) with / scale;
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layoutLineOne.getLayoutParams();
-        layoutParams.height = (int) height;
-        layoutLineOne.setLayoutParams(layoutParams);
-
-        layoutParams = (LinearLayout.LayoutParams) layoutLineTwo.getLayoutParams();
-        layoutParams.height = (int) height;
-        layoutLineTwo.setLayoutParams(layoutParams);
+//        float scale = 172.0f / 110.0f;
+//        int with = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 45)) / 2;
+//        float height = (float) with / scale;
+//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layoutLineOne.getLayoutParams();
+//        layoutParams.height = (int) height;
+//        layoutLineOne.setLayoutParams(layoutParams);
+//
+//        layoutParams = (LinearLayout.LayoutParams) layoutLineTwo.getLayoutParams();
+//        layoutParams.height = (int) height;
+//        layoutLineTwo.setLayoutParams(layoutParams);
 
         imgSels.add(imgBgA);
         imgIcons.add(textA);

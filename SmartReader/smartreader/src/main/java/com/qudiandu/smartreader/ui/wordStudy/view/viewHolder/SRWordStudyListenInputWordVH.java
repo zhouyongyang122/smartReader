@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
 
 import butterknife.Bind;
@@ -25,6 +26,7 @@ public class SRWordStudyListenInputWordVH extends ZYBaseViewHolder<String> {
     public SRWordStudyListenInputWordVH(int index, String oValue) {
         mIndex = index;
         mOValue = oValue;
+        ZYLog.e(getClass().getSimpleName(), "OValue: " + oValue);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class SRWordStudyListenInputWordVH extends ZYBaseViewHolder<String> {
         if (error) {
             textWord.setTextColor(ZYResourceUtils.getColor(R.color.c3));
         } else {
-            textWord.setTextColor(ZYResourceUtils.getColor(R.color.c6));
+            textWord.setTextColor(ZYResourceUtils.getColor(R.color.c2));
         }
     }
 

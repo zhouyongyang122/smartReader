@@ -32,6 +32,9 @@ public class SRTaskProblemAudioVH extends ZYBaseViewHolder<SRTaskAudio> {
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
 
+    @Bind(R.id.textTip)
+    TextView textTip;
+
     SRTaskAudio mData;
 
     @Override
@@ -41,6 +44,10 @@ public class SRTaskProblemAudioVH extends ZYBaseViewHolder<SRTaskAudio> {
             mData = data;
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, SRUserManager.getInstance().getUser().avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             textVoiceSize.setText(ZYUtils.getShowHourMinuteSecond(mData.audioSize));
+
+            if (SRUserManager.getInstance().getUser().isTeacher()) {
+                textTip.setVisibility(View.GONE);
+            }
         }
     }
 

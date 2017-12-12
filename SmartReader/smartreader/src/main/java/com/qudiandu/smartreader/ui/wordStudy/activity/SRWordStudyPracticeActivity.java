@@ -10,6 +10,7 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.adapter.ZYFragmentAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
 import com.qudiandu.smartreader.base.view.ZYNoScollViewPager;
+import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 import com.qudiandu.smartreader.ui.wordStudy.view.SRWordStudyPracticeFragment;
 
@@ -37,6 +38,13 @@ public class SRWordStudyPracticeActivity extends ZYBaseActivity {
         return intent;
     }
 
+    public static Intent createIntent(Context context, ArrayList<SRWordStudyWord> words, boolean isPicType) {
+        Intent intent = new Intent(context, SRWordStudyPracticeActivity.class);
+        intent.putExtra("words", words);
+        intent.putExtra("isPicType", isPicType);
+        return intent;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +52,20 @@ public class SRWordStudyPracticeActivity extends ZYBaseActivity {
         ButterKnife.bind(this);
 
         mWords = (ArrayList<SRWordStudyWord>) getIntent().getSerializableExtra("words");
+
+        mActionBar.showTitle("1/" + mWords.size());
+
         ZYFragmentAdapter adapter = new ZYFragmentAdapter(getSupportFragmentManager());
         SRWordStudyPracticeFragment listenFragment;
         int index = 0;
         for (SRWordStudyWord srWordStudyWord : mWords) {
             listenFragment = new SRWordStudyPracticeFragment();
             listenFragment.setWord(srWordStudyWord);
+            listenFragment.setIsPicType(getIntent().getBooleanExtra("isPicType", false));
             listenFragment.setListener(new SRWordStudyPracticeFragment.WordStudyPracticeFragmentListener() {
                 @Override
                 public void onFinishedAnswer() {
-                    startActivity(SRWordStudyPracticeActivity.createIntent(SRWordStudyPracticeActivity.this, mWords));
+                    startActivity(SRWordStudyPracticeActivity.createIntent(SRWordStudyPracticeActivity.this, mWords, true));
                     finish();
                 }
 
@@ -86,5 +98,11 @@ public class SRWordStudyPracticeActivity extends ZYBaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SRPlayManager.getInstance().stopAudio();
     }
 }

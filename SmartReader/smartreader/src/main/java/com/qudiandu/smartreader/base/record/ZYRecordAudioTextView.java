@@ -72,7 +72,7 @@ public class ZYRecordAudioTextView extends TextView implements ZYRecordAudioList
             mRecordDialog.getWindow().setAttributes(params);
         }
 
-        setText(R.string.text_press_to_speak);
+//        setText(R.string.text_press_to_speak);
     }
 
     View createContentView() {
@@ -157,7 +157,7 @@ public class ZYRecordAudioTextView extends TextView implements ZYRecordAudioList
     private void showValidView() {
         mImgRecordStatus.setImageLevel(2);
         mTextRecordStatus.setText(R.string.text_recording_now);
-        setText(R.string.text_recording_now2);
+//        setText(R.string.text_recording_now2);
         mCurValid = true;
         mPreValid = mCurValid;
     }
@@ -166,19 +166,19 @@ public class ZYRecordAudioTextView extends TextView implements ZYRecordAudioList
     private void showInvalidView() {
         mImgRecordStatus.setImageLevel(9);
         mTextRecordStatus.setText(R.string.text_recording_cancel);
-        setText(R.string.text_press_to_speak);
+//        setText(R.string.text_press_to_speak);
     }
 
     //显示录制时间太短，发送失败
     private void showRecordShortView() {
         mImgRecordStatus.setImageLevel(1);
         mTextRecordStatus.setText(R.string.text_speak_time_short);
-        setText(R.string.text_press_to_speak);
+//        setText(R.string.text_press_to_speak);
     }
 
     //显示抬起手指视图，PS：还不知道显示什么鬼..
     private void showRecordUpView() {
-        setText(R.string.text_press_to_speak);
+//        setText(R.string.text_press_to_speak);
         if (mRecordDialog != null) {
             mRecordDialog.dismiss();
         }

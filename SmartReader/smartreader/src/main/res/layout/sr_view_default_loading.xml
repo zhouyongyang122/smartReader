@@ -19,6 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/c7"
             android:text="加载中..."
             android:id="@+id/tv_loading" />
 

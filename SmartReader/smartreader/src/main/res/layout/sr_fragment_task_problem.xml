@@ -8,170 +8,180 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/sr_bg_corner6dp_white_solid"
+        android:layout_marginTop="10dp"
         android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/layoutContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="15dp">
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sr_bg_corner6dp_white_solid"
+                android:orientation="vertical"
+                android:paddingBottom="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp">
+
+                        <ImageView
+                            android:id="@+id/imgAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/def_avatar" />
+
+                        <RelativeLayout
+                            android:id="@+id/layoutVoice"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/sr_bg_corner360dp_transparent40"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/imgVoice"
+                                android:layout_width="20dp"
+                                android:layout_height="23dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/qa_icon_play" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/textDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp"
+                        android:text="听录音选择下面的正确答案"
+                        android:textColor="@color/c6"
+                        android:textSize="@dimen/f3" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/def_bg" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewSpace"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp">
+                <LinearLayout
+                    android:id="@+id/layoutPre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imgAvatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/def_avatar" />
+                        android:id="@+id/imgPre"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/icon_thelastquestion" />
 
-                    <RelativeLayout
-                        android:id="@+id/layoutVoice"
-                        android:layout_width="match_parent"
-                        android:visibility="gone"
-                        tools:visibility="visible"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/sr_bg_corner360dp_transparent40">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="上一题"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/f3" />
+                </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/imgVoice"
-                            android:layout_width="20dp"
-                            android:layout_height="23dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/qa_icon_play" />
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/textDesc"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/layoutRecord"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="15dp"
-                    android:text="听录音选择下面的正确答案"
-                    android:textColor="@color/c6"
-                    android:textSize="@dimen/f3" />
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <com.qudiandu.smartreader.base.record.ZYRecordAudioTextView
+                        android:id="@+id/textRecord"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/icon_sound_recording" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="点击录音"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/f3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutNext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgNext"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/icon_nextquestion" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="下一题"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/f3" />
+                </LinearLayout>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgBg"
+            <TextView
+                android:id="@+id/textSubmit"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/def_bg" />
+                android:layout_height="45dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/sr_bg_corner360dp_white_c4"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/c1"
+                android:textSize="@dimen/f1"
+                android:visibility="gone"
+                tools:visibility="visible" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/layoutPre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imgPre"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/icon_thelastquestion" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="上一题"
-                android:textColor="@color/white"
-                android:textSize="@dimen/f3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutRecord"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <com.qudiandu.smartreader.base.record.ZYRecordAudioTextView
-                android:id="@+id/textRecord"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/icon_sound_recording" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="上一题"
-                android:textColor="@color/white"
-                android:textSize="@dimen/f3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutNext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imgNext"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/icon_nextquestion" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="下一题"
-                android:textColor="@color/white"
-                android:textSize="@dimen/f3" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner360dp_white_c4"
-        android:gravity="center"
-        android:text="提交"
-        android:textColor="@color/c1"
-        android:textSize="@dimen/f1"
-        android:visibility="invisible"
-        tools:visibility="visible" />
 </LinearLayout>

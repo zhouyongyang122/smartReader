@@ -21,6 +21,7 @@
             android:id="@+id/tv_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/c7"
             android:layout_gravity="center_horizontal"
             android:text="出错了,点击重试" />
 

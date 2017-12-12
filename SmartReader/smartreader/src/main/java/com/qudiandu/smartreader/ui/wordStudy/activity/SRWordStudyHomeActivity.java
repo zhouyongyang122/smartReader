@@ -41,7 +41,7 @@ public class SRWordStudyHomeActivity extends ZYBaseActivity {
 
     SRWordStudyHomeMenuVH homeMenuVH;
 
-    ArrayList<SRWordStudyWord> mData;
+    ArrayList<SRWordStudyWord> mData = new ArrayList<SRWordStudyWord>();
 
     public static Intent createIntent(Context context, SRWordStudyUnit unit) {
         Intent intent = new Intent(context, SRWordStudyHomeActivity.class);
@@ -84,6 +84,7 @@ public class SRWordStudyHomeActivity extends ZYBaseActivity {
 
         homeMenuVH = new SRWordStudyHomeMenuVH();
         homeMenuVH.attachTo(mRootView);
+        homeMenuVH.hide();
     }
 
     @OnClick({R.id.layoutPractice, R.id.layoutListen})

@@ -172,9 +172,9 @@ public interface ZYRequestApi {
     @POST("user/pushinfo")
     Observable<ZYResponse> pushInfo(@Query("registration_id") String registration_id);
 
-    @POST("book/unit")
+    @GET("book/unit")
     Observable<ZYResponse<List<SRWordStudyUnit>>> getBookUnits(@Query("book_id") String book_id);
 
-    @POST("book/unitWords")
+    @GET("book/unitWords")
     Observable<ZYResponse<List<SRWordStudyWord>>> getUnitWords(@Query("unit_id") String unit_id);
 }
