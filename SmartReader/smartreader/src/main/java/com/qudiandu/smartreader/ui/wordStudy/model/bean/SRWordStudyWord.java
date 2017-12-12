@@ -22,14 +22,14 @@ public class SRWordStudyWord implements ZYIBaseBean {
 
     public PicProblem pic_problem;
 
-    public class TextProblem {
+    public class TextProblem implements ZYIBaseBean{
         public String A;
         public String B;
         public String C;
         public String D;
     }
 
-    public class PicProblem {
+    public class PicProblem implements ZYIBaseBean{
         public String A;
         public String B;
         public String C;

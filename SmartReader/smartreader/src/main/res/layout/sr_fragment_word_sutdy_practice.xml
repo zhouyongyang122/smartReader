@@ -177,9 +177,10 @@
                 <RelativeLayout
                     android:id="@+id/layoutTextA"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/sr_bg_corner6dp_white_solid">
+                    android:background="@drawable/sr_bg_corner6dp_white_solid"
+                    android:minHeight="50dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -193,8 +194,10 @@
                     <TextView
                         android:id="@+id/textA"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center"
+                        android:minHeight="50dp"
                         android:text="你叫什么名字A"
                         android:textColor="@color/c6"
                         android:textSize="@dimen/f3" />
@@ -203,9 +206,10 @@
                 <RelativeLayout
                     android:id="@+id/layoutTextB"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/sr_bg_corner6dp_white_solid">
+                    android:background="@drawable/sr_bg_corner6dp_white_solid"
+                    android:minHeight="50dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -219,8 +223,10 @@
                     <TextView
                         android:id="@+id/textB"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dp"
                         android:gravity="center"
+                        android:minHeight="50dp"
                         android:text="你叫什么名字B"
                         android:textColor="@color/c6"
                         android:textSize="@dimen/f3" />
@@ -229,9 +235,10 @@
                 <RelativeLayout
                     android:id="@+id/layoutTextC"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/sr_bg_corner6dp_white_solid">
+                    android:background="@drawable/sr_bg_corner6dp_white_solid"
+                    android:minHeight="50dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -245,8 +252,10 @@
                     <TextView
                         android:id="@+id/textC"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center"
+                        android:minHeight="50dp"
                         android:text="你叫什么名字C"
                         android:textColor="@color/c6"
                         android:textSize="@dimen/f3" />
@@ -255,9 +264,10 @@
                 <RelativeLayout
                     android:id="@+id/layoutTextD"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/sr_bg_corner6dp_white_solid">
+                    android:background="@drawable/sr_bg_corner6dp_white_solid"
+                    android:minHeight="50dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -271,8 +281,10 @@
                     <TextView
                         android:id="@+id/textD"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center"
+                        android:minHeight="50dp"
                         android:text="你叫什么名字D"
                         android:textColor="@color/c6"
                         android:textSize="@dimen/f3" />
