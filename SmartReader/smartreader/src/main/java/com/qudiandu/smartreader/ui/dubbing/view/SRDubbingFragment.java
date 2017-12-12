@@ -83,8 +83,8 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
     @Bind(R.id.layoutRecord)
     LinearLayout layoutRecord;//录音按钮
 
-    @Bind(R.id.layoutPlayAudio)
-    LinearLayout layoutPlayAudio;//播放原音
+    @Bind(R.id.layoutPlayRecord)
+    LinearLayout layoutPlayRecord;
 
     @Bind(R.id.layoutShare)
     LinearLayout layoutShare;//分享
@@ -130,11 +130,11 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
 
     private void refreshView() {
         SRMarkBean mMart = mPresenter.getTrack().getMarkBean();
-        layoutPlayAudio.setVisibility(View.VISIBLE);
+        layoutRecord.setVisibility(View.VISIBLE);
         layoutRecording.setVisibility(View.INVISIBLE);
         if (mMart.score > 0) {
-            layoutRecord.setVisibility(View.VISIBLE);
             layoutShare.setVisibility(View.VISIBLE);
+            layoutPlayRecord.setVisibility(View.VISIBLE);
             textScoreTip.setVisibility(View.INVISIBLE);
             textScore.setVisibility(View.VISIBLE);
             SpannableString spanText = new SpannableString("总分 " + mMart.score);
@@ -152,7 +152,7 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
         } else {
             textScoreTip.setVisibility(View.VISIBLE);
             textScore.setVisibility(View.INVISIBLE);
-            layoutRecord.setVisibility(View.GONE);
+            layoutPlayRecord.setVisibility(View.GONE);
             layoutShare.setVisibility(View.GONE);
         }
 
@@ -193,7 +193,7 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
 
     @Override
     public void uploadAudioSuc(SRMarkBean markBean) {
-
+        share(markBean);
     }
 
     @Override
