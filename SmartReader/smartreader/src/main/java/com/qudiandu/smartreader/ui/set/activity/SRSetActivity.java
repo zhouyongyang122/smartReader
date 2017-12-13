@@ -17,6 +17,7 @@ import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.login.presenter.SRRegisterPresenter;
 import com.qudiandu.smartreader.ui.web.SRWebViewActivity;
+import com.qudiandu.smartreader.utils.ZYSystemUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -36,6 +37,9 @@ public class SRSetActivity extends ZYBaseActivity {
     @Bind(R.id.layoutExit)
     RelativeLayout layoutExit;
 
+    @Bind(R.id.textVerson)
+    TextView textVerson;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,8 @@ public class SRSetActivity extends ZYBaseActivity {
         mActionBar.showTitle("设置");
 
         ZYHtml5UrlRequest.getInstance().getParamas(null);
+
+        textVerson.setText("版本号:" + ZYSystemUtils.getAppVersionName(this));
     }
 
     @OnClick({R.id.layoutProtocol, R.id.layoutCopyRight, R.id.layoutChangePwd, R.id.layoutBind, R.id.layoutExit})

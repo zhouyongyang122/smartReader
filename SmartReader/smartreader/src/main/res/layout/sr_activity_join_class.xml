@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c2"
+    android:background="@color/c1"
     android:orientation="vertical">
 
     <EditText
@@ -12,11 +12,11 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
         android:gravity="center"
         android:hint="输入真实姓名"
-        android:textColor="@color/c1"
-        android:textSize="@dimen/f4" />
+        android:textColor="@color/c6"
+        android:textSize="@dimen/f2" />
 
     <EditText
         android:id="@+id/textCode"
@@ -25,11 +25,11 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
         android:gravity="center"
         android:hint="输入班级邀请码"
-        android:textColor="@color/c1"
-        android:textSize="@dimen/f4" />
+        android:textColor="@color/c6"
+        android:textSize="@dimen/f2" />
 
     <TextView
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="向你的老师询问班级邀请码"
-        android:textColor="@color/c5"
-        android:textSize="@dimen/f4" />
+        android:textColor="@color/c4"
+        android:textSize="@dimen/f3" />
 
 </LinearLayout>

@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="我"
-            android:textColor="@color/c7"
+            android:textColor="@color/c10"
             android:textSize="@dimen/f1" />
 
         <TextView

@@ -122,6 +122,34 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
+
+        <TextView
+            android:id="@+id/textVerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:minWidth="80dp"
+            android:text="版本号"
+            android:textColor="@color/c1"
+            android:textSize="@dimen/f2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/textVerson"
+            android:src="@drawable/icon_useprotocol" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/layoutExit"
         android:layout_width="match_parent"
         android:layout_height="50dp"

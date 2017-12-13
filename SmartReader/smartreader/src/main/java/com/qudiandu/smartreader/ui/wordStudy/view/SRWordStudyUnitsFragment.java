@@ -1,6 +1,10 @@
 package com.qudiandu.smartreader.ui.wordStudy.view;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
@@ -18,6 +22,13 @@ import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyUnitsIte
 public class SRWordStudyUnitsFragment extends ZYListDateFragment<SRWordStudyUnitsContract.IPresenter, SRWordStudyUnit> implements SRWordStudyUnitsContract.IView {
 
     SRWordStudyUnitsHeaderVH unitsHeaderVH;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRefreshRecyclerView.setRefreshEnable(false);
+        mRefreshRecyclerView.setLoadMoreEnable(false);
+    }
 
     @Override
     protected ZYBaseRecyclerAdapter<SRWordStudyUnit> createAdapter() {

@@ -21,7 +21,7 @@
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:text="1年级下.人教版"
-            android:textColor="@color/c7"
+            android:textColor="@color/c10"
             android:textSize="@dimen/f1" />
 
         <RelativeLayout

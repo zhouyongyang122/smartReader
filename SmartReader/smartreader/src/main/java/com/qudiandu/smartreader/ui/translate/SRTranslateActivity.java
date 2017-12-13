@@ -84,12 +84,12 @@ public class SRTranslateActivity extends ZYBaseActivity {
     void search() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0);
-        showWaitDialog("查询中...");
         String word = editSearch.getText().toString();
         if (TextUtils.isEmpty(word)) {
             ZYToast.show(SRTranslateActivity.this, "搜索不能为空!");
             return;
         }
+        showWaitDialog("查询中...");
         mWord = word;
         TranslateRequest.getRequest().translate(word, new TranslateRequest.TranslateRequestCallBack() {
             @Override

@@ -43,7 +43,7 @@ public class SRTaskDetailHeaderVH extends ZYBaseViewHolder<SRTask> {
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, mData.page_url);
             textUnit.setText(mData.unit);
             textTitle.setText(mData.title);
-            textProgress.setText("完成度 " + mData.cur_num + "/" + mData.limit_num);
+            textProgress.setText("完成度 " + mData.cur_num + "/" + (mData.limit_num < mData.cur_num ? mData.cur_num : mData.limit_num));
             textNum.setText("已完成学员(" + mData.cur_num + ")");
         }
     }

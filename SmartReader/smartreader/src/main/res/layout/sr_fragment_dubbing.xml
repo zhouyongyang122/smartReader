@@ -72,7 +72,7 @@
                         zyCircleProgressView:bg_color="@color/c2"
                         zyCircleProgressView:cur_progress="10"
                         zyCircleProgressView:max_progress="100"
-                        zyCircleProgressView:progress_bg_color="@color/c7"
+                        zyCircleProgressView:progress_bg_color="@color/c4"
                         zyCircleProgressView:progress_color="@color/white"
                         zyCircleProgressView:stroke_width="8dp" />
 
