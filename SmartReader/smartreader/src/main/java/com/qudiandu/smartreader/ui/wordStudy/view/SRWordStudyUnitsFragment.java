@@ -24,8 +24,8 @@ public class SRWordStudyUnitsFragment extends ZYListDateFragment<SRWordStudyUnit
     SRWordStudyUnitsHeaderVH unitsHeaderVH;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mRefreshRecyclerView.setRefreshEnable(false);
         mRefreshRecyclerView.setLoadMoreEnable(false);
     }
@@ -37,6 +37,11 @@ public class SRWordStudyUnitsFragment extends ZYListDateFragment<SRWordStudyUnit
         unitsHeaderVH = new SRWordStudyUnitsHeaderVH();
         adapter.addHeader(unitsHeaderVH);
         return adapter;
+    }
+
+    @Override
+    public void showList(boolean isHasMore) {
+        super.showList(false);
     }
 
     @Override

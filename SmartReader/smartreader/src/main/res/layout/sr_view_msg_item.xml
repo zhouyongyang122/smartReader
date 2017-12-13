@@ -3,49 +3,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/c2"
-    android:orientation="vertical">
+    android:background="@color/c1"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/c2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
-        <TextView
-            android:id="@+id/textTitle"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="消息标题"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f2" />
+            android:layout_height="38dp">
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:singleLine="true"
+                android:text="系统消息"
+                android:textColor="@color/c6"
+                android:textSize="@dimen/f2" />
+
+            <View
+                android:id="@+id/viewPoint"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/textTitle"
+                android:background="@drawable/sr_bg_corner360_c3_solid"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:singleLine="true"
+                android:text="2017-02-03 12:30"
+                android:textColor="@color/c7"
+                android:textSize="@dimen/f4" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imgBg"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_default_pic"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textMsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f4" />
-
-        <TextView
-            android:id="@+id/textTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:singleLine="true"
-            android:text="2017-02-03 12:30"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f4" />
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="15dp"
-        android:background="@color/c1" />
 </LinearLayout>

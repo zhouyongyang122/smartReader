@@ -19,6 +19,7 @@ import com.qudiandu.smartreader.ui.myAudio.activity.SRCataloguesActivity;
 import com.qudiandu.smartreader.ui.profile.activity.SREditActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSetActivity;
+import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,6 +46,9 @@ public class SRMeFragment extends ZYBaseFragment {
     @Bind(R.id.textLogin)
     TextView textLogin;
 
+    @Bind(R.id.viewRedPoint)
+    View viewRedPoint;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +58,7 @@ public class SRMeFragment extends ZYBaseFragment {
         return view;
     }
 
-    @OnClick({R.id.textEdit, R.id.layoutMyAudio, R.id.textLogin, R.id.layoutFeedBack, R.id.layoutSet})
+    @OnClick({R.id.textEdit, R.id.layoutMyAudio, R.id.textLogin, R.id.layoutFeedBack, R.id.layoutSet, R.id.imgMsg})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textEdit:
@@ -75,6 +79,10 @@ public class SRMeFragment extends ZYBaseFragment {
                 }
                 mActivity.startActivity(SRCataloguesActivity.createIntent(mActivity));
                 break;
+            case R.id.imgMsg:
+                viewRedPoint.setVisibility(View.GONE);
+                SRMsgManager.getInstance().clearMsgRemind();
+                break;
         }
     }
 
@@ -82,6 +90,7 @@ public class SRMeFragment extends ZYBaseFragment {
     public void onResume() {
         super.onResume();
         refreshUserInfo();
+        refreshMsgRemind();
     }
 
     private void refreshUserInfo() {
@@ -96,6 +105,12 @@ public class SRMeFragment extends ZYBaseFragment {
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, user.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             textName.setText(user.getNickname());
             textGrade.setText(user.getGrade() + "年级");
+        }
+    }
+
+    public void refreshMsgRemind() {
+        if (SRMsgManager.getInstance().hasMsgRemind() && viewRedPoint != null) {
+            viewRedPoint.setVisibility(View.VISIBLE);
         }
     }
 }

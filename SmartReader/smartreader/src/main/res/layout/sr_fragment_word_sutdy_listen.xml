@@ -11,16 +11,17 @@
         android:layout_height="20dp"
         android:background="@null"
         android:cursorVisible="false"
+        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:gravity="center"
-        android:inputType="textPhonetic"
+        android:inputType="text"
         android:maxLength="16"
         android:text=""
         android:textColor="@color/c1" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/sr_bg_corner6dp_white_solid"
@@ -52,19 +53,50 @@
             android:layout_height="60dp"
             android:layout_marginTop="15dp"
             android:src="@drawable/vocabulary_dictation_icon_play" />
+
+        <TextView
+            android:id="@+id/textTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="回答错误哦"
+            android:textColor="@color/c3"
+            android:textSize="@dimen/f1"
+            android:visibility="gone" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/btnNext"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="114dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner360dp_white_c4"
-        android:gravity="center"
-        android:text="下一题"
-        android:textColor="@color/c1"
-        android:textSize="@dimen/f1" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="请输入答案"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+
+        <TextView
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/sr_bg_corner360_c5_solid"
+            android:gravity="center"
+            android:text="检查"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f1" />
+    </LinearLayout>
 </LinearLayout>

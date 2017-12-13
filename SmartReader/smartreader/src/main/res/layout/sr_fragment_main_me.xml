@@ -22,16 +22,30 @@
             android:textColor="@color/c10"
             android:textSize="@dimen/f1" />
 
-        <TextView
-            android:id="@+id/textEdit"
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:text="编辑"
             android:layout_alignParentRight="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f2" />
+            android:layout_marginRight="15dp">
+
+            <ImageView
+                android:id="@+id/imgMsg"
+                android:layout_width="28dp"
+                android:layout_height="21dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/study_icon_message" />
+
+            <View
+                android:id="@+id/viewRedPoint"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignRight="@+id/imgMsg"
+                android:layout_alignTop="@+id/imgMsg"
+                android:background="@drawable/sr_bg_ov_red"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <ScrollView
@@ -82,15 +96,33 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/f1" />
 
-            <TextView
-                android:id="@+id/textGrade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="小学一年级"
-                android:textColor="@color/white"
-                android:textSize="@dimen/f3" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textGrade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="小学一年级"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/f3" />
+
+                <TextView
+                    android:id="@+id/textEdit"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/sr_bg_corner6dp_c3_white"
+                    android:gravity="center"
+                    android:text="编辑"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layoutMyAudio"

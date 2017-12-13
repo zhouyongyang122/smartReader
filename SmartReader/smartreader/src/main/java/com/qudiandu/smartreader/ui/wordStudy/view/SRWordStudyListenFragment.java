@@ -1,11 +1,15 @@
 package com.qudiandu.smartreader.ui.wordStudy.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +25,8 @@ import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyListenInputWordVH;
 import com.qudiandu.smartreader.utils.ZYLog;
+import com.qudiandu.smartreader.utils.ZYResourceUtils;
+import com.qudiandu.smartreader.utils.ZYToast;
 
 import java.util.ArrayList;
 
@@ -43,6 +49,12 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
     @Bind(R.id.btnNext)
     TextView btnNext;
 
+    @Bind(R.id.textTip)
+    TextView textTip;
+
+    @Bind(R.id.textAnswer)
+    TextView textAnswer;
+
     SRWordStudyWord mWord;
 
     char[] mValues;
@@ -54,6 +66,8 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
     WordStudyListener mListener;
 
     boolean mIsLastIndex;
+
+    boolean mIsNext;
 
     ArrayList<SRWordStudyListenInputWordVH> inputWordVHS = new ArrayList<SRWordStudyListenInputWordVH>();
 
@@ -147,11 +161,55 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                 SRPlayManager.getInstance().startAudio("http://dict.youdao.com/dictvoice?audio=" + mWord.word + "&amp;type=" + 1);
                 break;
             case R.id.btnNext:
-                if (mIsLastIndex) {
-                    mListener.onFinished();
-                    return;
+                if (mIsNext) {
+                    if (mIsLastIndex) {
+                        mListener.onFinished();
+                        return;
+                    }
+                    mListener.onNext();
+                } else {
+                    String editValue = builder.toString();
+                    if (editValue.length() < mWord.word.length()) {
+                        ZYToast.show(mActivity, "还没有输入完整哦!");
+                        return;
+                    }
+                    mIsNext = true;
+                    btnNext.setText("下一题");
+                    textTip.setVisibility(View.VISIBLE);
+                    String strValue = "正确答案:" + mWord.word.toLowerCase() + "  你的答案:" + editValue.toLowerCase();
+                    ZYLog.e(getClass().getSimpleName(), "strValue:" + strValue);
+                    SpannableString value = null;
+                    if (editValue.equals(mWord.word)) {
+                        textTip.setText("真棒,回答正确!");
+                        textTip.setTextColor(ZYResourceUtils.getColor(R.color.c5));
+                        value = new SpannableString(strValue);
+                        int start = 5;
+                        int end = 5 + mWord.word.length();
+                        ZYLog.e(getClass().getSimpleName(), "start-1: " + start + "   end-1: " + end);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        start = end + 7;
+                        end = start + editValue.length();
+                        ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                    } else {
+                        textTip.setText("哇哦,回答错误!");
+                        textTip.setTextColor(ZYResourceUtils.getColor(R.color.c3));
+                        int start = 5;
+                        int end = 5 + mWord.word.length();
+                        ZYLog.e(getClass().getSimpleName(), "start-1: " + start + "   end-1: " + end);
+                        value = new SpannableString(strValue);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        start = end + 7;
+                        end = start + editValue.length();
+                        ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#f25b6a")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                    }
+                    textAnswer.setText(value);
                 }
-                mListener.onNext();
                 break;
             case R.id.layoutInputWord:
                 showSoftInput();
@@ -194,6 +252,10 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
             builder.delete(len - 1, len);
         }
         inputWordVHS.get(len - 1).updateView("", 0);
+        textTip.setVisibility(View.GONE);
+        textAnswer.setText("请输入答案");
+        mIsNext = false;
+        btnNext.setText("检查");
     }
 
     public void setWord(SRWordStudyWord word, int index) {
