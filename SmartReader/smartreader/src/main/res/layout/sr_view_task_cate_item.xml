@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="135dp"
+    android:layout_height="111dp"
+    android:background="@color/c1"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="94dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid">
+        android:layout_marginTop="10dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
         <ImageView
             android:id="@+id/imgBg"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
+            android:layout_width="105dp"
+            android:layout_height="74dp"
+            android:scaleType="fitXY"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:src="@drawable/def_bg" />
@@ -31,7 +33,7 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/imgBg"
             android:text="标题标题"
-            android:textColor="@color/c1"
+            android:textColor="@color/c6"
             android:textSize="@dimen/f2" />
 
         <TextView
@@ -44,18 +46,18 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/imgBg"
             android:text="副标题标题"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f5" />
+            android:textColor="@color/c7"
+            android:textSize="@dimen/f4" />
 
         <ImageView
             android:id="@+id/imgCheck"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/sr_bg_check_selector" />
+            android:background="@drawable/sr_selector_check" />
     </RelativeLayout>
 
 </LinearLayout>

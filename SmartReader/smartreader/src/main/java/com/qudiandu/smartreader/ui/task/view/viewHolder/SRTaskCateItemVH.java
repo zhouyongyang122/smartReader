@@ -7,6 +7,8 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
+import com.qudiandu.smartreader.utils.ZYResourceUtils;
+import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
 
@@ -32,13 +34,8 @@ public class SRTaskCateItemVH extends ZYBaseViewHolder<Object> {
     public void updateView(Object data, int position) {
         if (data != null && data instanceof SRTaskCate) {
             SRTaskCate cate = (SRTaskCate) data;
-            if (cate.isCheck) {
-                imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc4_solidc13);
-            } else {
-                imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc2_solidwhite);
-            }
-
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, cate.page_url);
+            imgCheck.setSelected(cate.isCheck);
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgBg, cate.page_url, ZYScreenUtils.dp2px(mContext, 6));
             textTitle.setText(cate.title);
             textSubTitle.setText(cate.unit);
         }

@@ -1,9 +1,6 @@
 package com.qudiandu.smartreader.ui.task.view;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
@@ -13,33 +10,21 @@ import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
 import com.qudiandu.smartreader.ui.task.contract.SRTaskCateContract;
 import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskCateItemTitleVH;
 import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskCateItemVH;
-import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskOKVH;
 
 /**
  * Created by ZY on 17/7/23.
  */
 
-public class SRTaskCateFragment extends ZYListDateFragment<SRTaskCateContract.IPresenter, Object> implements SRTaskCateContract.IView, SRTaskOKVH.TaskOKListener {
+public class SRTaskCateFragment extends ZYListDateFragment<SRTaskCateContract.IPresenter, Object> implements SRTaskCateContract.IView {
 
     final int TITLE_TYPE = 0;
 
     final int CATE_TYPE = 1;
 
-    SRTaskOKVH okvh;
-
     @Override
     protected void init() {
         super.init();
         mRefreshRecyclerView.setRefreshEnable(false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        okvh = new SRTaskOKVH(this);
-        okvh.attachTo((ViewGroup) view);
-        okvh.updateView(null,0);
-        okvh.hide();
     }
 
     @Override
@@ -89,18 +74,7 @@ public class SRTaskCateFragment extends ZYListDateFragment<SRTaskCateContract.IP
     }
 
     @Override
-    public void showList(boolean isHasMore) {
-        super.showList(isHasMore);
-        okvh.show();
-    }
-
-    @Override
     protected ZYBaseViewHolder<Object> createViewHolder() {
         return null;
-    }
-
-    @Override
-    public void onOKClick() {
-        mPresenter.addTask();
     }
 }
