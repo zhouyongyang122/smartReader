@@ -22,7 +22,14 @@ public class SRDubbingModel extends ZYBaseModel {
         return mApi.trackAdd(params);
     }
 
-    public Observable<ZYResponse<SRCatalogueResponse>> catalogueAdd(String audio, String book_id, String catalogue_id, int score, String audio_track, String group_id, String task_id) {
+    public Observable<ZYResponse<SRCatalogueResponse>> catalogueAdd(String audio,
+                                                                    String book_id,
+                                                                    String catalogue_id,
+                                                                    int score,
+                                                                    String audio_track,
+                                                                    String group_id,
+                                                                    String task_id,
+                                                                    String other_score) {
         Map<String, String> paramas = new HashMap<String, String>();
         paramas.put("audio", audio);
         paramas.put("book_id", book_id.equals("0") ? "1" : book_id);
@@ -32,6 +39,10 @@ public class SRDubbingModel extends ZYBaseModel {
         if (!TextUtils.isEmpty(group_id)) {
             paramas.put("group_id", group_id);
             paramas.put("task_id", task_id);
+        }
+
+        if(!TextUtils.isEmpty(other_score)){
+            paramas.put("other_score",other_score);
         }
         return mApi.catalogueAdd(paramas);
     }

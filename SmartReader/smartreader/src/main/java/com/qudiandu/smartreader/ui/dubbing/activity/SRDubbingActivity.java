@@ -25,6 +25,8 @@ import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.thirdParty.translate.TranslateRequest;
 import com.qudiandu.smartreader.thirdParty.translate.YouDaoBean;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
+import com.qudiandu.smartreader.ui.dubbing.model.SRDubbingModel;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.ui.dubbing.presenter.SRDubbingPresenter;
@@ -129,6 +131,9 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
     String mTitle;
 
     int score;
+
+    //{"0": "87", "1": "88","2": "87"} 0 流畅度 1 完整度 2标准度
+    String other_score;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -323,15 +328,26 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
                 float startTime = 0;
                 float endTime = 0;
                 int totalScore = 0;
+                int totalIntegrity = 0;//完整度
+                int totalAccuracy = 0;//准确度
+                int totalFluency = 0;//流利度
                 final JSONObject tractObject = new JSONObject();
                 final ArrayList<File> audioFiles = new ArrayList<File>();
                 File audio;
+                XSBean scoreBean = null;
                 for (SRTract tract : mTracts) {
                     markBean = tract.getMarkBean();
                     if (markBean.getScore() > 0 && markBean.getAudioPath() != null) {
                         audio = new File(markBean.getAudioPath());
                         if (audio.exists()) {
                             totalScore += markBean.getScore();
+                            scoreBean = markBean.getScoreBean();
+                            if (scoreBean != null && scoreBean.result != null) {
+                                totalIntegrity = scoreBean.result.getIntegrity();
+                                totalAccuracy = scoreBean.result.getAccuracy();
+                                totalFluency = scoreBean.result.getFluency();
+                            }
+
                             audioFiles.add(audio);
                             endTime = startTime + (tract.getTrack_auend() - tract.getTrack_austart());
                             tractObject.put(tract.getTrack_id() + "", startTime + "," + endTime);
@@ -343,6 +359,21 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
                 if (audioFiles.size() > 0) {
                     showProgress();
                     score = totalScore / audioFiles.size();
+
+                    int integrity = totalIntegrity / audioFiles.size();
+                    int accuracy = totalAccuracy / audioFiles.size();
+                    int fluency = totalFluency / audioFiles.size();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("0", integrity);
+                        jsonObject.put("1", accuracy);
+                        jsonObject.put("1", fluency);
+                        other_score = jsonObject.toString();
+                    } catch (Exception e) {
+
+                    }
+
                     final File outFile = new File(mergeTractAudioPath);
                     outFile.delete();
                     outFile.createNewFile();
@@ -431,7 +462,7 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
     }
 
     private void uploadmergeAudioToServers(final String qiniuKey, final String tractValues) {
-        mSubscriptions.add(ZYNetSubscription.subscription(new SRMarkModel().catalogueAdd(qiniuKey, mBookId, mCatalogueId, score, tractValues, mGroupId, mTaskId), new ZYNetSubscriber<ZYResponse<SRCatalogueResponse>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(new SRDubbingModel().catalogueAdd(qiniuKey, mBookId, mCatalogueId, score, tractValues, mGroupId, mTaskId, other_score), new ZYNetSubscriber<ZYResponse<SRCatalogueResponse>>() {
             @Override
             public void onSuccess(ZYResponse<SRCatalogueResponse> response) {
                 super.onSuccess(response);

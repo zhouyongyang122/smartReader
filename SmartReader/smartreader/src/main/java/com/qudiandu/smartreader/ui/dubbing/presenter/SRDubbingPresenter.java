@@ -4,11 +4,14 @@ import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
+import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 import com.qudiandu.smartreader.ui.dubbing.contract.SRDubbingContract;
 import com.qudiandu.smartreader.ui.dubbing.model.SRDubbingModel;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkResponse;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +81,22 @@ public class SRDubbingPresenter extends ZYBasePresenter implements SRDubbingCont
         paramas.put("track_id", mTrack.getTrack_id() + "");
         paramas.put("score", markBean.score + "");
         paramas.put("audio", mTrack.audioQiNiuKey);
+        XSBean xsBean = markBean.getScoreBean();
+        try {
+            JSONObject jsonObject = new JSONObject();
+            if (xsBean != null && xsBean.result != null) {
+                jsonObject.put("0", xsBean.result.getFluency() + "");
+                jsonObject.put("1", xsBean.result.getIntegrity() + "");
+                jsonObject.put("1", xsBean.result.getAccuracy() + "");
+            } else {
+                jsonObject.put("0", "0");
+                jsonObject.put("1", "0");
+                jsonObject.put("1", "0");
+            }
+            paramas.put("other_score", jsonObject.toString());
+        } catch (Exception e) {
+
+        }
 
         mSubscriptions.add(ZYNetSubscription.subscription(mModel.trackAdd(paramas), new ZYNetSubscriber<ZYResponse<SRMarkResponse>>() {
             @Override
