@@ -8,6 +8,7 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,6 +70,9 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
 
     @Bind(R.id.textVoiceSize)
     TextView textVoiceSize;
+
+    @Bind(R.id.layoutVoiceTip)
+    LinearLayout layoutVoiceTip;
 
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
@@ -146,6 +150,7 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
                                     mDurationSe = durationSe;
                                     ZYLog.e(SRMarkFragment.class.getSimpleName(), "uploadAudio-key: " + mQiniuKey);
                                     layoutVoice.setVisibility(View.VISIBLE);
+                                    layoutVoiceTip.setVisibility(View.VISIBLE);
                                     textVoiceSize.setText(ZYUtils.getShowHourMinuteSecond(mDurationSe));
                                     mFilePath = filePath;
                                 } catch (Exception e) {

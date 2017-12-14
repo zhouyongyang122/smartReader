@@ -1,73 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c2">
+    android:background="@color/c1"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/textMsg"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/sr_bg_corner4dp_c5_solid"
-        android:gravity="left|top"
-        android:hint="请输入评论内容(最多200字)"
-        android:padding="15dp"
-        android:textColor="@color/c6"
-        android:textSize="@dimen/f3" />
-
-    <RelativeLayout
-        android:id="@+id/layoutVoice"
-        android:layout_width="200dp"
-        android:layout_height="43dp"
-        android:layout_below="@+id/textMsg"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner4dp_c13"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/imgVoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/voice" />
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
-            android:id="@+id/textVoiceSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/imgVoice"
-            android:text="1分30秒"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f5" />
-    </RelativeLayout>
+            android:text="文字点评"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f1" />
 
-    <com.qudiandu.smartreader.base.record.ZYRecordAudioTextView
-        android:id="@+id/textRecord"
+        <EditText
+            android:id="@+id/textMsg"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:gravity="left|top"
+            android:hint="请输入评论内容(最多200字)"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f3" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/c3"
-        android:gravity="center"
-        android:text="按住  说话"
-        android:textColor="@color/white"
-        android:textSize="@dimen/f2"
-        android:visibility="visible" />
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="语音点评"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f1" />
+
+        <RelativeLayout
+            android:id="@+id/layoutVoice"
+            android:layout_width="200dp"
+            android:layout_height="43dp"
+            android:layout_below="@+id/textMsg"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/sr_bg_c5_audio_left"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="40dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imgVoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/voice" />
+
+            <TextView
+                android:id="@+id/textVoiceSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/imgVoice"
+                android:text="1分30秒"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f4" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutVoiceTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/icon_exclamatory_mark_2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="提交前可以听一下语音,看是否有错误,如果有错误可以重新录音哦!"
+                android:textColor="@color/c7"
+                android:textSize="@dimen/f3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.qudiandu.smartreader.base.record.ZYRecordAudioTextView
+                android:id="@+id/textRecord"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/icon_sound_recording"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/f2"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="按住说话"
+                android:textColor="@color/c7"
+                android:textSize="@dimen/f3" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
