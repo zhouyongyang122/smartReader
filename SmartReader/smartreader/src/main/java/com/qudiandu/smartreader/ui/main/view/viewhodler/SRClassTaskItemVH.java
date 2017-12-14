@@ -12,6 +12,7 @@ import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskCommentedActivity;
+import com.qudiandu.smartreader.utils.ZYResourceUtils;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
@@ -44,6 +45,9 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
     @Bind(R.id.textScore)
     TextView textScore;
 
+    @Bind(R.id.textTag)
+    TextView textTag;
+
     SRTask mData;
 
     ClassTaskItemListener listener;
@@ -62,6 +66,7 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
             mData = (SRTask) data;
             ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgBg, mData.page_url, ZYScreenUtils.dp2px(mContext, 6));
             textSubTitle.setText(mData.title);
+            textTitle.setText(mData.unit);
             textFinish.setVisibility(View.VISIBLE);
             if (mData.isEdit) {
                 layoutDel.setVisibility(View.VISIBLE);
@@ -79,19 +84,27 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
 
             switch (mData.ctype) {
                 case SRTask.TASK_TYPE_RECORD:
-                    textTitle.setText(mData.unit);
+                    textTag.setText("配音任务");
+                    textTag.setTextColor(ZYResourceUtils.getColor(R.color.class_task_tag_font_1));
+                    textTag.setBackgroundResource(R.drawable.sr_bg_class_task_tag_1);
                     recordTask();
                     break;
                 case SRTask.TASK_TYPE_LISTEN:
-                    textTitle.setText("课堂录音");
+                    textTag.setText("课堂录音");
+                    textTag.setTextColor(ZYResourceUtils.getColor(R.color.class_task_tag_font_3));
+                    textTag.setBackgroundResource(R.drawable.sr_bg_class_task_tag_3);
                     listenTask();
                     break;
                 case SRTask.TASK_TYPE_PIC:
-                    textTitle.setText("图片题");
+                    textTag.setText("图片题");
+                    textTag.setTextColor(ZYResourceUtils.getColor(R.color.class_task_tag_font_4));
+                    textTag.setBackgroundResource(R.drawable.sr_bg_class_task_tag_4);
                     picTask();
                     break;
                 case SRTask.TASK_TYPE_AUDIO:
-                    textTitle.setText("语音题");
+                    textTag.setText("语音题");
+                    textTag.setTextColor(ZYResourceUtils.getColor(R.color.class_task_tag_font_2));
+                    textTag.setBackgroundResource(R.drawable.sr_bg_class_task_tag_2);
                     audioTask();
                     break;
             }

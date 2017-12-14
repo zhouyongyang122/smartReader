@@ -43,4 +43,20 @@
     <!-- ============================基础色================================= -->
 
     <color name="default_shadow_color">#88757575</color>
+
+    <color name="class_task_tag_bg_1">#FCE3E3</color>
+
+    <color name="class_task_tag_font_1">#FF5D5D</color>
+
+    <color name="class_task_tag_bg_2">#FFF0CA</color>
+
+    <color name="class_task_tag_font_2">#FFB400</color>
+
+    <color name="class_task_tag_bg_3">#D8EFFF</color>
+
+    <color name="class_task_tag_font_3">#2ea7fc</color>
+
+    <color name="class_task_tag_bg_4">#3300d365</color>
+
+    <color name="class_task_tag_font_4">#00d365</color>
 </resources>
