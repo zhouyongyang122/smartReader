@@ -28,6 +28,7 @@ public class SRWordStudyUnitsFragment extends ZYListDateFragment<SRWordStudyUnit
         super.onViewCreated(view, savedInstanceState);
         mRefreshRecyclerView.setRefreshEnable(false);
         mRefreshRecyclerView.setLoadMoreEnable(false);
+        unitsHeaderVH.updateView(mPresenter.getBook(),0);
     }
 
     @Override

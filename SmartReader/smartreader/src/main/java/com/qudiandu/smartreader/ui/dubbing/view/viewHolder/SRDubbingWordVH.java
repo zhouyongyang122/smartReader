@@ -1,5 +1,9 @@
 package com.qudiandu.smartreader.ui.dubbing.view.viewHolder;
 
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +38,7 @@ public class SRDubbingWordVH extends ZYBaseViewHolder<SRMarkBean> {
     TextView textStandard;//标准度
 
     @Bind(R.id.layoutScore)
-    RelativeLayout layoutScore;//单词分数
+    LinearLayout layoutScore;//单词分数
 
     LayoutInflater inflater;
 
@@ -51,68 +55,74 @@ public class SRDubbingWordVH extends ZYBaseViewHolder<SRMarkBean> {
             layoutScore.removeAllViews();
             LinearLayout linearLayout = null;
             int index = 0;
-            int lastId = 0;
             if (scoreBean != null) {
-                textFluency.setText("流利度: " + scoreBean.result.getFluency());
-                textIntegrity.setText("完整度: " + scoreBean.result.getIntegrity());
-                textStandard.setText("准备度: " + scoreBean.result.getAccuracy());
+                int score = scoreBean.result.getFluency();
+                textFluency.setText(setDimensionColor("流利度: " + score, score, 5, (score + "").length()));
+                score = scoreBean.result.getIntegrity();
+                textIntegrity.setText(setDimensionColor("完整度: " + score, score, 5, (score + "").length()));
+                score = scoreBean.result.getAccuracy();
+                textStandard.setText(setDimensionColor("准确度: " + score, score, 5, (score + "").length()));
                 List<XSBean.Detail> details = scoreBean.result.details;
                 for (XSBean.Detail detail : details) {
-                    if (index % 4 == 0) {
-                        linearLayout = getScoreLinear(index, lastId);
+                    if (index % 8 == 0) {
+                        linearLayout = getScoreLinear();
                         layoutScore.addView(linearLayout);
-                        lastId++;
                     }
-                    linearLayout.addView(getScoreView(index % 4, detail.value_char, detail.score));
+                    addScoreView(detail, linearLayout);
                     index++;
                 }
             } else {
-                textFluency.setText("流利度: 0");
-                textIntegrity.setText("完整度: 0");
-                textStandard.setText("准备度: 0");
+                textFluency.setText(setDimensionColor("流利度: " + 0, -1, 5, 1));
+                textIntegrity.setText(setDimensionColor("完整度: " + 0, -1, 5, 1));
+                textStandard.setText(setDimensionColor("准确度: " + 0, -1, 5, 1));
                 for (String value : data.getValues()) {
-                    if (index % 4 == 0) {
-                        linearLayout = getScoreLinear(index, lastId);
+                    if (index % 8 == 0) {
+                        linearLayout = getScoreLinear();
                         layoutScore.addView(linearLayout);
-                        lastId++;
                     }
-                    linearLayout.addView(getScoreView(index % 4, value, 0));
+                    addScoreView(new XSBean.Detail(-1, value), linearLayout);
                     index++;
                 }
             }
         }
     }
 
-    public LinearLayout getScoreLinear(int index, int lastId) {
+    public LinearLayout getScoreLinear() {
         LinearLayout linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        linearLayout.setId(100 + lastId);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (index > 0) {
-            layoutParams.topMargin = ZYScreenUtils.dp2px(mContext, 10);
-            layoutParams.addRule(RelativeLayout.BELOW, 100 + lastId - 1);
-        }
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.topMargin = ZYScreenUtils.dp2px(mContext, 10);
+        layoutParams.leftMargin = ZYScreenUtils.dp2px(mContext, 8);
+        layoutParams.rightMargin = ZYScreenUtils.dp2px(mContext, 8);
         linearLayout.setLayoutParams(layoutParams);
         return linearLayout;
     }
 
-    public TextView getScoreView(int col, String text, int score) {
-        TextView textView = (TextView) inflater.inflate(R.layout.sr_view_mark_header_item, null);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (col > 0) {
-            layoutParams.leftMargin = ZYScreenUtils.dp2px(mContext, 10);
-        }
-        if (score == 0) {
-            textView.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder_c2);
-        } else if (score <= 60) {
-            textView.setBackgroundResource(R.drawable.sr_bg_corner360_boder_c10);
+    public View addScoreView(XSBean.Detail detail, LinearLayout linearLayout) {
+        SRDubbingWordScoreVH scoreVH = new SRDubbingWordScoreVH();
+        scoreVH.attachTo(linearLayout);
+        scoreVH.updateView(detail,0);
+        return scoreVH.getItemView();
+    }
+
+    SpannableString setDimensionColor(String value, int score, int start, int len) {
+        SpannableString spanText = new SpannableString(value);
+        int color = 0;
+        if (score < 0) {
+            color = Color.parseColor("#999999");
         } else {
-            textView.setBackgroundResource(R.drawable.sr_bg_corner360_boder_c13);
+            if (score >= 80) {
+                color = Color.parseColor("#00d365");
+            } else if (score >= 60 && score < 80) {
+                color = Color.parseColor("#f9b400");
+            } else {
+                color = Color.parseColor("#f25b6a");
+            }
         }
-        textView.setLayoutParams(layoutParams);
-        textView.setText(text + " " + score);
-        return textView;
+        spanText.setSpan(new ForegroundColorSpan(color), start, start + len,
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        return spanText;
     }
 
     @Override

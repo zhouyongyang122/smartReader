@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="46dp"
+                    android:layout_marginTop="23dp"
                     android:gravity="center"
                     android:text="what's you name"
                     android:textColor="@color/c6"
@@ -61,14 +61,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textCn"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:visibility="gone"
                     tools:visibility="visible">
 
                     <com.qudiandu.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/progressView"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         zyCircleProgressView:bg_color="@color/c2"
                         zyCircleProgressView:cur_progress="10"
                         zyCircleProgressView:max_progress="100"
@@ -78,8 +78,8 @@
 
                     <TextView
                         android:id="@+id/textProgress"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:gravity="center"
                         android:text="2.s"
                         android:textColor="@color/white"
@@ -103,14 +103,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textCn"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:visibility="visible">
 
                     <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:src="@drawable/icon_sound_recording" />
 
                     <TextView
@@ -207,7 +207,7 @@
                     android:layout_below="@+id/layoutAction"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -238,10 +238,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layoutScoreTip"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
                     android:text="赶紧去录个音,看看能得多少分"
                     android:textColor="@color/c7"
@@ -252,10 +252,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layoutScoreTip"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
                     android:text="总分 98"
                     android:textColor="@color/c7"
@@ -277,8 +277,8 @@
 
         <TextView
             android:id="@+id/textNum"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/page"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

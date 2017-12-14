@@ -19,6 +19,7 @@ import com.qudiandu.smartreader.ui.myAudio.activity.SRCataloguesActivity;
 import com.qudiandu.smartreader.ui.profile.activity.SREditActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSetActivity;
+import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
 
 import butterknife.Bind;
@@ -80,6 +81,7 @@ public class SRMeFragment extends ZYBaseFragment {
                 mActivity.startActivity(SRCataloguesActivity.createIntent(mActivity));
                 break;
             case R.id.imgMsg:
+                mActivity.startActivity(new Intent(mActivity, SRSysMsgActivity.class));
                 viewRedPoint.setVisibility(View.GONE);
                 SRMsgManager.getInstance().clearMsgRemind();
                 break;

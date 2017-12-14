@@ -40,4 +40,8 @@ public class SRWordStudyUnitsPresenter extends ZYListDataPresenter<SRWordStudyUn
             }
         }));
     }
+
+    public SRBook getBook() {
+        return mBook;
+    }
 }

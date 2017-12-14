@@ -140,8 +140,13 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
             SpannableString spanText = new SpannableString("总分 " + mMart.score);
             spanText.setSpan(new AbsoluteSizeSpan(28, true), 3, spanText.length(),
                     Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-            if (mMart.score >= 60) {
-                spanText.setSpan(new ForegroundColorSpan(Color.parseColor("#2ea7fc")), 3, spanText.length(),
+
+            if (mMart.score >= 80) {
+                spanText.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), 3, spanText.length(),
+                        Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                textScore.setText(spanText);
+            } else if (mMart.score >= 60 && mMart.score < 80) {
+                spanText.setSpan(new ForegroundColorSpan(Color.parseColor("#f9b400")), 3, spanText.length(),
                         Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                 textScore.setText(spanText);
             } else {

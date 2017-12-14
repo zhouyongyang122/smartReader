@@ -34,9 +34,9 @@ public class SRWordStudyUnitsHeaderVH extends ZYBaseViewHolder<SRBook> {
             mData= data;
         }
         if (mData != null && imgBg != null) {
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this,imgBg,data.getPic(), ZYScreenUtils.dp2px(mContext,6));
-            textName.setText(data.getName());
-            textGrade.setText(data.getGrade());
+            ZYImageLoadHelper.getImageLoader().loadRoundImage(this,imgBg,mData.getPic(), ZYScreenUtils.dp2px(mContext,6));
+            textName.setText(mData.getName());
+            textGrade.setText(mData.getGrade());
         }
     }
 

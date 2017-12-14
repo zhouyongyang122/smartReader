@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sr_bg_corner4dp_c3_solid"
+            android:padding="4dp"
+            android:text="what"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f3" />
+
+        <View
+            android:id="@+id/viewPoint"
+            android:layout_width="8dp"
+            android:layout_height="5dp"
+            android:background="@drawable/label_fail_2" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="98"
+        android:textColor="@color/c3"
+        android:textSize="@dimen/f1" />
+</LinearLayout>

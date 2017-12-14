@@ -52,7 +52,12 @@ public class XSBean implements ZYIBaseBean {
         public int overall;
     }
 
-    public class Detail implements ZYIBaseBean {
+    public static class Detail implements ZYIBaseBean {
+
+        public Detail(int score,String value_char){
+            this.score = score;
+            this.value_char = value_char;
+        }
 
         public int score;
 
