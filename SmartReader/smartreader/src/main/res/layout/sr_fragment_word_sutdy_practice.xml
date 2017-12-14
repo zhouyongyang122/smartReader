@@ -62,13 +62,14 @@
                         android:layout_width="0dp"
                         android:layout_height="106dp"
                         android:layout_weight="1"
+                        android:background="@drawable/sr_bg_corner6dp_white_solid"
                         android:padding="2dp">
 
                         <ImageView
                             android:id="@+id/imgPicA"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/img_default_pic" />
 
                         <TextView
@@ -87,13 +88,14 @@
                         android:layout_height="106dp"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
+                        android:background="@drawable/sr_bg_corner6dp_white_solid"
                         android:padding="2dp">
 
                         <ImageView
                             android:id="@+id/imgPicB"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/img_default_pic" />
 
                         <TextView
@@ -118,13 +120,14 @@
                         android:layout_width="0dp"
                         android:layout_height="106dp"
                         android:layout_weight="1"
+                        android:background="@drawable/sr_bg_corner6dp_white_solid"
                         android:padding="2dp">
 
                         <ImageView
                             android:id="@+id/imgPicC"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/img_default_pic" />
 
                         <TextView
@@ -143,13 +146,14 @@
                         android:layout_height="106dp"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
+                        android:background="@drawable/sr_bg_corner6dp_white_solid"
                         android:padding="2dp">
 
                         <ImageView
                             android:id="@+id/imgPicD"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/img_default_pic" />
 
                         <TextView
@@ -225,7 +229,7 @@
                         android:id="@+id/textB"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center"
                         android:maxLines="1"
                         android:minHeight="50dp"
@@ -324,7 +328,7 @@
                     android:layout_marginRight="15dp"
                     android:background="@drawable/sr_bg_corner360_c5_solid"
                     android:gravity="center"
-                    android:text="下一个"
+                    android:text="检查"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f1" />
             </LinearLayout>

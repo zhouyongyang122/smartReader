@@ -1,7 +1,12 @@
 package com.qudiandu.smartreader.ui.wordStudy.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,7 @@ import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
+import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
@@ -84,7 +90,9 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
 
     boolean mIsPicType;
 
-    boolean isSelected;
+    boolean mIsNext;
+
+    String mSelectAnswer;
 
     @Nullable
     @Override
@@ -113,9 +121,6 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                 textC.setText(mWord.text_problem.C);
                 textD.setText(mWord.text_problem.D);
             }
-        }
-        if (mLastWord) {
-            textNext.setText("完成");
         }
         return view;
     }
@@ -148,166 +153,227 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                 SRPlayManager.getInstance().startAudio("http://dict.youdao.com/dictvoice?audio=" + mWord.word + "&amp;type=" + 1);
                 break;
             case R.id.layoutPicA:
-                selectPicAnswer("A");
+                mSelectAnswer = "A";
+                selectPicAnswer(mSelectAnswer);
                 break;
             case R.id.layoutPicB:
-                selectPicAnswer("B");
+                mSelectAnswer = "B";
+                selectPicAnswer(mSelectAnswer);
                 break;
             case R.id.layoutPicC:
-                selectPicAnswer("C");
+                mSelectAnswer = "C";
+                selectPicAnswer(mSelectAnswer);
                 break;
             case R.id.layoutPicD:
-                selectPicAnswer("D");
+                mSelectAnswer = "D";
+                selectPicAnswer(mSelectAnswer);
                 break;
             case R.id.layoutTextA:
-                selectTextAnswer("A");
+                mSelectAnswer = "A";
+                selectTextAnswer(mSelectAnswer);
                 break;
             case R.id.layoutTextB:
-                selectTextAnswer("B");
+                mSelectAnswer = "B";
+                selectTextAnswer(mSelectAnswer);
                 break;
             case R.id.layoutTextC:
-                selectTextAnswer("C");
+                mSelectAnswer = "C";
+                selectTextAnswer(mSelectAnswer);
                 break;
             case R.id.layoutTextD:
-                selectTextAnswer("D");
+                mSelectAnswer = "D";
+                selectTextAnswer(mSelectAnswer);
                 break;
             case R.id.textNext:
-                if (!isSelected) {
+                if (TextUtils.isEmpty(mSelectAnswer)) {
                     ZYToast.show(mActivity, "还没有选择答案哦!");
                     return;
                 }
-                if (mLastWord) {
-                    if (mIsPicType) {
-                        finish();
-                        return;
+
+                if (mIsNext) {
+                    if (mLastWord) {
+                        if (mIsPicType) {
+                            finish();
+                            return;
+                        }
+                        mListener.onFinishedAnswer();
+                    } else {
+                        mListener.onNextAnswer();
                     }
-                    mListener.onFinishedAnswer();
                 } else {
-                    mListener.onNextAnswer();
+                    if (mLastWord) {
+                        textNext.setText("完成");
+                    } else {
+                        textNext.setText("下一题");
+                    }
+                    mIsNext = true;
+                    String oAnSwer = mIsPicType ? mWord.pic_answer.toUpperCase() : mWord.text_answer.toUpperCase();
+                    String strValue = "正确答案:" + oAnSwer + "  你的答案:" + mSelectAnswer;
+                    ZYLog.e(getClass().getSimpleName(), "strValue:" + strValue);
+                    SpannableString value = null;
+                    if (mSelectAnswer.equals(oAnSwer)) {
+                        value = new SpannableString(strValue);
+                        int start = 5;
+                        int end = 5 + 1;
+                        ZYLog.e(getClass().getSimpleName(), "start-1: " + start + "   end-1: " + end);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        start = end + 7;
+                        end = start + 1;
+                        ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                    } else {
+                        int start = 5;
+                        int end = 5 + 1;
+                        ZYLog.e(getClass().getSimpleName(), "start-1: " + start + "   end-1: " + end);
+                        value = new SpannableString(strValue);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        start = end + 7;
+                        end = start + 1;
+                        ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
+                        value.setSpan(new ForegroundColorSpan(Color.parseColor("#f25b6a")), start, end,
+                                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                    }
+                    textTip.setText(value);
+                    if (mIsPicType) {
+                        showPicAnswer(oAnSwer, mSelectAnswer);
+                    } else {
+                        showTextAnswer(oAnSwer, mSelectAnswer);
+                    }
                 }
                 break;
+        }
+    }
+
+    void showTextAnswer(String oAnswer, String selAnswer) {
+        if (oAnswer.equals("A")) {
+            layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        } else if (oAnswer.equals("B")) {
+            layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        } else if (oAnswer.equals("C")) {
+            layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        } else if (oAnswer.equals("D")) {
+            layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        }
+
+        if (selAnswer.equals("A")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
+        } else if (selAnswer.equals("B")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
+        } else if (selAnswer.equals("C")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
+        } else if (selAnswer.equals("D")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
+        }
+    }
+
+    void showPicAnswer(String oAnswer, String selAnswer) {
+        if (oAnswer.equals("A")) {
+            layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        } else if (oAnswer.equals("B")) {
+            layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        } else if (oAnswer.equals("C")) {
+            layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        } else if (oAnswer.equals("D")) {
+            layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+        }
+
+        if (selAnswer.equals("A")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
+        } else if (selAnswer.equals("B")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
+        } else if (selAnswer.equals("C")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
+        } else if (selAnswer.equals("D")) {
+            if (oAnswer.equals(selAnswer)) {
+                layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
+            } else {
+                layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
+            }
         }
     }
 
     void selectPicAnswer(String answer) {
-        boolean isRight = false;
+        textTip.setText("请检查答案");
+        mIsNext = false;
+        textNext.setText("检查");
         if (answer.equals("A")) {
-            isSelected = true;
-            if (answer.equals(mWord.pic_answer)) {
-                isRight = true;
-                layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                isRight = false;
-            }
-            layoutPicB.setBackgroundResource(R.color.white);
-            layoutPicC.setBackgroundResource(R.color.white);
-            layoutPicD.setBackgroundResource(R.color.white);
+            layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
+            layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("B")) {
-            isSelected = true;
-            if (answer.equals(mWord.pic_answer)) {
-                isRight = true;
-                layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                isRight = false;
-            }
-            layoutPicA.setBackgroundResource(R.color.white);
-            layoutPicC.setBackgroundResource(R.color.white);
-            layoutPicD.setBackgroundResource(R.color.white);
+            layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
+            layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("C")) {
-            isSelected = true;
-            if (answer.equals(mWord.pic_answer)) {
-                isRight = true;
-                layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                isRight = false;
-            }
-            layoutPicB.setBackgroundResource(R.color.white);
-            layoutPicA.setBackgroundResource(R.color.white);
-            layoutPicD.setBackgroundResource(R.color.white);
+            layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
+            layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("D")) {
-            isSelected = true;
-            if (answer.equals(mWord.pic_answer)) {
-                isRight = true;
-                layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-                isRight = false;
-            }
-            layoutPicB.setBackgroundResource(R.color.white);
-            layoutPicC.setBackgroundResource(R.color.white);
-            layoutPicA.setBackgroundResource(R.color.white);
-        }
-
-        if (isRight) {
-            textTip.setText("回答正确");
-            textTip.setTextColor(ZYResourceUtils.getColor(R.color.c5));
-        } else {
-            textTip.setText("回答错误");
-            textTip.setTextColor(ZYResourceUtils.getColor(R.color.c3));
+            layoutPicD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
+            layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
+            layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         }
     }
 
     void selectTextAnswer(String answer) {
-        boolean isRight = false;
+        textTip.setText("请检查答案");
+        mIsNext = false;
+        textNext.setText("检查");
         if (answer.equals("A")) {
-            isSelected = true;
-            if (answer.equals(mWord.text_answer)) {
-                isRight = true;
-                layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                isRight = false;
-                layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-            }
+            layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
             layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("B")) {
-            isSelected = true;
-            if (answer.equals(mWord.text_answer)) {
-                isRight = true;
-                layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                isRight = false;
-                layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-            }
+            layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
             layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("C")) {
-            isSelected = true;
-            if (answer.equals(mWord.text_answer)) {
-                isRight = true;
-                layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                isRight = false;
-                layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-            }
+            layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
             layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
         } else if (answer.equals("D")) {
-            isSelected = true;
-            if (answer.equals(mWord.text_answer)) {
-                isRight = true;
-                layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c5_white);
-            } else {
-                isRight = false;
-                layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c3_white);
-            }
+            layoutTextD.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
             layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextC.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
             layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
-        }
-
-        if (isRight) {
-            textTip.setText("回答正确");
-            textTip.setTextColor(ZYResourceUtils.getColor(R.color.c5));
-        } else {
-            textTip.setText("回答错误");
-            textTip.setTextColor(ZYResourceUtils.getColor(R.color.c3));
         }
     }
 
