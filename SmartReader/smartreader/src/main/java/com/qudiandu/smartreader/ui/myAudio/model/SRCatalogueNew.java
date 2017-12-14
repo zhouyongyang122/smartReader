@@ -27,6 +27,9 @@ public class SRCatalogueNew extends SRCatalogue implements ZYIBaseBean {
     //界面需要的属性
     private boolean isEdit;
 
+    //是否选择
+    public boolean isSeleted;
+
     public int getId() {
         return id;
     }

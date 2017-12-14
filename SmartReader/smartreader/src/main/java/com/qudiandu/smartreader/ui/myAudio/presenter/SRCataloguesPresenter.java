@@ -67,6 +67,26 @@ public class SRCataloguesPresenter extends ZYListDataPresenter<SRCataloguesContr
         }));
     }
 
+    public SRCatalogueNew getDelData() {
+        for (SRCatalogueNew value : mDataList) {
+            if (value.isSeleted) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    public void changeSelectedValue(int position) {
+        int index = 0;
+        for (SRCatalogueNew value : mDataList) {
+            if (index == position) {
+                value.isSeleted = true;
+            } else {
+                value.isSeleted = false;
+            }
+            index++;
+        }
+    }
 
     @Override
     public void setEdit(boolean isEditing) {

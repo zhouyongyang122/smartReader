@@ -16,6 +16,11 @@ public interface SRCataloguesContract {
 
     interface IPresenter extends ZYListDataContract.Presenter<SRCatalogueNew> {
         void setEdit(boolean isEditing);
+
         void delCatalogues(final SRCatalogueNew data);
+
+        SRCatalogueNew getDelData();
+
+        void changeSelectedValue(int position);
     }
 }

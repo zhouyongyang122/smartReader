@@ -2,7 +2,6 @@ package com.qudiandu.smartreader.ui.myAudio.view.viewHolder;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -13,7 +12,6 @@ import com.qudiandu.smartreader.utils.ZYDateUtils;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by ZY on 17/6/10.
@@ -36,16 +34,10 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
     @Bind(R.id.textScore)
     TextView textScore;
 
-    @Bind(R.id.layoutDel)
-    RelativeLayout layoutDel;
+    @Bind(R.id.imgCheck)
+    ImageView imgCheck;
 
     SRCatalogueNew mData;
-
-    OnCataloguesListener mListener;
-
-    public SRCataloguesVH(OnCataloguesListener listener) {
-        mListener = listener;
-    }
 
     @Override
     public void updateView(SRCatalogueNew data, int position) {
@@ -70,9 +62,10 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
             }
 
             if (data.isEdit()) {
-                layoutDel.setVisibility(View.VISIBLE);
+                imgCheck.setVisibility(View.VISIBLE);
+                imgCheck.setSelected(mData.isSeleted);
             } else {
-                layoutDel.setVisibility(View.GONE);
+                imgCheck.setVisibility(View.GONE);
             }
         }
     }
@@ -80,20 +73,5 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
     @Override
     public int getLayoutResId() {
         return R.layout.sr_view_catalogue_item;
-    }
-
-    @OnClick({R.id.layoutDel})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.layoutDel:
-                if (mListener != null) {
-                    mListener.onDelClick(mData);
-                }
-                break;
-        }
-    }
-
-    public interface OnCataloguesListener {
-        void onDelClick(SRCatalogueNew data);
     }
 }
