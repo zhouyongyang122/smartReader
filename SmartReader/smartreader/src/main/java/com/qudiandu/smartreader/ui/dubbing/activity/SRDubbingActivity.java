@@ -353,7 +353,7 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("0", integrity);
                         jsonObject.put("1", accuracy);
-                        jsonObject.put("1", fluency);
+                        jsonObject.put("2", fluency);
                         other_score = jsonObject.toString();
                     } catch (Exception e) {
 

@@ -2,6 +2,7 @@ package com.qudiandu.smartreader.ui.set.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.set.contract.SRSysMsgContract;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.set.view.viewHolder.SRSysMsgVH;
+import com.qudiandu.smartreader.ui.web.SRWebViewActivity;
 
 /**
  * Created by ZY on 17/4/9.
@@ -28,7 +30,10 @@ public class SRSysMsgFragment extends ZYListDateFragment<SRSysMsgContract.IPrese
 
     @Override
     protected void onItemClick(View view, int position) {
-
+        SRSysMsg msg = mAdapter.getItem(position);
+        if (msg != null && !TextUtils.isEmpty(msg.url)) {
+            startActivity(SRWebViewActivity.createIntent(mActivity, msg.url, msg.title));
+        }
     }
 
     @Override

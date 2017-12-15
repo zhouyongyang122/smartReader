@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -13,7 +12,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +24,7 @@ import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyKeyVH;
 import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyListenInputWordVH;
 import com.qudiandu.smartreader.utils.ZYLog;
+import com.qudiandu.smartreader.utils.ZYMediaPlayerTool;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 
@@ -158,8 +157,9 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                     String strValue = "正确答案:" + mWord.word.toLowerCase() + "  你的答案:" + editValue.toLowerCase();
                     ZYLog.e(getClass().getSimpleName(), "strValue:" + strValue);
                     SpannableString value = null;
-                    if (editValue.equals(mWord.word)) {
+                    if (editValue.toLowerCase().equals(mWord.word.toLowerCase())) {
                         textTip.setText("真棒,回答正确!");
+                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
                         textTip.setTextColor(ZYResourceUtils.getColor(R.color.c5));
                         value = new SpannableString(strValue);
                         int start = 5;
@@ -174,6 +174,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                     } else {
                         textTip.setText("哇哦,回答错误!");
+                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
                         textTip.setTextColor(ZYResourceUtils.getColor(R.color.c3));
                         int start = 5;
                         int end = 5 + mWord.word.length();
@@ -267,6 +268,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
         keys.add("X");
         keys.add("Y");
         keys.add("Z");
+        keys.add("空格");
         return keys;
     }
 }

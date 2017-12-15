@@ -21,6 +21,7 @@ import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 import com.qudiandu.smartreader.utils.ZYLog;
+import com.qudiandu.smartreader.utils.ZYMediaPlayerTool;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
@@ -93,6 +94,15 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
     boolean mIsNext;
 
     String mSelectAnswer;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            SRPlayManager.getInstance().stopAudio();
+            SRPlayManager.getInstance().startAudio("http://dict.youdao.com/dictvoice?audio=" + mWord.word + "&amp;type=" + 1);
+        }
+    }
 
     @Nullable
     @Override
@@ -223,6 +233,7 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                         ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
                         value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
                     } else {
                         int start = 5;
                         int end = 5 + 1;
@@ -235,6 +246,7 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                         ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
                         value.setSpan(new ForegroundColorSpan(Color.parseColor("#f25b6a")), start, end,
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
                     }
                     textTip.setText(value);
                     if (mIsPicType) {

@@ -33,7 +33,7 @@ public class SRWordStudyListenInputWordVH extends ZYBaseViewHolder<String> {
     public void updateView(String data, int position) {
         if (data != null) {
             textWord.setText(data.toLowerCase());
-            show(!mOValue.equals(data));
+            show(!mOValue.toLowerCase().equals(data.toLowerCase()));
         }
     }
 

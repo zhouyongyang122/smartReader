@@ -87,11 +87,11 @@ public class SRDubbingPresenter extends ZYBasePresenter implements SRDubbingCont
             if (xsBean != null && xsBean.result != null) {
                 jsonObject.put("0", xsBean.result.getFluency() + "");
                 jsonObject.put("1", xsBean.result.getIntegrity() + "");
-                jsonObject.put("1", xsBean.result.getAccuracy() + "");
+                jsonObject.put("2", xsBean.result.getAccuracy() + "");
             } else {
                 jsonObject.put("0", "0");
                 jsonObject.put("1", "0");
-                jsonObject.put("1", "0");
+                jsonObject.put("2", "0");
             }
             paramas.put("other_score", jsonObject.toString());
         } catch (Exception e) {
