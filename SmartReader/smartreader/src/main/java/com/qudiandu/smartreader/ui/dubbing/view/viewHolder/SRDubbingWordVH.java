@@ -16,7 +16,9 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
+import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
+import com.qudiandu.smartreader.utils.ZYStringUtils;
 
 import java.util.List;
 
@@ -54,7 +56,9 @@ public class SRDubbingWordVH extends ZYBaseViewHolder<SRMarkBean> {
             XSBean scoreBean = data.getScoreBean();
             layoutScore.removeAllViews();
             LinearLayout linearLayout = null;
-            int index = 0;
+            int maxWidth = ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 30 * 2);
+            int remainWidth = maxWidth;
+            int valueWidth = 0;
             if (scoreBean != null) {
                 int score = scoreBean.result.getFluency();
                 textFluency.setText(setDimensionColor("流利度: " + score, score, 5, (score + "").length()));
@@ -64,24 +68,29 @@ public class SRDubbingWordVH extends ZYBaseViewHolder<SRMarkBean> {
                 textStandard.setText(setDimensionColor("准确度: " + score, score, 5, (score + "").length()));
                 List<XSBean.Detail> details = scoreBean.result.details;
                 for (XSBean.Detail detail : details) {
-                    if (index % 8 == 0) {
+                    valueWidth = getViewWidth(detail.value_char);
+                    if (linearLayout == null || remainWidth < valueWidth) {
                         linearLayout = getScoreLinear();
+                        remainWidth = maxWidth;
                         layoutScore.addView(linearLayout);
                     }
                     addScoreView(detail, linearLayout);
-                    index++;
+                    remainWidth = remainWidth - valueWidth;
                 }
             } else {
                 textFluency.setText(setDimensionColor("流利度: " + 0, -1, 5, 1));
                 textIntegrity.setText(setDimensionColor("完整度: " + 0, -1, 5, 1));
                 textStandard.setText(setDimensionColor("准确度: " + 0, -1, 5, 1));
                 for (String value : data.getValues()) {
-                    if (index % 8 == 0) {
+                    valueWidth = getViewWidth(value);
+                    ZYLog.e(getClass().getSimpleName(), "viewWidth-value:" + value + "  width: " + valueWidth + "  remainWidth: " + remainWidth);
+                    if (linearLayout == null || remainWidth < valueWidth) {
                         linearLayout = getScoreLinear();
+                        remainWidth = maxWidth;
                         layoutScore.addView(linearLayout);
                     }
                     addScoreView(new XSBean.Detail(-1, value), linearLayout);
-                    index++;
+                    remainWidth = remainWidth - valueWidth;
                 }
             }
         }
@@ -92,18 +101,25 @@ public class SRDubbingWordVH extends ZYBaseViewHolder<SRMarkBean> {
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.topMargin = ZYScreenUtils.dp2px(mContext, 10);
-        layoutParams.leftMargin = ZYScreenUtils.dp2px(mContext, 8);
-        layoutParams.rightMargin = ZYScreenUtils.dp2px(mContext, 8);
+        layoutParams.topMargin = ZYScreenUtils.dp2px(mContext, 6);
         linearLayout.setLayoutParams(layoutParams);
         return linearLayout;
     }
 
-    public View addScoreView(XSBean.Detail detail, LinearLayout linearLayout) {
+    public void addScoreView(XSBean.Detail detail, LinearLayout linearLayout) {
         SRDubbingWordScoreVH scoreVH = new SRDubbingWordScoreVH();
         scoreVH.attachTo(linearLayout);
-        scoreVH.updateView(detail,0);
-        return scoreVH.getItemView();
+        scoreVH.updateView(detail, 0);
+    }
+
+    public int getViewWidth(String value) {
+        try {
+            int valueWidth = ZYStringUtils.getStringWidthSp(13, value, mContext, null);
+            return valueWidth + ZYScreenUtils.dp2px(mContext, 4 + 4 + 8 + 8 + 4);
+        } catch (Exception e) {
+
+        }
+        return 0;
     }
 
     SpannableString setDimensionColor(String value, int score, int start, int len) {

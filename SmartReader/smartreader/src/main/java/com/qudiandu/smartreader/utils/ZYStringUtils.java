@@ -1,6 +1,9 @@
 package com.qudiandu.smartreader.utils;
 
+import android.content.Context;
+import android.graphics.Paint;
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -101,5 +104,20 @@ public class ZYStringUtils {
             }
         }
         return sb.toString();
+    }
+
+    public final static int getStringWidthSp(int fontSize, String text,
+                                             Context context, TextView textView) {
+        try {
+            if (textView == null) {
+                textView = new TextView(context);
+                textView.setTextSize(fontSize);
+            }
+            Paint paint = textView.getPaint();
+            return (int) paint.measureText(text);
+        } catch (Exception e) {
+
+        }
+        return 0;
     }
 }

@@ -18,10 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/sr_bg_corner4dp_c3_solid"
+            android:maxLines="1"
             android:padding="4dp"
             android:text="what"
+            android:ellipsize="end"
             android:textColor="@color/white"
-            android:textSize="@dimen/f3" />
+            android:textSize="13dp" />
 
         <View
             android:id="@+id/viewPoint"

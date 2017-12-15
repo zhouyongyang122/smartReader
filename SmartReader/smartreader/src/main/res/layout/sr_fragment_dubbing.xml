@@ -10,8 +10,8 @@
     <com.qudiandu.smartreader.base.view.ZYShadowLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:sl_cornerRadius="6dp"
         app:sl_dy="1dp"
         app:sl_shadowColor="#7fc1cbcc"

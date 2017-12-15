@@ -7,6 +7,8 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
+import com.qudiandu.smartreader.utils.ZYScreenUtils;
+import com.qudiandu.smartreader.utils.ZYStringUtils;
 
 import butterknife.Bind;
 
@@ -57,6 +59,16 @@ public class SRDubbingWordScoreVH extends ZYBaseViewHolder<XSBean.Detail> {
         } else {
             mItemView.setVisibility(View.GONE);
         }
+    }
+
+    public int getViewWidth() {
+        try {
+            int valueWidth = ZYStringUtils.getStringWidthSp(13, textValue.getText().toString(), mContext, textValue);
+            return valueWidth + ZYScreenUtils.dp2px(mContext, 4 + 4 + 8 + 8);
+        } catch (Exception e) {
+
+        }
+        return 0;
     }
 
     @Override

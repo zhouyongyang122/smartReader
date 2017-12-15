@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -165,7 +166,8 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
 
         mAdapter = new DubbingAdapter(getSupportFragmentManager());
         mViewPage.setAdapter(mAdapter);
-//        mViewPage.setPageTransformer(false, new ScaleTransformer());
+//        mViewPage.setPageMargin(ZYScreenUtils.dp2px(this,-10));
+        mViewPage.setPageTransformer(false, new ScaleTransformer());
         mViewPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -259,7 +261,8 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
 
     private class ScaleTransformer implements ViewPager.OnPageChangeListener, ViewPager.PageTransformer {
 
-        private float mLastOffset;
+        final float SCALE_MAX = 0.8f;
+        final float ALPHA_MAX = 0.5f;
 
         public ScaleTransformer() {
             mViewPage.addOnPageChangeListener(this);
@@ -267,41 +270,7 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            int realCurrentPosition;
-            int nextPosition;
-            float realOffset;
-            boolean goingLeft = mLastOffset > positionOffset;
 
-            if (goingLeft) {
-                realCurrentPosition = position + 1;
-                nextPosition = position;
-                realOffset = 1 - positionOffset;
-            } else {
-                nextPosition = position + 1;
-                realCurrentPosition = position;
-                realOffset = positionOffset;
-            }
-
-            if (realCurrentPosition > mAdapter.getCount() - 1) {
-                realCurrentPosition = mAdapter.getCount() - 1;
-            }
-            View currentView = mAdapter.getViewAt(realCurrentPosition);
-            if (currentView != null) {
-                currentView.setScaleX((float) (1 + 0.1 * (1 - realOffset)));
-                currentView.setScaleY((float) (1 + 0.1 * (1 - realOffset)));
-            }
-
-            if (nextPosition > mAdapter.getCount() - 1) {
-                return;
-            }
-
-            View nextView = mAdapter.getViewAt(nextPosition);
-            if (nextView != null) {
-                nextView.setScaleX((float) (1 + 0.1 * realOffset));
-                nextView.setScaleY((float) (1 + 0.1 * realOffset));
-            }
-
-            mLastOffset = positionOffset;
         }
 
         @Override
@@ -316,7 +285,23 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
 
         @Override
         public void transformPage(View page, float position) {
-
+            float scale = (position < 0)
+                    ? ((1 - SCALE_MAX) * position + 1)
+                    : ((SCALE_MAX - 1) * position + 1);
+            float alpha = (position < 0)
+                    ? ((1 - ALPHA_MAX) * position + 1)
+                    : ((ALPHA_MAX - 1) * position + 1);
+            //为了滑动过程中，page间距不变，这里做了处理
+            if(position < 0) {
+                ViewCompat.setPivotX(page, page.getWidth());
+                ViewCompat.setPivotY(page, page.getHeight() / 2);
+            } else {
+                ViewCompat.setPivotX(page, 0);
+                ViewCompat.setPivotY(page, page.getHeight() / 2);
+            }
+            ViewCompat.setScaleX(page, scale);
+            ViewCompat.setScaleY(page, scale);
+            ViewCompat.setAlpha(page, Math.abs(alpha));
         }
     }
 
