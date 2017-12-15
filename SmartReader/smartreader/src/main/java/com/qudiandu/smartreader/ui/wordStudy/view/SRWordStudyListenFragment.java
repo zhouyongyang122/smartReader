@@ -1,28 +1,29 @@
 package com.qudiandu.smartreader.ui.wordStudy.view;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
+import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
+import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyKeyVH;
 import com.qudiandu.smartreader.ui.wordStudy.view.viewHolder.SRWordStudyListenInputWordVH;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
@@ -43,9 +44,6 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
     @Bind(R.id.layoutInputWord)
     LinearLayout layoutInputWord;
 
-    @Bind(R.id.editWords)
-    EditText editWords;
-
     @Bind(R.id.btnNext)
     TextView btnNext;
 
@@ -54,6 +52,11 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
 
     @Bind(R.id.textAnswer)
     TextView textAnswer;
+
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    ArrayList<String> mKeys;
 
     SRWordStudyWord mWord;
 
@@ -71,19 +74,14 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
 
     ArrayList<SRWordStudyListenInputWordVH> inputWordVHS = new ArrayList<SRWordStudyListenInputWordVH>();
 
-    View.OnKeyListener keyListener = new View.OnKeyListener() {
-
-        @Override
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-            if (keyCode == KeyEvent.KEYCODE_DEL
-                    && event.getAction() == KeyEvent.ACTION_UP) {
-                delTextValue();
-                return true;
-            }
-            return false;
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            SRPlayManager.getInstance().stopAudio();
+            SRPlayManager.getInstance().startAudio("http://dict.youdao.com/dictvoice?audio=" + mWord.word + "&amp;type=" + 1);
         }
-    };
+    }
 
     @Nullable
     @Override
@@ -92,6 +90,8 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
         ButterKnife.bind(this, view);
 
         inputWordVHS.clear();
+
+        mKeys = keys();
 
         builder = new StringBuffer();
         int position = 0;
@@ -102,53 +102,32 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
             position++;
         }
 
-        editWords.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputWordVHS.size())});
-        editWords.setOnKeyListener(keyListener);
-        editWords.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ZYLog.e(SRWordStudyListenFragment.class.getSimpleName(), "onTextChanged: " + s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 0) {
-                    return;
-                }
-
-                ZYLog.e(SRWordStudyListenFragment.class.getSimpleName(), "afterTextChanged: " + s.toString());
-
-                if (builder.length() < inputWordVHS.size()) {
-                    builder.append(s.toString());
-                    setTextValue();
-                }
-                s.delete(0, s.length());
-            }
-        });
-
         if (mIsLastIndex) {
             btnNext.setText("完成");
         }
 
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (mIndex == 0) {
-            editWords.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showSoftInput();
+        ZYBaseRecyclerAdapter<String> adapter = new ZYBaseRecyclerAdapter<String>(mKeys) {
+            @Override
+            public ZYBaseViewHolder<String> createViewHolder(int type) {
+                return new SRWordStudyKeyVH();
+            }
+        };
+        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 7);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String key = mKeys.get(position);
+                if (!TextUtils.isEmpty(key)) {
+                    if (builder.length() < inputWordVHS.size()) {
+                        builder.append(key);
+                        setTextValue();
+                    }
                 }
-            }, 500);
-        }
+            }
+        });
+        return view;
     }
 
     @OnClick({R.id.imgDel, R.id.imgPlay, R.id.btnNext, R.id.layoutInputWord})
@@ -211,9 +190,6 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                     textAnswer.setText(value);
                 }
                 break;
-            case R.id.layoutInputWord:
-                showSoftInput();
-                break;
         }
     }
 
@@ -222,24 +198,9 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
         String str = builder.toString();
         int len = str.length();
 
-        if (len <= 6) {
+        if (len <= inputWordVHS.size()) {
             inputWordVHS.get(len - 1).updateView(builder.substring(len - 1, len), 0);
         }
-        if (len == 6) {
-            hideSoftInput();
-        }
-    }
-
-    public void showSoftInput() {
-        editWords.requestFocus();
-        editWords.setFocusable(true);
-        InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editWords, 0);
-    }
-
-    public void hideSoftInput() {
-        InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editWords.getWindowToken(), 0);
     }
 
     private void delTextValue() {
@@ -248,7 +209,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
         if (len == 0) {
             return;
         }
-        if (len > 0 && len <= 6) {
+        if (len > 0 && len <= inputWordVHS.size()) {
             builder.delete(len - 1, len);
         }
         inputWordVHS.get(len - 1).updateView("", 0);
@@ -276,5 +237,36 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
         void onNext();
 
         void onFinished();
+    }
+
+    ArrayList<String> keys() {
+        ArrayList<String> keys = new ArrayList<String>();
+        keys.add("A");
+        keys.add("B");
+        keys.add("C");
+        keys.add("D");
+        keys.add("E");
+        keys.add("F");
+        keys.add("G");
+        keys.add("H");
+        keys.add("I");
+        keys.add("J");
+        keys.add("K");
+        keys.add("L");
+        keys.add("M");
+        keys.add("N");
+        keys.add("O");
+        keys.add("P");
+        keys.add("Q");
+        keys.add("R");
+        keys.add("S");
+        keys.add("T");
+        keys.add("U");
+        keys.add("V");
+        keys.add("W");
+        keys.add("X");
+        keys.add("Y");
+        keys.add("Z");
+        return keys;
     }
 }

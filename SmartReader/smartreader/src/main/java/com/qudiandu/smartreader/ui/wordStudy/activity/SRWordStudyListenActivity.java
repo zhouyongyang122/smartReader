@@ -49,7 +49,7 @@ public class SRWordStudyListenActivity extends ZYBaseActivity {
         int index = 0;
         for (SRWordStudyWord srWordStudyWord : words) {
             listenFragment = new SRWordStudyListenFragment();
-            listenFragment.setWord(srWordStudyWord,index);
+            listenFragment.setWord(srWordStudyWord, index);
             if (index >= words.size() - 1) {
                 listenFragment.setIsLastIndex(true);
             }
@@ -78,8 +78,6 @@ public class SRWordStudyListenActivity extends ZYBaseActivity {
             @Override
             public void onPageSelected(int position) {
                 mActionBar.showTitle((position + 1) + "/" + words.size());
-                SRWordStudyListenFragment fragment = (SRWordStudyListenFragment) adapter.getItem(mIndex);
-                fragment.showSoftInput();
             }
 
             @Override
@@ -87,6 +85,8 @@ public class SRWordStudyListenActivity extends ZYBaseActivity {
 
             }
         });
+
+        mActionBar.showTitle(1 + "/" + words.size());
     }
 
     @Override

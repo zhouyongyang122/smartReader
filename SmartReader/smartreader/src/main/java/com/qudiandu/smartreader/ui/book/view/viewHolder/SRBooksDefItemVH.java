@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
@@ -61,6 +62,7 @@ public class SRBooksDefItemVH extends ZYBaseViewHolder<SRBook> {
                 mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 7), 0, 0, ZYScreenUtils.dp2px(mContext, 11));
             }
 
+            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -32,7 +32,7 @@ public class SRWordStudyListenInputWordVH extends ZYBaseViewHolder<String> {
     @Override
     public void updateView(String data, int position) {
         if (data != null) {
-            textWord.setText(data);
+            textWord.setText(data.toLowerCase());
             show(!mOValue.equals(data));
         }
     }

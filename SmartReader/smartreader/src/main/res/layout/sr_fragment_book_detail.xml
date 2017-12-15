@@ -123,7 +123,7 @@
 
         <LinearLayout
             android:id="@+id/layout_score"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_height="wrap_content">
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="6dp"
-                android:text="练口语"
+                android:text="为课本配音"
                 android:textColor="@color/c8"
                 android:textSize="@dimen/f2" />
         </LinearLayout>

@@ -117,10 +117,10 @@
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/sr_bg_corner6dp_c3_white"
+                    android:background="@drawable/sr_bg_corner4dp_white_c2"
                     android:gravity="center"
                     android:text="编辑"
-                    android:textColor="@color/c6"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/f3" />
             </RelativeLayout>
 
