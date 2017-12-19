@@ -43,7 +43,7 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
     public void updateView(SRCatalogueNew data, int position) {
         if (data != null) {
             mData = data;
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgBg, data.getPage_url(), ZYScreenUtils.dp2px(mContext, 6), R.drawable.def_bg, R.drawable.def_bg);
+            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPage_url(), R.drawable.img_default_pic, R.drawable.img_default_pic);
             textUnit.setText(data.getUnit());
             textTitle.setText(data.getTitle());
 

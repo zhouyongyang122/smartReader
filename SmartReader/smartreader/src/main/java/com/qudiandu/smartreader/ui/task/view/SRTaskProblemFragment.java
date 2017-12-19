@@ -137,7 +137,7 @@ public class SRTaskProblemFragment extends ZYBaseFragment<SRTaskProblemContact.I
         }
 
         ZYImageLoadHelper.getImageLoader().loadCircleImage(this, mImgAvatar, mPresenter.getTeacher().avatar, R.drawable.def_avatar, R.drawable.def_avatar);
-        ZYImageLoadHelper.getImageLoader().loadRoundImage(this, mImgBg, mPresenter.getProblem().pic, R.drawable.def_bg, R.drawable.def_bg, 8);
+        ZYImageLoadHelper.getImageLoader().loadRoundImage(this, mImgBg, mPresenter.getProblem().pic, R.drawable.img_default_pic, R.drawable.img_default_pic, 8);
         mTextDesc.setText(mPresenter.getProblem().description);
         if (!TextUtils.isEmpty(mPresenter.getProblem().audio)) {
             mLayoutVoice.setVisibility(View.VISIBLE);

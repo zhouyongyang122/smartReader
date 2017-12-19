@@ -119,6 +119,9 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
             public void onItemClick(View view, int position) {
                 String key = mKeys.get(position);
                 if (!TextUtils.isEmpty(key)) {
+                    if (key.equals("空格")) {
+                        key = " ";
+                    }
                     if (builder.length() < inputWordVHS.size()) {
                         builder.append(key);
                         setTextValue();
@@ -159,7 +162,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                     SpannableString value = null;
                     if (editValue.toLowerCase().equals(mWord.word.toLowerCase())) {
                         textTip.setText("真棒,回答正确!");
-                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
+                        ZYMediaPlayerTool.playSound(mActivity, R.raw.right, false);
                         textTip.setTextColor(ZYResourceUtils.getColor(R.color.c5));
                         value = new SpannableString(strValue);
                         int start = 5;
@@ -174,7 +177,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                     } else {
                         textTip.setText("哇哦,回答错误!");
-                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
+                        ZYMediaPlayerTool.playSound(mActivity, R.raw.right, false);
                         textTip.setTextColor(ZYResourceUtils.getColor(R.color.c3));
                         int start = 5;
                         int end = 5 + mWord.word.length();
@@ -214,10 +217,10 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
             builder.delete(len - 1, len);
         }
         inputWordVHS.get(len - 1).updateView("", 0);
-        textTip.setVisibility(View.GONE);
-        textAnswer.setText("请输入答案");
-        mIsNext = false;
-        btnNext.setText("检查");
+//        textTip.setVisibility(View.GONE);
+//        textAnswer.setText("请输入答案");
+//        mIsNext = false;
+//        btnNext.setText("检查");
     }
 
     public void setWord(SRWordStudyWord word, int index) {

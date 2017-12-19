@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import com.qudiandu.smartreader.BuildConfig;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
+import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.utils.ZYSystemUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 
@@ -30,10 +31,23 @@ public class SRWebViewActivity extends ZYBaseActivity {
 
     static final String TITLE = "title";
 
+    static final String FEED_BACK = "feed_back";
+
+    boolean mNeedFeedBack;
+
     public static Intent createIntent(Context context, String url, String title) {
         Intent intent = new Intent(context, SRWebViewActivity.class);
         intent.putExtra(URL, url);
         intent.putExtra(TITLE, title);
+        return intent;
+
+    }
+
+    public static Intent createIntent(Context context, String url, String title, boolean needFeedBack) {
+        Intent intent = new Intent(context, SRWebViewActivity.class);
+        intent.putExtra(URL, url);
+        intent.putExtra(TITLE, title);
+        intent.putExtra(FEED_BACK, needFeedBack);
         return intent;
 
     }
@@ -66,6 +80,16 @@ public class SRWebViewActivity extends ZYBaseActivity {
 
         if (!TextUtils.isEmpty(title)) {
             mActionBar.showTitle(title);
+        }
+
+        mNeedFeedBack = getIntent().getBooleanExtra(FEED_BACK, false);
+        if (mNeedFeedBack) {
+            mActionBar.showActionRightTitle("反馈", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(SRWebViewActivity.this, SRFeedBackActivity.class));
+                }
+            });
         }
 
         mActionBar.mIvLeftImg.setOnClickListener(new View.OnClickListener() {

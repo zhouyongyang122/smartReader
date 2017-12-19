@@ -62,7 +62,7 @@ public class SRBooksDefItemVH extends ZYBaseViewHolder<SRBook> {
                 mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 7), 0, 0, ZYScreenUtils.dp2px(mContext, 11));
             }
 
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
+//            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.drawable.default_textbook, R.drawable.default_textbook);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

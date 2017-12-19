@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent80"
+    android:background="@color/transparent60"
     android:gravity="center"
-    android:id="@+id/rootView"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:layout_width="320dp"
         android:layout_height="250dp"
-        android:background="@drawable/sr_bg_corner6dp_c4_solid">
+        android:background="@drawable/sr_bg_corner6dp_white_solid">
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="录音上传成功"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f2" />
+            android:text="恭喜,上传成功!"
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f1" />
 
         <TextView
             android:id="@+id/textSee"
@@ -30,27 +30,26 @@
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
-            android:background="@drawable/sr_bg_corner360dp_c7_solid"
+            android:background="@drawable/sr_bg_corner360dp_c4_solid"
             android:gravity="center"
-            android:text="查看我的录音"
-            android:textColor="@color/c4"
+            android:text="查看我的作品"
+            android:textColor="@color/white"
             android:textSize="@dimen/f2" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="95dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/sr_bg_corner6dp_c1_bottom_solid"
+            android:layout_below="@+id/textSee"
+            android:layout_marginTop="30dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="分享至: "
-                android:textColor="@color/c4"
-                android:textSize="@dimen/f4" />
+                android:text="这么棒的作品,赶紧分享给小伙伴吧!"
+                android:textColor="@color/c7"
+                android:textSize="@dimen/f3" />
 
             <LinearLayout
                 android:layout_width="match_parent"

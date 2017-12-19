@@ -233,7 +233,7 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                         ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
                         value.setSpan(new ForegroundColorSpan(Color.parseColor("#00d365")), start, end,
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
+                        ZYMediaPlayerTool.playSound(mActivity, R.raw.right, false);
                     } else {
                         int start = 5;
                         int end = 5 + 1;
@@ -246,7 +246,7 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                         ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
                         value.setSpan(new ForegroundColorSpan(Color.parseColor("#f25b6a")), start, end,
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                        ZYMediaPlayerTool.playSound(mActivity,R.raw.right,false);
+                        ZYMediaPlayerTool.playSound(mActivity, R.raw.right, false);
                     }
                     textTip.setText(value);
                     if (mIsPicType) {
@@ -336,9 +336,9 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
     }
 
     void selectPicAnswer(String answer) {
-        textTip.setText("请检查答案");
-        mIsNext = false;
-        textNext.setText("检查");
+//        textTip.setText("请检查答案");
+//        mIsNext = false;
+//        textNext.setText("检查");
         if (answer.equals("A")) {
             layoutPicA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
             layoutPicB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);
@@ -363,9 +363,9 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
     }
 
     void selectTextAnswer(String answer) {
-        textTip.setText("请检查答案");
-        mIsNext = false;
-        textNext.setText("检查");
+//        textTip.setText("请检查答案");
+//        mIsNext = false;
+//        textNext.setText("检查");
         if (answer.equals("A")) {
             layoutTextA.setBackgroundResource(R.drawable.sr_bg_corner6dp_c4_white);
             layoutTextB.setBackgroundResource(R.drawable.sr_bg_corner6dp_white_solid);

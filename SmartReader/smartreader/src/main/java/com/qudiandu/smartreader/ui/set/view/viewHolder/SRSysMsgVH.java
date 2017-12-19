@@ -3,6 +3,7 @@ package com.qudiandu.smartreader.ui.set.view.viewHolder;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
@@ -32,6 +33,9 @@ public class SRSysMsgVH extends ZYBaseViewHolder<SRSysMsg> {
     @Bind(R.id.imgBg)
     ImageView imgBg;
 
+    @Bind(R.id.layoutBg)
+    RelativeLayout layoutBg;
+
     @Bind(R.id.viewPoint)
     View viewPoint;
 
@@ -42,10 +46,10 @@ public class SRSysMsgVH extends ZYBaseViewHolder<SRSysMsg> {
             textMsg.setText(data.content);
             textTime.setText(ZYDateUtils.getTimeString(data.create_time * 1000, ZYDateUtils.YYMMDDHHMM12));
             if (!TextUtils.isEmpty(data.pic)) {
-                imgBg.setVisibility(View.VISIBLE);
-                ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgBg, data.pic, ZYScreenUtils.dp2px(mContext, 6), R.color.c10, R.color.c10);
+                layoutBg.setVisibility(View.VISIBLE);
+                ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.pic, R.drawable.img_default_pic, R.drawable.img_default_pic);
             } else {
-                imgBg.setVisibility(View.GONE);
+                layoutBg.setVisibility(View.GONE);
             }
         }
     }

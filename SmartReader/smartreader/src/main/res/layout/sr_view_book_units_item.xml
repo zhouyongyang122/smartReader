@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/def_bg" />
+            android:src="@drawable/img_default_pic" />
 
         <TextView
             android:id="@+id/textUnit"

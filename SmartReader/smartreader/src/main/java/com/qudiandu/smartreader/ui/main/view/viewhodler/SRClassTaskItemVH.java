@@ -64,7 +64,7 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
             mPosition = position;
             mItemView.setVisibility(View.VISIBLE);
             mData = (SRTask) data;
-            ZYImageLoadHelper.getImageLoader().loadRoundImage(this, imgBg, mData.page_url, ZYScreenUtils.dp2px(mContext, 6));
+            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, mData.page_url);
             textSubTitle.setText(mData.title);
             textTitle.setText(mData.unit);
             textFinish.setVisibility(View.VISIBLE);

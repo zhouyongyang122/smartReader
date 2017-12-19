@@ -81,7 +81,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/def_bg" />
+                    android:src="@drawable/img_default_pic" />
             </LinearLayout>
 
             <View

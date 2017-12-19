@@ -54,14 +54,29 @@
                 android:textSize="@dimen/f4" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/imgBg"
+        <RelativeLayout
+            android:id="@+id/layoutBg"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
             android:layout_marginBottom="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_default_pic"
-            android:visibility="gone" />
+            android:visibility="visible"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imgBg"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_default_pic" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="192dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sr_bg_round6dp_stroke6dp_white" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textMsg"

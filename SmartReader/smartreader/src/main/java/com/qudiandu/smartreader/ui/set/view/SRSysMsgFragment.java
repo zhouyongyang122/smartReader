@@ -1,5 +1,6 @@
 package com.qudiandu.smartreader.ui.set.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
+import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.ui.set.contract.SRSysMsgContract;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.set.view.viewHolder.SRSysMsgVH;
@@ -33,6 +35,11 @@ public class SRSysMsgFragment extends ZYListDateFragment<SRSysMsgContract.IPrese
         SRSysMsg msg = mAdapter.getItem(position);
         if (msg != null && !TextUtils.isEmpty(msg.url)) {
             startActivity(SRWebViewActivity.createIntent(mActivity, msg.url, msg.title));
+            return;
+        }
+
+        if (msg != null) {
+            startActivity(new Intent(mActivity, SRFeedBackActivity.class));
         }
     }
 

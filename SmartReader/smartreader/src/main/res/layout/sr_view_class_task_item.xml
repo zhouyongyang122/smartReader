@@ -19,8 +19,16 @@
             android:layout_height="72dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/def_bg" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_default_pic" />
+
+        <ImageView
+            android:layout_width="112dp"
+            android:layout_height="84dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sr_bg_round6dp_stroke6dp_white" />
 
         <TextView
             android:id="@+id/textTitle"

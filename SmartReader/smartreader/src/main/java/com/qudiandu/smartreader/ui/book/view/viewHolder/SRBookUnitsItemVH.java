@@ -29,7 +29,7 @@ public class SRBookUnitsItemVH extends ZYBaseViewHolder<SRCatalogue> {
     @Override
     public void updateView(SRCatalogue data, int position) {
         if (data != null) {
-            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPage_url(), R.drawable.def_bg, R.drawable.def_bg);
+            ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPage_url(), R.drawable.img_default_pic, R.drawable.img_default_pic);
             textUnit.setText(data.getUnit());
             textTitle.setText(data.getTitle());
         }
