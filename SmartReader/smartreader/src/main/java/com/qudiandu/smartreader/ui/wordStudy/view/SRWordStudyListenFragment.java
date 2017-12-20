@@ -52,8 +52,14 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
     @Bind(R.id.textAnswer)
     TextView textAnswer;
 
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @Bind(R.id.layoutWord1)
+    LinearLayout layoutWord1;
+
+    @Bind(R.id.layoutWord2)
+    LinearLayout layoutWord2;
+
+    @Bind(R.id.layoutWord3)
+    LinearLayout layoutWord3;
 
     ArrayList<String> mKeys;
 
@@ -105,30 +111,52 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
             btnNext.setText("完成");
         }
 
-        ZYBaseRecyclerAdapter<String> adapter = new ZYBaseRecyclerAdapter<String>(mKeys) {
-            @Override
-            public ZYBaseViewHolder<String> createViewHolder(int type) {
-                return new SRWordStudyKeyVH();
-            }
-        };
-        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 7);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                String key = mKeys.get(position);
-                if (!TextUtils.isEmpty(key)) {
-                    if (key.equals("空格")) {
-                        key = " ";
+        SRWordStudyKeyVH keyVH;
+        int index = 0;
+        for (String key : mKeys) {
+            if (key.equals("空格")) {
+                keyVH = new SRWordStudyKeyVH(2, new SRWordStudyKeyVH.WordStudyKeyListener() {
+                    @Override
+                    public void onWordClick(int position) {
+                        String key = mKeys.get(position);
+                        if (!TextUtils.isEmpty(key)) {
+                            if (key.equals("空格")) {
+                                key = " ";
+                            }
+                            if (builder.length() < inputWordVHS.size()) {
+                                builder.append(key);
+                                setTextValue();
+                            }
+                        }
                     }
-                    if (builder.length() < inputWordVHS.size()) {
-                        builder.append(key);
-                        setTextValue();
+                });
+            } else {
+                keyVH = new SRWordStudyKeyVH(1, new SRWordStudyKeyVH.WordStudyKeyListener() {
+                    @Override
+                    public void onWordClick(int position) {
+                        String key = mKeys.get(position);
+                        if (!TextUtils.isEmpty(key)) {
+                            if (key.equals("空格")) {
+                                key = " ";
+                            }
+                            if (builder.length() < inputWordVHS.size()) {
+                                builder.append(key);
+                                setTextValue();
+                            }
+                        }
                     }
-                }
+                });
             }
-        });
+            if (index >= 0 && index <= 9) {
+                keyVH.attachTo(layoutWord1);
+            } else if (index > 9 && index <= 18) {
+                keyVH.attachTo(layoutWord2);
+            } else {
+                keyVH.attachTo(layoutWord3);
+            }
+            keyVH.updateView(key, index);
+            index++;
+        }
         return view;
     }
 
@@ -245,32 +273,32 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
 
     ArrayList<String> keys() {
         ArrayList<String> keys = new ArrayList<String>();
-        keys.add("A");
-        keys.add("B");
-        keys.add("C");
-        keys.add("D");
-        keys.add("E");
-        keys.add("F");
-        keys.add("G");
-        keys.add("H");
-        keys.add("I");
-        keys.add("J");
-        keys.add("K");
-        keys.add("L");
-        keys.add("M");
-        keys.add("N");
-        keys.add("O");
-        keys.add("P");
-        keys.add("Q");
-        keys.add("R");
-        keys.add("S");
-        keys.add("T");
-        keys.add("U");
-        keys.add("V");
-        keys.add("W");
-        keys.add("X");
-        keys.add("Y");
-        keys.add("Z");
+        keys.add("q");
+        keys.add("w");
+        keys.add("e");
+        keys.add("r");
+        keys.add("t");
+        keys.add("y");
+        keys.add("u");
+        keys.add("i");
+        keys.add("o");
+        keys.add("p");
+        keys.add("a");
+        keys.add("s");
+        keys.add("d");
+        keys.add("f");
+        keys.add("g");
+        keys.add("h");
+        keys.add("j");
+        keys.add("k");
+        keys.add("l");
+        keys.add("z");
+        keys.add("x");
+        keys.add("c");
+        keys.add("v");
+        keys.add("b");
+        keys.add("n");
+        keys.add("m");
         keys.add("空格");
         return keys;
     }

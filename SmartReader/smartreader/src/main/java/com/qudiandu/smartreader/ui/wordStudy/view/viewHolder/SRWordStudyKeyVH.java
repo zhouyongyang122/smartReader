@@ -20,19 +20,45 @@ public class SRWordStudyKeyVH extends ZYBaseViewHolder<String> {
     @Bind(R.id.textKey)
     TextView textKey;
 
+    int mType;
+
+    int mPosition;
+
+    WordStudyKeyListener mListener;
+
+    public SRWordStudyKeyVH(int type, WordStudyKeyListener listener) {
+        mType = type;
+        mListener = listener;
+    }
+
     @Override
     public void findView(View view) {
         super.findView(view);
-        int width = ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 20 + 15 + 5 * 7);
-        width = width / 7;
+        int width = ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 6 * 10);
+        width = width / 10;
+        int height = (int) (width / (31.0f / 42.0f));
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) textKey.getLayoutParams();
-        layoutParams.width = width;
-        layoutParams.height = width;
+        if (mType == 1) {
+            layoutParams.width = width;
+        } else {
+            layoutParams.width = width * 2 + ZYScreenUtils.dp2px(mContext, 6);
+        }
+        layoutParams.height = height;
         textKey.setLayoutParams(layoutParams);
+
+        mItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onWordClick(mPosition);
+                }
+            }
+        });
     }
 
     @Override
     public void updateView(String data, int position) {
+        mPosition = position;
         if (!TextUtils.isEmpty(data)) {
             textKey.setText(data);
         }
@@ -41,5 +67,9 @@ public class SRWordStudyKeyVH extends ZYBaseViewHolder<String> {
     @Override
     public int getLayoutResId() {
         return R.layout.sr_view_word_study_key;
+    }
+
+    public interface WordStudyKeyListener {
+        void onWordClick(int position);
     }
 }

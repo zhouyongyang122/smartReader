@@ -26,6 +26,8 @@ public class ZYPreferenceHelper {
 
     public static final String JPUSH_UPLOADED = "jpush_uploaded";//极光id是否上传
 
+    public static final String DUB_GUIDE = "dub_guide";//配音引导
+
     private SharedPreferences defPre;
 
     private ZYPreferenceHelper() {
@@ -43,16 +45,28 @@ public class ZYPreferenceHelper {
         return instance;
     }
 
-    public boolean hasUploadJPushId(){
+    public boolean hasUploadJPushId() {
         String uid = SRUserManager.getInstance().getUser().getUid();
         String key = uid + "_" + JPUSH_UPLOADED;
-        return getDefPre().getBoolean(key,false);
+        return getDefPre().getBoolean(key, false);
     }
 
-    public void setUploadJPushId(boolean uploaded){
+    public void setUploadJPushId(boolean uploaded) {
         String uid = SRUserManager.getInstance().getUser().getUid();
         String key = uid + "_" + JPUSH_UPLOADED;
-        getDefPre().edit().putBoolean(key,uploaded).commit();
+        getDefPre().edit().putBoolean(key, uploaded).commit();
+    }
+
+    public boolean hasDubGuide() {
+        String uid = SRUserManager.getInstance().getUser().getUid();
+        String key = uid + "_" + DUB_GUIDE;
+        return getDefPre().getBoolean(key, false);
+    }
+
+    public void setDubGuide(boolean guided) {
+        String uid = SRUserManager.getInstance().getUser().getUid();
+        String key = uid + "_" + DUB_GUIDE;
+        getDefPre().edit().putBoolean(key, guided).commit();
     }
 
     public int getSelectBookId(int classId) {

@@ -20,6 +20,7 @@ import com.qiniu.rs.CallRet;
 import com.qiniu.rs.UploadCallRet;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
@@ -118,6 +119,9 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
     @Bind(R.id.layoutSubmit)
     RelativeLayout layoutSubmit;
 
+    @Bind(R.id.layoutGuide)
+    RelativeLayout layoutGuide;
+
     DubbingAdapter mAdapter;
 
     List<SRDubbingFragment> mFragments = new ArrayList<>();
@@ -191,6 +195,19 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
 
             }
         });
+
+        if (!ZYPreferenceHelper.getInstance().hasDubGuide()) {
+            ZYPreferenceHelper.getInstance().setDubGuide(true);
+            layoutGuide.setVisibility(View.VISIBLE);
+            layoutGuide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    layoutGuide.setVisibility(View.GONE);
+                }
+            });
+        }
+
+        mTextPage.setText("1/" + mFragments.size());
     }
 
     @OnClick({R.id.layoutSubmit})
@@ -292,7 +309,7 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
                     ? ((1 - ALPHA_MAX) * position + 1)
                     : ((ALPHA_MAX - 1) * position + 1);
             //为了滑动过程中，page间距不变，这里做了处理
-            if(position < 0) {
+            if (position < 0) {
                 ViewCompat.setPivotX(page, page.getWidth());
                 ViewCompat.setPivotY(page, page.getHeight() / 2);
             } else {

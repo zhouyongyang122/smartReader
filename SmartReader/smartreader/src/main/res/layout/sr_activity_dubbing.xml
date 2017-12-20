@@ -1,60 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c1"
-    android:orientation="vertical">
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" />
+    android:background="@color/c1">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textPage"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPage"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:text="1/9"
-            android:textColor="@color/c8"
-            android:textSize="@dimen/f1" />
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
 
-        <RelativeLayout
-            android:id="@+id/layoutSubmit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/sr_bg_corner360dp_white_solid"
-            android:padding="3dp"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textPage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="4dp"
-                android:background="@drawable/sr_bg_corner360dp_c4_solid"
+                android:layout_height="60dp"
                 android:gravity="center"
-                android:text="提交作品"
-                android:textColor="@color/c1"
+                android:text="1/9"
+                android:textColor="@color/c8"
                 android:textSize="@dimen/f1" />
-        </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/sr_bg_corner360dp_white_solid"
+                android:padding="3dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="4dp"
+                    android:background="@drawable/sr_bg_corner360dp_c4_solid"
+                    android:gravity="center"
+                    android:text="提交作品"
+                    android:textColor="@color/c1"
+                    android:textSize="@dimen/f1" />
+            </RelativeLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/layoutGuide"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent50">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:src="@drawable/noviceguidance" />
+    </RelativeLayout>
+</RelativeLayout>
