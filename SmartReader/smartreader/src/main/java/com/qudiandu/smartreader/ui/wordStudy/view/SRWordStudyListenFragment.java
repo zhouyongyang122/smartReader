@@ -205,7 +205,7 @@ public class SRWordStudyListenFragment extends ZYBaseFragment {
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
                     } else {
                         textTip.setText("哇哦,回答错误!");
-                        ZYMediaPlayerTool.playSound(mActivity, R.raw.right, false);
+                        ZYMediaPlayerTool.playSound(mActivity, R.raw.error, false);
                         textTip.setTextColor(ZYResourceUtils.getColor(R.color.c3));
                         int start = 5;
                         int end = 5 + mWord.word.length();

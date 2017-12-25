@@ -280,11 +280,11 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/page"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
             android:text="1"
             android:textColor="@color/c9"
-            android:textSize="@dimen/f1" />
+            android:textSize="@dimen/f3" />
     </com.qudiandu.smartreader.base.view.ZYShadowLayout>
 
 </RelativeLayout>

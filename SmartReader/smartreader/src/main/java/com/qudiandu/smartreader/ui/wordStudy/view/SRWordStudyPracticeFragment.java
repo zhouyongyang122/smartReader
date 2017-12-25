@@ -246,7 +246,7 @@ public class SRWordStudyPracticeFragment extends ZYBaseFragment {
                         ZYLog.e(getClass().getSimpleName(), "start-2: " + start + "   end-2: " + end);
                         value.setSpan(new ForegroundColorSpan(Color.parseColor("#f25b6a")), start, end,
                                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                        ZYMediaPlayerTool.playSound(mActivity, R.raw.right, false);
+                        ZYMediaPlayerTool.playSound(mActivity, R.raw.error, false);
                     }
                     textTip.setText(value);
                     if (mIsPicType) {

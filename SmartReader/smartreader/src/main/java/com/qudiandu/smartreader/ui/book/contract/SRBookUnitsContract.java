@@ -18,10 +18,11 @@ public interface SRBookUnitsContract {
 
         void showList(List<SRCatalogue> catalogues);
 
-        void toDubbing(ArrayList<SRTract> tracts, String bookId, String cateId);
+        void toDubbing(ArrayList<SRTract> tracts, String bookId, SRCatalogue catalogue);
     }
 
     interface IPresenter extends ZYIBasePresenter {
-        void toDubbing(int cateId);
+//        void toDubbing(int cateId);
+        void toDubbing(SRCatalogue catalogue);
     }
 }

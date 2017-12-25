@@ -175,7 +175,14 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
             break;
             case R.id.layout_score: {
                 SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
-                mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id, page.getCatalogueId() + "",page.getPage_name()));
+                String title = "";
+                for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
+                    if (catalogue.getCatalogue_id() == page.getCatalogueId()) {
+                        title = catalogue.getTitle();
+                        break;
+                    }
+                }
+                mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, mPresenter.getTractsByCatalogueId(page.getCatalogueId()), mPresenter.getBookData().book_id, page.getCatalogueId() + "", title));
                 if (mPresenter.isSingleRepeat()) {
                     mPresenter.stopSingleRepeat();
                 }

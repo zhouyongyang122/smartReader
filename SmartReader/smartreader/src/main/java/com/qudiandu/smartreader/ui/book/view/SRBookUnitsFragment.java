@@ -17,7 +17,6 @@ import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBookUnitsItemVH;
 import com.qudiandu.smartreader.ui.dubbing.activity.SRDubbingActivity;
 import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
-import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class SRBookUnitsFragment extends ZYBaseFragment<SRBookUnitsContract.IPre
             public void onItemClick(View view, int position) {
                 SRCatalogue catalogue = adapter.getItem(position);
                 if (catalogue != null) {
-                    mPresenter.toDubbing(catalogue.getCatalogue_id());
+                    mPresenter.toDubbing(catalogue);
                 }
             }
         });
@@ -62,8 +61,8 @@ public class SRBookUnitsFragment extends ZYBaseFragment<SRBookUnitsContract.IPre
     }
 
     @Override
-    public void toDubbing(ArrayList<SRTract> tracts, String bookId, String cateId) {
-        mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, tracts, bookId, cateId,""));
+    public void toDubbing(ArrayList<SRTract> tracts, String bookId, SRCatalogue catalogue) {
+        mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, tracts, bookId, catalogue.getCatalogue_id() + "", catalogue.getTitle()));
     }
 
     @Override

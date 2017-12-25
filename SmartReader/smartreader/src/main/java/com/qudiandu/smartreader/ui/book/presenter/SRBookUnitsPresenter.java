@@ -117,15 +117,28 @@ public class SRBookUnitsPresenter extends ZYBasePresenter implements SRBookUnits
         }));
     }
 
-    public void toDubbing(int cateId) {
+//    public void toDubbing(int cateId) {
+//        ArrayList<SRTract> tracts = new ArrayList<SRTract>();
+//        for (SRPage page : mBook.getPage()) {
+//            if (page.getCatalogueId() == cateId) {
+//                tracts.addAll(page.getTrack());
+//            } else if (tracts.size() > 0) {
+//                break;
+//            }
+//        }
+//        mView.toDubbing(tracts, mBook.book_id, cateId + "");
+//    }
+
+    @Override
+    public void toDubbing(SRCatalogue catalogue) {
         ArrayList<SRTract> tracts = new ArrayList<SRTract>();
         for (SRPage page : mBook.getPage()) {
-            if (page.getCatalogueId() == cateId) {
+            if (page.getPage_id() == catalogue.getFristPageId()) {
                 tracts.addAll(page.getTrack());
             } else if (tracts.size() > 0) {
                 break;
             }
         }
-        mView.toDubbing(tracts, mBook.book_id, cateId + "");
+        mView.toDubbing(tracts, mBook.book_id, catalogue);
     }
 }
