@@ -14,7 +14,6 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
-import com.qudiandu.smartreader.ui.main.activity.SRMainActivity;
 import com.qudiandu.smartreader.ui.myAudio.activity.SRCatalogueDetailActivity;
 import com.qudiandu.smartreader.ui.myAudio.contract.SRCataloguesContract;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
@@ -22,7 +21,6 @@ import com.qudiandu.smartreader.ui.myAudio.view.viewHolder.SRCataloguesVH;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by ZY on 17/6/10.

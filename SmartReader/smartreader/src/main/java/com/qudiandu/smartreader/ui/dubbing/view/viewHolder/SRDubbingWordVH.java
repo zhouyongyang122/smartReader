@@ -115,7 +115,10 @@ public class SRDubbingWordVH extends ZYBaseViewHolder<SRMarkBean> {
     public int getViewWidth(String value) {
         try {
             int valueWidth = ZYStringUtils.getStringWidthSp(13, value, mContext, null);
-            return valueWidth + ZYScreenUtils.dp2px(mContext, 4 + 4 + 8 + 8 + 4);
+//            if (value.length() <= 1) {
+//                valueWidth = 2 * valueWidth;
+//            }
+            return valueWidth + ZYScreenUtils.dp2px(mContext, 8 + 8 + 8 + 8 + 4);
         } catch (Exception e) {
 
         }

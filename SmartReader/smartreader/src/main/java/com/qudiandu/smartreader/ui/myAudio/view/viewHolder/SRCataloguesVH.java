@@ -37,6 +37,9 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
     @Bind(R.id.imgCheck)
     ImageView imgCheck;
 
+    @Bind(R.id.textSuport)
+    TextView textSuport;
+
     SRCatalogueNew mData;
 
     @Override
@@ -60,6 +63,8 @@ public class SRCataloguesVH extends ZYBaseViewHolder<SRCatalogueNew> {
             } else {
                 textScore.setVisibility(View.GONE);
             }
+
+            textSuport.setText(mData.getSupports() + "");
 
             if (data.isEdit()) {
                 imgCheck.setVisibility(View.VISIBLE);

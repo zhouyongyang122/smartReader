@@ -12,8 +12,9 @@
         android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="Unit1 Hello"
+        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="30dp" />
+        android:textSize="36dp" />
 
     <TextView
         android:id="@+id/textWordNum"

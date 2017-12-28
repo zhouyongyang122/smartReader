@@ -40,8 +40,8 @@
             android:layout_toRightOf="@+id/imgBg"
             android:maxLines="1"
             android:text="标题标题"
-            android:textColor="@color/c1"
-            android:textSize="@dimen/f3" />
+            android:textColor="@color/c6"
+            android:textSize="@dimen/f2" />
 
         <TextView
             android:id="@+id/textSubTitle"

@@ -12,6 +12,7 @@
         android:layout_marginRight="3dp"
         android:background="@drawable/sr_bg_corner6dp_white_solid"
         android:gravity="center"
+        android:textStyle="bold"
         android:textColor="@color/c6"
-        android:textSize="@dimen/f3" />
+        android:textSize="@dimen/f10" />
 </LinearLayout>

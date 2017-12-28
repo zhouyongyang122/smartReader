@@ -38,11 +38,11 @@ public class SRWordStudyListenInputWordVH extends ZYBaseViewHolder<String> {
     }
 
     public void show(boolean error) {
-        if (error) {
-            textWord.setTextColor(ZYResourceUtils.getColor(R.color.c3));
-        } else {
-            textWord.setTextColor(ZYResourceUtils.getColor(R.color.c2));
-        }
+//        if (error) {
+//            textWord.setTextColor(ZYResourceUtils.getColor(R.color.c3));
+//        } else {
+        textWord.setTextColor(ZYResourceUtils.getColor(R.color.c2));
+//        }
     }
 
     @Override

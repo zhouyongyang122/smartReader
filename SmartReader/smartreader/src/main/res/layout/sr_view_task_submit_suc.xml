@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent40"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="264dp"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sr_bg_corner6dp_white_solid"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/c6"
+                android:text="恭喜,提交成功!"
+                android:textSize="@dimen/f1" />
+
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:layout_width="120dp"
+                android:src="@drawable/picture_submittedsuccessfully"
+                android:layout_height="120dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/c7"
+                android:layout_marginTop="15dp"
+                android:text="真棒!每天按时完成作业,\n今日事今日毕做个乖孩子"
+                android:textSize="@dimen/f2" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

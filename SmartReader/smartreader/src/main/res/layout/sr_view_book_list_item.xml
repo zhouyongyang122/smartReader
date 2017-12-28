@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/c1"
     android:paddingTop="10dp"
-    android:paddingBottom="20dp"
+    android:paddingBottom="30dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -40,7 +40,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/sr_bg_corner360dp_boder1dpc2_solidwhite"
+                android:background="@drawable/sr_selector_check"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -50,7 +50,6 @@
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
         android:text="人教版"
         android:textColor="@color/white"

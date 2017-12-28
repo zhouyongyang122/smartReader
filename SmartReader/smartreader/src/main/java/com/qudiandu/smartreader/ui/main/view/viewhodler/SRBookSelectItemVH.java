@@ -66,11 +66,11 @@ public class SRBookSelectItemVH extends ZYBaseViewHolder<SRBook> {
             mData = data;
 
             if (position % 3 == 0) {
-                mItemView.setPadding(0, 0, ZYScreenUtils.dp2px(mContext, 7), 0);
+                mItemView.setPadding(0, ZYScreenUtils.dp2px(mContext, 15), ZYScreenUtils.dp2px(mContext, 7), 0);
             } else if (position % 3 == 1) {
-                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 4), 0, ZYScreenUtils.dp2px(mContext, 4), 0);
+                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 4), ZYScreenUtils.dp2px(mContext, 15), ZYScreenUtils.dp2px(mContext, 4), 0);
             } else {
-                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 7), 0, 0, 0);
+                mItemView.setPadding(ZYScreenUtils.dp2px(mContext, 7), ZYScreenUtils.dp2px(mContext, 15), 0, 0);
             }
 
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPic(), R.color.c5, R.color.c5);
@@ -95,9 +95,9 @@ public class SRBookSelectItemVH extends ZYBaseViewHolder<SRBook> {
 
     private void check(boolean checked) {
         if (checked) {
-            imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc4_solidc13);
+            imgCheck.setBackgroundResource(R.drawable.icon_selected);
         } else {
-            imgCheck.setBackgroundResource(R.drawable.sr_bg_corner360dp_boder1dpc2_solidwhite);
+            imgCheck.setBackgroundResource(R.drawable.icon_notselected);
         }
     }
 

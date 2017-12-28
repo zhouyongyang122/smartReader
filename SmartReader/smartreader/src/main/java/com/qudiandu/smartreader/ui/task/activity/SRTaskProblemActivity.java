@@ -26,6 +26,7 @@ import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskProblem;
 import com.qudiandu.smartreader.ui.task.presenter.SRTaskProblemPresenter;
 import com.qudiandu.smartreader.ui.task.view.SRTaskProblemFragment;
+import com.qudiandu.smartreader.ui.task.view.viewHolder.SRTaskSubmitSucVH;
 import com.qudiandu.smartreader.utils.ZYToast;
 
 import java.util.ArrayList;
@@ -66,6 +67,8 @@ public class SRTaskProblemActivity extends ZYBaseActivity {
 
     ZYFragmentAdapter mAdapter;
 
+    SRTaskSubmitSucVH submitSucVH;
+
     int mCurPage;
 
     public static Intent createIntent(Context context, int taskId, int finisId) {
@@ -90,6 +93,15 @@ public class SRTaskProblemActivity extends ZYBaseActivity {
         mTaskFinish = (SRTaskFinish) getIntent().getSerializableExtra(FINISH_TASK);
         mLoadingView.showLoading();
         loadData();
+
+        submitSucVH = new SRTaskSubmitSucVH(new SRTaskSubmitSucVH.TaskSubmitSucListener() {
+            @Override
+            public void onSubmiSucClick() {
+                finish();
+            }
+        });
+        submitSucVH.attachTo(mRootView);
+        submitSucVH.hide();
     }
 
     private void initLoadingView() {
@@ -212,8 +224,9 @@ public class SRTaskProblemActivity extends ZYBaseActivity {
                             @Override
                             public void onSuccess(ZYResponse response) {
                                 hideProgress();
-                                ZYToast.show(SRTaskProblemActivity.this, "任务提交成功!");
-                                finish();
+//                                ZYToast.show(SRTaskProblemActivity.this, "任务提交成功!");
+//                                finish();
+                                submitSucVH.show();
                             }
 
                             @Override

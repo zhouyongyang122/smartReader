@@ -31,7 +31,10 @@ public class ZYOptionPicker extends OptionPicker {
         setOnOptionPickListener(pickListener);
         setDividerRatio(WheelView.DividerConfig.FILL);
         setTextSize(18);
-        setDividerColor(ZYResourceUtils.getColor(R.color.c7));
+        WheelView.DividerConfig config = new WheelView.DividerConfig();
+        config.setThick(1);
+        setDividerConfig(config);
+        setDividerColor(ZYResourceUtils.getColor(R.color.c16));
         setTopLineColor(ZYResourceUtils.getColor(R.color.c7));
         setTextColor(ZYResourceUtils.getColor(R.color.c6));
         setCancelTextColor(ZYResourceUtils.getColor(R.color.c6));

@@ -60,6 +60,11 @@ public class SRWordStudyKeyVH extends ZYBaseViewHolder<String> {
     public void updateView(String data, int position) {
         mPosition = position;
         if (!TextUtils.isEmpty(data)) {
+            if (data.length() > 1) {
+                textKey.setTextSize(25);
+            } else {
+                textKey.setTextSize(15);
+            }
             textKey.setText(data);
         }
     }

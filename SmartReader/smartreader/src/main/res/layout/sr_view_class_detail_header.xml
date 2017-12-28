@@ -39,8 +39,8 @@
                     android:paddingRight="10dp"
                     android:singleLine="true"
                     android:text="学校名称: 中心小学"
-                    android:textColor="@color/c7"
-                    android:textSize="@dimen/f4" />
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f2" />
 
                 <TextView
                     android:id="@+id/textClassUser"
@@ -51,7 +51,7 @@
                     android:drawableRight="@drawable/icon_classswitching_down"
                     android:text="切换班级"
                     android:textColor="@color/c2"
-                    android:textSize="@dimen/f4" />
+                    android:textSize="@dimen/f3" />
             </LinearLayout>
 
             <TextView
@@ -78,7 +78,7 @@
                 android:paddingRight="10dp"
                 android:text="邀请码: 9999999"
                 android:textColor="@color/c7"
-                android:textSize="@dimen/f4" />
+                android:textSize="@dimen/f3" />
         </LinearLayout>
 
         <TextView

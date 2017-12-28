@@ -62,9 +62,10 @@
                         android:id="@+id/textEnWord"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="查询"
+                        android:text="Seach"
+                        android:textStyle="bold"
                         android:textColor="@color/c6"
-                        android:textSize="@dimen/f1" />
+                        android:textSize="36dp" />
 
                     <ImageView
                         android:id="@+id/imgPlay"
@@ -101,7 +102,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="left"
                 android:text="例句"
-                android:textColor="@color/c7"
+                android:textColor="@color/c6"
                 android:textSize="@dimen/f1" />
         </LinearLayout>
 

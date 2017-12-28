@@ -122,10 +122,10 @@ public class SRSetActivity extends ZYBaseActivity {
         SRUser user = SRUserManager.getInstance().getUser();
         if (user.type <= 1) {
             layoutChangePwd.setVisibility(View.VISIBLE);
-            layoutBind.setVisibility(View.GONE);
+//            layoutBind.setVisibility(View.GONE);
         } else {
             layoutChangePwd.setVisibility(View.GONE);
-            layoutBind.setVisibility(View.VISIBLE);
+//            layoutBind.setVisibility(View.VISIBLE);
         }
 
         if (SRUserManager.getInstance().isGuesterUser(false)) {

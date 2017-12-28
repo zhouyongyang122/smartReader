@@ -75,7 +75,7 @@ public class SRWordStudyHomeActivity extends ZYBaseActivity {
             }
         }));
 
-        mActionBar.showActionRightImg(R.drawable.menu, new View.OnClickListener() {
+        mActionBar.showActionRightImg(R.drawable.word_icon_catalog, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 homeMenuVH.show();

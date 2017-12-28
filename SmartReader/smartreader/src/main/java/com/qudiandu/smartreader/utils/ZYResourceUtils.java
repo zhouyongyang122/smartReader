@@ -1,5 +1,7 @@
 package com.qudiandu.smartreader.utils;
 
+import android.widget.TextView;
+
 import com.qudiandu.smartreader.SRApplication;
 
 /**
@@ -14,5 +16,9 @@ public class ZYResourceUtils {
 
     public static String getString(int res) {
         return SRApplication.getInstance().getString(res);
+    }
+
+    public static void blodTextView(TextView textView) {
+        textView.getPaint().setFakeBoldText(true);
     }
 }

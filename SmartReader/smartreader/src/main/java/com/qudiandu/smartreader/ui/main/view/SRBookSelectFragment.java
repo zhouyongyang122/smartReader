@@ -51,7 +51,7 @@ public class SRBookSelectFragment extends ZYListDateFragment<SRBookSelectContrac
             textAdd.setGravity(Gravity.CENTER);
             textAdd.setTextColor(ZYResourceUtils.getColor(R.color.white));
             textAdd.setBackgroundColor(ZYResourceUtils.getColor(R.color.c2));
-            textAdd.setTextSize(18);
+            textAdd.setTextSize(20);
             textAdd.setText("确认添加");
             textAdd.setVisibility(View.GONE);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ZYScreenUtils.dp2px(mActivity, 50));
