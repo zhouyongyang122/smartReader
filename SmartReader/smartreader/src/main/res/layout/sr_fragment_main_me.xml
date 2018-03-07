@@ -86,15 +86,30 @@
                 android:textSize="@dimen/f1"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/textName"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="用户名"
-                android:textColor="@color/white"
-                android:textSize="@dimen/f1" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="用户名"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/f1" />
+
+                <ImageView
+                    android:id="@+id/imgVip"
+                    android:layout_width="26dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_ordinarymember"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -122,6 +137,78 @@
                     android:text="编辑"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f3" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutMyVip"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/sr_bg_corner6dp_white_solid">
+
+                <TextView
+                    android:id="@+id/textMyVip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:minWidth="80dp"
+                    android:text="开通会员"
+                    android:textColor="@color/c1"
+                    android:textSize="@dimen/f2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@+id/textMyVip"
+                    android:src="@drawable/icon_member" />
+
+                <TextView
+                    android:id="@+id/textVipMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="已经开通"
+                    android:textColor="@color/c4"
+                    android:textSize="@dimen/f3"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutMyRank"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/sr_bg_corner6dp_white_solid">
+
+                <TextView
+                    android:id="@+id/textMyRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:minWidth="80dp"
+                    android:text="作品集排行榜"
+                    android:textColor="@color/c1"
+                    android:textSize="@dimen/f2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:layout_toLeftOf="@+id/textMyRank"
+                    android:src="@drawable/icon_workrankings" />
             </RelativeLayout>
 
             <RelativeLayout

@@ -9,31 +9,81 @@
     <LinearLayout
         android:id="@+id/layoutBar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textTitle"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingLeft="15dp"
-            android:text="1年级下.人教版"
-            android:textColor="@color/c10"
-            android:textSize="@dimen/f1" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layoutUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/def_avatar" />
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="周咏炀"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/f1" />
+
+                <ImageView
+                    android:id="@+id/imgVip"
+                    android:layout_width="26dp"
+                    android:layout_height="20dp"
+                    tools:visibility="visible"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_ordinarymember" />
+
+                <ImageView
+                    android:id="@+id/imgVipYear"
+                    android:layout_width="32dp"
+                    android:layout_height="16dp"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_annualmember" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="15dp"
+                android:text="1年级下.人教版"
+                android:textColor="@color/c10"
+                android:textSize="@dimen/f1" />
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp">
 
             <ImageView
                 android:id="@+id/imgMsg"
-                android:layout_width="28dp"
-                android:layout_height="21dp"
+                android:layout_width="35dp"
+                android:layout_height="26dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/study_icon_message" />
 

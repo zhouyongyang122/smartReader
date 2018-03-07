@@ -19,6 +19,10 @@ public class SRMyAudioModel extends ZYBaseModel {
         return mApi.getCatalogues(start, rows);
     }
 
+    public Observable<ZYResponse<List<SRCatalogueNew>>> getCatalogues(String uid,int start, int rows) {
+        return mApi.getCatalogues(uid,start, rows);
+    }
+
     public Observable<ZYResponse<SRCatalogueDetail>> getCatalogueDetail(String show_id) {
         return mApi.getCatalogueDetail(show_id);
     }

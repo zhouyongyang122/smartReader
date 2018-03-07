@@ -13,11 +13,14 @@ import com.qudiandu.smartreader.ui.dubbing.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkResponse;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueNew;
+import com.qudiandu.smartreader.ui.rank.model.bean.SRRank;
 import com.qudiandu.smartreader.ui.set.model.bean.SRRemind;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskCate;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskProblem;
 import com.qudiandu.smartreader.ui.task.model.bean.SRTaskFinish;
+import com.qudiandu.smartreader.ui.vip.model.bean.SRVip;
+import com.qudiandu.smartreader.ui.vip.model.bean.SRVipOrder;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyUnit;
 import com.qudiandu.smartreader.ui.wordStudy.model.bean.SRWordStudyWord;
 
@@ -105,6 +108,9 @@ public interface ZYRequestApi {
     @GET("show/catalogue")
     Observable<ZYResponse<List<SRCatalogueNew>>> getCatalogues(@Query("start") int start, @Query("rows") int rows);
 
+    @GET("show/catalogue")
+    Observable<ZYResponse<List<SRCatalogueNew>>> getCatalogues(@Query("uid") String uid,@Query("start") int start, @Query("rows") int rows);
+
     @GET("show/catalogueDetail")
     Observable<ZYResponse<SRCatalogueDetail>> getCatalogueDetail(@Query("show_id") String show_id);
 
@@ -177,4 +183,16 @@ public interface ZYRequestApi {
 
     @GET("book/unitWords")
     Observable<ZYResponse<List<SRWordStudyWord>>> getUnitWords(@Query("unit_id") String unit_id);
+
+    @POST("funds/vip_list")
+    Observable<ZYResponse<SRVip>> getVipPackages();
+
+    @POST("funds/vipMember")
+    Observable<ZYResponse<SRVipOrder>> getVipPayOrder(@Body Map<String, String> params);
+
+    @GET("show/top")
+    Observable<ZYResponse<List<SRRank>>> getRanks(@Query("school_id") String school_id,@Query("time_type") String time_type,@Query("start") int start, @Query("rows") int rows);
+
+    @POST("show/support")
+    Observable<ZYResponse> support(@Body Map<String, String> params);
 }

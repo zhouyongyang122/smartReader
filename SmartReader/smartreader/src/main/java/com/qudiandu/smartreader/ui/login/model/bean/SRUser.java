@@ -1,5 +1,8 @@
 package com.qudiandu.smartreader.ui.login.model.bean;
 
+import android.text.TextUtils;
+
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.service.db.entity.SRUserDao;
 import com.qudiandu.smartreader.service.db.entity.ZYBaseEntity;
@@ -57,14 +60,18 @@ public class SRUser extends ZYBaseEntity {
 
     public int school_id;//机构id
 
+    public String is_vip;
+
+    public String vip_endtime;
+
     @Transient
     public boolean isCheck;
 
     @Generated(hash = 30359122)
     public SRUser(String uid, String nickname, String avatar, int sex, String school,
-            String refresh_token, int age, int endtime, String upload_token, String picture_token,
-            int grade, String auth_token, boolean isLoginUser, int type, int user_type, String mobile,
-            int school_id) {
+                  String refresh_token, int age, int endtime, String upload_token, String picture_token,
+                  int grade, String auth_token, boolean isLoginUser, int type, int user_type, String mobile,
+                  int school_id) {
         this.uid = uid;
         this.nickname = nickname;
         this.avatar = avatar;
@@ -244,6 +251,21 @@ public class SRUser extends ZYBaseEntity {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public boolean isVip() {
+        try {
+            if (is_vip.equals("1")) {
+                long time = System.currentTimeMillis() / 1000L + ZYPreferenceHelper.getInstance().getTimeOffset();
+                if (!TextUtils.isEmpty(vip_endtime)) {
+                    return Long.parseLong(vip_endtime) >= time;
+                }
+                return true;
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 
     public int getUser_type() {

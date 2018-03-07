@@ -7,11 +7,15 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
+import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.contract.SRHomeContract;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRHomeBookVH;
@@ -33,6 +37,18 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
 
     @Bind(R.id.textTitle)
     TextView textTitle;
+
+    @Bind(R.id.layoutUser)
+    LinearLayout layoutUser;
+
+    @Bind(R.id.imgAvatar)
+    ImageView imgAvatar;
+
+    @Bind(R.id.textName)
+    TextView textName;
+
+    @Bind(R.id.imgVip)
+    ImageView imgVip;
 
     @Bind(R.id.viewRedPoint)
     View viewRedPoint;
@@ -81,6 +97,16 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
         super.onResume();
         mPresenter.loadBook();
         refreshMsgRemind();
+
+        if (!SRUserManager.getInstance().isGuesterUser(false)) {
+            SRUser user = SRUserManager.getInstance().getUser();
+            layoutUser.setVisibility(View.VISIBLE);
+            ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, user.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
+            textName.setText(user.nickname);
+            imgVip.setVisibility(user.isVip() ? View.VISIBLE : View.GONE);
+        } else {
+            layoutUser.setVisibility(View.GONE);
+        }
     }
 
     public void refreshMsgRemind() {

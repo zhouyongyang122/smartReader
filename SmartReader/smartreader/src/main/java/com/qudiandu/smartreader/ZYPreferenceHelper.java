@@ -28,6 +28,8 @@ public class ZYPreferenceHelper {
 
     public static final String DUB_GUIDE = "dub_guide";//配音引导
 
+    public static final String SCHOOL_ID = "school_id";//当前选择的班级对应的学校id
+
     private SharedPreferences defPre;
 
     private ZYPreferenceHelper() {
@@ -43,6 +45,14 @@ public class ZYPreferenceHelper {
             }
         }
         return instance;
+    }
+
+    public String getSchoolId(){
+        return getDefPre().getString(SCHOOL_ID,"");
+    }
+
+    public void saveSchoolId(String schoolId){
+        getDefPre().edit().putString(SCHOOL_ID,schoolId).commit();
     }
 
     public boolean hasUploadJPushId() {

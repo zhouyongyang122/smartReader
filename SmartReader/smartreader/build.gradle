@@ -12,8 +12,8 @@ android {
         applicationId "com.qudiandu.smartreader"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 12
-        versionName "1.5"
+        versionCode 14
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'armeabi'
@@ -68,7 +68,7 @@ repositories{
 }
 
 greendao {
-    schemaVersion 8
+    schemaVersion 9
     daoPackage 'com.qudiandu.smartreader.service.db.entity'
     targetGenDir 'src/main/java'
 }
@@ -124,9 +124,13 @@ dependencies {
     compile files('libs/weibosdkcore_v3.1.1.jar')
     compile files('libs/ssound.jar')
     compile files('libs/SQLiteStudioRemote.jar')
-    compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
-    compile('cn.qqtheme.framework:WheelPicker:latest.release') {//https://github.com/gzu-liyujiang/AndroidPicker
+    compile 'cn.jiguang.sdk:jpush:3.0.9'
+    // 此处以JPush 3.0.9 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.7'
+    // 此处以JCore 1.1.7 版本为例。
+    compile('cn.qqtheme.framework:WheelPicker:latest.release') {
+//https://github.com/gzu-liyujiang/AndroidPicker
         exclude group: 'com.android.support'
     }
+    compile files('libs/alipaySDK-20150602.jar')
 }

@@ -17,10 +17,12 @@ import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.myAudio.activity.SRCataloguesActivity;
 import com.qudiandu.smartreader.ui.profile.activity.SREditActivity;
+import com.qudiandu.smartreader.ui.rank.SRRankHomeActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSetActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
+import com.qudiandu.smartreader.ui.vip.activity.SRVipActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,6 +46,12 @@ public class SRMeFragment extends ZYBaseFragment {
     @Bind(R.id.textEdit)
     TextView textEdit;
 
+    @Bind(R.id.imgVip)
+    ImageView imgVip;
+
+    @Bind(R.id.textVipMsg)
+    TextView textVipMsg;
+
     @Bind(R.id.textLogin)
     TextView textLogin;
 
@@ -59,7 +67,7 @@ public class SRMeFragment extends ZYBaseFragment {
         return view;
     }
 
-    @OnClick({R.id.textEdit, R.id.layoutMyAudio, R.id.textLogin, R.id.layoutFeedBack, R.id.layoutSet, R.id.imgMsg})
+    @OnClick({R.id.textEdit, R.id.layoutMyAudio, R.id.textLogin, R.id.layoutFeedBack, R.id.layoutSet, R.id.imgMsg, R.id.layoutMyRank, R.id.layoutMyVip})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textEdit:
@@ -85,6 +93,12 @@ public class SRMeFragment extends ZYBaseFragment {
                 viewRedPoint.setVisibility(View.GONE);
                 SRMsgManager.getInstance().clearMsgRemind();
                 break;
+            case R.id.layoutMyVip:
+                startActivity(SRVipActivity.createIntent(mActivity));
+                break;
+            case R.id.layoutMyRank:
+                startActivity(SRRankHomeActivity.createIntent(mActivity));
+                break;
         }
     }
 
@@ -93,6 +107,12 @@ public class SRMeFragment extends ZYBaseFragment {
         super.onResume();
         refreshUserInfo();
         refreshMsgRemind();
+        if (SRUserManager.getInstance().getUser().isVip()) {
+            textVipMsg.setText("已开通");
+        } else {
+            textVipMsg.setText("未开通");
+        }
+        imgVip.setVisibility(SRUserManager.getInstance().getUser().isVip() ? View.VISIBLE : View.GONE);
     }
 
     private void refreshUserInfo() {
