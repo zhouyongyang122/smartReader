@@ -12,6 +12,8 @@ public class SRClass implements ZYIBaseBean {
 
     public String school_name;
 
+    public int school_id;
+
     public int uid;
 
     public String code;

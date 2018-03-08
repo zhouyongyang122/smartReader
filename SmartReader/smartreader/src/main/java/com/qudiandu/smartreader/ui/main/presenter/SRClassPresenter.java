@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.event.SREventIdentityChange;
 import com.qudiandu.smartreader.base.event.SREventJoinClassSuc;
@@ -111,6 +112,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
                     if (mCurrentClass == null) {
                         mCurrentClassPosition = 0;
                         mCurrentClass = mClasses.get(0);
+                        ZYPreferenceHelper.getInstance().saveSchoolId(mCurrentClass.school_id + "");
                     } else {
                         setSelectClassPositionByClass();
                     }
@@ -300,6 +302,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
 
     public void setSelectClass(int position) {
         mCurrentClass = mClasses.get(position);
+        ZYPreferenceHelper.getInstance().saveSchoolId(mCurrentClass.school_id + "");
         mView.showLoading();
         loadTasks(true);
     }

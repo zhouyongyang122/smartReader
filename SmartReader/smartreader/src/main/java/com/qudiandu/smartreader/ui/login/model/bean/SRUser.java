@@ -67,11 +67,11 @@ public class SRUser extends ZYBaseEntity {
     @Transient
     public boolean isCheck;
 
-    @Generated(hash = 30359122)
-    public SRUser(String uid, String nickname, String avatar, int sex, String school,
-                  String refresh_token, int age, int endtime, String upload_token, String picture_token,
-                  int grade, String auth_token, boolean isLoginUser, int type, int user_type, String mobile,
-                  int school_id) {
+    @Generated(hash = 906363200)
+    public SRUser(String uid, String nickname, String avatar, int sex, String school, String refresh_token,
+            int age, int endtime, String upload_token, String picture_token, int grade, String auth_token,
+            boolean isLoginUser, int type, int user_type, String mobile, int school_id, String is_vip,
+            String vip_endtime) {
         this.uid = uid;
         this.nickname = nickname;
         this.avatar = avatar;
@@ -89,6 +89,8 @@ public class SRUser extends ZYBaseEntity {
         this.user_type = user_type;
         this.mobile = mobile;
         this.school_id = school_id;
+        this.is_vip = is_vip;
+        this.vip_endtime = vip_endtime;
     }
 
     @Generated(hash = 628471356)
@@ -282,5 +284,21 @@ public class SRUser extends ZYBaseEntity {
 
     public void setSchool_id(int school_id) {
         this.school_id = school_id;
+    }
+
+    public String getIs_vip() {
+        return this.is_vip;
+    }
+
+    public void setIs_vip(String is_vip) {
+        this.is_vip = is_vip;
+    }
+
+    public String getVip_endtime() {
+        return this.vip_endtime;
+    }
+
+    public void setVip_endtime(String vip_endtime) {
+        this.vip_endtime = vip_endtime;
     }
 }

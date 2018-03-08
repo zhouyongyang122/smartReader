@@ -21,10 +21,14 @@
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             app:tabIndicatorColor="@color/c1"
-            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/c6"
             app:tabTextAppearance="@style/RankTabLayoutTextAppearance"
             app:tabTextColor="@color/c7" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/c7" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPage"

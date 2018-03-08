@@ -94,9 +94,15 @@ public class SRMeFragment extends ZYBaseFragment {
                 SRMsgManager.getInstance().clearMsgRemind();
                 break;
             case R.id.layoutMyVip:
+                if (SRUserManager.getInstance().isGuesterUser(true)) {
+                    return;
+                }
                 startActivity(SRVipActivity.createIntent(mActivity));
                 break;
             case R.id.layoutMyRank:
+                if (SRUserManager.getInstance().isGuesterUser(true)) {
+                    return;
+                }
                 startActivity(SRRankHomeActivity.createIntent(mActivity));
                 break;
         }
@@ -107,12 +113,6 @@ public class SRMeFragment extends ZYBaseFragment {
         super.onResume();
         refreshUserInfo();
         refreshMsgRemind();
-        if (SRUserManager.getInstance().getUser().isVip()) {
-            textVipMsg.setText("已开通");
-        } else {
-            textVipMsg.setText("未开通");
-        }
-        imgVip.setVisibility(SRUserManager.getInstance().getUser().isVip() ? View.VISIBLE : View.GONE);
     }
 
     private void refreshUserInfo() {
@@ -120,6 +120,8 @@ public class SRMeFragment extends ZYBaseFragment {
             textLogin.setVisibility(View.VISIBLE);
             textName.setVisibility(View.GONE);
             textGrade.setVisibility(View.GONE);
+            imgVip.setVisibility(View.GONE);
+            textVipMsg.setText("未开通");
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, "", R.drawable.def_avatar, R.drawable.def_avatar);
         } else {
             textLogin.setVisibility(View.GONE);
@@ -127,6 +129,12 @@ public class SRMeFragment extends ZYBaseFragment {
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, user.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             textName.setText(user.getNickname());
             textGrade.setText(user.getGrade() + "年级");
+            if (SRUserManager.getInstance().getUser().isVip()) {
+                textVipMsg.setText("已开通");
+            } else {
+                textVipMsg.setText("未开通");
+            }
+            imgVip.setVisibility(SRUserManager.getInstance().getUser().isVip() ? View.VISIBLE : View.GONE);
         }
     }
 

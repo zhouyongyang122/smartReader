@@ -155,7 +155,7 @@
                 android:layout_marginTop="30dp"
                 android:autoLink="all"
                 android:gravity="center_horizontal"
-                android:text="确认购买即表示同意<<趣点读会员协议>>"
+                android:text="确认购买即表示同意 趣点读会员协议 "
                 android:textColor="@color/white"
                 android:textSize="@dimen/f4" />
 

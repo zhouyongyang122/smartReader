@@ -163,6 +163,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.rank.SRRankHomeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.wordStudy.activity.SRWordStudyHomeActivity"
             android:screenOrientation="portrait" />
 

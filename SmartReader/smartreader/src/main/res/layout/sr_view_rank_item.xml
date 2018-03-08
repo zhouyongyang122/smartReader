@@ -25,7 +25,7 @@
         android:src="@drawable/def_avatar" />
 
     <ImageView
-        android:id="@+id/imgVip"
+        android:id="@+id/imgRank"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignRight="@+id/imgAvatar"
@@ -42,13 +42,24 @@
         android:layout_toRightOf="@+id/imgAvatar"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textName"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="周咏炀"
-            android:textColor="@color/c6"
-            android:textSize="@dimen/f2" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周咏炀"
+                android:textColor="@color/c6"
+                android:textSize="@dimen/f2" />
+            <ImageView
+                android:id="@+id/imgVip"
+                android:layout_width="26dp"
+                android:src="@drawable/icon_ordinarymember"
+                android:layout_height="20dp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textLesson"
@@ -79,8 +90,13 @@
         android:layout_alignBottom="@+id/imgAvatar"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
-        android:gravity="center_vertical"
         android:drawableLeft="@drawable/sr_bg_support"
         android:drawablePadding="4dp"
+        android:gravity="center_vertical"
         android:text="0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/c7" />
 </RelativeLayout>

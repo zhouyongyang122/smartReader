@@ -14,11 +14,13 @@ public class SRRank implements ZYIBaseBean {
 
     public int book_id;
 
+    public int show_id;
+
     public int catalogue_id;
 
     public String avatar;
 
-    public String name;
+    public String nickname;
 
     public String unit;
 

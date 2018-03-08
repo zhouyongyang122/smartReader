@@ -14,6 +14,7 @@ import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.ui.rank.presenter.SRRankPresenter;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by ZY on 18/3/6.
@@ -35,6 +36,7 @@ public class SRRankHomeFragment extends ZYBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sr_fragment_rank, container, false);
+        ButterKnife.bind(this,view);
 
         ZYFragmentAdapter adapter = new ZYFragmentAdapter(getChildFragmentManager());
 

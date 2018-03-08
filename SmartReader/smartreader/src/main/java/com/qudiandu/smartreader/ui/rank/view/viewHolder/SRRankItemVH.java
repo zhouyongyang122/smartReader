@@ -1,5 +1,7 @@
 package com.qudiandu.smartreader.ui.rank.view.viewHolder;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.rank.model.SRRankModel;
 import com.qudiandu.smartreader.ui.rank.model.bean.SRRank;
+import com.qudiandu.smartreader.utils.ZYResourceUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -27,6 +30,9 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
 
     @Bind(R.id.imgAvatar)
     ImageView imgAvatar;
+
+    @Bind(R.id.imgRank)
+    ImageView imgRank;
 
     @Bind(R.id.imgVip)
     ImageView imgVip;
@@ -53,26 +59,45 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
             textRank.setText((position + 1) + "");
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             imgVip.setVisibility(data.isVip() ? View.VISIBLE : View.GONE);
-            textName.setText(data.name);
+            textName.setText(data.nickname);
             textLesson.setText(data.unit);
             textScore.setText(data.score + "");
             textSuport.setText(data.supports + "");
-            textSuport.setSelected(data.isSupport());
+            setSuport();
+
+            if (position == 0) {
+                imgRank.setVisibility(View.VISIBLE);
+                imgRank.setImageResource(R.drawable.icon_gold);
+                textRank.setTextColor(ZYResourceUtils.getColor(R.color.yellow));
+            } else if (position == 1) {
+                imgRank.setVisibility(View.VISIBLE);
+                imgRank.setImageResource(R.drawable.icon_copper);
+                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c11));
+            } else if (position == 2) {
+                imgRank.setVisibility(View.VISIBLE);
+                imgRank.setImageResource(R.drawable.icon_silver);
+                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c4));
+            } else {
+                imgRank.setVisibility(View.GONE);
+                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c6));
+            }
         }
     }
 
     @OnClick({R.id.textSuport})
     public void onClick(View view) {
-        ZYNetSubscription.subscription(new SRRankModel().support(mData.id + "", mData.isSupport() ? 2 : 1), new ZYNetSubscriber() {
+        ZYNetSubscription.subscription(new SRRankModel().support(mData.show_id + "", mData.isSupport() ? 2 : 1), new ZYNetSubscriber() {
             @Override
             public void onSuccess(ZYResponse response) {
                 try {
                     if (mData.isSupport()) {
                         mData.is_support = 0;
+                        mData.supports--;
                     } else {
                         mData.is_support = 1;
+                        mData.supports++;
                     }
-                    textSuport.setSelected(mData.isSupport());
+                    setSuport();
                 } catch (Exception e) {
 
                 }
@@ -83,6 +108,21 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
 
             }
         });
+    }
+
+    private void setSuport() {
+        Drawable drawable = null;
+        if (mData.isSupport()) {
+            drawable = mContext.getResources().getDrawable(R.drawable.icon_praise_push);
+        } else {
+            drawable = mContext.getResources().getDrawable(R.drawable.icon_praise_normal);
+        }
+        if (drawable != null) {
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            textSuport.setCompoundDrawables(drawable, null, null, null);
+        }
+        textSuport.setSelected(mData.isSupport());
     }
 
     @Override

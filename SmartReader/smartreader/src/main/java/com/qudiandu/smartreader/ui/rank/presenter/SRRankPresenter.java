@@ -6,11 +6,14 @@ import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.base.mvp.ZYListDataPresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.rank.contract.SRRankContract;
 import com.qudiandu.smartreader.ui.rank.model.SRRankModel;
 import com.qudiandu.smartreader.ui.rank.model.bean.SRRank;
 
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Created by ZY on 18/3/6.
@@ -47,6 +50,13 @@ public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, S
 
     @Override
     protected void loadData() {
+
+        if (mRankType == RANK_ALL_TYPE) {
+            mSchoolId = "";
+        } else {
+            mSchoolId = SRUserManager.getInstance().getUser().school_id + "";
+        }
+
         mSubscriptions.add(ZYNetSubscription.subscription(mModel.getRanks(mSchoolId, mTimeType + "", mStart, mRows), new ZYNetSubscriber<ZYResponse<List<SRRank>>>() {
 
             @Override

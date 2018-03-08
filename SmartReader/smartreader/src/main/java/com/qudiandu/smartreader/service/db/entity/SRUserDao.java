@@ -41,6 +41,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         public final static Property User_type = new Property(14, int.class, "user_type", false, "USER_TYPE");
         public final static Property Mobile = new Property(15, String.class, "mobile", false, "MOBILE");
         public final static Property School_id = new Property(16, int.class, "school_id", false, "SCHOOL_ID");
+        public final static Property Is_vip = new Property(17, String.class, "is_vip", false, "IS_VIP");
+        public final static Property Vip_endtime = new Property(18, String.class, "vip_endtime", false, "VIP_ENDTIME");
     }
 
 
@@ -72,7 +74,9 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
                 "\"TYPE\" INTEGER NOT NULL ," + // 13: type
                 "\"USER_TYPE\" INTEGER NOT NULL ," + // 14: user_type
                 "\"MOBILE\" TEXT," + // 15: mobile
-                "\"SCHOOL_ID\" INTEGER NOT NULL );"); // 16: school_id
+                "\"SCHOOL_ID\" INTEGER NOT NULL ," + // 16: school_id
+                "\"IS_VIP\" TEXT," + // 17: is_vip
+                "\"VIP_ENDTIME\" TEXT);"); // 18: vip_endtime
     }
 
     /** Drops the underlying database table. */
@@ -137,6 +141,16 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
             stmt.bindString(16, mobile);
         }
         stmt.bindLong(17, entity.getSchool_id());
+ 
+        String is_vip = entity.getIs_vip();
+        if (is_vip != null) {
+            stmt.bindString(18, is_vip);
+        }
+ 
+        String vip_endtime = entity.getVip_endtime();
+        if (vip_endtime != null) {
+            stmt.bindString(19, vip_endtime);
+        }
     }
 
     @Override
@@ -195,6 +209,16 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
             stmt.bindString(16, mobile);
         }
         stmt.bindLong(17, entity.getSchool_id());
+ 
+        String is_vip = entity.getIs_vip();
+        if (is_vip != null) {
+            stmt.bindString(18, is_vip);
+        }
+ 
+        String vip_endtime = entity.getVip_endtime();
+        if (vip_endtime != null) {
+            stmt.bindString(19, vip_endtime);
+        }
     }
 
     @Override
@@ -221,7 +245,9 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
             cursor.getInt(offset + 13), // type
             cursor.getInt(offset + 14), // user_type
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // mobile
-            cursor.getInt(offset + 16) // school_id
+            cursor.getInt(offset + 16), // school_id
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // is_vip
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // vip_endtime
         );
         return entity;
     }
@@ -245,6 +271,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         entity.setUser_type(cursor.getInt(offset + 14));
         entity.setMobile(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setSchool_id(cursor.getInt(offset + 16));
+        entity.setIs_vip(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setVip_endtime(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
      }
     
     @Override
