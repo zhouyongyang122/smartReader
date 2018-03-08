@@ -64,7 +64,6 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
             textName.setText(data.nickname);
             textLesson.setText(data.unit);
             textScore.setText(data.score + "");
-            textSuport.setText(data.supports + "");
             setSuport();
 
             if (position == 0) {
@@ -137,6 +136,7 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
             textSuport.setCompoundDrawables(drawable, null, null, null);
         }
         textSuport.setSelected(mData.isSupport());
+        textSuport.setText(mData.supports + "");
     }
 
     @Override

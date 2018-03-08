@@ -22,7 +22,13 @@ public class SRCatalogueNew extends SRCatalogue implements ZYIBaseBean {
 
     private int views;//观看数
 
-    private int supports;//点赞数
+    public int supports;//点赞数
+
+    public int is_support;
+
+    public boolean isSupport() {
+        return is_support >= 1;
+    }
 
     //界面需要的属性
     private boolean isEdit;
