@@ -32,6 +32,8 @@ public class SRPersonHomeActivity extends ZYBaseFragmentActivity<SRPersonHomeFra
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mActionBar.showTitle("个人中心");
+
         if (getIntent().getSerializableExtra("user") != null) {
             new SRPersonHomePresenter(mFragment, (SRUser) getIntent().getSerializableExtra("user"));
         } else {

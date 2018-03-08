@@ -178,6 +178,10 @@
             android:name=".ui.wordStudy.activity.SRWordStudyListenActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.vip.activity.SRVipActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".service.downNet.down.ZYDownloadService" />
 
         <activity

@@ -9,6 +9,7 @@ import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
 import com.qudiandu.smartreader.base.view.ZYSwipeRefreshRecyclerView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
+import com.qudiandu.smartreader.ui.myAudio.activity.SRCatalogueDetailActivity;
 import com.qudiandu.smartreader.ui.profile.activity.SRPersonHomeActivity;
 import com.qudiandu.smartreader.ui.rank.contract.SRRankContract;
 import com.qudiandu.smartreader.ui.rank.model.bean.SRRank;
@@ -32,12 +33,7 @@ public class SRRankFragment extends ZYListDateFragment<SRRankContract.IPresenter
     protected void onItemClick(View view, int position) {
         SRRank rank = mAdapter.getItem(position);
         if (rank != null) {
-            SRUser user = new SRUser();
-            user.uid = rank.uid + "";
-            user.avatar = rank.avatar;
-            user.nickname = rank.nickname;
-            user.is_vip = rank.is_vip + "";
-            startActivity(SRPersonHomeActivity.createIntent(mActivity, user));
+            mActivity.startActivity(SRCatalogueDetailActivity.createIntent(mActivity, rank.show_id + ""));
         }
     }
 

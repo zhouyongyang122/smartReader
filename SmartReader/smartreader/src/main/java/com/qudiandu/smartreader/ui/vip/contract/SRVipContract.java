@@ -28,6 +28,8 @@ public interface SRVipContract {
 
         SRVip getVip();
 
+        List<SRVip.Price> getPriceList();
+
         List<SRVip.Rights> getRightsList();
     }
 

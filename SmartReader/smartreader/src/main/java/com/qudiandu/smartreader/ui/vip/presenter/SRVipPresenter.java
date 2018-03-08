@@ -37,6 +37,8 @@ public class SRVipPresenter extends ZYBasePresenter implements SRVipContract.IPr
 
     List<SRVip.Rights> mRightsList = new ArrayList<SRVip.Rights>();
 
+    List<SRVip.Price> mPriceList = new ArrayList<SRVip.Price>();
+
     public SRVipPresenter(SRVipContract.IView iView) {
         mView = iView;
         mView.setPresenter(this);
@@ -89,6 +91,8 @@ public class SRVipPresenter extends ZYBasePresenter implements SRVipContract.IPr
                     user.is_vip = mVip.is_vip;
                     user.vip_endtime = mVip.vip_endtime;
                     SRUserManager.getInstance().setUser(user);
+                    mPriceList.addAll(mVip.package_list);
+                    mPriceList.get(0).isSelected = true;
                     mView.showList(false);
                 } else {
                     mView.showError();
@@ -161,5 +165,9 @@ public class SRVipPresenter extends ZYBasePresenter implements SRVipContract.IPr
         } else if (result == 3) {
             mView.buyFail();
         }
+    }
+
+    public List<SRVip.Price> getPriceList() {
+        return mPriceList;
     }
 }

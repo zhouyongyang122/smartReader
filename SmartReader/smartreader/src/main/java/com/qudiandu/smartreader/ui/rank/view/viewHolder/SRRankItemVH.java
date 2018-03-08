@@ -12,6 +12,8 @@ import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
+import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
+import com.qudiandu.smartreader.ui.profile.activity.SRPersonHomeActivity;
 import com.qudiandu.smartreader.ui.rank.model.SRRankModel;
 import com.qudiandu.smartreader.ui.rank.model.bean.SRRank;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
@@ -84,30 +86,42 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
         }
     }
 
-    @OnClick({R.id.textSuport})
+    @OnClick({R.id.textSuport, R.id.imgAvatar})
     public void onClick(View view) {
-        ZYNetSubscription.subscription(new SRRankModel().support(mData.show_id + "", mData.isSupport() ? 2 : 1), new ZYNetSubscriber() {
-            @Override
-            public void onSuccess(ZYResponse response) {
-                try {
-                    if (mData.isSupport()) {
-                        mData.is_support = 0;
-                        mData.supports--;
-                    } else {
-                        mData.is_support = 1;
-                        mData.supports++;
+        switch (view.getId()) {
+            case R.id.imgAvatar:
+                SRUser user = new SRUser();
+                user.uid = mData.uid + "";
+                user.avatar = mData.avatar;
+                user.nickname = mData.nickname;
+                user.is_vip = mData.is_vip + "";
+                mContext.startActivity(SRPersonHomeActivity.createIntent(mContext, user));
+                break;
+            case R.id.textSuport:
+                ZYNetSubscription.subscription(new SRRankModel().support(mData.show_id + "", mData.isSupport() ? 2 : 1), new ZYNetSubscriber() {
+                    @Override
+                    public void onSuccess(ZYResponse response) {
+                        try {
+                            if (mData.isSupport()) {
+                                mData.is_support = 0;
+                                mData.supports--;
+                            } else {
+                                mData.is_support = 1;
+                                mData.supports++;
+                            }
+                            setSuport();
+                        } catch (Exception e) {
+
+                        }
                     }
-                    setSuport();
-                } catch (Exception e) {
 
-                }
-            }
+                    @Override
+                    public void onFail(String message) {
 
-            @Override
-            public void onFail(String message) {
-
-            }
-        });
+                    }
+                });
+                break;
+        }
     }
 
     private void setSuport() {

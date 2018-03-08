@@ -25,22 +25,32 @@ import com.qudiandu.smartreader.ui.vip.model.bean.SRVip;
 import com.qudiandu.smartreader.ui.vip.presenter.SRVipPresenter;
 import com.qudiandu.smartreader.ui.vip.view.viewHolder.SRVipPriceVH;
 import com.qudiandu.smartreader.ui.vip.view.viewHolder.SRVipRightsVH;
+import com.qudiandu.smartreader.utils.ZYDateUtils;
+import com.qudiandu.smartreader.utils.ZYUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.qudiandu.smartreader.utils.ZYDateUtils.YYMMDDHH;
+
 /**
  * Created by ZY on 18/3/1.
  */
 
-public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> implements SRVipContract.IView {
+public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> implements SRVipContract.IView, SRVipPriceVH.VipPriceVHListener {
 
     @Bind(R.id.imgAvatar)
     ImageView imgAvatar;
 
     @Bind(R.id.textName)
     TextView textName;
+
+    @Bind(R.id.textVipTime)
+    TextView textVipTime;
+
+    @Bind(R.id.imgVip)
+    ImageView imgVip;
 
     @Bind(R.id.textGrade)
     TextView textGrade;
@@ -88,36 +98,19 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
         initRightsView();
 
         btnWeichat.setSelected(true);
+
+        mPresenter.loadVip();
         return view;
     }
 
     private void initPriceView() {
-        mPriceAdapter = new ZYBaseRecyclerAdapter<SRVip.Price>(mPresenter.getVip().package_list) {
+        mPriceAdapter = new ZYBaseRecyclerAdapter<SRVip.Price>(mPresenter.getPriceList()) {
             @Override
             public ZYBaseViewHolder<SRVip.Price> createViewHolder(int type) {
-                return new SRVipPriceVH();
+                SRVipPriceVH priceVH = new SRVipPriceVH(SRVipFragment.this);
+                return priceVH;
             }
         };
-        mPriceAdapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                SRVip.Price price = mPriceAdapter.getItem(position);
-                if (price != null) {
-                    selectedPrice = price;
-                }
-                for (int i = 0; i < mPriceAdapter.getItemCount(); i++) {
-                    price = mPriceAdapter.getItem(position);
-                    if (price != null) {
-                        if (i == position) {
-                            price.isSelected = true;
-                        } else {
-                            price.isSelected = false;
-                        }
-                    }
-                }
-                mRightsAdapter.notifyDataSetChanged();
-            }
-        });
         priceRecyclerView.setAdapter(mPriceAdapter);
         priceRecyclerView.setNestedScrollingEnabled(false);
         priceRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
@@ -141,14 +134,16 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
         rightsRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3));
     }
 
-    @OnClick({R.id.layoutWechat, R.id.layoutAliPay, R.id.textProtocol, R.id.btBuy})
+    @OnClick({R.id.layoutWechat, R.id.layoutAliPay, R.id.textProtocol, R.id.btBuy, R.id.btnWeichat, R.id.btnAliPay})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layoutWechat:
+            case R.id.btnWeichat:
                 btnWeichat.setSelected(true);
                 btnAliPay.setSelected(false);
                 break;
             case R.id.layoutAliPay:
+            case R.id.btnAliPay:
                 btnWeichat.setSelected(false);
                 btnAliPay.setSelected(true);
                 break;
@@ -173,6 +168,16 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
 
     @Override
     public void showList(boolean isHasMore) {
+        loadingView.showNothing();
+        SRUser user = SRUserManager.getInstance().getUser();
+        if (user.isVip()) {
+            textVipTime.setVisibility(View.VISIBLE);
+            imgVip.setVisibility(View.VISIBLE);
+            textVipTime.setText(ZYDateUtils.getTimeString(Long.parseLong(SRUserManager.getInstance().getUser().getVip_endtime()) * 1000, YYMMDDHH) + "到期");
+        } else {
+            textVipTime.setVisibility(View.GONE);
+            imgVip.setVisibility(View.GONE);
+        }
         mPriceAdapter.notifyDataSetChanged();
     }
 
@@ -185,10 +190,39 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
     public void buySuccess() {
         hideProgress();
         showToast("会员购买成功!");
+
+        SRUser user = SRUserManager.getInstance().getUser();
+        if (user.isVip()) {
+            user.vip_endtime = (Long.parseLong(user.vip_endtime) + selectedPrice.days * 24 * 60 * 60) + "";
+        } else {
+            user.is_vip = "1";
+            user.vip_endtime = "" + selectedPrice.days * 24 * 60 * 60;
+        }
+        SRUserManager.getInstance().setUser(user);
+
+        finish();
     }
 
     @Override
     public void buyFail() {
         hideProgress();
+    }
+
+    @Override
+    public void onPriceClick(SRVip.Price price) {
+        if (price != null) {
+            selectedPrice = price;
+        }
+        for (int i = 0; i < mPriceAdapter.getItemCount(); i++) {
+            SRVip.Price price_ = mPriceAdapter.getItem(i);
+            if (price_ != null) {
+                if (price_.id == price.id) {
+                    price_.isSelected = true;
+                } else {
+                    price_.isSelected = false;
+                }
+            }
+        }
+        mPriceAdapter.notifyDataSetChanged();
     }
 }

@@ -25,7 +25,7 @@ public class SRVipRightsVH extends ZYBaseViewHolder<SRVip.Rights> {
 
     @Override
     public void updateView(SRVip.Rights data, int position) {
-        if (data == null) {
+        if (data != null) {
             mData = data;
             imgAvatar.setImageResource(data.res);
             textName.setText(data.title);
