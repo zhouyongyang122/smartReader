@@ -10,6 +10,7 @@ import com.qudiandu.smartreader.base.event.SREventIdentityChange;
 import com.qudiandu.smartreader.base.event.SREventJoinClassSuc;
 import com.qudiandu.smartreader.base.event.SREventLogin;
 import com.qudiandu.smartreader.base.event.SREventSelectedTask;
+import com.qudiandu.smartreader.base.event.SREventUpdateClassName;
 import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
@@ -360,6 +361,14 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
     public void onEvent(SREventIdentityChange identityChange) {
         mCurrentClass = null;
         subscribe();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(SREventUpdateClassName mClass) {
+        if (mCurrentClass != null) {
+            mCurrentClass.class_name = mClass.mClass.class_name;
+            mView.refreshClasses();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

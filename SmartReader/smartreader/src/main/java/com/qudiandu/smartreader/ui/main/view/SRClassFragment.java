@@ -409,7 +409,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
 
     @Override
     public void toFinishTask(SRTask task, ArrayList<SRTract> tracts) {
-        mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, tracts, task.book_id + "", task.catalogue_id + "", task.group_id + "", task.task_id + "",""));
+        mActivity.startActivity(SRDubbingActivity.createIntent(mActivity, tracts, task.book_id + "", task.catalogue_id + "", task.group_id + "", task.task_id + "", ""));
     }
 
     @Override

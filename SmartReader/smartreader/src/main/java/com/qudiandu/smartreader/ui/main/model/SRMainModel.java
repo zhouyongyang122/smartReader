@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.http.Body;
 import rx.Observable;
 
 /**
@@ -82,6 +83,13 @@ public class SRMainModel extends ZYBaseModel {
 
     public Observable<ZYResponse> removeUsers(String group_id, String del_uid) {
         return mApi.removeUsers(group_id, del_uid);
+    }
+
+    public Observable<ZYResponse> updateClassName(String group_id, String class_name) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("group_id", group_id);
+        params.put("class_name", class_name);
+        return mApi.updateClassName(params);
     }
 
     public Observable<ZYResponse<SRRemind>> msgRemind() {

@@ -1,6 +1,7 @@
 package com.qudiandu.smartreader.ui.main.presenter;
 
 import com.qudiandu.smartreader.base.bean.ZYResponse;
+import com.qudiandu.smartreader.base.event.SREventUpdateClassName;
 import com.qudiandu.smartreader.base.mvp.ZYListDataPresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
@@ -9,6 +10,8 @@ import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.contract.SRClassDetailContract;
 import com.qudiandu.smartreader.ui.main.model.SRMainModel;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -59,6 +62,21 @@ public class SRClassDetailPresenter extends ZYListDataPresenter<SRClassDetailCon
             public void onFail(String message) {
                 mView.hideProgress();
                 super.onFail(message);
+            }
+        }));
+    }
+
+    public void updateClassName(final String name) {
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.updateClassName(mClass.group_id + "", name), new ZYNetSubscriber<ZYResponse>() {
+            @Override
+            public void onSuccess(ZYResponse response) {
+                mClass.class_name = name;
+                EventBus.getDefault().post(new SREventUpdateClassName(mClass));
+            }
+
+            @Override
+            public void onFail(String message) {
+
             }
         }));
     }

@@ -21,5 +21,7 @@ public interface SRClassDetailContract {
         void delUser(final SRUser user);
 
         void edit(boolean edit);
+
+        void updateClassName(final String name);
     }
 }

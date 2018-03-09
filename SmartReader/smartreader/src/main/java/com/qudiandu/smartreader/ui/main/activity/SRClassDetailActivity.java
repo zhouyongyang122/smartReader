@@ -46,7 +46,7 @@ public class SRClassDetailActivity extends ZYBaseFragmentActivity<SRClassDetailF
     @Override
     public void onClick(View v) {
         mIsEdit = !mIsEdit;
-        showActionRightTitle(mIsEdit ? "取消" : "编辑", this);
+        showActionRightTitle(mIsEdit ? "完成" : "编辑", this);
         mFragment.edit(mIsEdit);
     }
 

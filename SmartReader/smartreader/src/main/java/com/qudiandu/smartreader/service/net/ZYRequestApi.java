@@ -195,4 +195,7 @@ public interface ZYRequestApi {
 
     @POST("show/support")
     Observable<ZYResponse> support(@Body Map<String, String> params);
+
+    @POST("group/edit")
+    Observable<ZYResponse> updateClassName(@Body Map<String, String> params);
 }

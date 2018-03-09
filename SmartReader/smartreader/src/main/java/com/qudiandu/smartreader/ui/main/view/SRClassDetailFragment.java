@@ -11,15 +11,12 @@ import android.view.View;
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
-import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
-import com.qudiandu.smartreader.ui.main.activity.SRMainActivity;
 import com.qudiandu.smartreader.ui.main.contract.SRClassDetailContract;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassDetailHeaderVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassDetailItemVH;
 import com.qudiandu.smartreader.ui.profile.activity.SRPersonHomeActivity;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by ZY on 17/7/24.
@@ -92,6 +89,11 @@ public class SRClassDetailFragment extends ZYListDateFragment<SRClassDetailContr
         mPresenter.edit(edit);
         mEdit = edit;
         mAdapter.notifyDataSetChanged();
+        headerVH.editClassName(edit);
+        String name = headerVH.updateClassName();
+        if (!edit && name != null) {
+            mPresenter.updateClassName(name);
+        }
     }
 
     @Override
