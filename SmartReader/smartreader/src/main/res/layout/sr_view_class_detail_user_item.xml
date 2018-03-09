@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="20dp">
+    android:paddingBottom="20dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="10dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/layoutAvatar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/sr_bg_corner360dp_white_solid"
         android:padding="2dp">
 
         <ImageView
             android:id="@+id/imgAvatar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/def_avatar" />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imgDel"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignRight="@+id/layoutAvatar"
+        android:layout_alignTop="@id/layoutAvatar"
+        android:src="@drawable/icon_delete"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutAvatar"
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:singleLine="true"
@@ -31,4 +44,4 @@
         android:textColor="@color/white"
         android:textSize="@dimen/f3" />
 
-</LinearLayout>
+</RelativeLayout>

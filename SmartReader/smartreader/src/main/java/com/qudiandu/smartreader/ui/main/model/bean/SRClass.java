@@ -29,4 +29,6 @@ public class SRClass implements ZYIBaseBean {
     public String create_time;
 
     public String share_url;
+
+    public String share_pic;
 }

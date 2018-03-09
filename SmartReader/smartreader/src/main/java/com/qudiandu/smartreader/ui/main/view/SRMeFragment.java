@@ -23,6 +23,7 @@ import com.qudiandu.smartreader.ui.set.activity.SRSetActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
 import com.qudiandu.smartreader.ui.vip.activity.SRVipActivity;
+import com.qudiandu.smartreader.ui.vip.view.SRVipIconView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -125,6 +126,8 @@ public class SRMeFragment extends ZYBaseFragment {
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, "", R.drawable.def_avatar, R.drawable.def_avatar);
         } else {
             textLogin.setVisibility(View.GONE);
+            textName.setVisibility(View.VISIBLE);
+            textGrade.setVisibility(View.VISIBLE);
             SRUser user = SRUserManager.getInstance().getUser();
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, user.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             textName.setText(user.getNickname());
@@ -134,7 +137,7 @@ public class SRMeFragment extends ZYBaseFragment {
             } else {
                 textVipMsg.setText("未开通");
             }
-            imgVip.setVisibility(SRUserManager.getInstance().getUser().isVip() ? View.VISIBLE : View.GONE);
+            SRVipIconView.showVipIcon(imgVip, SRUserManager.getInstance().getUser().isVip() ? Integer.parseInt(SRUserManager.getInstance().getUser().is_vip) : 0);
         }
     }
 

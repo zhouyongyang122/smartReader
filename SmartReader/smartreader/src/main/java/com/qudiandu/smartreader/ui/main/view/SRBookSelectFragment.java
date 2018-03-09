@@ -61,6 +61,11 @@ public class SRBookSelectFragment extends ZYListDateFragment<SRBookSelectContrac
             textAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    if (!SRUserManager.getInstance().getUser().isVip(true)) {
+                        return;
+                    }
+
                     if (SRBookSelectManager.getInstance().getAddBooksSize() <= 0) {
                         ZYToast.show(mActivity, "还没有选择书籍!");
                     } else {

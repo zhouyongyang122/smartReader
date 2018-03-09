@@ -4,6 +4,7 @@ import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYListDataPresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.myAudio.contract.SRCataloguesContract;
 import com.qudiandu.smartreader.ui.myAudio.model.SRCatalogueDetail;
@@ -26,7 +27,7 @@ public class SRCataloguesPresenter extends ZYListDataPresenter<SRCataloguesContr
 
     @Override
     protected void loadData() {
-        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getCatalogues(mStart, mRows), new ZYNetSubscriber<ZYResponse<List<SRCatalogueNew>>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getCatalogues(SRUserManager.getInstance().getUser().uid,mStart, mRows), new ZYNetSubscriber<ZYResponse<List<SRCatalogueNew>>>() {
             @Override
             public void onSuccess(ZYResponse<List<SRCatalogueNew>> response) {
                 super.onSuccess(response);

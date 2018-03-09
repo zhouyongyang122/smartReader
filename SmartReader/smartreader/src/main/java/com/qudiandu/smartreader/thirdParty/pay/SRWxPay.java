@@ -6,13 +6,15 @@ import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import static com.qudiandu.smartreader.ui.SRAppConstants.WECHAT_APP_KEY;
+
 /**
  * Created by ZY on 18/3/1.
  */
 
 public class SRWxPay {
 
-    public static final String APP_ID = "";
+    public static final String APP_ID = WECHAT_APP_KEY;
 
     public interface SRWXPayCallBack {
         /**

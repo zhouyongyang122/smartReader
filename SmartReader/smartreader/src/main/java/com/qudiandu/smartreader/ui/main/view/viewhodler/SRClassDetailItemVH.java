@@ -2,7 +2,6 @@ package com.qudiandu.smartreader.ui.main.view.viewhodler;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by ZY on 17/7/24.
@@ -26,11 +26,22 @@ public class SRClassDetailItemVH extends ZYBaseViewHolder<SRUser> {
     @Bind(R.id.textName)
     TextView textName;
 
+    @Bind(R.id.imgDel)
+    ImageView imgDel;
+
+    SRUser mData;
+
+    ClassDetailItemListener mListener;
+
+    public SRClassDetailItemVH(ClassDetailItemListener listener) {
+        mListener = listener;
+    }
+
     @Override
     public void findView(View view) {
         super.findView(view);
-        int itemWidth = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 20)) / 5;
-        int imgWidth = itemWidth - ZYScreenUtils.dp2px(mContext, 20);
+        int itemWidth = (ZYScreenUtils.getScreenWidth(mContext) - ZYScreenUtils.dp2px(mContext, 64)) / 4;
+        int imgWidth = itemWidth - ZYScreenUtils.dp2px(mContext, 4);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imgAvatar.getLayoutParams();
         layoutParams.height = imgWidth;
         imgAvatar.setLayoutParams(layoutParams);
@@ -39,13 +50,29 @@ public class SRClassDetailItemVH extends ZYBaseViewHolder<SRUser> {
     @Override
     public void updateView(SRUser data, int position) {
         if (data != null) {
-            ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar,R.drawable.def_avatar,R.drawable.def_avatar);
+            mData = data;
+            ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             textName.setText(data.nickname);
+
+            if(data.isCheck){
+                imgDel.setVisibility(View.VISIBLE);
+            }else {
+                imgDel.setVisibility(View.GONE);
+            }
         }
+    }
+
+    @OnClick({R.id.imgDel})
+    public void onClick(View view) {
+        mListener.onDelClick(mData);
     }
 
     @Override
     public int getLayoutResId() {
         return R.layout.sr_view_class_detail_user_item;
+    }
+
+    public interface ClassDetailItemListener {
+        void onDelClick(SRUser user);
     }
 }

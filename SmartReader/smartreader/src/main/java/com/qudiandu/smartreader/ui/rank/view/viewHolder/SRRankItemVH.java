@@ -16,6 +16,7 @@ import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.profile.activity.SRPersonHomeActivity;
 import com.qudiandu.smartreader.ui.rank.model.SRRankModel;
 import com.qudiandu.smartreader.ui.rank.model.bean.SRRank;
+import com.qudiandu.smartreader.ui.vip.view.SRVipIconView;
 import com.qudiandu.smartreader.utils.ZYResourceUtils;
 
 import butterknife.Bind;
@@ -60,7 +61,7 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
 
             textRank.setText((position + 1) + "");
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
-            imgVip.setVisibility(data.isVip() ? View.VISIBLE : View.GONE);
+            SRVipIconView.showVipIcon(imgVip, data.is_vip);
             textName.setText(data.nickname);
             textLesson.setText(data.unit);
             textScore.setText(data.score + "");

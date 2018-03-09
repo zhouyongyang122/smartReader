@@ -11,8 +11,15 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 public interface SRClassDetailContract {
 
     interface IView extends ZYListDataContract.View<IPresenter> {
+        void delUserSuc();
     }
 
     interface IPresenter extends ZYListDataContract.Presenter<SRUser> {
+
+        SRClass getMClass();
+
+        void delUser(final SRUser user);
+
+        void edit(boolean edit);
     }
 }

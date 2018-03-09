@@ -71,8 +71,6 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
 
     ZYLoadingView loadingView;
 
-    SRVip.Price selectedPrice;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -151,7 +149,7 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
                 break;
             case R.id.btBuy:
                 showProgress();
-                mPresenter.buy(selectedPrice, btnAliPay.isSelected() ? SRVipPresenter.PAY_ALIPAY_TYPE : SRVipPresenter.PAY_WECHAT_TYPE);
+                mPresenter.buy(btnAliPay.isSelected() ? SRVipPresenter.PAY_ALIPAY_TYPE : SRVipPresenter.PAY_WECHAT_TYPE);
                 break;
         }
     }
@@ -193,10 +191,10 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
 
         SRUser user = SRUserManager.getInstance().getUser();
         if (user.isVip()) {
-            user.vip_endtime = (Long.parseLong(user.vip_endtime) + selectedPrice.days * 24 * 60 * 60) + "";
+            user.vip_endtime = (Long.parseLong(user.vip_endtime) + mPresenter.getSelectPrice().days * 24 * 60 * 60) + "";
         } else {
             user.is_vip = "1";
-            user.vip_endtime = "" + selectedPrice.days * 24 * 60 * 60;
+            user.vip_endtime = "" + mPresenter.getSelectPrice().days * 24 * 60 * 60;
         }
         SRUserManager.getInstance().setUser(user);
 
@@ -211,7 +209,7 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
     @Override
     public void onPriceClick(SRVip.Price price) {
         if (price != null) {
-            selectedPrice = price;
+            mPresenter.setSelectPrice(price);
         }
         for (int i = 0; i < mPriceAdapter.getItemCount(); i++) {
             SRVip.Price price_ = mPriceAdapter.getItem(i);

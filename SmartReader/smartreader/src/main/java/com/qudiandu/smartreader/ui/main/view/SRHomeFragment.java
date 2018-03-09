@@ -21,6 +21,7 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRHomeBookVH;
 import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
+import com.qudiandu.smartreader.ui.vip.view.SRVipIconView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -103,7 +104,7 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
             layoutUser.setVisibility(View.VISIBLE);
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, user.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             textName.setText(user.nickname);
-            imgVip.setVisibility(user.isVip() ? View.VISIBLE : View.GONE);
+            SRVipIconView.showVipIcon(imgVip, user.isVip() ? Integer.parseInt(user.is_vip) : 0);
         } else {
             layoutUser.setVisibility(View.GONE);
         }

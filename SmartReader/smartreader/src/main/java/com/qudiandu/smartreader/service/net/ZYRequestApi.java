@@ -109,7 +109,7 @@ public interface ZYRequestApi {
     Observable<ZYResponse<List<SRCatalogueNew>>> getCatalogues(@Query("start") int start, @Query("rows") int rows);
 
     @GET("show/catalogue")
-    Observable<ZYResponse<List<SRCatalogueNew>>> getCatalogues(@Query("uid") String uid,@Query("start") int start, @Query("rows") int rows);
+    Observable<ZYResponse<List<SRCatalogueNew>>> getCatalogues(@Query("member_id") String uid,@Query("start") int start, @Query("rows") int rows);
 
     @GET("show/catalogueDetail")
     Observable<ZYResponse<SRCatalogueDetail>> getCatalogueDetail(@Query("show_id") String show_id);

@@ -24,7 +24,11 @@ public interface SRVipContract {
 
         void loadVip();
 
-        void buy(SRVip.Price price, int payType);
+        void buy(int payType);
+
+        SRVip.Price getSelectPrice();
+
+        void setSelectPrice(SRVip.Price mSelectPrice);
 
         SRVip getVip();
 

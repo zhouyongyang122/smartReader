@@ -85,7 +85,7 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
         //在这里初始化
         initBugTags();
 
-        SRUserManager.refreshToken();
+//        SRUserManager.refreshToken();
 
         ZYDownloadManager.getInstance().startSer();
 

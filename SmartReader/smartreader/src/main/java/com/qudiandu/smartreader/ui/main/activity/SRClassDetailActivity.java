@@ -16,11 +16,15 @@ import com.qudiandu.smartreader.ui.main.view.SRClassDetailFragment;
  * Created by ZY on 17/7/24.
  */
 
-public class SRClassDetailActivity extends ZYBaseFragmentActivity<SRClassDetailFragment> {
+public class SRClassDetailActivity extends ZYBaseFragmentActivity<SRClassDetailFragment> implements View.OnClickListener {
 
     static final String CLASS = "class";
 
     SRClass mClass;
+
+    SRClassDetailPresenter mPresenter;
+
+    boolean mIsEdit;
 
     public static Intent createIntent(Context context, SRClass srClass) {
         Intent intent = new Intent(context, SRClassDetailActivity.class);
@@ -32,16 +36,18 @@ public class SRClassDetailActivity extends ZYBaseFragmentActivity<SRClassDetailF
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mClass = (SRClass) getIntent().getSerializableExtra(CLASS);
-        showTitle("班级成员(" + mClass.cur_num + ")");
+        showTitle(mClass.class_name + "(" + mClass.cur_num + ")");
         if (SRUserManager.getInstance().getUser().uid.equals(mClass.uid + "")) {
-            showActionRightTitle("管理", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(SRClassUsersActivity.createIntent(SRClassDetailActivity.this, mClass.group_id + ""));
-                }
-            });
+            showActionRightTitle("编辑", this);
         }
-        new SRClassDetailPresenter(mFragment, mClass.group_id + "");
+        mPresenter = new SRClassDetailPresenter(mFragment, mClass);
+    }
+
+    @Override
+    public void onClick(View v) {
+        mIsEdit = !mIsEdit;
+        showActionRightTitle(mIsEdit ? "取消" : "编辑", this);
+        mFragment.edit(mIsEdit);
     }
 
     @Override

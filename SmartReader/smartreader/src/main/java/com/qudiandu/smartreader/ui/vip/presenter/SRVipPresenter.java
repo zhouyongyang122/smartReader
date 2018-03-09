@@ -39,6 +39,8 @@ public class SRVipPresenter extends ZYBasePresenter implements SRVipContract.IPr
 
     List<SRVip.Price> mPriceList = new ArrayList<SRVip.Price>();
 
+    SRVip.Price mSelectPrice;
+
     public SRVipPresenter(SRVipContract.IView iView) {
         mView = iView;
         mView.setPresenter(this);
@@ -93,6 +95,7 @@ public class SRVipPresenter extends ZYBasePresenter implements SRVipContract.IPr
                     SRUserManager.getInstance().setUser(user);
                     mPriceList.addAll(mVip.package_list);
                     mPriceList.get(0).isSelected = true;
+                    setSelectPrice(mPriceList.get(0));
                     mView.showList(false);
                 } else {
                     mView.showError();
@@ -107,9 +110,9 @@ public class SRVipPresenter extends ZYBasePresenter implements SRVipContract.IPr
     }
 
     @Override
-    public void buy(SRVip.Price price, final int payType) {
+    public void buy(final int payType) {
 
-        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getVipPayOrder(price.amount, payType, price.id + "", price.days + ""), new ZYNetSubscriber<ZYResponse<SRVipOrder>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getVipPayOrder(mSelectPrice.amount, payType, mSelectPrice.id + "", mSelectPrice.days + ""), new ZYNetSubscriber<ZYResponse<SRVipOrder>>() {
 
             @Override
             public void onSuccess(ZYResponse<SRVipOrder> response) {
@@ -165,6 +168,14 @@ public class SRVipPresenter extends ZYBasePresenter implements SRVipContract.IPr
         } else if (result == 3) {
             mView.buyFail();
         }
+    }
+
+    public SRVip.Price getSelectPrice() {
+        return mSelectPrice;
+    }
+
+    public void setSelectPrice(SRVip.Price selectPrice) {
+        this.mSelectPrice = selectPrice;
     }
 
     public List<SRVip.Price> getPriceList() {

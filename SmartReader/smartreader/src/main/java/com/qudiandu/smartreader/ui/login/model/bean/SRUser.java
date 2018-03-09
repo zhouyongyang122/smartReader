@@ -2,10 +2,14 @@ package com.qudiandu.smartreader.ui.login.model.bean;
 
 import android.text.TextUtils;
 
+import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.service.db.entity.SRUserDao;
 import com.qudiandu.smartreader.service.db.entity.ZYBaseEntity;
+import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+import com.qudiandu.smartreader.ui.vip.activity.SRVipActivity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -69,9 +73,9 @@ public class SRUser extends ZYBaseEntity {
 
     @Generated(hash = 906363200)
     public SRUser(String uid, String nickname, String avatar, int sex, String school, String refresh_token,
-            int age, int endtime, String upload_token, String picture_token, int grade, String auth_token,
-            boolean isLoginUser, int type, int user_type, String mobile, int school_id, String is_vip,
-            String vip_endtime) {
+                  int age, int endtime, String upload_token, String picture_token, int grade, String auth_token,
+                  boolean isLoginUser, int type, int user_type, String mobile, int school_id, String is_vip,
+                  String vip_endtime) {
         this.uid = uid;
         this.nickname = nickname;
         this.avatar = avatar;
@@ -257,13 +261,32 @@ public class SRUser extends ZYBaseEntity {
 
     public boolean isVip() {
         try {
-            if (is_vip.equals("1")) {
+            if (Integer.parseInt(is_vip) >= 1) {
                 long time = System.currentTimeMillis() / 1000L + ZYPreferenceHelper.getInstance().getTimeOffset();
                 if (!TextUtils.isEmpty(vip_endtime)) {
                     return Long.parseLong(vip_endtime) >= time;
                 }
                 return true;
             }
+        } catch (Exception e) {
+
+        }
+        return false;
+    }
+
+    public boolean isVip(boolean intentToLogin) {
+        if (!isVip()) {
+            if (intentToLogin) {
+                SRApplication.getInstance().getCurrentActivity().startActivity(SRVipActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isYearVip() {
+        try {
+            return isVip() && (Integer.parseInt(is_vip) == 2);
         } catch (Exception e) {
 
         }

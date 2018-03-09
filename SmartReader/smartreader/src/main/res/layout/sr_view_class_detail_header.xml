@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/layoutInfo"
         android:layout_width="match_parent"
         android:layout_height="94dp"
         android:layout_marginLeft="15dp"
@@ -65,7 +66,7 @@
                 android:paddingRight="10dp"
                 android:text="班级名称: 中心小学"
                 android:textColor="@color/c7"
-                android:textSize="@dimen/f4" />
+                android:textSize="@dimen/f3" />
 
             <TextView
                 android:id="@+id/textCode"
@@ -78,7 +79,7 @@
                 android:paddingRight="10dp"
                 android:text="邀请码: 9999999"
                 android:textColor="@color/c7"
-                android:textSize="@dimen/f3" />
+                android:textSize="@dimen/f4" />
         </LinearLayout>
 
         <TextView
@@ -97,6 +98,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/textTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
