@@ -42,27 +42,15 @@ public class SRHomeBookVH extends ZYBaseViewHolder<SRBook> {
                 mContext.startActivity(SRBooksActivity.createIntent(mContext, 0));
                 break;
             case R.id.layoutRead:
-                if (mData.getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip(true)) {
-                    return;
-                }
                 mContext.startActivity(SRBookHomeActivity.createIntent(mContext, mData.savePath));
                 break;
             case R.id.layoutRecord:
-                if (mData.getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip(true)) {
-                    return;
-                }
                 mContext.startActivity(SRBookUnitsActivity.createIntent(mContext, mData.savePath, mData.name));
                 break;
             case R.id.layoutPractice:
-                if (mData.getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip(true)) {
-                    return;
-                }
                 mContext.startActivity(SRWordStudyUnitsActivity.createIntent(mContext, mData));
                 break;
             case R.id.layoutTranslate:
-                if (mData.getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip(true)) {
-                    return;
-                }
                 mContext.startActivity(SRTranslateActivity.createIntent(mContext));
                 break;
         }

@@ -17,7 +17,7 @@ public class SRVipIconView {
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
         if (is_vip == 0) {
             imageView.setVisibility(View.GONE);
-        } else if (is_vip == 2) {
+        } else if (is_vip == 1) {
             imageView.setVisibility(View.VISIBLE);
             layoutParams.width = ZYScreenUtils.dp2px(imageView.getContext(), 26);
             layoutParams.height = ZYScreenUtils.dp2px(imageView.getContext(), 20);

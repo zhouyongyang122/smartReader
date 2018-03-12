@@ -124,4 +124,14 @@ public class SRUserManager {
         }
         return isGuester;
     }
+
+    public boolean gotoVip() {
+        boolean isGuester = TextUtils.isEmpty(user.uid);
+        if (isGuester) {
+            //跳到登录
+            SRApplication.getInstance().getCurrentActivity().startActivity(SRLoginActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
+            return true;
+        }
+        return false;
+    }
 }

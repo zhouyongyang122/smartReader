@@ -18,5 +18,6 @@ public interface SRLoginContract {
     interface IPresenter extends ZYIBasePresenter {
         void login(String mobile, String pwd);
         void loginByThrid(Map<String,String> paramas);
+        boolean isNeedGoVip();
     }
 }

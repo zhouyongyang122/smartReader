@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.adapter.ZYBaseRecyclerAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.book.contract.SRBookUnitsContract;
 import com.qudiandu.smartreader.ui.book.view.viewHolder.SRBookUnitsItemVH;
 import com.qudiandu.smartreader.ui.dubbing.activity.SRDubbingActivity;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 
@@ -49,6 +51,12 @@ public class SRBookUnitsFragment extends ZYBaseFragment<SRBookUnitsContract.IPre
         adapter.setOnItemClickListener(new ZYBaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+
+                if (position > 0 && mPresenter.getBook().getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip()) {
+                    SRApplication.getInstance().showVipBuy();
+                    return;
+                }
+
                 SRCatalogue catalogue = adapter.getItem(position);
                 if (catalogue != null) {
                     mPresenter.toDubbing(catalogue);

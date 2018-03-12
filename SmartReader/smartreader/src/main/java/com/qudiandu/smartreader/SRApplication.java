@@ -2,21 +2,21 @@ package com.qudiandu.smartreader;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Environment;
 
 import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
-import com.qudiandu.smartreader.BuildConfig;
 import com.qudiandu.smartreader.service.db.ZYDBManager;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.thirdParty.jpush.SRJPushSDK;
-import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
-import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.SRAppConstants;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
+import com.qudiandu.smartreader.ui.vip.activity.SRVipActivity;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.thirdParty.statistics.DataStatistics;
 import com.qudiandu.smartreader.utils.ZYUncaughtExceptionHandler;
@@ -148,6 +148,26 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
 
     public void setCurrentActivity(Activity currentActivity) {
         this.currentActivity = currentActivity;
+    }
+
+    public void showVipBuy() {
+        new AlertDialog.Builder(currentActivity).setTitle("会员特权").setMessage("购买趣点读会员即可免费查看所以教材内容,是否购买?")
+                .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentActivity.finish();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("去购买", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!SRUserManager.getInstance().gotoVip()) {
+                            currentActivity.startActivity(SRVipActivity.createIntent(currentActivity));
+                        }
+                        dialog.dismiss();
+                    }
+                }).setCancelable(false).create().show();
     }
 
     @Override

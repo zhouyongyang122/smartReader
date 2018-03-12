@@ -32,10 +32,19 @@ public class SRLoginPresenter extends ZYBasePresenter implements SRLoginContract
 
     SRLoginModel model;
 
+    boolean mNeedGoVip;
+
     public SRLoginPresenter(SRLoginContract.IView iView) {
         this.iView = iView;
         iView.setPresenter(this);
         model = new SRLoginModel();
+    }
+
+    public SRLoginPresenter(SRLoginContract.IView iView,boolean needGoVip) {
+        this.iView = iView;
+        iView.setPresenter(this);
+        model = new SRLoginModel();
+        mNeedGoVip = needGoVip;
     }
 
     @Override
@@ -122,5 +131,9 @@ public class SRLoginPresenter extends ZYBasePresenter implements SRLoginContract
                 }
             }));
         }
+    }
+
+    public boolean isNeedGoVip() {
+        return mNeedGoVip;
     }
 }

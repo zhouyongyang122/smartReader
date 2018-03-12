@@ -17,9 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
+import com.qudiandu.smartreader.thirdParty.pay.SRAliPay;
 import com.qudiandu.smartreader.ui.dubbing.activity.SRDubbingActivity;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.contract.SRBookHomeContract;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
@@ -140,6 +143,8 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
             public void onPageSelected(int position) {
 //                mPresenter.setCurPageId(position + 1);
                 refreshScore();
+
+                showVipBuy();
             }
 
             @Override
@@ -160,6 +165,10 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
                 menuVH = new SRBookHomeMenuVH(this);
                 menuVH.bindView(LayoutInflater.from(mActivity).inflate(menuVH.getLayoutResId(), null));
                 layoutRoot.addView(menuVH.getItemView(), new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+
+                if (showVipBuy()) {
+                    return;
+                }
 
                 int position = 0;
                 SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
@@ -273,6 +282,24 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
 //            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
 //            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c1));
 //        }
+    }
+
+    public boolean showVipBuy() {
+        if (mPresenter.getBookData().getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip()) {
+            int position = 0;
+            SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
+            for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
+                if (catalogue.getCatalogue_id() > 0 && page != null && page.getCatalogueId() == catalogue.getCatalogue_id()) {
+                    if (position > 0) {
+                        SRApplication.getInstance().showVipBuy();
+                        return true;
+                    }
+                    break;
+                }
+                position++;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -141,4 +141,8 @@ public class SRBookUnitsPresenter extends ZYBasePresenter implements SRBookUnits
         }
         mView.toDubbing(tracts, mBook.book_id, catalogue);
     }
+
+    public SRBook getBook() {
+        return mBook;
+    }
 }

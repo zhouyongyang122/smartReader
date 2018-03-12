@@ -21,6 +21,7 @@ import com.qudiandu.smartreader.ui.login.activity.SRRegisterActivity;
 import com.qudiandu.smartreader.ui.login.contract.SRLoginContract;
 import com.qudiandu.smartreader.ui.login.model.bean.SRThridLoginParamas;
 import com.qudiandu.smartreader.ui.login.presenter.SRRegisterPresenter;
+import com.qudiandu.smartreader.ui.vip.activity.SRVipActivity;
 import com.qudiandu.smartreader.utils.ZYStringUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 import com.qudiandu.smartreader.utils.ZYUtils;
@@ -228,6 +229,9 @@ public class SRLoginFragment extends ZYBaseFragment<SRLoginContract.IPresenter> 
     @Override
     public void loginSuccess(String msg) {
 //        EventBus.getDefault().post(new SREventEditSuc());
+        if (mPresenter.isNeedGoVip()) {
+            startActivity(SRVipActivity.createIntent(mActivity));
+        }
         finish();
     }
 

@@ -2,6 +2,7 @@ package com.qudiandu.smartreader.ui.book.contract;
 
 import com.qudiandu.smartreader.base.mvp.ZYIBasePresenter;
 import com.qudiandu.smartreader.base.mvp.ZYIBaseView;
+import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 
@@ -24,5 +25,6 @@ public interface SRBookUnitsContract {
     interface IPresenter extends ZYIBasePresenter {
 //        void toDubbing(int cateId);
         void toDubbing(SRCatalogue catalogue);
+        SRBook getBook();
     }
 }

@@ -277,7 +277,7 @@ public class SRUser extends ZYBaseEntity {
     public boolean isVip(boolean intentToLogin) {
         if (!isVip()) {
             if (intentToLogin) {
-                SRApplication.getInstance().getCurrentActivity().startActivity(SRVipActivity.createIntent(SRApplication.getInstance().getCurrentActivity()));
+                SRApplication.getInstance().showVipBuy();
             }
             return false;
         }

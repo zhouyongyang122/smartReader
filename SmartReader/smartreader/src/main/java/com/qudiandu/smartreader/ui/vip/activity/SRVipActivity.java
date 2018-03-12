@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.vip.presenter.SRVipPresenter;
 import com.qudiandu.smartreader.ui.vip.view.SRVipFragment;
 
@@ -15,13 +16,18 @@ import com.qudiandu.smartreader.ui.vip.view.SRVipFragment;
 
 public class SRVipActivity extends ZYBaseFragmentActivity<SRVipFragment> {
 
-    public static Intent createIntent(Context context){
-        return new Intent(context,SRVipActivity.class);
+    public static Intent createIntent(Context context) {
+        return new Intent(context, SRVipActivity.class);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (SRUserManager.getInstance().isGuesterUser(true)) {
+            finish();
+            return;
+        }
 
         mActionBar.showTitle("会员中心");
 
