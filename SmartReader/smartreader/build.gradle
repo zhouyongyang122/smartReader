@@ -118,7 +118,6 @@ dependencies {
     compile 'com.yalantis:ucrop:2.2.0'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
-    compile files('libs/Msc.jar')
     compile files('libs/libammsdk.jar')
     compile files('libs/open_sdk_r4346_lite.jar')
     compile files('libs/weibosdkcore_v3.1.1.jar')

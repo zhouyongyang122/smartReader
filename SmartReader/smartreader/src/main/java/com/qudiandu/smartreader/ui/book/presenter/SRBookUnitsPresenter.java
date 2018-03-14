@@ -86,6 +86,7 @@ public class SRBookUnitsPresenter extends ZYBasePresenter implements SRBookUnits
                         for (SRPage page : book.page) {
                             if (TextUtils.isEmpty(catalogue.getPage_url()) && catalogue.containsPage(page.getPage_id() + "")) {
                                 catalogue.setPage_url(page.getPicPath());
+                                page.unitName = catalogue.getUnit();
                             }
                         }
                     }

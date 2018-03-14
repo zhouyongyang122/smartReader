@@ -17,6 +17,8 @@ public class SRPage implements ZYIBaseBean {
     //单元小节id
     private int catalogueId;
 
+    public String unitName;
+
     private String localRootDirPath;
 
     private String picPath;

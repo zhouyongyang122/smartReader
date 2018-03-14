@@ -17,7 +17,7 @@ public class SRCatalogue implements ZYIBaseBean {
 
     private String unit;
 
-    private double duration;
+    private String duration;
 
     private String title;
 
@@ -50,11 +50,17 @@ public class SRCatalogue implements ZYIBaseBean {
     }
 
     public double getDuration() {
-        return duration;
+        try {
+            String value = duration.substring(0, 6);
+            return Double.parseDouble(value);
+        } catch (Exception e) {
+
+        }
+        return 2;
     }
 
     public void setDuration(double duration) {
-        this.duration = duration;
+        this.duration = duration + "";
     }
 
     public String getTitle() {
@@ -106,12 +112,12 @@ public class SRCatalogue implements ZYIBaseBean {
                 try {
                     pageIds.addAll(Arrays.asList(page_id.split(",")));
                 } catch (Exception e) {
-                    ZYLog.e(getClass().getSimpleName(),"getFristPageId-error: " + e.getMessage());
+                    ZYLog.e(getClass().getSimpleName(), "getFristPageId-error: " + e.getMessage());
                 }
             }
             return pageIds.size() > 0 ? Integer.valueOf(pageIds.get(0)) : 0;
-        }catch (Exception e){
-            ZYLog.e(getClass().getSimpleName(),"getFristPageId-error: " + e.getMessage());
+        } catch (Exception e) {
+            ZYLog.e(getClass().getSimpleName(), "getFristPageId-error: " + e.getMessage());
         }
         return 0;
     }

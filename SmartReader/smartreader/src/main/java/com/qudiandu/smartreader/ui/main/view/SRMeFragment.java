@@ -123,9 +123,11 @@ public class SRMeFragment extends ZYBaseFragment {
             textGrade.setVisibility(View.GONE);
             imgVip.setVisibility(View.GONE);
             textVipMsg.setText("未开通");
+            textEdit.setVisibility(View.GONE);
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, "", R.drawable.def_avatar, R.drawable.def_avatar);
         } else {
             textLogin.setVisibility(View.GONE);
+            textEdit.setVisibility(View.VISIBLE);
             textName.setVisibility(View.VISIBLE);
             textGrade.setVisibility(View.VISIBLE);
             SRUser user = SRUserManager.getInstance().getUser();

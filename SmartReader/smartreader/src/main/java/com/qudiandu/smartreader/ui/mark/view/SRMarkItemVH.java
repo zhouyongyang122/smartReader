@@ -16,7 +16,6 @@ import com.qudiandu.smartreader.base.view.ZYCircleProgressView;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
-import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
@@ -33,7 +32,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/4/2.
  */
 
-public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XunFeiSDK.MarkListener {
+public class SRMarkItemVH extends ZYBaseViewHolder<SRTract> implements XianShengSDK.MarkListener {
 
     @Bind(R.id.layoutMark)
     RelativeLayout layoutMark;

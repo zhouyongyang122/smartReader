@@ -18,8 +18,8 @@ public class SRRankHomeActivity extends ZYBaseFragmentActivity<SRRankHomeFragmen
 
     int timeType = SRRankPresenter.TIME_DAY_TYPE;
 
-    public static Intent createIntent(Context context){
-        return new Intent(context,SRRankHomeActivity.class);
+    public static Intent createIntent(Context context) {
+        return new Intent(context, SRRankHomeActivity.class);
     }
 
     @Override
@@ -33,17 +33,17 @@ public class SRRankHomeActivity extends ZYBaseFragmentActivity<SRRankHomeFragmen
     public void onClick(View v) {
         switch (timeType) {
             case SRRankPresenter.TIME_DAY_TYPE:
-                mActionBar.showActionRightTitle("周排行", this);
+                mActionBar.showActionRightTitle("本周排行", this);
                 timeType = SRRankPresenter.TIME_WEEK_TYPE;
                 break;
             case SRRankPresenter.TIME_WEEK_TYPE:
-                mActionBar.showActionRightTitle("月排行", this);
-                timeType = SRRankPresenter.TIME_MONTH_TYPE;
-                break;
-            case SRRankPresenter.TIME_MONTH_TYPE:
                 mActionBar.showActionRightTitle("今日排行", this);
                 timeType = SRRankPresenter.TIME_DAY_TYPE;
                 break;
+//            case SRRankPresenter.TIME_MONTH_TYPE:
+//                mActionBar.showActionRightTitle("今日排行", this);
+//                timeType = SRRankPresenter.TIME_DAY_TYPE;
+//                break;
         }
         mFragment.changeTimeRank(timeType);
     }

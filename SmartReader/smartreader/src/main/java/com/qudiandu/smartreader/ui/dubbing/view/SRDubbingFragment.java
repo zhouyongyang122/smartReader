@@ -32,7 +32,6 @@ import com.qudiandu.smartreader.thirdParty.image.ZYIImageLoader;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XSBean;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
-import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
 import com.qudiandu.smartreader.ui.dubbing.contract.SRDubbingContract;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRCatalogueResponse;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
@@ -63,7 +62,7 @@ import butterknife.OnClick;
  */
 
 public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresenter> implements SRDubbingContract.IView,
-        XunFeiSDK.MarkListener {
+        XianShengSDK.MarkListener {
 
     View rootView;
 

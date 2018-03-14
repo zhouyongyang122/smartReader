@@ -67,6 +67,12 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
             textScore.setText(data.score + "");
             setSuport();
 
+            if (data.isVip()) {
+                textName.setTextColor(ZYResourceUtils.getColor(R.color.c3));
+            } else {
+                textName.setTextColor(ZYResourceUtils.getColor(R.color.c6));
+            }
+
             if (position == 0) {
                 imgRank.setVisibility(View.VISIBLE);
                 imgRank.setImageResource(R.drawable.icon_gold);

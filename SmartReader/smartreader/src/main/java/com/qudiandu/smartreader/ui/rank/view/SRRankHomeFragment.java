@@ -40,15 +40,17 @@ public class SRRankHomeFragment extends ZYBaseFragment {
 
         ZYFragmentAdapter adapter = new ZYFragmentAdapter(getChildFragmentManager());
 
-        SRRankFragment schoolRank = new SRRankFragment();
-        schoolRankPresenter = new SRRankPresenter(schoolRank, SRRankPresenter.RANK_SCHOOL_TYPE);
-        adapter.addFragment(schoolRank, "学校排行");
-
         SRRankFragment allRank = new SRRankFragment();
         allRankPresenter = new SRRankPresenter(allRank, SRRankPresenter.RANK_ALL_TYPE);
         adapter.addFragment(allRank, "总排行");
 
+        SRRankFragment schoolRank = new SRRankFragment();
+        schoolRankPresenter = new SRRankPresenter(schoolRank, SRRankPresenter.RANK_SCHOOL_TYPE);
+        adapter.addFragment(schoolRank, "学校排行");
+
         viewPage.setAdapter(adapter);
+
+//        viewPage.setCurrentItem(1);
 
         tabLayout.setupWithViewPager(viewPage);
         return view;

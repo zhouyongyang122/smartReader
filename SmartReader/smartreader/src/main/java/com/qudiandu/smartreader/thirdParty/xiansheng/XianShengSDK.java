@@ -1,20 +1,11 @@
 package com.qudiandu.smartreader.thirdParty.xiansheng;
 
 import android.app.Activity;
-import android.content.Context;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.qudiandu.smartreader.SRApplication;
-import com.qudiandu.smartreader.thirdParty.xunfei.XunFeiSDK;
-import com.qudiandu.smartreader.utils.ZYFileUtils;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.xs.SingEngine;
-import com.yalantis.ucrop.util.FileUtils;
-
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,7 +19,7 @@ public class XianShengSDK {
 
     static XianShengSDK instance;
 
-    private XunFeiSDK.MarkListener listener;
+    private MarkListener listener;
 
     private long maxTime;
 
@@ -247,7 +238,7 @@ public class XianShengSDK {
         }
     }
 
-    public void start(XunFeiSDK.MarkListener listener, String saveWavPath) {
+    public void start(MarkListener listener, String saveWavPath) {
         try {
             cancle();
             this.listener = listener;
@@ -330,6 +321,25 @@ public class XianShengSDK {
         } catch (Exception e) {
 
         }
+    }
+
+    public interface MarkListener {
+
+        long xfRecordTime();
+
+        String xfMarkString();
+
+        void xfRecordStart();
+
+        void xfRecordProgress(long current, long total);
+
+        void xfRecordEnd(String path);
+
+        void xfMarkStart();
+
+        void xfMarkEnd(XSBean bean, String json);
+
+        void xfMarkError(String error);
     }
 
 }

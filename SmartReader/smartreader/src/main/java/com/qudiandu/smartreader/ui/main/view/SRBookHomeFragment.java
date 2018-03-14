@@ -286,18 +286,22 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
 
     public boolean showVipBuy() {
         if (mPresenter.getBookData().getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip()) {
-            int position = 0;
-            SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
-            for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
-                if (catalogue.getCatalogue_id() > 0 && page != null && page.getCatalogueId() == catalogue.getCatalogue_id()) {
-                    if (position > 0) {
-                        SRApplication.getInstance().showVipBuy();
-                        return true;
-                    }
-                    break;
-                }
-                position++;
+            if (viewPage.getCurrentItem() >= 9) {
+                SRApplication.getInstance().showVipBuy();
+                return true;
             }
+//            int position = 0;
+//            SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
+//            for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
+//                if (catalogue.getCatalogue_id() > 0 && page != null && page.getCatalogueId() == catalogue.getCatalogue_id()) {
+//                    if (position > 0) {
+//                        SRApplication.getInstance().showVipBuy();
+//                        return true;
+//                    }
+//                    break;
+//                }
+//                position++;
+//            }
         }
         return false;
     }
@@ -501,9 +505,11 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     public void onDestroyView() {
 
         try {
-            SRBook book = SRBook.queryById(mPresenter.getBookData().book_id);
-            book.lastPageIndex = viewPage.getCurrentItem();
-            book.update();
+            if(SRUserManager.getInstance().getUser().isVip()) {
+                SRBook book = SRBook.queryById(mPresenter.getBookData().book_id);
+                book.lastPageIndex = viewPage.getCurrentItem();
+                book.update();
+            }
         } catch (Exception e) {
             ZYLog.e(getClass().getSimpleName(), "onDestroyView-error:" + e.getMessage());
         }

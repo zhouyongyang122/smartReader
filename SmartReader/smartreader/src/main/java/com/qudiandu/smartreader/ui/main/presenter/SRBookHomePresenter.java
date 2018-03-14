@@ -105,6 +105,7 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                         for (SRCatalogue catalogue : book.catalogue) {
                             if (catalogue.containsPage(page.getPage_id() + "")) {
                                 page.setCatalogueId(catalogue.getCatalogue_id());
+                                page.unitName = catalogue.getUnit();
                                 break;
                             }
                         }

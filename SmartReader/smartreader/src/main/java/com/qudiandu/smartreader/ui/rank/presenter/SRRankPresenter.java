@@ -54,7 +54,7 @@ public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, S
         if (mRankType == RANK_ALL_TYPE) {
             mSchoolId = "";
         } else {
-            mSchoolId = SRUserManager.getInstance().getUser().school_id + "";
+            mSchoolId = ZYPreferenceHelper.getInstance().getSchoolId();
         }
 
         mSubscriptions.add(ZYNetSubscription.subscription(mModel.getRanks(mSchoolId, mTimeType + "", mStart, mRows), new ZYNetSubscriber<ZYResponse<List<SRRank>>>() {
