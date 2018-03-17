@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c2"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/c1"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -17,6 +18,7 @@
             android:layout_height="match_parent"
             android:background="?attr/actionBarItemBackground"
             android:paddingLeft="15dp"
+            android:visibility="gone"
             android:paddingRight="15dp"
             android:src="@drawable/back2" />
 
@@ -29,15 +31,9 @@
             android:gravity="center"
             android:text="我是老师"
             android:textColor="@color/white"
-            android:textSize="@dimen/f4" />
+            android:textSize="@dimen/f1" />
 
     </RelativeLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/c6" />
 
     <EditText
         android:id="@+id/textCode"
@@ -46,11 +42,11 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/sr_bg_corner6dp_c5_solid"
+        android:background="@drawable/sr_bg_corner6dp_white_solid"
         android:gravity="center"
         android:hint="输入机构邀请码"
         android:textColor="@color/c1"
-        android:textSize="@dimen/f4" />
+        android:textSize="@dimen/f2" />
 
     <TextView
         android:id="@+id/textComplete"
@@ -79,7 +75,8 @@
         android:text="我没加入学校,我是个人"
         android:textColor="@color/c7"
         android:textSize="@dimen/f1"
-        android:visibility="gone" />
+        tools:visibility="visible"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="match_parent"
@@ -89,6 +86,6 @@
         android:layout_marginRight="15dp"
         android:text="1.如果您学校机构已经跟我们合作,请向负责此项目的负责人索要”学校邀请码”;\n2.如果您不是学校机构,请点击下方 我没加入学校,我是个人 按钮创建班级;\n3.如果您是学校或者机构老师,想使用此功能来更好的为学生服务,提高教学效率,提升学习效果,欢迎来电咨询:17681827680 李先生"
         android:textColor="@color/white"
-        android:textSize="@dimen/f6" />
+        android:textSize="@dimen/f5" />
 
 </LinearLayout>

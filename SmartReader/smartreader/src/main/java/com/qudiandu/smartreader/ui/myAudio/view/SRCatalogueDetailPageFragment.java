@@ -144,10 +144,10 @@ public class SRCatalogueDetailPageFragment extends ZYBaseFragment implements Vie
         double y = 0;
         double w = 0;
         double h = 0;
-        x = tract.getTrack_left() * maxWidth;
-        y = tract.getTrack_top() * maxHeight;
-        w = (tract.getTrack_right() - tract.getTrack_left()) * maxWidth;
-        h = (tract.getTrack_bottom() - tract.getTrack_top()) * maxHeight;
+        x = tract.getTrack_left() * maxWidth - 10;
+        y = tract.getTrack_top() * maxHeight - 10;
+        w = (tract.getTrack_right() - tract.getTrack_left()) * maxWidth + 20;
+        h = (tract.getTrack_bottom() - tract.getTrack_top()) * maxHeight + 20;
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((int) w, (int) h);
         layoutParams.topMargin = (int) y;
         layoutParams.leftMargin = (int) x;

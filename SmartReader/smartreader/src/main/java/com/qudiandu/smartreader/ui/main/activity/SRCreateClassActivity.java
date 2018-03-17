@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
 import com.qudiandu.smartreader.base.view.ZYWheelSelectDialog;
@@ -53,9 +54,6 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
 
     @Bind(R.id.textCode)
     TextView textCode;
-
-//    @Bind(R.id.textTip)
-//    TextView textTip;
 
     ZYWheelSelectDialog wheelSelectDialog;
 
@@ -103,12 +101,8 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
                     @Override
                     public void onSuccess(ZYResponse response) {
                         hideProgress();
-//                        if (SRUserManager.getInstance().getUser().school_id <= 0) {
-//                            ZYToast.show(SRCreateClassActivity.this, "班级申请成功,请等待审核结果!");
-//                        } else {
-//                            ZYToast.show(SRCreateClassActivity.this, "班级创建成功!");
-//                        }
                         ZYToast.show(SRCreateClassActivity.this, "班级创建成功!");
+                        ZYPreferenceHelper.getInstance().identityComfirm();
                         finish();
                     }
 
@@ -123,10 +117,11 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
 
         if (SRUserManager.getInstance().getUser().school_id <= 0) {
             textCode.setVisibility(View.VISIBLE);
-//            textTip.setVisibility(View.VISIBLE);
+            if (!ZYPreferenceHelper.getInstance().hasIdentityComfirmed()) {
+                showOrganizationCodeVH();
+            }
         } else {
             textCode.setVisibility(View.GONE);
-//            textTip.setVisibility(View.GONE);
         }
     }
 
@@ -179,7 +174,7 @@ public class SRCreateClassActivity extends ZYBaseActivity implements SRClassOrga
                 SRUserManager.getInstance().setUser(response.data);
                 hideOrganizationCodeVH();
                 textCode.setVisibility(View.GONE);
-//                textTip.setVisibility(View.GONE);
+                ZYPreferenceHelper.getInstance().identityComfirm();
             }
 
             @Override

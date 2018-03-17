@@ -9,6 +9,7 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
+import com.qudiandu.smartreader.ui.vip.view.SRVipIconView;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 
 import butterknife.Bind;
@@ -25,6 +26,9 @@ public class SRClassDetailItemVH extends ZYBaseViewHolder<SRUser> {
 
     @Bind(R.id.textName)
     TextView textName;
+
+    @Bind(R.id.imgVip)
+    ImageView imgVip;
 
     @Bind(R.id.imgDel)
     ImageView imgDel;
@@ -59,6 +63,8 @@ public class SRClassDetailItemVH extends ZYBaseViewHolder<SRUser> {
             }else {
                 imgDel.setVisibility(View.GONE);
             }
+
+            SRVipIconView.showVipIconRe(imgVip,Integer.parseInt(data.is_vip));
         }
     }
 

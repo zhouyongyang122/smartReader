@@ -64,7 +64,7 @@ public class SRUser extends ZYBaseEntity {
 
     public int school_id;//机构id
 
-    public String is_vip;
+    public String is_vip = "0";
 
     public String vip_endtime;
 

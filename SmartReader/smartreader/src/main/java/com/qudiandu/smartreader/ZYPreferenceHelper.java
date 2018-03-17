@@ -30,6 +30,8 @@ public class ZYPreferenceHelper {
 
     public static final String SCHOOL_ID = "school_id";//当前选择的班级对应的学校id
 
+    public static final String IDENTITY_COMFIRM = "indentity_confirm";//身份确认
+
     private SharedPreferences defPre;
 
     private ZYPreferenceHelper() {
@@ -53,6 +55,18 @@ public class ZYPreferenceHelper {
 
     public void saveSchoolId(String schoolId){
         getDefPre().edit().putString(SCHOOL_ID,schoolId).commit();
+    }
+
+    public boolean hasIdentityComfirmed() {
+        String uid = SRUserManager.getInstance().getUser().getUid();
+        String key = uid + "_" + IDENTITY_COMFIRM;
+        return getDefPre().getBoolean(key, false);
+    }
+
+    public void identityComfirm() {
+        String uid = SRUserManager.getInstance().getUser().getUid();
+        String key = uid + "_" + IDENTITY_COMFIRM;
+        getDefPre().edit().putBoolean(key, true).commit();
     }
 
     public boolean hasUploadJPushId() {

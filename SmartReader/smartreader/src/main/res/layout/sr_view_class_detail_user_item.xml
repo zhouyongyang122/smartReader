@@ -23,6 +23,15 @@
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/imgVip"
+        android:layout_width="26dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_ordinarymember"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageView
         android:id="@+id/imgDel"
         android:layout_width="20dp"
         android:layout_height="20dp"

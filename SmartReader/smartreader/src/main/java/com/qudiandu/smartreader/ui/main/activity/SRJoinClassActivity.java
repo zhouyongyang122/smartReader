@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.event.SREventJoinClassSuc;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
@@ -66,6 +67,7 @@ public class SRJoinClassActivity extends ZYBaseActivity {
                         hideProgress();
                         ZYToast.show(SRJoinClassActivity.this, "加入班级成功!");
                         EventBus.getDefault().post(new SREventJoinClassSuc());
+                        ZYPreferenceHelper.getInstance().identityComfirm();
                         finish();
                     }
 

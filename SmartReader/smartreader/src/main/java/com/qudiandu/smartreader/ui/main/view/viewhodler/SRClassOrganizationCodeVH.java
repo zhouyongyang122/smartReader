@@ -47,7 +47,7 @@ public class SRClassOrganizationCodeVH extends ZYBaseViewHolder {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textSelf:
-                mListener.onCompleteClick(null);
+                mListener.onBackClick();
                 break;
             case R.id.textComplete:
                 String code = textCode.getText().toString();
