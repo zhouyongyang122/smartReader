@@ -128,13 +128,13 @@
 
                 <TextView
                     android:id="@+id/textEdit"
-                    android:layout_width="50dp"
+                    android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/sr_bg_corner4dp_white_c2"
                     android:gravity="center"
-                    android:text="编辑"
+                    android:text="个人设置"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f3" />
             </RelativeLayout>
@@ -286,7 +286,7 @@
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:minWidth="80dp"
-                    android:text="设置"
+                    android:text="系统设置"
                     android:textColor="@color/c1"
                     android:textSize="@dimen/f2" />
 

@@ -111,8 +111,8 @@ public class SRMarkShareVH extends ZYBaseViewHolder<SRCatalogueResponse> {
                             shareEntity.avatarBitmap = bitmap;
                         }
                         shareEntity.webUrl = mData.share_url;
-                        shareEntity.title = SRUserManager.getInstance().getUser().nickname + "的录音作品快来听一下吧!";
-                        shareEntity.text = "专为小学生设计的智能学习机";
+                        shareEntity.title = SRUserManager.getInstance().getUser().nickname + " 同学的课文配音作品快来听一下吧！";
+                        shareEntity.text = "专为小学设计的英语听说训练智能学习工具";
 
                         switch (type) {
                             case ShareProxy.SHARE_TYPE_QQ:

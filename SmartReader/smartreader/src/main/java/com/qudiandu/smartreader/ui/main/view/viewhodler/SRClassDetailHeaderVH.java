@@ -174,8 +174,8 @@ public class SRClassDetailHeaderVH extends ZYBaseViewHolder<SRClass> {
                             shareEntity.avatarBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
                         }
                         shareEntity.webUrl = mData.share_url;
-                        shareEntity.title = "快来加入 " + SRUserManager.getInstance().getUser().nickname + " 老师的班级,跟我一起作业吧!";
-                        shareEntity.text = "专为小学生设计的智能学习机";
+                        shareEntity.title = "快来加入我们的班级,一起来给课文配音吧！";
+                        shareEntity.text = "专为小学设计的英语听说训练智能学习工具";
                         new SRShareUtils(SRApplication.getInstance().getCurrentActivity(), shareEntity).share();
                     }
                 });

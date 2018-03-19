@@ -233,8 +233,8 @@ public class SRCatalogueDetailFragment extends ZYBaseFragment<SRCatalogueDetailC
                                     shareEntity.avatarBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
                                 }
                                 shareEntity.webUrl = mPresenter.getCatalogueDetail().getShare_url();
-                                shareEntity.title = SRUserManager.getInstance().getUser().nickname + "的录音作品快来听一下吧!";
-                                shareEntity.text = "专为小学生设计的智能学习机";
+                                shareEntity.title = SRUserManager.getInstance().getUser().nickname + " 同学的课文配音作品快来听一下吧！!";
+                                shareEntity.text = "专为小学设计的英语听说训练智能学习工具";
                                 new SRShareUtils(mActivity, shareEntity).share();
                             }
                         });

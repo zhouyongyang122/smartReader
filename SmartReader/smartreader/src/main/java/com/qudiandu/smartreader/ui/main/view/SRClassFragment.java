@@ -314,7 +314,7 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
             textAdd.setText("加入班级");
         } else {
             textCreate.setVisibility(View.VISIBLE);
-            textAdd.setText("添加作业");
+            textAdd.setText("任务布置");
         }
         SRClass srClass = mPresenter.getCurrentClass();
         textTitle.setText(srClass.class_name);
@@ -354,9 +354,9 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
     @Override
     public void showClassTaskEmpty() {
         if (SRUserManager.getInstance().getUser().isStudent()) {
-            sRecyclerView.getLoadingView().setEmptyText("老师还没有布置作业");
+            sRecyclerView.getLoadingView().setEmptyText("老师还没有布置任务");
         } else {
-            sRecyclerView.getLoadingView().setEmptyText("你还没有添加作业");
+            sRecyclerView.getLoadingView().setEmptyText("你还没有添加任务");
         }
         ZYLoadingView loadingView = (ZYLoadingView) sRecyclerView.getLoadingView();
         loadingView.hideEmptyBtn();

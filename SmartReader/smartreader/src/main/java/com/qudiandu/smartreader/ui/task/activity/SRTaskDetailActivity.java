@@ -40,17 +40,17 @@ public class SRTaskDetailActivity extends ZYBaseFragmentActivity<SRTaskDetailFra
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showTitle("任务详情");
-        showActionRightTitle("催作业", new View.OnClickListener() {
+        showActionRightTitle("任务提醒", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(SRTaskDetailActivity.this).setTitle("催作业").setMessage("快快快,完成练习哦!")
+                new AlertDialog.Builder(SRTaskDetailActivity.this).setTitle("任务提醒").setMessage("快快快,完成练习哦!")
                         .setPositiveButton("发送", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ZYNetSubscription.subscription(new SRTaskModel().taskRemind(mTask.group_id + "", mTask.task_id + ""), new ZYNetSubscriber() {
                                     @Override
                                     public void onSuccess(ZYResponse response) {
-                                        showToast("成功催作业");
+                                        showToast("成功任务提醒");
                                     }
 
                                     @Override
