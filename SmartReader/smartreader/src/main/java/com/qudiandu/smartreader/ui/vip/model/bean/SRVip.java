@@ -18,7 +18,7 @@ public class SRVip implements ZYIBaseBean {
 
     public List<Price> package_list;
 
-    public class Price {
+    public class Price implements ZYIBaseBean{
 
         public int id;
 
@@ -33,7 +33,7 @@ public class SRVip implements ZYIBaseBean {
         public boolean isSelected;
     }
 
-    public static class Rights {
+    public static class Rights implements ZYIBaseBean{
 
         public int res;
 
