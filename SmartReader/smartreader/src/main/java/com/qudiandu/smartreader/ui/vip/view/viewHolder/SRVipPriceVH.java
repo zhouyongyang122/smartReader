@@ -39,7 +39,7 @@ public class SRVipPriceVH extends ZYBaseViewHolder<SRVip.Price> {
         if (data != null) {
             mData = data;
             textName.setText(data.desc);
-            textPrice.setText(data.amount);
+            textPrice.setText(data.amount + "元");
             btnCheck.setSelected(data.isSelected);
         }
     }

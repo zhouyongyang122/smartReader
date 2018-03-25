@@ -2,6 +2,7 @@ package com.qudiandu.smartreader.ui.mark.model;
 
 import android.text.TextUtils;
 
+import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBaseModel;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRCatalogueResponse;
@@ -32,6 +33,8 @@ public class SRMarkModel extends ZYBaseModel {
         if (!TextUtils.isEmpty(group_id)) {
             paramas.put("group_id", group_id);
             paramas.put("task_id", task_id);
+        } else if (!TextUtils.isEmpty(ZYPreferenceHelper.getInstance().getClassId())) {
+            paramas.put("group_id", ZYPreferenceHelper.getInstance().getClassId());
         }
         return mApi.catalogueAdd(paramas);
     }

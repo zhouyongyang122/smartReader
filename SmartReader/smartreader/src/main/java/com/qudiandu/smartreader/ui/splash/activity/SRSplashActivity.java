@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.service.downNet.down.ZYDownState;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.activity.SRMainActivity;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.utils.ZYLog;
+import com.qudiandu.smartreader.utils.ZYSystemUtils;
 
 import butterknife.Bind;
 
@@ -52,6 +54,13 @@ public class SRSplashActivity extends ZYBaseActivity {
             ZYPreferenceHelper.getInstance().setInsertDefBook(true);
             ZYPreferenceHelper.getInstance().setShowTractBg(true);
             ZYPreferenceHelper.getInstance().setShowTractTrans(true);
+        }
+
+        if (!ZYPreferenceHelper.getInstance().isLogoutVersonCode16() && ZYSystemUtils.getAppVersionCode(this) <= 16) {
+            ZYPreferenceHelper.getInstance().saveLogoutVersonCode16();
+            if (!SRUserManager.getInstance().isGuesterUser(false)) {
+                SRUserManager.getInstance().loginOut();
+            }
         }
     }
 

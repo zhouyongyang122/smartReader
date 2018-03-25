@@ -191,7 +191,7 @@ public interface ZYRequestApi {
     Observable<ZYResponse<SRVipOrder>> getVipPayOrder(@Body Map<String, String> params);
 
     @GET("show/top")
-    Observable<ZYResponse<List<SRRank>>> getRanks(@Query("school_id") String school_id,@Query("time_type") String time_type,@Query("start") int start, @Query("rows") int rows);
+    Observable<ZYResponse<List<SRRank>>> getRanks(@Query("group_id") String group_id,@Query("show_type") String rank_type,@Query("time_type") String time_type,@Query("start") int start, @Query("rows") int rows);
 
     @POST("show/support")
     Observable<ZYResponse> support(@Body Map<String, String> params);

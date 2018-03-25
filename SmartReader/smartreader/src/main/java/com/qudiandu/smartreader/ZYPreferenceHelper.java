@@ -28,9 +28,11 @@ public class ZYPreferenceHelper {
 
     public static final String DUB_GUIDE = "dub_guide";//配音引导
 
-    public static final String SCHOOL_ID = "school_id";//当前选择的班级对应的学校id
+    public static final String CLASS_ID = "class_id";//当前选择的班级id
 
     public static final String IDENTITY_COMFIRM = "indentity_confirm";//身份确认
+
+    public static final String VERSON_CODE_16 = "verson_code_16";
 
     private SharedPreferences defPre;
 
@@ -49,12 +51,20 @@ public class ZYPreferenceHelper {
         return instance;
     }
 
-    public String getSchoolId(){
-        return getDefPre().getString(SCHOOL_ID,"");
+    public boolean isLogoutVersonCode16(){
+        return getDefPre().getBoolean(VERSON_CODE_16,false);
     }
 
-    public void saveSchoolId(String schoolId){
-        getDefPre().edit().putString(SCHOOL_ID,schoolId).commit();
+    public void saveLogoutVersonCode16(){
+        getDefPre().edit().putBoolean(VERSON_CODE_16,true).commit();
+    }
+
+    public String getClassId(){
+        return getDefPre().getString(CLASS_ID,"");
+    }
+
+    public void saveClassId(String schoolId){
+        getDefPre().edit().putString(CLASS_ID,schoolId).commit();
     }
 
     public boolean hasIdentityComfirmed() {

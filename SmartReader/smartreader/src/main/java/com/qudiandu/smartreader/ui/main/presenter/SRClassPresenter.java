@@ -113,7 +113,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
                     if (mCurrentClass == null) {
                         mCurrentClassPosition = 0;
                         mCurrentClass = mClasses.get(0);
-                        ZYPreferenceHelper.getInstance().saveSchoolId(mCurrentClass.school_id + "");
+                        ZYPreferenceHelper.getInstance().saveClassId(mCurrentClass.group_id + "");
                     } else {
                         setSelectClassPositionByClass();
                     }
@@ -303,7 +303,7 @@ public class SRClassPresenter extends ZYBasePresenter implements SRClassContract
 
     public void setSelectClass(int position) {
         mCurrentClass = mClasses.get(position);
-        ZYPreferenceHelper.getInstance().saveSchoolId(mCurrentClass.school_id + "");
+        ZYPreferenceHelper.getInstance().saveClassId(mCurrentClass.group_id + "");
         mView.showLoading();
         loadTasks(true);
     }

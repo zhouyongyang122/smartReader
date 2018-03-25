@@ -1,10 +1,12 @@
 package com.qudiandu.smartreader.ui.vip.view;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import com.qudiandu.smartreader.ui.vip.model.bean.SRVip;
 import com.qudiandu.smartreader.ui.vip.presenter.SRVipPresenter;
 import com.qudiandu.smartreader.ui.vip.view.viewHolder.SRVipPriceVH;
 import com.qudiandu.smartreader.ui.vip.view.viewHolder.SRVipRightsVH;
+import com.qudiandu.smartreader.ui.web.SRWebViewActivity;
 import com.qudiandu.smartreader.utils.ZYDateUtils;
 import com.qudiandu.smartreader.utils.ZYUtils;
 
@@ -49,11 +52,17 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
     @Bind(R.id.textVipTime)
     TextView textVipTime;
 
+    @Bind(R.id.textProtocol)
+    TextView textProtocol;
+
     @Bind(R.id.imgVip)
     ImageView imgVip;
 
     @Bind(R.id.textGrade)
     TextView textGrade;
+
+    @Bind(R.id.btBuy)
+    TextView btBuy;
 
     @Bind(R.id.priceRecyclerView)
     RecyclerView priceRecyclerView;
@@ -98,6 +107,10 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
         btnWeichat.setSelected(true);
 
         mPresenter.loadVip();
+
+        textProtocol.setText("确认购买即表示同意 <<趣点读会员协议>>");
+        textProtocol.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        textProtocol.getPaint().setAntiAlias(true);//抗锯齿
         return view;
     }
 
@@ -146,6 +159,9 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
                 btnAliPay.setSelected(true);
                 break;
             case R.id.textProtocol:
+                if (!TextUtils.isEmpty(mPresenter.getVip().protocol_url)) {
+                    startActivity(SRWebViewActivity.createIntent(getActivity(), mPresenter.getVip().protocol_url, "趣点读会员协议"));
+                }
                 break;
             case R.id.btBuy:
                 showProgress();
@@ -176,6 +192,7 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
             textVipTime.setVisibility(View.GONE);
             imgVip.setVisibility(View.GONE);
         }
+        btBuy.setText("确认购买(" + mPresenter.getPriceList().get(0).amount + "元)");
         mPriceAdapter.notifyDataSetChanged();
     }
 
@@ -210,6 +227,7 @@ public class SRVipFragment extends ZYBaseFragment<SRVipContract.IPresenter> impl
     public void onPriceClick(SRVip.Price price) {
         if (price != null) {
             mPresenter.setSelectPrice(price);
+            btBuy.setText("确认购买(" + price.amount + "元)");
         }
         for (int i = 0; i < mPriceAdapter.getItemCount(); i++) {
             SRVip.Price price_ = mPriceAdapter.getItem(i);

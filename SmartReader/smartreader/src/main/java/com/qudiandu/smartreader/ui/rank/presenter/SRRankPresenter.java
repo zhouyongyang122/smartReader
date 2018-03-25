@@ -21,26 +21,24 @@ import rx.Observable;
 
 public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, SRRankModel, SRRank> implements SRRankContract.IPresenter {
 
-    public static final int RANK_SCHOOL_TYPE = 1;
+    public static final int RANK_CLASS_TYPE = 2;//班级排行
 
-    public static final int RANK_ALL_TYPE = 2;
+    public static final int RANK_ALL_TYPE = 1;//全国排行
 
     public static final int TIME_DAY_TYPE = 1;
 
     public static final int TIME_WEEK_TYPE = 2;
 
-    public static final int TIME_MONTH_TYPE = 3;
-
-    public int mRankType = RANK_SCHOOL_TYPE;
+    public int mRankType = RANK_ALL_TYPE;
 
     public int mTimeType = TIME_DAY_TYPE;
 
-    public String mSchoolId;
+    public String mClassId;
 
     public SRRankPresenter(SRRankContract.IView view, int rank_type) {
         super(view, new SRRankModel());
         mRankType = rank_type;
-        mSchoolId = ZYPreferenceHelper.getInstance().getSchoolId();
+        mClassId = ZYPreferenceHelper.getInstance().getClassId();
     }
 
     public void setTimeType(int timeType) {
@@ -52,12 +50,12 @@ public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, S
     protected void loadData() {
 
         if (mRankType == RANK_ALL_TYPE) {
-            mSchoolId = "";
+            mClassId = "";
         } else {
-            mSchoolId = ZYPreferenceHelper.getInstance().getSchoolId();
+            mClassId = ZYPreferenceHelper.getInstance().getClassId();
         }
 
-        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getRanks(mSchoolId, mTimeType + "", mStart, mRows), new ZYNetSubscriber<ZYResponse<List<SRRank>>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(mModel.getRanks(mClassId, mRankType + "", mTimeType + "", mStart, mRows), new ZYNetSubscriber<ZYResponse<List<SRRank>>>() {
 
             @Override
             public void onSuccess(ZYResponse<List<SRRank>> response) {

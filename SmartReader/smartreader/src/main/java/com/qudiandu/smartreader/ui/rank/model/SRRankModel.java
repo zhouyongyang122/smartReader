@@ -17,8 +17,8 @@ import rx.Observable;
 
 public class SRRankModel extends ZYBaseModel {
 
-    public Observable<ZYResponse<List<SRRank>>> getRanks(String school_id, String time_type, int start, int rows) {
-        return mApi.getRanks(school_id, time_type, start, rows);
+    public Observable<ZYResponse<List<SRRank>>> getRanks(String class_id,String rank_type, String time_type, int start, int rows) {
+        return mApi.getRanks(class_id,rank_type, time_type, start, rows);
     }
 
     //supportType:1点赞 2:取消点赞

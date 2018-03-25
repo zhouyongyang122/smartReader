@@ -14,6 +14,8 @@ public class SRVip implements ZYIBaseBean {
 
     public String vip_endtime;
 
+    public String protocol_url;
+
     public String[] pay_type;
 
     public List<Price> package_list;

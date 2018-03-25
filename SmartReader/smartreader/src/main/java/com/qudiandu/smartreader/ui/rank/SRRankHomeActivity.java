@@ -40,10 +40,6 @@ public class SRRankHomeActivity extends ZYBaseFragmentActivity<SRRankHomeFragmen
                 mActionBar.showActionRightTitle("今日排行", this);
                 timeType = SRRankPresenter.TIME_DAY_TYPE;
                 break;
-//            case SRRankPresenter.TIME_MONTH_TYPE:
-//                mActionBar.showActionRightTitle("今日排行", this);
-//                timeType = SRRankPresenter.TIME_DAY_TYPE;
-//                break;
         }
         mFragment.changeTimeRank(timeType);
     }
