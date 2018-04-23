@@ -47,7 +47,7 @@ public class SRSysMsgVH extends ZYBaseViewHolder<SRSysMsg> {
             textTime.setText(ZYDateUtils.getTimeString(data.create_time * 1000, ZYDateUtils.YYMMDDHHMM12));
             if (!TextUtils.isEmpty(data.pic)) {
                 layoutBg.setVisibility(View.VISIBLE);
-                ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.pic, R.drawable.img_default_pic, R.drawable.img_default_pic);
+                ZYImageLoadHelper.getImageLoader().setFitType(ZYImageLoadHelper.FIT_CENTER).loadImage(this, imgBg, data.pic, R.drawable.img_default_pic, R.drawable.img_default_pic);
             } else {
                 layoutBg.setVisibility(View.GONE);
             }

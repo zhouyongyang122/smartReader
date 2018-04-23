@@ -116,11 +116,11 @@ public class SREditFragment extends ZYBaseFragment<SREditContract.IPresenter> im
     }
 
     public void save() {
-        String tipMsg = userParams.checkParams();
-        if (tipMsg != null) {
-            ZYToast.show(mActivity, tipMsg);
-            return;
-        }
+//        String tipMsg = userParams.checkParams();
+//        if (tipMsg != null) {
+//            ZYToast.show(mActivity, tipMsg);
+//            return;
+//        }
 
         showProgress();
         if (userParams.avatar.startsWith("http")) {

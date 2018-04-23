@@ -100,7 +100,7 @@ public class SRTaskCommentActivity extends ZYBaseActivity {
             @Override
             public void onClick(View v) {
                 final String comment = textMsg.getText().toString();
-                if (TextUtils.isEmpty(comment)) {
+                if (TextUtils.isEmpty(mQiniuKey) && TextUtils.isEmpty(comment)) {
                     ZYToast.show(SRTaskCommentActivity.this, "评论内容不能为空");
                     return;
                 }

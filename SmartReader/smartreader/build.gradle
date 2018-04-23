@@ -13,15 +13,15 @@ android {
         minSdkVersion 18
         targetSdkVersion 22
         versionCode 16
-        versionName "1.6.2"
+        versionName "1.62"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'armeabi'
         }
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "6ae35acf53f004bf97618fbe", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
 
@@ -61,8 +61,8 @@ android {
     }
 }
 
-repositories{
-    flatDir{
+repositories {
+    flatDir {
         dirs 'libs'
     }
 }
@@ -132,4 +132,8 @@ dependencies {
         exclude group: 'com.android.support'
     }
     compile files('libs/alipaySDK-20150602.jar')
+
+    //ijkplayer
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
 }

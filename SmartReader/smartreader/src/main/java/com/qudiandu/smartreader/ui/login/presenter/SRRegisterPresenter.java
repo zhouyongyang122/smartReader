@@ -114,7 +114,7 @@ public class SRRegisterPresenter extends ZYBasePresenter implements SRRegisterCo
 
             @Override
             public void onFail(String message) {
-                super.onFail("验证码获取失败,请重新尝试!");
+                super.onFail(message);
                 iView.codeError("验证码获取失败,请重新尝试!");
             }
         }));
