@@ -15,6 +15,7 @@ import com.qudiandu.smartreader.service.downNet.down.ZYDownloadManager;
 import com.qudiandu.smartreader.thirdParty.jpush.SRJPushSDK;
 import com.qudiandu.smartreader.ui.SRAppConstants;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
+import com.qudiandu.smartreader.ui.main.model.SRIJKPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.vip.activity.SRVipActivity;
 import com.qudiandu.smartreader.utils.ZYLog;
@@ -59,6 +60,7 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
             if (info.pid == android.os.Process.myPid()) {
                 if (getPackageName().equals(info.processName)) {
                     init();
+                    SRIJKPlayManager.getInstance();
                 }
             }
         }
@@ -98,6 +100,7 @@ public class SRApplication extends Application implements ZYUncaughtExceptionHan
         File file = new File(BOOK_ROOT_DIR);
         if (!file.exists()) {
             ZYLog.e(getClass().getSimpleName(), "initFileDir: " + file.mkdirs() + file.getAbsolutePath());
+            file.mkdirs();
         }
 
         file = new File(BOOK_ZIP_ROOT_DIR);

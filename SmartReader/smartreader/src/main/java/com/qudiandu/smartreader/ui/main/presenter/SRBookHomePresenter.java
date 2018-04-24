@@ -7,7 +7,7 @@ import com.qudiandu.smartreader.base.mvp.ZYBasePresenter;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.ui.main.contract.SRBookHomeContract;
 import com.qudiandu.smartreader.ui.main.model.SRBookHomeModel;
-import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
+import com.qudiandu.smartreader.ui.main.model.SRIJKPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBookJson;
 import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
@@ -159,7 +159,7 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                         }
                     }
                 }
-                SRPlayManager.getInstance().startRepeats(repeatTracts);
+                SRIJKPlayManager.getInstance().startRepeats(repeatTracts,0);
                 iView.playRepeats();
             }
             return;
@@ -167,32 +167,32 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
         if (isSingleRepeat) {
             ArrayList<SRTract> repeatTracts = new ArrayList<SRTract>();
             repeatTracts.add(selTract);
-            SRPlayManager.getInstance().startRepeats(repeatTracts);
+            SRIJKPlayManager.getInstance().startRepeats(repeatTracts,0);
         } else {
-            SRPlayManager.getInstance().startAudio(selTract.getMp3Path(), selTract.getAudioStart(), selTract.getAudioEnd());
+            SRIJKPlayManager.getInstance().startAudio(selTract);
         }
     }
 
     @Override
     public void stopSingleRepeat() {
         isSingleRepeat = false;
-        SRPlayManager.getInstance().stopRepeats();
+        SRIJKPlayManager.getInstance().stopRepeats();
     }
 
     @Override
     public void stopRepeats() {
         isRepeats = false;
         repeatsStartTract = null;
-        SRPlayManager.getInstance().stopRepeats();
+        SRIJKPlayManager.getInstance().stopRepeats();
     }
 
     @Override
     public void puaseRepeats() {
-        SRPlayManager.getInstance().pauseAudio();
+        SRIJKPlayManager.getInstance().pauseAudio();
     }
 
     public void continueRepeats() {
-        SRPlayManager.getInstance().continueStartRepeats();
+        SRIJKPlayManager.getInstance().continueStartRepeats();
     }
 
     private SRCatalogue getUnit(String unit) {

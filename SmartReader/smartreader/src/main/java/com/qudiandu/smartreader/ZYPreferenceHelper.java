@@ -51,20 +51,20 @@ public class ZYPreferenceHelper {
         return instance;
     }
 
-    public boolean isLogoutVersonCode16(){
-        return getDefPre().getBoolean(VERSON_CODE_16,false);
+    public boolean isLogoutVersonCode16() {
+        return getDefPre().getBoolean(VERSON_CODE_16, false);
     }
 
-    public void saveLogoutVersonCode16(){
-        getDefPre().edit().putBoolean(VERSON_CODE_16,true).commit();
+    public void saveLogoutVersonCode16() {
+        getDefPre().edit().putBoolean(VERSON_CODE_16, true).commit();
     }
 
-    public String getClassId(){
-        return getDefPre().getString(CLASS_ID,"");
+    public String getClassId() {
+        return getDefPre().getString(CLASS_ID, "");
     }
 
-    public void saveClassId(String schoolId){
-        getDefPre().edit().putString(CLASS_ID,schoolId).commit();
+    public void saveClassId(String schoolId) {
+        getDefPre().edit().putString(CLASS_ID, schoolId).commit();
     }
 
     public boolean hasIdentityComfirmed() {
@@ -127,12 +127,12 @@ public class ZYPreferenceHelper {
         return getDefPre().getBoolean(SHOW_TRACT_TRANS, false);
     }
 
-    public void setTractSpeed(int tractSpeed) {
-        getDefPre().edit().putInt(TRACT_SPEED, tractSpeed).commit();
+    public void setTractSpeed(float tractSpeed) {
+        getDefPre().edit().putFloat(TRACT_SPEED, tractSpeed).commit();
     }
 
-    public int getTractSpeed() {
-        return getDefPre().getInt(TRACT_SPEED, 50);
+    public float getTractSpeed() {
+        return getDefPre().getFloat(TRACT_SPEED, 1.0f);
     }
 
     /**

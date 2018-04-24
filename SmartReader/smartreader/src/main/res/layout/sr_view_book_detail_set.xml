@@ -22,70 +22,27 @@
         <RelativeLayout
             android:id="@+id/layoutSpeed"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:visibility="gone"
-            android:layout_marginTop="70dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="60dp">
 
             <TextView
-                android:id="@+id/textSpeedTip"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:text="语速调节: "
+                android:id="@+id/textTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="调整播放语音"
                 android:textColor="@color/white"
                 android:textSize="@dimen/f2" />
 
-            <LinearLayout
+            <com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookSpeedBar
+                android:id="@+id/speedBar"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_toRightOf="@+id/textSpeedTip"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="慢速"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/f2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="正常"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/f2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="快速"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/f2" />
-
-            </LinearLayout>
-
-            <SeekBar
-                android:id="@+id/seekBarSpeed"
-                android:layout_width="match_parent"
-                android:layout_height="29dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/textSpeedTip"
-                android:max="150"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:progress="75"
-                android:progressDrawable="@drawable/sr_bg_corner360dp_white_solid"
-                android:thumb="@drawable/share" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textTitle"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="15dp" />
         </RelativeLayout>
 
         <TextView
@@ -93,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_below="@+id/layoutSpeed"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="显示点击区域: "

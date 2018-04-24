@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragmentActivity;
 import com.qudiandu.smartreader.thirdParty.xiansheng.XianShengSDK;
-import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
+import com.qudiandu.smartreader.ui.main.model.SRIJKPlayManager;
 import com.qudiandu.smartreader.ui.main.presenter.SRBookHomePresenter;
 import com.qudiandu.smartreader.ui.main.view.SRBookHomeFragment;
 import com.qudiandu.smartreader.utils.ZYLog;
@@ -63,8 +63,8 @@ public class SRBookHomeActivity extends ZYBaseFragmentActivity<SRBookHomeFragmen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SRPlayManager.getInstance().setPagePlayListener(null);
-        SRPlayManager.getInstance().stopAudio();
+        SRIJKPlayManager.getInstance().setPagePlayListener(null);
+        SRIJKPlayManager.getInstance().stopAudio();
         XianShengSDK.getInstance().onDestroy();
     }
 }

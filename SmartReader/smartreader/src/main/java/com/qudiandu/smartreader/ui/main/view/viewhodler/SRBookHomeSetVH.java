@@ -20,8 +20,8 @@ import butterknife.OnClick;
 
 public class SRBookHomeSetVH extends ZYBaseViewHolder<Object> {
 
-    @Bind(R.id.seekBarSpeed)
-    SeekBar seekBarSpeed;
+    @Bind(R.id.speedBar)
+    SRBookSpeedBar speedBar;
 
     @Bind(R.id.layoutClick)
     RelativeLayout layoutClick;
@@ -43,26 +43,14 @@ public class SRBookHomeSetVH extends ZYBaseViewHolder<Object> {
 
     @Override
     public void updateView(Object data, int position) {
-        seekBarSpeed.setProgress(ZYPreferenceHelper.getInstance().getTractSpeed());
+        speedBar.setProgress(ZYPreferenceHelper.getInstance().getTractSpeed());
         updateTractClickBg();
         updateTractTrans();
-        seekBarSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        speedBar.setOnProgressChangedListener(new SRBookSpeedBar.OnProgressChangedListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
-                    ZYPreferenceHelper.getInstance().setTractSpeed(progress);
-                    listener.onTractSpeedChange(progress);
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onProgressChanged(int index, float progress) {
+                ZYPreferenceHelper.getInstance().setTractSpeed(progress);
+                listener.onTractSpeedChange(progress);
             }
         });
 
@@ -158,6 +146,6 @@ public class SRBookHomeSetVH extends ZYBaseViewHolder<Object> {
 
         void onTractClickBgChange(boolean show);
 
-        void onTractSpeedChange(int speed);
+        void onTractSpeedChange(float speed);
     }
 }

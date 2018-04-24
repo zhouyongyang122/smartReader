@@ -1,10 +1,14 @@
 package com.qudiandu.smartreader.ui.main.model.bean;
 
+import android.content.res.AssetFileDescriptor;
 import android.text.TextUtils;
 
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.base.bean.ZYIBaseBean;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
+
+import static com.qudiandu.smartreader.SRApplication.BOOK_ROOT_DIR;
+import static com.qudiandu.smartreader.ui.main.model.SRIJKPlayManager.DEF_BOOK_MP3_PATH;
 
 /**
  * Created by ZY on 17/3/28.
@@ -165,6 +169,11 @@ public class SRTract implements ZYIBaseBean {
     }
 
     public String getMp3Path() {
+
+        if (mp3Path != null && mp3Path.startsWith("file:///")) {
+            mp3Path = DEF_BOOK_MP3_PATH + "/" + mp3Path.substring(mp3Path.lastIndexOf("/"));
+        }
+
         return mp3Path;
     }
 

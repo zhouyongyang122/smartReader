@@ -15,7 +15,15 @@ import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYSystemUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import butterknife.Bind;
+
+import static com.qudiandu.smartreader.SRApplication.BOOK_ROOT_DIR;
+import static com.qudiandu.smartreader.ui.main.model.SRIJKPlayManager.DEF_BOOK_MP3_PATH;
 
 /**
  * Created by ZY on 17/3/15.
@@ -62,10 +70,44 @@ public class SRSplashActivity extends ZYBaseActivity {
                 SRUserManager.getInstance().loginOut();
             }
         }
+
+        copyDefBookToSdcard();
     }
 
     @Override
     protected boolean tintStatusBar() {
         return false;
+    }
+
+    //ijkplayer播放assets文件有问题 把默认书籍文件放到sdcard
+    void copyDefBookToSdcard() {
+        File file = new File(DEF_BOOK_MP3_PATH);
+        if (!file.exists()) {
+            file.mkdirs();
+        } else {
+            return;
+        }
+
+        try {
+            String[] fileNames = getAssets().list("1/mp3");
+            for (String name : fileNames) {
+                file = new File(DEF_BOOK_MP3_PATH + "/" + name);
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                InputStream inputStream = getAssets().open("1/mp3/" + name);
+                FileOutputStream fos = new FileOutputStream(file);
+                int len = -1;
+                byte[] buffer = new byte[1024];
+                while ((len = inputStream.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                }
+                fos.flush();
+                inputStream.close();
+                fos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -20,18 +20,16 @@ import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.SRApplication;
 import com.qudiandu.smartreader.ZYPreferenceHelper;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
-import com.qudiandu.smartreader.thirdParty.pay.SRAliPay;
 import com.qudiandu.smartreader.ui.dubbing.activity.SRDubbingActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.contract.SRBookHomeContract;
-import com.qudiandu.smartreader.ui.main.model.SRPlayManager;
+import com.qudiandu.smartreader.ui.main.model.SRIJKPlayManager;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRCatalogue;
 import com.qudiandu.smartreader.ui.main.model.bean.SRPage;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTract;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookHomeMenuVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookHomeSetVH;
-import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
 import com.qudiandu.smartreader.ui.dubbing.model.bean.SRMarkBean;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.utils.ZYToast;
@@ -47,7 +45,7 @@ import butterknife.OnClick;
  * Created by ZY on 17/3/29.
  */
 
-public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPresenter> implements SRBookHomeContract.IView, SRBookPageFragment.BookDetailPageListener, SRBookHomeMenuVH.BookDetailMenuListener, SRPlayManager.PagePlayListener, SRBookHomeSetVH.BookDetailSetListener {
+public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPresenter> implements SRBookHomeContract.IView, SRBookPageFragment.BookDetailPageListener, SRBookHomeMenuVH.BookDetailMenuListener, SRIJKPlayManager.CollationIJKPlayerListener, SRBookHomeSetVH.BookDetailSetListener {
 
     @Bind(R.id.layoutRoot)
     RelativeLayout layoutRoot;
@@ -117,6 +115,8 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.sr_fragment_book_detail, container, false);
         ButterKnife.bind(this, viewGroup);
         isShowTrans = ZYPreferenceHelper.getInstance().isShowTractTrans();
+
+        SRIJKPlayManager.getInstance().setSpeed(ZYPreferenceHelper.getInstance().getTractSpeed());
         return viewGroup;
     }
 
@@ -141,7 +141,6 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
 
             @Override
             public void onPageSelected(int position) {
-//                mPresenter.setCurPageId(position + 1);
                 refreshScore();
 
                 showVipBuy();
@@ -211,7 +210,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
                 isPuase = false;
                 layoutBottomBar.setVisibility(View.GONE);
                 isSelectingRepeats = true;
-                SRPlayManager.getInstance().setPagePlayListener(this);
+                SRIJKPlayManager.getInstance().setPagePlayListener(this);
                 break;
             case R.id.imgStop:
                 mPresenter.stopRepeats();
@@ -272,16 +271,6 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     }
 
     private void refreshScore(int score) {
-//        if (score > 0) {
-//            textScore.setText(score + "");
-//            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c9));
-//            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
-//
-//        } else {
-//            textScore.setText("配音");
-//            textScore.setBackgroundColor(ZYResourceUtils.getColor(R.color.c7));
-//            textScoreTip.setBackgroundColor(ZYResourceUtils.getColor(R.color.c1));
-//        }
     }
 
     public boolean showVipBuy() {
@@ -290,24 +279,12 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
                 SRApplication.getInstance().showVipBuy();
                 return true;
             }
-//            int position = 0;
-//            SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
-//            for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
-//                if (catalogue.getCatalogue_id() > 0 && page != null && page.getCatalogueId() == catalogue.getCatalogue_id()) {
-//                    if (position > 0) {
-//                        SRApplication.getInstance().showVipBuy();
-//                        return true;
-//                    }
-//                    break;
-//                }
-//                position++;
-//            }
         }
         return false;
     }
 
     @Override
-    public void onRepeatsTractPlay(SRTract tract) {
+    public void onTractRepeatsPlay(SRTract tract) {
         int pageId = tract.getPage_id();
         SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
         if (page.getPage_id() != pageId) {
@@ -315,6 +292,11 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
         }
         SRBookPageFragment pageFragment = pageFragments.get(viewPage.getCurrentItem());
         pageFragment.onRepeatsTractPlay(tract);
+    }
+
+    @Override
+    public void onTractPlayError(SRTract tract) {
+
     }
 
     @Override
@@ -377,8 +359,8 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     }
 
     @Override
-    public void onTractSpeedChange(int speed) {
-        int speed_ = speed - 50;
+    public void onTractSpeedChange(float speed) {
+        SRIJKPlayManager.getInstance().setSpeed(speed);
     }
 
     public boolean onBackPressed() {
@@ -505,7 +487,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     public void onDestroyView() {
 
         try {
-            if(SRUserManager.getInstance().getUser().isVip()) {
+            if (SRUserManager.getInstance().getUser().isVip()) {
                 SRBook book = SRBook.queryById(mPresenter.getBookData().book_id);
                 book.lastPageIndex = viewPage.getCurrentItem();
                 book.update();
