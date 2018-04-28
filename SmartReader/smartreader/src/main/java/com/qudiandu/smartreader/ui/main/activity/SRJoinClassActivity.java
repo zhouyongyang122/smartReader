@@ -15,6 +15,7 @@ import com.qudiandu.smartreader.base.event.SREventJoinClassSuc;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.main.model.SRMainModel;
 import com.qudiandu.smartreader.utils.ZYToast;
 
@@ -50,7 +51,7 @@ public class SRJoinClassActivity extends ZYBaseActivity {
         showActionRightTitle("加入班级", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String textNameValue = textName.getText().toString();
+                final String textNameValue = textName.getText().toString();
                 String textCodeValue = textCode.getText().toString();
                 if (TextUtils.isEmpty(textNameValue)) {
                     ZYToast.show(SRJoinClassActivity.this, "真实姓名不能为空!");
@@ -68,6 +69,8 @@ public class SRJoinClassActivity extends ZYBaseActivity {
                         ZYToast.show(SRJoinClassActivity.this, "加入班级成功!");
                         EventBus.getDefault().post(new SREventJoinClassSuc());
                         ZYPreferenceHelper.getInstance().identityComfirm();
+                        SRUserManager.getInstance().getUser().nickname = textNameValue;
+                        SRUserManager.getInstance().setUser(SRUserManager.getInstance().getUser());
                         finish();
                     }
 

@@ -65,18 +65,19 @@ public class SRTaskCatePresenter extends ZYListDataPresenter<SRTaskCateContract.
     }
 
     public void addTask() {
-        SRTaskCate taskCate = null;
+        String catalogueIds = null;
+        String book_id = null;
         for (Object object : mDataList) {
             if (object instanceof SRTaskCate) {
                 SRTaskCate result = (SRTaskCate) object;
                 if (result.isCheck) {
-                    taskCate = result;
-                    break;
+                    catalogueIds += result.catalogue_id + ",";
+                    book_id = result.book_id + "";
                 }
             }
         }
-        if (taskCate != null) {
-            mSubscriptions.add(ZYNetSubscription.subscription(mModel.addTask(SRTaskManager.getInstance().getCurrentTaskClassId() + "", taskCate.book_id + "", taskCate.catalogue_id + ""), new ZYNetSubscriber() {
+        if (catalogueIds != null) {
+            mSubscriptions.add(ZYNetSubscription.subscription(mModel.addTask(SRTaskManager.getInstance().getCurrentTaskClassId() + "", book_id, catalogueIds), new ZYNetSubscriber() {
                 @Override
                 public void onSuccess(ZYResponse response) {
                     mView.showToast("任务发布成功!");

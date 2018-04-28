@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.qudiandu.smartreader.base.mvp.ZYListDateFragment;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
+import com.qudiandu.smartreader.ui.set.activity.SRMsgDetailActivity;
 import com.qudiandu.smartreader.ui.set.contract.SRSysMsgContract;
 import com.qudiandu.smartreader.ui.set.model.bean.SRSysMsg;
 import com.qudiandu.smartreader.ui.set.view.viewHolder.SRSysMsgVH;
@@ -39,6 +40,10 @@ public class SRSysMsgFragment extends ZYListDateFragment<SRSysMsgContract.IPrese
         }
 
         if (msg != null) {
+            if (!TextUtils.isEmpty(msg.pic)) {
+                startActivity(SRMsgDetailActivity.getIntent(mActivity, msg));
+                return;
+            }
             startActivity(new Intent(mActivity, SRFeedBackActivity.class));
         }
     }
