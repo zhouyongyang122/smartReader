@@ -27,6 +27,7 @@ public class SRRankFragment extends ZYListDateFragment<SRRankContract.IPresenter
         super.onViewCreated(view, savedInstanceState);
         ((ZYSwipeRefreshRecyclerView) mRefreshRecyclerView).setBackgroundColor(ZYResourceUtils.getColor(R.color.white));
         mRefreshRecyclerView.getLoadingView().getView().setBackgroundColor(ZYResourceUtils.getColor(R.color.white));
+        mRefreshRecyclerView.getLoadMoreView().setNoMoreText("");
     }
 
     @Override
@@ -40,5 +41,10 @@ public class SRRankFragment extends ZYListDateFragment<SRRankContract.IPresenter
     @Override
     protected ZYBaseViewHolder<SRRank> createViewHolder() {
         return new SRRankItemVH();
+    }
+
+    @Override
+    public void showEmpty() {
+        showList(false);
     }
 }

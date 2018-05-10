@@ -17,7 +17,7 @@ import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.myAudio.activity.SRCataloguesActivity;
 import com.qudiandu.smartreader.ui.profile.activity.SREditActivity;
-import com.qudiandu.smartreader.ui.rank.SRRankHomeActivity;
+import com.qudiandu.smartreader.ui.rank.acitivty.SRRankHomeActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRFeedBackActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSetActivity;
 import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;

@@ -8,9 +8,13 @@ import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.rank.contract.SRRankContract;
+import com.qudiandu.smartreader.ui.rank.model.SREventRefreshRankTop;
 import com.qudiandu.smartreader.ui.rank.model.SRRankModel;
 import com.qudiandu.smartreader.ui.rank.model.bean.SRRank;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -34,6 +38,10 @@ public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, S
     public int mTimeType = TIME_DAY_TYPE;
 
     public String mClassId;
+
+    ArrayList<SRRank> mTops = new ArrayList<SRRank>();
+
+    boolean mFristLoading = true;
 
     public SRRankPresenter(SRRankContract.IView view, int rank_type) {
         super(view, new SRRankModel());
@@ -59,7 +67,23 @@ public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, S
 
             @Override
             public void onSuccess(ZYResponse<List<SRRank>> response) {
-                success(response);
+                mFristLoading = false;
+                List<SRRank> infos = new ArrayList<SRRank>();
+                if (isRefresh()) {
+                    mTops.clear();
+                    for (SRRank rank : response.data) {
+                        if (mTops.size() < 3) {
+                            mTops.add(rank);
+                        } else {
+                            infos.add(rank);
+                        }
+                    }
+                    EventBus.getDefault().post(new SREventRefreshRankTop(mRankType));
+                } else {
+                    infos.addAll(response.data);
+                }
+
+                success(infos);
             }
 
             @Override
@@ -67,5 +91,14 @@ public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, S
                 fail(message);
             }
         }));
+    }
+
+    @Override
+    public ArrayList<SRRank> getTops() {
+        return mTops;
+    }
+
+    public boolean isFristLoading() {
+        return mFristLoading;
     }
 }

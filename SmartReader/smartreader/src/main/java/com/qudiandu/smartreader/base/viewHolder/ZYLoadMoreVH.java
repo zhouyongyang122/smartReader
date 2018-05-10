@@ -64,9 +64,7 @@ public class ZYLoadMoreVH extends ZYBaseViewHolder<ZYLoadMoreVH.LoadMore> implem
                 case LoadMore.SHOW_NO_MORE:
                     mProgressBar.setVisibility(View.GONE);
                     mTvNoMore.setVisibility(View.VISIBLE);
-                    if (!TextUtils.isEmpty(mLoadMore.noMoreText)) {
-                        mTvNoMore.setText(mLoadMore.noMoreText);
-                    }
+                    mTvNoMore.setText(mLoadMore.noMoreText);
                     break;
                 case LoadMore.HIDE:
                 default:

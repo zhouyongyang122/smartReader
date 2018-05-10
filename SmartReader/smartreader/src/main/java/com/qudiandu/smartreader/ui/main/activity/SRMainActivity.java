@@ -25,6 +25,8 @@ import com.qudiandu.smartreader.ui.main.view.SRHomeFragment;
 import com.qudiandu.smartreader.ui.main.view.SRMeFragment;
 import com.qudiandu.smartreader.base.adapter.ZYFragmentAdapter;
 import com.qudiandu.smartreader.base.mvp.ZYBaseActivity;
+import com.qudiandu.smartreader.ui.rank.presenter.SRRankPresenter;
+import com.qudiandu.smartreader.ui.rank.view.SRRankHomeFragment;
 import com.qudiandu.smartreader.utils.ZYStatusBarUtils;
 import com.qudiandu.smartreader.utils.ZYToast;
 import com.umeng.analytics.MobclickAgent;
@@ -43,7 +45,9 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
 
     public static final int MAIN_CLASS_INDEX = 1;
 
-    public static final int MAIN_ME_INDEX = 2;
+    public static final int MAIN_RANK_INDEX = 2;
+
+    public static final int MAIN_ME_INDEX = 3;
 
     @Bind(R.id.mainViewPager)
     ViewPager mainViewPager;
@@ -60,6 +64,12 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     @Bind(R.id.className)
     TextView className;
 
+    @Bind(R.id.rankImg)
+    ImageView rankImg;
+
+    @Bind(R.id.rankName)
+    TextView rankName;
+
     @Bind(R.id.meImg)
     ImageView meImg;
 
@@ -71,6 +81,8 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     SRClassFragment classFragment;
 
     SRMeFragment meFragment;
+
+    SRRankHomeFragment mRankHomeFragment;
 
     ZYFragmentAdapter fragmentAdapter;
 
@@ -93,9 +105,12 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         fragmentAdapter = new ZYFragmentAdapter(getSupportFragmentManager());
         homeFragment = new SRHomeFragment();
         classFragment = new SRClassFragment();
+        mRankHomeFragment = new SRRankHomeFragment();
+
         meFragment = new SRMeFragment();
         fragmentAdapter.addFragment(homeFragment, "英语趣点读");
         fragmentAdapter.addFragment(classFragment, "班级");
+        fragmentAdapter.addFragment(mRankHomeFragment, "排行");
         fragmentAdapter.addFragment(meFragment, "我的");
 
         new SRHomePresenter(homeFragment);
@@ -128,7 +143,7 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         mActionBar.setLayoutParams(layoutParams);
     }
 
-    @OnClick({R.id.homeBtn, R.id.classBtn, R.id.meBtn})
+    @OnClick({R.id.homeBtn, R.id.classBtn, R.id.meBtn, R.id.rankBtn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.homeBtn:
@@ -137,8 +152,11 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             case R.id.classBtn:
                 mainViewPager.setCurrentItem(1);
                 break;
-            case R.id.meBtn:
+            case R.id.rankBtn:
                 mainViewPager.setCurrentItem(2);
+                break;
+            case R.id.meBtn:
+                mainViewPager.setCurrentItem(3);
                 break;
         }
     }
@@ -152,16 +170,25 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
             homeImg.setSelected(true);
             meImg.setSelected(false);
             classImg.setSelected(false);
+            rankImg.setSelected(false);
             classFragment.cancleManager();
             homeFragment.refreshMsgRemind();
         } else if (mCurrentPage == MAIN_CLASS_INDEX) {
             classImg.setSelected(true);
             homeImg.setSelected(false);
+            rankImg.setSelected(false);
             meImg.setSelected(false);
+        } else if (mCurrentPage == MAIN_RANK_INDEX) {
+            meImg.setSelected(false);
+            homeImg.setSelected(false);
+            classImg.setSelected(false);
+            rankImg.setSelected(true);
+            classFragment.cancleManager();
         } else if (mCurrentPage == MAIN_ME_INDEX) {
             meImg.setSelected(true);
             homeImg.setSelected(false);
             classImg.setSelected(false);
+            rankImg.setSelected(false);
             classFragment.cancleManager();
         }
         showTitle(fragmentAdapter.getPageTitle(position).toString());

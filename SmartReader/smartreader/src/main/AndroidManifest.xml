@@ -163,7 +163,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.rank.SRRankHomeActivity"
+            android:name=".ui.rank.acitivty.SRRankHomeActivity"
             android:screenOrientation="portrait" />
 
         <activity

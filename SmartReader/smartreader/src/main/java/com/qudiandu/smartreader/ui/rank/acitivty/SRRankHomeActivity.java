@@ -1,4 +1,4 @@
-package com.qudiandu.smartreader.ui.rank;
+package com.qudiandu.smartreader.ui.rank.acitivty;
 
 import android.content.Context;
 import android.content.Intent;

@@ -59,7 +59,7 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
         if (data != null) {
             mData = data;
 
-            textRank.setText((position + 1) + "");
+            textRank.setText((position + 3) + "");
             ZYImageLoadHelper.getImageLoader().loadCircleImage(this, imgAvatar, data.avatar, R.drawable.def_avatar, R.drawable.def_avatar);
             SRVipIconView.showVipIcon(imgVip, data.is_vip);
             textName.setText(data.nickname);
@@ -73,22 +73,22 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
                 textName.setTextColor(ZYResourceUtils.getColor(R.color.c6));
             }
 
-            if (position == 0) {
-                imgRank.setVisibility(View.VISIBLE);
-                imgRank.setImageResource(R.drawable.icon_gold);
-                textRank.setTextColor(ZYResourceUtils.getColor(R.color.yellow));
-            } else if (position == 1) {
-                imgRank.setVisibility(View.VISIBLE);
-                imgRank.setImageResource(R.drawable.icon_copper);
-                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c11));
-            } else if (position == 2) {
-                imgRank.setVisibility(View.VISIBLE);
-                imgRank.setImageResource(R.drawable.icon_silver);
-                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c4));
-            } else {
-                imgRank.setVisibility(View.GONE);
-                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c6));
-            }
+//            if (position == 0) {
+//                imgRank.setVisibility(View.VISIBLE);
+//                imgRank.setImageResource(R.drawable.icon_gold);
+//                textRank.setTextColor(ZYResourceUtils.getColor(R.color.yellow));
+//            } else if (position == 1) {
+//                imgRank.setVisibility(View.VISIBLE);
+//                imgRank.setImageResource(R.drawable.icon_copper);
+//                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c11));
+//            } else if (position == 2) {
+//                imgRank.setVisibility(View.VISIBLE);
+//                imgRank.setImageResource(R.drawable.icon_silver);
+//                textRank.setTextColor(ZYResourceUtils.getColor(R.color.c4));
+//            } else {
+            imgRank.setVisibility(View.GONE);
+            textRank.setTextColor(ZYResourceUtils.getColor(R.color.c7));
+//            }
         }
     }
 
