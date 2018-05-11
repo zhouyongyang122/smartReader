@@ -159,15 +159,27 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                         }
                     }
                 }
-                SRIJKPlayManager.getInstance().startRepeats(repeatTracts,0);
+                SRIJKPlayManager.getInstance().startRepeats(repeatTracts, 0,true);
                 iView.playRepeats();
             }
             return;
         }
         if (isSingleRepeat) {
             ArrayList<SRTract> repeatTracts = new ArrayList<SRTract>();
-            repeatTracts.add(selTract);
-            SRIJKPlayManager.getInstance().startRepeats(repeatTracts,0);
+            boolean addStart = false;
+            for (SRPage page : bookData.getPage()) {
+                if (page.getCatalogueId() == selTract.getCatalogue_id()) {
+                    for (SRTract tract : page.getTrack()) {
+                        if (tract.getTrack_id() == selTract.getTrack_id()) {
+                            addStart = true;
+                        }
+                        if (addStart) {
+                            repeatTracts.add(tract);
+                        }
+                    }
+                }
+            }
+            SRIJKPlayManager.getInstance().startRepeats(repeatTracts, 0,false);
         } else {
             SRIJKPlayManager.getInstance().startAudio(selTract);
         }

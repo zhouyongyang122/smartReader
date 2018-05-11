@@ -96,6 +96,7 @@ public class SRBookPageFragment extends ZYBaseFragment implements View.OnClickLi
             sentenceSelBg = inflater.inflate(R.layout.sr_view_sentence_item, null);
             layoutRoot.addView(sentenceSelBg);
         }
+        sentenceSelBg.setVisibility(View.VISIBLE);
         sentenceSelBg.setLayoutParams(layoutParams);
     }
 

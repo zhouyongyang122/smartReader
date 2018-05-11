@@ -44,6 +44,8 @@ public class SRIJKPlayManager {
 
     private CollationIJKPlayerListener pagePlayListener;
 
+    private boolean needRepeats = true;
+
     private Runnable endRunnable = new Runnable() {
         @Override
         public void run() {
@@ -61,10 +63,14 @@ public class SRIJKPlayManager {
         public void run() {
 
             if (pagePlayListener != null) {
-                pagePlayListener.onTractPlayComplete(curPlayTrack);
+                pagePlayListener.onTractRepeatsPlay(curPlayTrack);
             }
 
             currentRepeatPosition++;
+            if (!needRepeats && currentRepeatPosition >= repeatTracts.size()) {
+                stopRepeats();
+                return;
+            }
             if (repeatTracts.size() > 0 && !isPause) {
                 starRepeatAudios();
             }
@@ -163,10 +169,11 @@ public class SRIJKPlayManager {
         return (int) (endTime / mSpeed);
     }
 
-    public void startRepeats(ArrayList<SRTract> tracts, int position) {
+    public void startRepeats(ArrayList<SRTract> tracts, int position, boolean needRepeats) {
         if (tracts == null || tracts.size() <= 0) {
             return;
         }
+        this.needRepeats = needRepeats;
         stopAudio();
         clearRepeatTracts();
         currentRepeatPosition = position;
@@ -181,6 +188,7 @@ public class SRIJKPlayManager {
     public void stopRepeats() {
         clearRepeatTracts();
         currentRepeatPosition = 0;
+        this.needRepeats = true;
         stopAudio();
     }
 

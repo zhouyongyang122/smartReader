@@ -115,7 +115,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.sr_fragment_book_detail, container, false);
         ButterKnife.bind(this, viewGroup);
         isShowTrans = ZYPreferenceHelper.getInstance().isShowTractTrans();
-
+        SRIJKPlayManager.getInstance().setPagePlayListener(this);
         SRIJKPlayManager.getInstance().setSpeed(ZYPreferenceHelper.getInstance().getTractSpeed());
         return viewGroup;
     }
@@ -210,7 +210,6 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
                 isPuase = false;
                 layoutBottomBar.setVisibility(View.GONE);
                 isSelectingRepeats = true;
-                SRIJKPlayManager.getInstance().setPagePlayListener(this);
                 break;
             case R.id.imgStop:
                 mPresenter.stopRepeats();
@@ -248,12 +247,12 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
     private void singleTractClick() {
         if (mPresenter.isSingleRepeat()) {
             mPresenter.stopSingleRepeat();
-            ZYToast.show(mActivity, "单句复读模式已经关闭!");
+            ZYToast.show(mActivity, "连读模式已经关闭!");
             textSingle.setText("单句");
-            onTractPlayComplete(null);
+//            onTractPlayComplete(null);
         } else {
             mPresenter.setSingleRepeat(true);
-            ZYToast.show(mActivity, "单句复读模式已经开启!");
+            ZYToast.show(mActivity, "连读模式已经开启!");
             textSingle.setText("连续");
         }
     }
