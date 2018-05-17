@@ -12,6 +12,7 @@ import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 import com.qudiandu.smartreader.service.net.ZYNetSubscriber;
 import com.qudiandu.smartreader.service.net.ZYNetSubscription;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.profile.activity.SRPersonHomeActivity;
 import com.qudiandu.smartreader.ui.rank.model.SRRankModel;
@@ -104,6 +105,9 @@ public class SRRankItemVH extends ZYBaseViewHolder<SRRank> {
                 mContext.startActivity(SRPersonHomeActivity.createIntent(mContext, user));
                 break;
             case R.id.textSuport:
+                if (SRUserManager.getInstance().isGuesterUser(true)) {
+                    return;
+                }
                 ZYNetSubscription.subscription(new SRRankModel().support(mData.show_id + "", mData.isSupport() ? 2 : 1), new ZYNetSubscriber() {
                     @Override
                     public void onSuccess(ZYResponse response) {

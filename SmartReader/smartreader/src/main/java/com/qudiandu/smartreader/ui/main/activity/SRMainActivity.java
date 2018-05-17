@@ -116,7 +116,7 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
         new SRHomePresenter(homeFragment);
         new SRClassPresenter(classFragment);
 
-        mainViewPager.setOffscreenPageLimit(2);
+        mainViewPager.setOffscreenPageLimit(4);
         mainViewPager.setCurrentItem(0);
         mainViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
