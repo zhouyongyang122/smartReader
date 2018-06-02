@@ -65,7 +65,7 @@ public class SRTaskCatePresenter extends ZYListDataPresenter<SRTaskCateContract.
     }
 
     public void addTask() {
-        String catalogueIds = null;
+        String catalogueIds = "";
         String book_id = null;
         for (Object object : mDataList) {
             if (object instanceof SRTaskCate) {
@@ -77,6 +77,7 @@ public class SRTaskCatePresenter extends ZYListDataPresenter<SRTaskCateContract.
             }
         }
         if (catalogueIds != null) {
+//            mView.showToast(catalogueIds);
             mSubscriptions.add(ZYNetSubscription.subscription(mModel.addTask(SRTaskManager.getInstance().getCurrentTaskClassId() + "", book_id, catalogueIds), new ZYNetSubscriber() {
                 @Override
                 public void onSuccess(ZYResponse response) {

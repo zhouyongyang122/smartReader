@@ -51,7 +51,7 @@ public class SRRankPresenter extends ZYListDataPresenter<SRRankContract.IView, S
 
     public void setTimeType(int timeType) {
         this.mTimeType = timeType;
-        loadData();
+        refresh();
     }
 
     @Override

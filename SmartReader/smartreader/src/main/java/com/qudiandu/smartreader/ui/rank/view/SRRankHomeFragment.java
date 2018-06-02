@@ -56,7 +56,6 @@ public class SRRankHomeFragment extends ZYBaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sr_fragment_rank, container, false);
         ButterKnife.bind(this, view);
-//        EventBus.getDefault().register(this);
         ZYFragmentAdapter adapter = new ZYFragmentAdapter(getChildFragmentManager());
 
         SRRankFragment allRank = new SRRankFragment();

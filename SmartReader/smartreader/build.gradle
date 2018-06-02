@@ -55,7 +55,7 @@ android {
 
         releaseApi.initWith(buildTypes.debug)
         releaseApi {
-            minifyEnabled true
+            minifyEnabled false
             buildConfigField "String", "API_URL", "\"http://api.qudiandu.com\""
         }
     }
