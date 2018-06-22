@@ -37,7 +37,7 @@ public class SRTaskCateFragment extends ZYListDateFragment<SRTaskCateContract.IP
                     if (index == position) {
                         taskCate.isCheck = true;
                     } else {
-//                        taskCate.isCheck = false;
+                        taskCate.isCheck = !taskCate.isCheck;
                     }
                 }
                 index++;
