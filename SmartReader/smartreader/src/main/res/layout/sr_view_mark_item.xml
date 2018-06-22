@@ -46,7 +46,7 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <com.qudiandu.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
+            <com.qudiandu.smartdub.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/progressView"
                 android:layout_width="67dp"
                 android:layout_height="67dp"

@@ -9,11 +9,11 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "com.qudiandu.smartreader"
+        applicationId "com.qudiandu.smartdub"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 18
-        versionName "1.64"
+        versionCode 1
+        versionName "1.00"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'armeabi'
@@ -69,7 +69,7 @@ repositories {
 
 greendao {
     schemaVersion 9
-    daoPackage 'com.qudiandu.smartreader.service.db.entity'
+    daoPackage 'com.qudiandu.smartdub.service.db.entity'
     targetGenDir 'src/main/java'
 }
 

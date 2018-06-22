@@ -5,7 +5,7 @@
     android:background="@color/c1"
     android:orientation="vertical">
 
-    <com.qudiandu.smartreader.base.view.ZYNoScollViewPager
+    <com.qudiandu.smartdub.base.view.ZYNoScollViewPager
         android:id="@+id/viewPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/transparent50" />
 
-            <com.qudiandu.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
+            <com.qudiandu.smartdub.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/progressView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"

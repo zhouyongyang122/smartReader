@@ -18,7 +18,7 @@ import com.third.loginshare.entity.WeChatUserInfo;
 import com.third.loginshare.entity.WechatAuthInfo;
 import com.third.loginshare.interf.IAuthCallBack;
 import com.third.loginshare.interf.IShareCallBack;
-import com.qudiandu.smartreader.R;
+import com.qudiandu.smartdub.R;
 
 /**
  * Created by zhou weilong on 2015/7/22.

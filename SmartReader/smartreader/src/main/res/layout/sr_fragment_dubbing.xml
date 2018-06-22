@@ -7,7 +7,7 @@
     android:background="@color/c1"
     android:orientation="vertical">
 
-    <com.qudiandu.smartreader.base.view.ZYShadowLayout
+    <com.qudiandu.smartdub.base.view.ZYShadowLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
@@ -65,7 +65,7 @@
                     android:visibility="gone"
                     tools:visibility="visible">
 
-                    <com.qudiandu.smartreader.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
+                    <com.qudiandu.smartdub.base.view.ZYCircleProgressView xmlns:zyCircleProgressView="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/progressView"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
@@ -285,6 +285,6 @@
             android:text="1"
             android:textColor="@color/c9"
             android:textSize="@dimen/f3" />
-    </com.qudiandu.smartreader.base.view.ZYShadowLayout>
+    </com.qudiandu.smartdub.base.view.ZYShadowLayout>
 
 </RelativeLayout>

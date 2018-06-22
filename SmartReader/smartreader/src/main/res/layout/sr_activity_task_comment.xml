@@ -122,7 +122,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <com.qudiandu.smartreader.base.record.ZYRecordAudioTextView
+            <com.qudiandu.smartdub.base.record.ZYRecordAudioTextView
                 android:id="@+id/textRecord"
                 android:layout_width="80dp"
                 android:layout_height="80dp"

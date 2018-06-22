@@ -36,7 +36,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/f2" />
 
-            <com.qudiandu.smartreader.ui.main.view.viewhodler.SRBookSpeedBar
+            <com.qudiandu.smartdub.ui.main.view.viewhodler.SRBookSpeedBar
                 android:id="@+id/speedBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
