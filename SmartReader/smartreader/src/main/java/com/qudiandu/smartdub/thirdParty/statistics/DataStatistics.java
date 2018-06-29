@@ -12,7 +12,7 @@ import com.umeng.analytics.MobclickAgent;
 
 public class DataStatistics {
 
-    public final static String U_MENT_KEY = "58f72eccb27b0a5ccf002141";
+    public final static String U_MENT_KEY = "5b347f9da40fa339b2000018";
 
     public static void init(Context context){
 

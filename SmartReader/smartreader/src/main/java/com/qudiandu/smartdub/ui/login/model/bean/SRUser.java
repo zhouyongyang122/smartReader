@@ -260,18 +260,19 @@ public class SRUser extends ZYBaseEntity {
     }
 
     public boolean isVip() {
-        try {
-            if (Integer.parseInt(is_vip) >= 1) {
-                long time = System.currentTimeMillis() / 1000L + ZYPreferenceHelper.getInstance().getTimeOffset();
-                if (!TextUtils.isEmpty(vip_endtime)) {
-                    return Long.parseLong(vip_endtime) >= time;
-                }
-                return true;
-            }
-        } catch (Exception e) {
-
-        }
-        return false;
+//        try {
+//            if (Integer.parseInt(is_vip) >= 1) {
+//                long time = System.currentTimeMillis() / 1000L + ZYPreferenceHelper.getInstance().getTimeOffset();
+//                if (!TextUtils.isEmpty(vip_endtime)) {
+//                    return Long.parseLong(vip_endtime) >= time;
+//                }
+//                return true;
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//        return false;
+        return true;
     }
 
     public boolean isVip(boolean intentToLogin) {
