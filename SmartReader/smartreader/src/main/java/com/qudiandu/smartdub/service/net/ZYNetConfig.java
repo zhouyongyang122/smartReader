@@ -26,6 +26,7 @@ public class ZYNetConfig {
         headers.put("Device-Model", headerFormat(Build.MODEL));
         headers.put("Umeng-Channel", ZYChannelUtil.getChannel(SRApplication.getInstance()));
         headers.put("User-Agent", "android");
+        headers.put("APP-NAME","BOOKREAD");
         headers.put("versionCode", BuildConfig.VERSION_CODE + "");
         headers.put("idfa", ZYDeviceIDUtil.getInstance().getDeviceID(SRApplication.getInstance()));
         return headers;
