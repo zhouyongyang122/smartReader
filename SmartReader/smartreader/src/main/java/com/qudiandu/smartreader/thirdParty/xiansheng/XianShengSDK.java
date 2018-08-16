@@ -1,25 +1,29 @@
 package com.qudiandu.smartreader.thirdParty.xiansheng;
 
 import android.app.Activity;
+
+import com.constraint.CoreProvideTypeEnum;
 import com.qudiandu.smartreader.SRApplication;
+import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.utils.ZYLog;
 import com.xs.SingEngine;
+
 import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by ZY on 17/6/14.
+ * @作者 zhouyongyang$
+ * @创建日期 2018/6/29$ 上午11:47$
  */
-
 public class XianShengSDK {
 
     final String TAG = "XianShengSDK";
 
     static XianShengSDK instance;
 
-    private MarkListener listener;
+    private XianShengSDK.MarkListener listener;
 
     private long maxTime;
 
@@ -27,7 +31,7 @@ public class XianShengSDK {
 
     private Timer timer;
 
-    SingEngine mIse;
+    SingEngine mSingEngine;
 
     String saveWavPath;
 
@@ -43,161 +47,155 @@ public class XianShengSDK {
     }
 
     public void init(final Activity context) {
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    //  获取引擎实例,设置测评监听对象
-                    mIse = SingEngine.newInstance(context);
-                    mIse.setListener(new SingEngine.ResultListener() {
+
+        try {
+            mSingEngine = SingEngine.newInstance(context.getApplicationContext());
+            mSingEngine.setListener(new SingEngine.ResultListener() {
+                @Override
+                public void onBegin() {
+                    startTimer();
+                }
+
+                @Override
+                public void onResult(final JSONObject jsonObject) {
+
+                    ZYLog.e(TAG, "onResult :" + jsonObject.toString());
+
+                    SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                         @Override
-                        public void onBegin() {
-                            startTimer();
-                        }
-
-                        @Override
-                        public void onResult(final JSONObject jsonObject) {
-
-                            ZYLog.e(TAG, "onResult :" + jsonObject.toString());
-
-                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (listener != null) {
-                                        if (jsonObject != null) {
-                                            XSBean bean = XSBean.createXSBean(String.valueOf(jsonObject));
-                                            if (bean == null || bean.result == null) {
-                                                listener.xfMarkError("打分失败,请重新尝试!");
-                                            } else {
-                                                listener.xfMarkEnd(bean, String.valueOf(jsonObject));
-                                            }
-                                        } else {
-                                            listener.xfMarkError("打分失败,请重新尝试!");
-                                        }
+                        public void run() {
+                            if (listener != null) {
+                                if (jsonObject != null) {
+                                    XSBean bean = XSBean.createXSBean(String.valueOf(jsonObject));
+                                    if (bean == null || bean.result == null) {
+                                        listener.xfMarkError("打分失败,请重新尝试!");
+                                    } else {
+                                        listener.xfMarkEnd(bean, String.valueOf(jsonObject));
                                     }
+                                } else {
+                                    listener.xfMarkError("打分失败,请重新尝试!");
                                 }
-                            });
-                        }
-
-                        @Override
-                        public void onEnd(int i, String s) {
-                            final String error_msg = s;
-                            ZYLog.e(TAG, "onEnd :" + i + ":" + error_msg);
-                            if (i != 0) {
-                                SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (listener != null) {
-                                            listener.xfMarkError(error_msg);
-                                        }
-                                    }
-                                });
                             }
                         }
+                    });
+                }
 
-                        @Override
-                        public void onUpdateVolume(int i) {
-
-                        }
-
-                        @Override
-                        public void onFrontVadTimeOut() {
-                            final String error_msg = "评分失败，录音超时!";
-
-                            ZYLog.e(TAG, "onFrontVadTimeOut :" + error_msg);
-
-                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (listener != null) {
-                                        listener.xfMarkError(error_msg);
-                                    }
+                @Override
+                public void onEnd(int i, String s) {
+                    final String error_msg = s;
+                    ZYLog.e(TAG, "onEnd :" + i + ":" + error_msg);
+                    if (i != 0) {
+                        SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) {
+                                    listener.xfMarkError(error_msg);
                                 }
-                            });
-                        }
+                            }
+                        });
+                    }
+                }
 
+                @Override
+                public void onUpdateVolume(int i) {
+
+                }
+
+                @Override
+                public void onFrontVadTimeOut() {
+                    final String error_msg = "评分失败，录音超时!";
+
+                    ZYLog.e(TAG, "onFrontVadTimeOut :" + error_msg);
+
+                    SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
                         @Override
-                        public void onBackVadTimeOut() {
-                            final String error_msg = "评分失败，录音超时!";
-
-                            ZYLog.e(TAG, "onBackVadTimeOut :" + error_msg);
-
-                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (listener != null) {
-                                        listener.xfMarkError(error_msg);
-                                    }
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onRecordingBuffer(byte[] bytes, int i) {
-
-                        }
-
-                        @Override
-                        public void onRecordStop() {
-                            ZYLog.e(TAG, "onRecordStop");
-                        }
-
-                        @Override
-                        public void onRecordLengthOut() {
-                            final String error_msg = "评分失败，录音超长!";
-
-                            ZYLog.e(TAG, "onRecordLengthOut :" + error_msg);
-
-                            SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (listener != null) {
-                                        listener.xfMarkError(error_msg);
-                                    }
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onReady() {
-                            ZYLog.e(TAG, "语音评测初使化成功!");
-                        }
-
-                        @Override
-                        public void onPlayCompeleted() {
-
+                        public void run() {
+                            if (listener != null) {
+                                listener.xfMarkError(error_msg);
+                            }
                         }
                     });
-                    //  设置引擎类型
-                    mIse.setServerType("cloud");
-                    //  设置是否开启VAD功能
-                    //engine.setOpenVad(true, null);
-                    mIse.setOpenVad(true, "vad.0.1.bin");
-                    mIse.setFrontVadTime(10000);
-                    mIse.setBackVadTime(10000);
-                    //   构建引擎初始化参数
-                    JSONObject cfg_init = mIse.buildInitJson("a133", "3c6cb028f3e6477ab74acbafbfa7cac2");
-                    //   设置引擎初始化参数
-                    mIse.setNewCfg(cfg_init);
-                    mIse.setWavPath(SRApplication.TRACT_AUDIO_ROOT_DIR);
-                    mIse.setLogLevel(4);
-                    //   引擎初始化
-                    mIse.newEngine();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        };
 
-        thread.start();
+                @Override
+                public void onBackVadTimeOut() {
+                    final String error_msg = "评分失败，录音超时!";
+
+                    ZYLog.e(TAG, "onBackVadTimeOut :" + error_msg);
+
+                    SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (listener != null) {
+                                listener.xfMarkError(error_msg);
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onRecordingBuffer(byte[] bytes, int i) {
+
+                }
+
+                @Override
+                public void onRecordStop() {
+                    ZYLog.e(TAG, "onRecordStop");
+                }
+
+                @Override
+                public void onRecordLengthOut() {
+                    final String error_msg = "评分失败，录音超长!";
+
+                    ZYLog.e(TAG, "onRecordLengthOut :" + error_msg);
+
+                    SRApplication.getInstance().getCurrentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (listener != null) {
+                                listener.xfMarkError(error_msg);
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onReady() {
+                    ZYLog.e(TAG, "语音评测初使化成功!");
+                }
+
+                @Override
+                public void onPlayCompeleted() {
+
+                }
+            });
+            mSingEngine.setServerType(CoreProvideTypeEnum.CLOUD);
+            mSingEngine.setLogEnable(1);
+            //  设置引擎类型
+//            mSingEngine.setServerType("cloud");
+            //  设置是否开启VAD功能
+            //engine.setOpenVad(true, null);
+//            mSingEngine.setOpenVad(true, "vad.0.1.bin");
+//            mSingEngine.setFrontVadTime(10000);
+//            mSingEngine.setBackVadTime(10000);
+            mSingEngine.setWavPath(SRApplication.TRACT_AUDIO_ROOT_DIR);
+            mSingEngine.setLogLevel(4);
+
+            JSONObject cfg_init;
+            cfg_init = mSingEngine.buildInitJson("a133", "3c6cb028f3e6477ab74acbafbfa7cac2");
+            mSingEngine.setNewCfg(cfg_init);
+            mSingEngine.newEngine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void cancle() {
         try {
             listener = null;
             cancleTimer();
-            if (mIse != null) {
-                mIse.cancel();
+            if (mSingEngine != null) {
+                mSingEngine.cancel();
             }
         } catch (Exception e) {
 
@@ -206,15 +204,14 @@ public class XianShengSDK {
 
     public void stop() {
         try {
-            ZYLog.e(TAG, "stop:录音已停...: " + mIse.getWavPath());
+            ZYLog.e(TAG, "stop:录音已停...: " + mSingEngine.getWavPath());
 
-            mIse.stop();
+            mSingEngine.stop();
 
             if (listener != null) {
                 listener.xfMarkStart();
             }
             if (listener != null) {
-
 //                File file = new File(mIse.getWavPath());
 //                File[] files = file.listFiles();
 //                if (files.length > 0) {
@@ -231,32 +228,30 @@ public class XianShengSDK {
 
 //                ZYLog.e(TAG, "audio-wav-path: " + saveWavPath);
 //                FileUtils.copyFile(mIse.getWavPath(), saveWavPath);
-                listener.xfRecordEnd(mIse.getWavPath());
+                listener.xfRecordEnd(mSingEngine.getWavPath());
             }
         } catch (Exception e) {
             ZYLog.e(TAG, "stop-error: " + e.getMessage());
         }
     }
 
-    public void start(MarkListener listener, String saveWavPath) {
+    public void start(XianShengSDK.MarkListener listener, String saveWavPath) {
         try {
             cancle();
             this.listener = listener;
             this.saveWavPath = saveWavPath;
             currentTime = 0;
             maxTime = listener.xfRecordTime();
-//            ZYFileUtils.delete(mIse.getWavPath(), false);
+
             JSONObject request = new JSONObject();
+
             request.put("coreType", "en.sent.score");
             request.put("refText", listener.xfMarkString());
             request.put("rank", 100);
-            //构建评测请求参数
-            JSONObject startCfg = mIse.buildStartJson("guest", request);
-            //设置评测请求参数
-            mIse.setStartCfg(startCfg);
-            //开始测评
-            mIse.start();
-
+            request.put("outputPhones", 1);
+            JSONObject startCfg = mSingEngine.buildStartJson(SRUserManager.getInstance().getUser().uid, request);
+            mSingEngine.setStartCfg(startCfg);
+            mSingEngine.start();
             ZYLog.e(TAG, "start...: " + request.toString());
             if (listener != null) {
                 listener.xfRecordStart();
@@ -341,5 +336,4 @@ public class XianShengSDK {
 
         void xfMarkError(String error);
     }
-
 }
