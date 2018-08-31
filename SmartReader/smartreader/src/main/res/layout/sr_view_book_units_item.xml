@@ -49,5 +49,13 @@
             android:text="Unit One"
             android:textColor="@color/c1"
             android:textSize="@dimen/f3" />
+
+        <ImageView
+            android:id="@+id/imgLock"
+            android:layout_width="wrap_content"
+            android:src="@drawable/label_lock"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </RelativeLayout>

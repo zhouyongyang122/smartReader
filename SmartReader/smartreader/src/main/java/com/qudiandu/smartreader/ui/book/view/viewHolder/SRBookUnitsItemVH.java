@@ -1,5 +1,6 @@
 package com.qudiandu.smartreader.ui.book.view.viewHolder;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,9 @@ public class SRBookUnitsItemVH extends ZYBaseViewHolder<SRCatalogue> {
     @Bind(R.id.imgBg)
     ImageView imgBg;
 
+    @Bind(R.id.imgLock)
+    ImageView mImgLock;
+
     @Bind(R.id.textUnit)
     TextView textUnit;
 
@@ -32,6 +36,7 @@ public class SRBookUnitsItemVH extends ZYBaseViewHolder<SRCatalogue> {
             ZYImageLoadHelper.getImageLoader().loadImage(this, imgBg, data.getPage_url(), R.drawable.img_default_pic, R.drawable.img_default_pic);
             textUnit.setText(data.getUnit());
             textTitle.setText(data.getTitle());
+            mImgLock.setVisibility(data.isLocked ? View.VISIBLE : View.GONE);
         }
     }
 

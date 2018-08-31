@@ -40,6 +40,7 @@ import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassDetailHeaderVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskItemVH;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRClassTaskTitleVH;
 import com.qudiandu.smartreader.ui.mark.activity.SRMarkActivity;
+import com.qudiandu.smartreader.ui.myAudio.activity.SRCatalogueDetailActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskCommentedActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskDetailActivity;
 import com.qudiandu.smartreader.ui.task.activity.SRTaskListenActivity;
@@ -208,6 +209,8 @@ public class SRClassFragment extends ZYBaseFragment<SRClassContract.IPresenter> 
                             if (!TextUtils.isEmpty(task.finish.get(0).comment)) {
                                 startActivity(SRTaskCommentedActivity.createIntent(mActivity, task));
                                 return;
+                            } else {
+                                mActivity.startActivity(SRCatalogueDetailActivity.createIntent(mActivity, task.finish.get(0).show_id + ""));
                             }
                             return;
                         }

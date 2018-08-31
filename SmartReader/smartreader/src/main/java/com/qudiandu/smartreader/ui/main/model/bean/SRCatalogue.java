@@ -31,6 +31,8 @@ public class SRCatalogue implements ZYIBaseBean {
 
     public String page_url;//对应的书本封面地址
 
+    public boolean isLocked;
+
     private ArrayList<String> pageIds = new ArrayList<String>();
 
     public int getCatalogue_id() {

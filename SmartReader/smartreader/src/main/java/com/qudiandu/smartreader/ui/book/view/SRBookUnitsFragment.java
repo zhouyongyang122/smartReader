@@ -55,8 +55,7 @@ public class SRBookUnitsFragment extends ZYBaseFragment<SRBookUnitsContract.IPre
                 if (catalogue != null) {
 
                     if (position > 0 && mPresenter.getBook().getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip()) {
-                        SRCatalogue firstCate = adapter.getItem(0);
-                        if (firstCate.getUnit() != null && !firstCate.getUnit().equals(catalogue.getUnit())) {
+                        if (catalogue.isLocked) {
                             SRApplication.getInstance().showVipBuy();
                             return;
                         }

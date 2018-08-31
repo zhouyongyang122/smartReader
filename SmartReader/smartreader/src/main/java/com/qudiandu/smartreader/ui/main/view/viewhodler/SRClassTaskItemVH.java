@@ -27,6 +27,9 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
     @Bind(R.id.imgBg)
     ImageView imgBg;
 
+    @Bind(R.id.imgFinished)
+    ImageView mImgFinished;
+
     @Bind(R.id.textTitle)
     TextView textTitle;
 
@@ -125,12 +128,15 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
                 textScore.setBackgroundResource(R.drawable.pass);
             }
             if (mData.hasComment()) {
+                changeFinished(false);
                 textFinish.setText("看点评");
             } else {
+                changeFinished(true);
                 textFinish.setText("已完成");
             }
         } else {
             textScore.setVisibility(View.GONE);
+            changeFinished(false);
             textFinish.setText("去完成");
         }
     }
@@ -149,10 +155,13 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
         if (mData.isFinished()) {
             if (mData.hasComment()) {
                 textFinish.setText("看点评");
+                changeFinished(false);
             } else {
+                changeFinished(true);
                 textFinish.setText("已完成");
             }
         } else {
+            changeFinished(false);
             textFinish.setText("选图答题");
         }
     }
@@ -162,11 +171,24 @@ public class SRClassTaskItemVH extends ZYBaseViewHolder<Object> {
         if (mData.isFinished()) {
             if (mData.hasComment()) {
                 textFinish.setText("看点评");
+                changeFinished(false);
             } else {
+                changeFinished(true);
                 textFinish.setText("已完成");
             }
         } else {
+            changeFinished(false);
             textFinish.setText("语音答题");
+        }
+    }
+
+    void changeFinished(boolean showImg) {
+        if (showImg) {
+            mImgFinished.setVisibility(View.VISIBLE);
+            textFinish.setVisibility(View.GONE);
+        } else {
+            mImgFinished.setVisibility(View.GONE);
+            textFinish.setVisibility(View.VISIBLE);
         }
     }
 

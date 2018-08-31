@@ -143,7 +143,7 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
             public void onPageSelected(int position) {
                 refreshScore();
 
-                showVipBuy();
+//                showVipBuy();
             }
 
             @Override
@@ -165,9 +165,9 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
                 menuVH.bindView(LayoutInflater.from(mActivity).inflate(menuVH.getLayoutResId(), null));
                 layoutRoot.addView(menuVH.getItemView(), new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
 
-                if (showVipBuy()) {
-                    return;
-                }
+//                if (showVipBuy()) {
+//                    return;
+//                }
 
                 int position = 0;
                 SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
@@ -182,6 +182,11 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
             }
             break;
             case R.id.layout_score: {
+
+                if(showVipBuy()){
+                    return;
+                }
+
                 SRPage page = mPresenter.getBookData().page.get(viewPage.getCurrentItem());
                 String title = "";
                 for (SRCatalogue catalogue : mPresenter.getBookData().getCatalogue()) {
@@ -274,6 +279,11 @@ public class SRBookHomeFragment extends ZYBaseFragment<SRBookHomeContract.IPrese
 
     public boolean showVipBuy() {
         if (mPresenter.getBookData().getBook_id_int() > 0 && !SRUserManager.getInstance().getUser().isVip()) {
+//            if (viewPage.getCurrentItem() >= 9) {
+//                SRApplication.getInstance().showVipBuy();
+//                return true;
+//            }
+
             if (viewPage.getCurrentItem() >= 9) {
                 SRApplication.getInstance().showVipBuy();
                 return true;

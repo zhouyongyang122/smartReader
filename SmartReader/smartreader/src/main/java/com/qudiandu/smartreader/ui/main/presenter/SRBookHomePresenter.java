@@ -84,12 +84,16 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                     //整理单元列表:
                     List<SRCatalogue> catalogues = new ArrayList<SRCatalogue>();
                     String lastUnit = "";
+                    SRCatalogue firstCate = book.catalogue.get(0);
                     for (SRCatalogue catalogue : book.catalogue) {
                         if (!catalogue.getUnit().equals(lastUnit)) {
                             lastUnit = catalogue.getUnit();
                             catalogues.add(getUnit(lastUnit));
                         }
                         catalogues.add(catalogue);
+                        if (firstCate.getUnit() != null && !firstCate.getUnit().equals(catalogue.getUnit())) {
+                            catalogue.isLocked = true;
+                        }
                     }
                     book.setCatalogue(catalogues);
 
@@ -159,7 +163,7 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                         }
                     }
                 }
-                SRIJKPlayManager.getInstance().startRepeats(repeatTracts, 0,true);
+                SRIJKPlayManager.getInstance().startRepeats(repeatTracts, 0, true);
                 iView.playRepeats();
             }
             return;
@@ -179,7 +183,7 @@ public class SRBookHomePresenter extends ZYBasePresenter implements SRBookHomeCo
                     }
                 }
             }
-            SRIJKPlayManager.getInstance().startRepeats(repeatTracts, 0,false);
+            SRIJKPlayManager.getInstance().startRepeats(repeatTracts, 0, false);
         } else {
             SRIJKPlayManager.getInstance().startAudio(selTract);
         }

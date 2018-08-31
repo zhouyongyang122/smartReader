@@ -116,6 +116,15 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
+        <ImageView
+            android:id="@+id/imgFinished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/label_completed"
+            android:visibility="gone" />
+
         <RelativeLayout
             android:id="@+id/layoutDel"
             android:layout_width="match_parent"

@@ -82,12 +82,18 @@ public class SRBookUnitsPresenter extends ZYBasePresenter implements SRBookUnits
                         page.setLocalRootDirPath(mLocalPath);
                     }
 
+                    SRCatalogue firstCate = book.catalogue.get(0);
+
                     for (SRCatalogue catalogue : book.catalogue) {
                         for (SRPage page : book.page) {
                             if (TextUtils.isEmpty(catalogue.getPage_url()) && catalogue.containsPage(page.getPage_id() + "")) {
                                 catalogue.setPage_url(page.getPicPath());
                                 page.unitName = catalogue.getUnit();
                             }
+                        }
+
+                        if (firstCate.getUnit() != null && !firstCate.getUnit().equals(catalogue.getUnit())) {
+                            catalogue.isLocked = true;
                         }
                     }
                     subscriber.onNext(book);
