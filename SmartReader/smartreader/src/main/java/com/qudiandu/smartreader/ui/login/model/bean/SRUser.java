@@ -69,6 +69,9 @@ public class SRUser extends ZYBaseEntity {
     public String vip_endtime;
 
     @Transient
+    public boolean bindWeChat;
+
+    @Transient
     public boolean isCheck;
 
     @Generated(hash = 906363200)

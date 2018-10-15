@@ -19,6 +19,7 @@ import com.qudiandu.smartreader.utils.ZYLog;
 import com.qudiandu.smartreader.base.view.ZYActionBar;
 import com.qudiandu.smartreader.base.view.ZYWaitDialog;
 import com.qudiandu.smartreader.thirdParty.statistics.DataStatistics;
+import com.qudiandu.smartreader.utils.ZYToast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -212,7 +213,7 @@ public class ZYBaseActivity<P extends ZYIBasePresenter> extends AppCompatActivit
 
     @Override
     public void showToast(String msg) {
-
+        ZYToast.show(SRApplication.getInstance(), msg);
     }
 
     @Override

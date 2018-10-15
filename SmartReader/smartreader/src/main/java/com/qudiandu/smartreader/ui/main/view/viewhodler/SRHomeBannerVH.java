@@ -14,7 +14,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
-import com.qudiandu.smartreader.ui.main.model.bean.SRAdert;
+import com.qudiandu.smartreader.ui.main.model.bean.SRAdvert;
 import com.qudiandu.smartreader.utils.ZYScreenUtils;
 import com.qudiandu.smartreader.base.viewHolder.ZYBaseViewHolder;
 
@@ -26,15 +26,15 @@ import butterknife.Bind;
  * Created by ZY on 17/3/27.
  */
 
-public class SRHomeBannerVH extends ZYBaseViewHolder<List<SRAdert>> {
+public class SRHomeBannerVH extends ZYBaseViewHolder<List<SRAdvert>> {
 
     @Bind(R.id.banner)
-    ConvenientBanner<SRAdert> mBanner;
+    ConvenientBanner<SRAdvert> mBanner;
 
     private View.OnTouchListener mOnTouchListener;
     private OnHomeBannerListener mOnHomeBannerListener;
 
-    private List<SRAdert> mBannerList;
+    private List<SRAdvert> mBannerList;
 
     public SRHomeBannerVH(@NonNull View.OnTouchListener onTouchListener,
                           @NonNull OnHomeBannerListener onHomeBannerListener) {
@@ -51,7 +51,7 @@ public class SRHomeBannerVH extends ZYBaseViewHolder<List<SRAdert>> {
     }
 
     @Override
-    public void updateView(List<SRAdert> data, int position) {
+    public void updateView(List<SRAdvert> data, int position) {
         if (data != null && !data.isEmpty()) {
             mBannerList = data;
             mItemView.setVisibility(View.VISIBLE);
@@ -77,10 +77,10 @@ public class SRHomeBannerVH extends ZYBaseViewHolder<List<SRAdert>> {
 
     public interface OnHomeBannerListener {
 
-        void onBanner(SRAdert slider);
+        void onBanner(SRAdvert slider);
     }
 
-    public class ImageHolderView implements Holder<SRAdert> {
+    public class ImageHolderView implements Holder<SRAdvert> {
         private ImageView imageView;
         private View view;
 
@@ -106,7 +106,7 @@ public class SRHomeBannerVH extends ZYBaseViewHolder<List<SRAdert>> {
         }
 
         @Override
-        public void UpdateUI(Context context, final int position, final SRAdert data) {
+        public void UpdateUI(Context context, final int position, final SRAdvert data) {
             ZYImageLoadHelper.getImageLoader().loadImage(context, imageView, data.pic);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

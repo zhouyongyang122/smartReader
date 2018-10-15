@@ -108,4 +108,16 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/img_float_ad"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="10dp"
+        tools:visibility="visible"
+        tools:background="@color/c6"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
 </RelativeLayout>

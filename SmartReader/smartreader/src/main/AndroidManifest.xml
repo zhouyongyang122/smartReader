@@ -183,8 +183,20 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.set.activity.SRMsgDetailActivity"/>
+            android:name=".ui.set.activity.SRMsgDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.invite.SRInviteActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.invite.SRInviteInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.invite.SRTakeCashActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".service.downNet.down.ZYDownloadService" />
 

@@ -1,6 +1,7 @@
 package com.qudiandu.smartreader.ui.main.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -87,6 +88,10 @@ public class SRMainActivity extends ZYBaseActivity<SRMainContract.IPresenter> im
     ZYFragmentAdapter fragmentAdapter;
 
     private int mCurrentPage = -1;
+
+    public static Intent createIntent(Context context){
+        return new Intent(context,SRMainActivity.class);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

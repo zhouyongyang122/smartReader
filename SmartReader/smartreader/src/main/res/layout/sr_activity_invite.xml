@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layoutRoot"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="173dp"
+                    android:background="@color/c1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="218dp"
+                    android:layout_marginTop="30dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="198dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/bg_corner4dp_white">
+
+                        <TextView
+                            android:id="@+id/textName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="95dp"
+                            android:layout_marginTop="15dp"
+                            android:text="周咏炀"
+                            android:textColor="@color/c6"
+                            android:textSize="@dimen/f1" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="60dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/icon_totalincome"
+                                    android:gravity="center_vertical"
+                                    android:text="总收入"
+                                    android:textColor="@color/c1"
+                                    android:textSize="@dimen/f3" />
+
+                                <TextView
+                                    android:id="@+id/textTotal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center_vertical"
+                                    android:text="889.00"
+                                    android:textColor="@color/c6"
+                                    android:textSize="@dimen/f1"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnInfo"
+                                    android:layout_width="84dp"
+                                    android:layout_height="27dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/sr_bg_corner4dp_white_c2"
+                                    android:gravity="center"
+                                    android:text="收入明细"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/f3" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="44dp"
+                                android:layout_marginTop="20dp"
+                                android:background="@color/c7" />
+
+                            <LinearLayout
+                                android:layout_marginLeft="15dp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/icon_totalincome"
+                                    android:gravity="center_vertical"
+                                    android:text="可提现金额"
+                                    android:textColor="@color/c1"
+                                    android:textSize="@dimen/f3" />
+
+                                <TextView
+                                    android:id="@+id/textAvailable"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center_vertical"
+                                    android:text="889.00"
+                                    android:textColor="@color/c6"
+                                    android:textSize="@dimen/f1"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnWithDraw"
+                                    android:layout_width="84dp"
+                                    android:layout_height="27dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/sr_bg_corner4dp_white_c2"
+                                    android:gravity="center"
+                                    android:text="我要提现"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/f3" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="35dp"
+                        android:src="@drawable/def_avatar" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/btnInvite"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="53dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="53dp"
+                android:background="@drawable/sr_bg_corner360dp_c4_solid"
+                android:gravity="center"
+                android:text="立即邀请同学一起学习"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/c16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="17dp"
+                    android:layout_height="2dp"
+                    android:background="@color/c6" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="活动规则说明"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f2" />
+
+                <View
+                    android:layout_width="17dp"
+                    android:layout_height="2dp"
+                    android:background="@color/c6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_one" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="所有用户,只要成功邀请好友注册英语趣点读APP,即可获得7天免费会员奖励"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_two" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="如果您是会员,成功邀请好友开通会员,奖励40%的奖学金,您的好友如果也成功邀请他人开通会员,再奖励10%的奖学金.(奖金可立即提现到账)"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_three" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="如果您不是会员,成功邀请好友开通会员,奖励10%的奖学金,您的好友如果也成功邀请他人开通会员,再奖励2%的奖学金."
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_four" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="奖学金=对方开通会员的价格x奖学金比例,比如:您是会员,且成功邀请一名好友开通了269元的会员,那么您可以拿到269x40%=107.6元的奖学金,如果对方也邀请了他的好友开通了269元的会员,您还可以再拿269x10%的奖学金。奖学金上不封顶."
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_five" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="您的好友必须到您邀请分享的页面下使用手机号领取会员并使用此号码在英语趣点读APP内注册登录(关系绑定的过程,不能使用微信及qq登录)"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_six" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="本活动长期有效,活动解释权归英语趣点读所有，若有疑问,请关注微信公众号'英语趣点读'留言"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_seven" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="邀请您的同学,朋友,家人成功概率最高"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_eight" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="分享到3个以上的微信/QQ群,成功邀请的概率提升200%"
+                    android:textColor="@color/c6"
+                    android:textSize="@dimen/f3" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

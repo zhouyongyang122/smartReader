@@ -3,7 +3,7 @@ package com.qudiandu.smartreader.ui.main.model;
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.mvp.ZYBaseModel;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
-import com.qudiandu.smartreader.ui.main.model.bean.SRAdert;
+import com.qudiandu.smartreader.ui.main.model.bean.SRAdvert;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 import com.qudiandu.smartreader.ui.main.model.bean.SRTask;
@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.http.Body;
 import rx.Observable;
 
 /**
@@ -24,7 +23,7 @@ import rx.Observable;
 
 public class SRMainModel extends ZYBaseModel {
 
-    public Observable<ZYResponse<List<SRAdert>>> getAdverts(String type) {
+    public Observable<ZYResponse<List<SRAdvert>>> getAdverts(String type) {
         return mApi.getAdverts(type);
     }
 

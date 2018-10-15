@@ -7,21 +7,26 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qudiandu.smartreader.R;
+import com.qudiandu.smartreader.base.html5.ZYSchemeParser;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.main.contract.SRHomeContract;
+import com.qudiandu.smartreader.ui.main.model.bean.SRAdvert;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.view.viewhodler.SRHomeBookVH;
 import com.qudiandu.smartreader.ui.set.activity.SRSysMsgActivity;
 import com.qudiandu.smartreader.ui.set.model.bean.SRMsgManager;
 import com.qudiandu.smartreader.ui.vip.view.SRVipIconView;
+import com.qudiandu.smartreader.ui.web.SRWebViewActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,6 +59,9 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
     @Bind(R.id.viewRedPoint)
     View viewRedPoint;
 
+    @Bind(R.id.img_float_ad)
+    ImageView mImgFloatAd;
+
     SRHomeBookVH bookVH;
 
     @Nullable
@@ -67,6 +75,7 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mPresenter.loadAdvert();
     }
 
     @Override
@@ -113,6 +122,33 @@ public class SRHomeFragment extends ZYBaseFragment<SRHomeContract.IPresenter> im
     public void refreshMsgRemind() {
         if (SRMsgManager.getInstance().hasMsgRemind() && viewRedPoint != null) {
             viewRedPoint.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void showFloatAd(final SRAdvert advert) {
+        if (advert != null && !TextUtils.isEmpty(advert.pic)) {
+            mImgFloatAd.setVisibility(View.VISIBLE);
+            ZYImageLoadHelper.getImageLoader().loadImage(this, mImgFloatAd, advert.pic,
+                    R.color.transparent, R.color.transparent);
+            mImgFloatAd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (advert.type.equals("2")) {
+                        Intent intent = new ZYSchemeParser().getActionIntent(mActivity, advert.url, true);
+                        if (intent != null) {
+                            startActivity(intent);
+                        }
+                    } else {
+                        startActivity(SRWebViewActivity.createIntent(mActivity, advert.url, advert.title + ""));
+                    }
+                }
+            });
+            mImgFloatAd.clearAnimation();
+            Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.home_ad);
+            mImgFloatAd.startAnimation(animation);
+        } else {
+            mImgFloatAd.setVisibility(View.GONE);
+            mImgFloatAd.clearAnimation();
         }
     }
 }

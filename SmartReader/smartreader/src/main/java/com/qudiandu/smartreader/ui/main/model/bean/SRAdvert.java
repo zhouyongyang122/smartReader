@@ -6,7 +6,7 @@ import com.qudiandu.smartreader.base.bean.ZYIBaseBean;
  * Created by ZY on 17/3/28.
  */
 
-public class SRAdert implements ZYIBaseBean {
+public class SRAdvert implements ZYIBaseBean {
     public String id;
     public String title;
     public String pic;

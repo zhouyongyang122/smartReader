@@ -2,8 +2,10 @@ package com.qudiandu.smartreader.service.net;
 
 import com.qudiandu.smartreader.base.bean.ZYResponse;
 import com.qudiandu.smartreader.base.html5.ZYHtml5UrlBean;
+import com.qudiandu.smartreader.ui.invite.SRInCome;
+import com.qudiandu.smartreader.ui.invite.SRInviteInfo;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
-import com.qudiandu.smartreader.ui.main.model.bean.SRAdert;
+import com.qudiandu.smartreader.ui.main.model.bean.SRAdvert;
 import com.qudiandu.smartreader.ui.main.model.bean.SRBook;
 import com.qudiandu.smartreader.ui.main.model.bean.SRClass;
 import com.qudiandu.smartreader.ui.main.model.bean.SRGrade;
@@ -42,7 +44,7 @@ import rx.Observable;
 public interface ZYRequestApi {
 
     @GET("basic/advert")
-    Observable<ZYResponse<List<SRAdert>>> getAdverts(@Query("type") String type);
+    Observable<ZYResponse<List<SRAdvert>>> getAdverts(@Query("type") String type);
 
     @GET("basic/message")
     Observable<ZYResponse<List<SRSysMsg>>> getSysMsgs(@Query("start") int start, @Query("rows") int rows);
@@ -198,4 +200,17 @@ public interface ZYRequestApi {
 
     @POST("group/edit")
     Observable<ZYResponse> updateClassName(@Body Map<String, String> params);
+
+    @GET("funds/income")
+    Observable<ZYResponse<SRInCome>> getInCome();
+
+    @GET("funds/inviteList")
+    Observable<ZYResponse<List<SRInviteInfo>>> getInvites(@Query("start") int start, @Query("rows") int rows);
+
+    @POST("funds/withdraw")
+    Observable<ZYResponse> withdraw(@Body Map<String, String> params);
+
+    @POST("user/tieupThirdLogin")
+    Observable<ZYResponse<SRUser>> bindThird(@Body Map<String, String> params);
+
 }

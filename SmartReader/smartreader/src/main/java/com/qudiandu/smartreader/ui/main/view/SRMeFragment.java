@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.qudiandu.smartreader.R;
 import com.qudiandu.smartreader.base.mvp.ZYBaseFragment;
 import com.qudiandu.smartreader.thirdParty.image.ZYImageLoadHelper;
+import com.qudiandu.smartreader.ui.invite.SRInviteActivity;
 import com.qudiandu.smartreader.ui.login.model.bean.SRUser;
 import com.qudiandu.smartreader.ui.login.activity.SRLoginActivity;
 import com.qudiandu.smartreader.ui.login.model.SRUserManager;
@@ -68,7 +69,7 @@ public class SRMeFragment extends ZYBaseFragment {
         return view;
     }
 
-    @OnClick({R.id.textEdit, R.id.layoutMyAudio, R.id.textLogin, R.id.layoutFeedBack, R.id.layoutSet, R.id.imgMsg, R.id.layoutMyRank, R.id.layoutMyVip})
+    @OnClick({R.id.textEdit, R.id.layoutMyAudio, R.id.textLogin, R.id.layoutFeedBack, R.id.layoutSet, R.id.imgMsg, R.id.layoutMyRank, R.id.layoutMyVip, R.id.layoutMyInvite})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textEdit:
@@ -105,6 +106,12 @@ public class SRMeFragment extends ZYBaseFragment {
                     return;
                 }
                 startActivity(SRRankHomeActivity.createIntent(mActivity));
+                break;
+            case R.id.layoutMyInvite:
+                if (SRUserManager.getInstance().isGuesterUser(true)) {
+                    return;
+                }
+                startActivity(SRInviteActivity.createIntent(mActivity));
                 break;
         }
     }
