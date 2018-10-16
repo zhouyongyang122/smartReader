@@ -27,6 +27,10 @@ public class SRMainModel extends ZYBaseModel {
         return mApi.getAdverts(type);
     }
 
+    public Observable<ZYResponse<List<SRAdvert>>> getFloatAdverts(String type) {
+        return mApi.getFloatAdverts(type);
+    }
+
     public Observable<ZYResponse<List<SRBook>>> getBooks(String grade_id) {
         return mApi.getBooks(grade_id);
     }

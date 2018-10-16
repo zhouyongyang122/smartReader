@@ -68,17 +68,16 @@ public class SRUser extends ZYBaseEntity {
 
     public String vip_endtime;
 
-    @Transient
-    public boolean bindWeChat;
+    public String is_wechat;
 
     @Transient
     public boolean isCheck;
 
-    @Generated(hash = 906363200)
+    @Generated(hash = 1555421212)
     public SRUser(String uid, String nickname, String avatar, int sex, String school, String refresh_token,
-                  int age, int endtime, String upload_token, String picture_token, int grade, String auth_token,
-                  boolean isLoginUser, int type, int user_type, String mobile, int school_id, String is_vip,
-                  String vip_endtime) {
+            int age, int endtime, String upload_token, String picture_token, int grade, String auth_token,
+            boolean isLoginUser, int type, int user_type, String mobile, int school_id, String is_vip,
+            String vip_endtime, String is_wechat) {
         this.uid = uid;
         this.nickname = nickname;
         this.avatar = avatar;
@@ -98,10 +97,15 @@ public class SRUser extends ZYBaseEntity {
         this.school_id = school_id;
         this.is_vip = is_vip;
         this.vip_endtime = vip_endtime;
+        this.is_wechat = is_wechat;
     }
 
     @Generated(hash = 628471356)
     public SRUser() {
+    }
+
+    public boolean isWechat() {
+        return is_wechat != null && is_wechat.equals("1");
     }
 
     @Override
@@ -326,5 +330,13 @@ public class SRUser extends ZYBaseEntity {
 
     public void setVip_endtime(String vip_endtime) {
         this.vip_endtime = vip_endtime;
+    }
+
+    public String getIs_wechat() {
+        return this.is_wechat;
+    }
+
+    public void setIs_wechat(String is_wechat) {
+        this.is_wechat = is_wechat;
     }
 }

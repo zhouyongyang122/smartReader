@@ -188,6 +188,8 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
                     mTextPage.setVisibility(View.VISIBLE);
                     layoutSubmit.setVisibility(View.GONE);
                 }
+
+                mFragments.get(position).play();
             }
 
             @Override
@@ -216,6 +218,19 @@ public class SRDubbingActivity extends ZYBaseActivity implements SRDubbingFragme
             case R.id.layoutSubmit:
                 uploadMergedTractAudio();
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mViewPage.getCurrentItem() == 0) {
+            mViewPage.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mFragments.get(0).play();
+                }
+            }, 500);
         }
     }
 

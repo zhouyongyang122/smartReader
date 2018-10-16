@@ -46,6 +46,9 @@ public interface ZYRequestApi {
     @GET("basic/advert")
     Observable<ZYResponse<List<SRAdvert>>> getAdverts(@Query("type") String type);
 
+    @GET("basic/advert")
+    Observable<ZYResponse<List<SRAdvert>>> getFloatAdverts(@Query("pshow") String type);
+
     @GET("basic/message")
     Observable<ZYResponse<List<SRSysMsg>>> getSysMsgs(@Query("start") int start, @Query("rows") int rows);
 

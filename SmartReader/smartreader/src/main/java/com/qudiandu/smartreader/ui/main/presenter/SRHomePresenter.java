@@ -44,7 +44,7 @@ public class SRHomePresenter extends ZYBasePresenter implements SRHomeContract.I
 
     @Override
     public void loadAdvert() {
-        mSubscriptions.add(ZYNetSubscription.subscription(mMode.getAdverts("2"), new ZYNetSubscriber<ZYResponse<List<SRAdvert>>>() {
+        mSubscriptions.add(ZYNetSubscription.subscription(mMode.getFloatAdverts("2"), new ZYNetSubscriber<ZYResponse<List<SRAdvert>>>() {
 
             @Override
             public void onSuccess(ZYResponse<List<SRAdvert>> response) {

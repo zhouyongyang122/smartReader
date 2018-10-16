@@ -141,7 +141,7 @@ public class SRTakeCashActivity extends ZYBaseActivity {
     }
 
     private boolean hasBindWeiChat() {
-        if (SRUserManager.getInstance().getUser().bindWeChat) {
+        if (SRUserManager.getInstance().getUser().isWechat()) {
             return true;
         }
         if (WeChatManager.getInstance().getLoginApi() == null) {
@@ -181,7 +181,7 @@ public class SRTakeCashActivity extends ZYBaseActivity {
                 hideProgress();
                 showToast("微信绑定成功");
                 SRUser user = SRUserManager.getInstance().getUser();
-                user.bindWeChat = true;
+                user.is_wechat = "1";
                 SRUserManager.getInstance().setUser(user);
                 takeCash();
             }

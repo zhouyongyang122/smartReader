@@ -68,7 +68,7 @@ repositories {
 }
 
 greendao {
-    schemaVersion 9
+    schemaVersion 10
     daoPackage 'com.qudiandu.smartreader.service.db.entity'
     targetGenDir 'src/main/java'
 }

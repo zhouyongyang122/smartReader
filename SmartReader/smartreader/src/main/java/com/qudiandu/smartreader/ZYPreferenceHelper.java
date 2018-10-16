@@ -32,7 +32,7 @@ public class ZYPreferenceHelper {
 
     public static final String IDENTITY_COMFIRM = "indentity_confirm";//身份确认
 
-    public static final String VERSON_CODE_16 = "verson_code_16";
+    public static final String VERSON = "verson_2.00";
 
     private SharedPreferences defPre;
 
@@ -51,12 +51,12 @@ public class ZYPreferenceHelper {
         return instance;
     }
 
-    public boolean isLogoutVersonCode16() {
-        return getDefPre().getBoolean(VERSON_CODE_16, false);
+    public boolean isLogout() {
+        return getDefPre().getBoolean(VERSON, false);
     }
 
-    public void saveLogoutVersonCode16() {
-        getDefPre().edit().putBoolean(VERSON_CODE_16, true).commit();
+    public void saveLogout() {
+        getDefPre().edit().putBoolean(VERSON, true).commit();
     }
 
     public String getClassId() {

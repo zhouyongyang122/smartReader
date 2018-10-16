@@ -64,8 +64,8 @@ public class SRSplashActivity extends ZYBaseActivity {
             ZYPreferenceHelper.getInstance().setShowTractTrans(true);
         }
 
-        if (!ZYPreferenceHelper.getInstance().isLogoutVersonCode16() && ZYSystemUtils.getAppVersionCode(this) <= 16) {
-            ZYPreferenceHelper.getInstance().saveLogoutVersonCode16();
+        if (!ZYPreferenceHelper.getInstance().isLogout()) {
+            ZYPreferenceHelper.getInstance().saveLogout();
             if (!SRUserManager.getInstance().isGuesterUser(false)) {
                 SRUserManager.getInstance().loginOut();
             }

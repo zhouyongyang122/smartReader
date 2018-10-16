@@ -43,6 +43,7 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         public final static Property School_id = new Property(16, int.class, "school_id", false, "SCHOOL_ID");
         public final static Property Is_vip = new Property(17, String.class, "is_vip", false, "IS_VIP");
         public final static Property Vip_endtime = new Property(18, String.class, "vip_endtime", false, "VIP_ENDTIME");
+        public final static Property Is_wechat = new Property(19, String.class, "is_wechat", false, "IS_WECHAT");
     }
 
 
@@ -76,7 +77,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
                 "\"MOBILE\" TEXT," + // 15: mobile
                 "\"SCHOOL_ID\" INTEGER NOT NULL ," + // 16: school_id
                 "\"IS_VIP\" TEXT," + // 17: is_vip
-                "\"VIP_ENDTIME\" TEXT);"); // 18: vip_endtime
+                "\"VIP_ENDTIME\" TEXT," + // 18: vip_endtime
+                "\"IS_WECHAT\" TEXT);"); // 19: is_wechat
     }
 
     /** Drops the underlying database table. */
@@ -151,6 +153,11 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         if (vip_endtime != null) {
             stmt.bindString(19, vip_endtime);
         }
+ 
+        String is_wechat = entity.getIs_wechat();
+        if (is_wechat != null) {
+            stmt.bindString(20, is_wechat);
+        }
     }
 
     @Override
@@ -219,6 +226,11 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         if (vip_endtime != null) {
             stmt.bindString(19, vip_endtime);
         }
+ 
+        String is_wechat = entity.getIs_wechat();
+        if (is_wechat != null) {
+            stmt.bindString(20, is_wechat);
+        }
     }
 
     @Override
@@ -247,7 +259,8 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // mobile
             cursor.getInt(offset + 16), // school_id
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // is_vip
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // vip_endtime
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // vip_endtime
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // is_wechat
         );
         return entity;
     }
@@ -273,6 +286,7 @@ public class SRUserDao extends AbstractDao<SRUser, String> {
         entity.setSchool_id(cursor.getInt(offset + 16));
         entity.setIs_vip(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setVip_endtime(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setIs_wechat(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
      }
     
     @Override

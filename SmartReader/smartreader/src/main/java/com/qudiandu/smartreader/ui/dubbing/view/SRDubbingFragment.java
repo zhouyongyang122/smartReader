@@ -10,6 +10,7 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ClickableSpan;
@@ -192,6 +193,14 @@ public class SRDubbingFragment extends ZYBaseFragment<SRDubbingContract.IPresent
             case R.id.layoutPlayRecord:
                 SRPlayManager.getInstance().startAudio(mPresenter.getTrack().getMarkBean().audioPath);
                 break;
+        }
+    }
+
+    public void play() {
+        try {
+            SRPlayManager.getInstance().startAudio(mPresenter.getTrack().getMp3Path(), mPresenter.getTrack().getAudioStart(), mPresenter.getTrack().getAudioEnd());
+        } catch (Exception e) {
+
         }
     }
 

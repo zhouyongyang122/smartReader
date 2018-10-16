@@ -3,6 +3,8 @@ package com.qudiandu.smartreader.base.html5;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
+import com.qudiandu.smartreader.ui.invite.SRInviteActivity;
 import com.qudiandu.smartreader.ui.main.activity.SRMainActivity;
 import com.qudiandu.smartreader.ui.web.SRWebViewActivity;
 import com.qudiandu.smartreader.utils.ZYLog;
@@ -60,7 +62,7 @@ public class ZYSchemeParser {
             }
 
             if (pageIntent.equalsIgnoreCase(PLAY_COURSE)) {
-//                intent = FZOCourseActivity.createIntent(context, couserId);
+                intent = SRInviteActivity.createIntent(context);
             } else if (pageIntent.equals(WEBVIEW)) {
                 try {
                     intent = SRWebViewActivity.createIntent(context, strUri.substring(strUri.indexOf("url=") + 4), "");
